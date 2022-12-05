@@ -36,121 +36,77 @@
 #############################################################################
 
    Module:
-     maboss_module.cpp
+     maboss_node.cpp
 
    Authors:
      Vincent Noël <vincent.noel@curie.fr>
  
    Date:
-     January-March 2020
+     September 2022
 */
 
+#ifndef MABOSS_NODE
+#define MABOSS_NODE
+
 #define PY_SSIZE_T_CLEAN
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#define PY_ARRAY_UNIQUE_SYMBOL MABOSS_ARRAY_API
 #include <Python.h>
-#include <numpy/arrayobject.h>
-#include "maboss_sim.cpp"
+#include <set>
+#include "src/BooleanNetwork.h"
 
-/*  define functions in module */
-static PyMethodDef cMaBoSS[] =
-{ 
-     {NULL, NULL, 0, NULL}
-};
+typedef struct {
+  PyObject_HEAD
+  Node* __node;
+} cMaBoSSNodeObject;
 
-/* module initialization */
-/* Python version 3*/
-static struct PyModuleDef cMaBoSSDef =
+static void cMaBoSSNode_dealloc(cMaBoSSNodeObject *self)
 {
-    PyModuleDef_HEAD_INIT,
-#if ! defined (MAXNODES) || MAXNODES <= 64 
-    "cmaboss", 
-#else
-    STR(MODULE_NAME),
-#endif
-    "Some documentation",
-    -1,
-    cMaBoSS
-};
-
-PyMODINIT_FUNC
-#if ! defined (MAXNODES) || MAXNODES <= 64 
-PyInit_cmaboss(void)
-#else
-#define MODULE_INIT_NAME NAME1(PyInit_, MODULE_NAME)
-MODULE_INIT_NAME(void)
-#endif
-{
-    MaBEstEngine::init();
-    import_array();
-    
-    PyObject *m;
-    if (PyType_Ready(&cMaBoSSNode) < 0){
-        return NULL;
-    }
-
-    if (PyType_Ready(&cMaBoSSNetwork) < 0){
-        return NULL;
-    }
-    if (PyType_Ready(&cMaBoSSConfig) < 0){
-        return NULL;
-    }
-    if (PyType_Ready(&cMaBoSSSim) < 0){
-        return NULL;
-    }
-    if (PyType_Ready(&cMaBoSSResult) < 0){
-        return NULL;
-    }
-
-    if (PyType_Ready(&cMaBoSSResultFinal) < 0){
-        return NULL;
-    }
-
-    m = PyModule_Create(&cMaBoSSDef);
-
-#if ! defined (MAXNODES) || MAXNODES <= 64 
-    char exception_name[50] = "cmaboss.BNException";
-#else
-    char exception_name[50] = STR(MODULE_NAME);
-    strcat(exception_name, ".BNException");
-#endif
-    PyBNException = PyErr_NewException(exception_name, NULL, NULL);
-    PyModule_AddObject(m, "BNException", PyBNException);
-        
-    Py_INCREF(&cMaBoSSSim);
-    if (PyModule_AddObject(m, "MaBoSSSim", (PyObject *) &cMaBoSSSim) < 0) {
-        Py_DECREF(&cMaBoSSSim);
-        Py_DECREF(m);
-        return NULL;
-    }
-
-    Py_INCREF(&cMaBoSSNetwork);
-    if (PyModule_AddObject(m, "MaBoSSNet", (PyObject *) &cMaBoSSNetwork) < 0) {
-        Py_DECREF(&cMaBoSSNetwork);
-        Py_DECREF(m);
-        return NULL;
-    }
-
-    Py_INCREF(&cMaBoSSConfig);
-    if (PyModule_AddObject(m, "MaBoSSCfg", (PyObject *) &cMaBoSSConfig) < 0) {
-        Py_DECREF(&cMaBoSSConfig);
-        Py_DECREF(m);
-        return NULL;
-    }
-
-    Py_INCREF(&cMaBoSSResult);
-    if (PyModule_AddObject(m, "cMaBoSSResult", (PyObject *) &cMaBoSSResult) < 0) {
-        Py_DECREF(&cMaBoSSResult);
-        Py_DECREF(m);
-        return NULL;
-    }
-    
-    Py_INCREF(&cMaBoSSResultFinal);
-    if (PyModule_AddObject(m, "cMaBoSSResultFinal", (PyObject *) &cMaBoSSResultFinal) < 0) {
-        Py_DECREF(&cMaBoSSResultFinal);
-        Py_DECREF(m);
-        return NULL;
-    }
-
-    return m;
+    free(self->__node);
+    Py_TYPE(self)->tp_free((PyObject *) self);
 }
+
+static PyObject * cMaBoSSNode_new(PyTypeObject* type, PyObject *args, PyObject* kwargs) 
+{
+  char * node_label;
+  static const char *kwargs_list[] = {"label", NULL};
+  if (!PyArg_ParseTupleAndKeywords(
+    args, kwargs, "s", const_cast<char **>(kwargs_list), 
+    &node_label
+  ))
+    return NULL;
+  
+  cMaBoSSNodeObject* pynode;
+  pynode = (cMaBoSSNodeObject *) type->tp_alloc(type, 0);
+  // pynode->__node = new Network();
+  // pynode->__node->parse(network_file);
+
+  return (PyObject*) pynode;
+}
+
+
+static PyMethodDef cMaBoSSNode_methods[] = {
+    // {"getNetwork", (PyCFunction) cMaBoSSNetwork_getNetwork, METH_NOARGS, "returns the network object"},
+    // {"keys", (PyCFunction) cMaBoSSNetwork_keys, METH_NOARGS, "returns the list of keys"},
+    // {"values", (PyCFunction) cMaBoSSNetwork_values, METH_NOARGS, "returns the list of values"},
+    // {"items", (PyCFunction) cMaBoSSNetwork_items, METH_NOARGS, "returns the list of items"},
+    // {"set_output", (PyCFunction) cMaBoSSNetwork_set_output, METH_NOARGS, "set the list of output nodes"},
+    // {"get_output", (PyCFunction) cMaBoSSNetwork_get_output, METH_NOARGS, "get the list of output nodes"},
+    // // {"__set_item__", (PyCFunction) cMaBoSSNetwork_set_item, METH_NOARGS, "sets a node"},
+    // {"__get_item__", (PyCFunction) cMaBoSSNetwork_get_item, METH_NOARGS, "gets a node"},
+
+    {NULL}  /* Sentinel */
+};
+
+static PyTypeObject cMaBoSSNode = []{
+    PyTypeObject node{PyVarObject_HEAD_INIT(NULL, 0)};
+
+    node.tp_name = "cmaboss.cMaBoSSNodeObject";
+    node.tp_basicsize = sizeof(cMaBoSSNodeObject);
+    node.tp_itemsize = 0;
+    node.tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE;
+    node.tp_doc = "cMaBoSS Node object";
+    node.tp_new = cMaBoSSNode_new;
+    node.tp_dealloc = (destructor) cMaBoSSNode_dealloc;
+    node.tp_methods = cMaBoSSNode_methods;
+    return node;
+}();
+#endif
