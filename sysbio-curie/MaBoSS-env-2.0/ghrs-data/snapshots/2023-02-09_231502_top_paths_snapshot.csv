@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS-env-2.0,10,2
+/sysbio-curie/MaBoSS-env-2.0/pulls,2,1
+/sysbio-curie/MaBoSS-env-2.0/tree/master/bindings/python,2,1
+/sysbio-curie/MaBoSS-env-2.0/tree/master/containers,2,1
+/sysbio-curie/MaBoSS-env-2.0/tree/master/containers/docker,2,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/bindings/python/maboss/__init__.py,1,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/bindings/python/maboss-ori.py,1,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/containers/docker/Dockerfile,1,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/README.md,1,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/tutorial/MaBoSS-2.0/TutorialMaBoSS_2_0.pdf,1,1
