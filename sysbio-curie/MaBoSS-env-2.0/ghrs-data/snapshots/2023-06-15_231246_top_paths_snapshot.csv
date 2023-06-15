@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS-env-2.0,8,4
+/sysbio-curie/MaBoSS-env-2.0/actions,2,2
+/sysbio-curie/MaBoSS-env-2.0/projects,2,2
+/sysbio-curie/MaBoSS-env-2.0/commit/158f0cf760c0c4bb0d7b62d01d68ac62b5aff272,2,1
+/sysbio-curie/MaBoSS-env-2.0/actions/runs/5200103270,1,1
+/sysbio-curie/MaBoSS-env-2.0/actions/runs/5200103270/jobs/9384132683,1,1
+/sysbio-curie/MaBoSS-env-2.0/actions/runs/5200103270/workflow,1,1
+/sysbio-curie/MaBoSS-env-2.0/actions/workflows/cmaboss-ubuntu.yml,1,1
+/sysbio-curie/MaBoSS-env-2.0/commit/3974dc12efc7d02ec0c4fc1aaaf8c1f1c69f212f,1,1
+/sysbio-curie/MaBoSS-env-2.0/commits/master,1,1
