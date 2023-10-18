@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS-env-2.0/tree/master/containers,14,3
+/sysbio-curie/MaBoSS-env-2.0/tree/master/tutorial/MaBoSS-2.0,9,1
+/sysbio-curie/MaBoSS-env-2.0,7,4
+/sysbio-curie/MaBoSS-env-2.0/blob/master/tutorial/MaBoSS-2.0/TutorialMaBoSS_2_0.pdf,6,2
+/sysbio-curie/MaBoSS-env-2.0/commits/master,6,2
+/sysbio-curie/MaBoSS-env-2.0/blob/master/containers/singularity/Singularity,4,1
+/sysbio-curie/MaBoSS-env-2.0/tree/master/tutorial,4,1
+/sysbio-curie/MaBoSS-env-2.0/tree/master/tutorial/Montagud_2021_Prostate_Cancer,3,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/tools/MBSS_DrugSim.py,2,1
+/sysbio-curie/MaBoSS-env-2.0/blob/master/tools/MBSS_SensitivityAnalysis.pl,2,1
