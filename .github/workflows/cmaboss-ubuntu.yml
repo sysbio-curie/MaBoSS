@@ -81,7 +81,6 @@ jobs:
           make grammars
           cd ../../
           cp -r engine/src engine/python/cmaboss/
-          ls /home/runner/.cache/cibuildwheel
           python -m cibuildwheel --output-dir wheelhouse engine/python
           ls /home/runner/.cache/cibuildwheel
 
