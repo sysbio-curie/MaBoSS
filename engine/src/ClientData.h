@@ -36,35 +36,84 @@
 #############################################################################
 
    Module:
-     Client.h
+     ClientData.h
      
      Authors:
      Eric Viara <viara@sysra.com>
      
      Date:
-     May 2018
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef _CLIENTDATA_H_
+#define _CLIENTDATA_H_
 
-#include <string>
-#include <vector>
+class ClientData {
+  std::string protocol_version;
+  unsigned long long flags;
+  std::string command;
 
-#include "RPC.h"
-#include "ClientData.h"
-
-class ServerData;
-
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+  std::string network;
+  std::vector<std::string> config_v;
+  std::vector<std::string> config_expr_v;
+  std::string config_vars;
 
 public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
+  void setProtocolVersion(const std::string& protocol_version) {
+    this->protocol_version = protocol_version;
+  }
 
-  void send(const ClientData& client_data, ServerData& server_data);
+  void setFlags(unsigned long long flags) {
+    this->flags = flags;
+  }
+
+  void setCommand(const std::string& command) {
+    this->command = command;
+  }
+
+  void setNetwork(const std::string& network) {
+    this->network = network;
+  }
+
+  void addConfig(const std::string& config) {
+    config_v.push_back(config);
+  }
+
+  void addConfigExpr(const std::string& config_expr) {
+    config_expr_v.push_back(config_expr);
+  }
+
+  void setConfigVars(const std::string& config_vars) {
+    this->config_vars = config_vars;
+  }
+
+  const std::string& getProtocolVersion() const {
+    return protocol_version;
+  }
+
+  const unsigned long long getFlags() const {
+    return flags;
+  }
+
+  const std::string& getCommand() const {
+    return command;
+  }
+
+  const std::string& getNetwork() const {
+    return network;
+  }
+
+  const std::vector<std::string>& getConfigs() const {
+    return config_v;
+  }
+
+  const std::string& getConfigVars() const {
+    return config_vars;
+  }
+
+  const std::vector<std::string>& getConfigExprs() const {
+    return config_expr_v;
+  }
 };
 
 #endif

@@ -36,35 +36,98 @@
 #############################################################################
 
    Module:
-     Client.h
+     ServerData.h
      
      Authors:
      Eric Viara <viara@sysra.com>
      
      Date:
-     May 2018
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef _SERVERDATA_H_
+#define _SERVERDATA_H_
 
-#include <string>
-#include <vector>
+#include "Utils.h"
 
-#include "RPC.h"
-#include "ClientData.h"
-
-class ServerData;
-
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+class ServerData {
+  int status;
+  std::string error_msg;
+  std::string statdist;
+  std::string probtraj;
+  std::string traj;
+  std::string fp;
+  std::string finalprob;
+  std::string run_log;
 
 public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
+  void setStatus(int status) {
+    this->status = status;
+  }
 
-  void send(const ClientData& client_data, ServerData& server_data);
+  void setErrorMessage(const std::string& error_msg) {
+    this->error_msg = stringReplaceAll(error_msg, "\n", NL_PATTERN);
+  }
+
+  void setStatDist(const std::string& statdist) {
+    this->statdist = statdist;
+  }
+
+  void setProbTraj(const std::string& probtraj) {
+    this->probtraj = probtraj;
+  }
+
+  void setTraj(const std::string& traj) {
+    this->traj = traj;
+  }
+
+  void setFP(const std::string& fp) {
+    this->fp = fp;
+  }
+
+  void setFinalProb(const std::string& finalprob) {
+    this->finalprob = finalprob;
+  }
+
+  void setRunLog(const std::string& run_log) {
+    this->run_log = run_log;
+  }
+
+  int getStatus() const {
+    return status;
+  }
+
+  const std::string getErrorMessage() const {
+    return stringReplaceAll(error_msg, NL_PATTERN, "\n");
+  }
+
+  const std::string& getErrorMessageRaw() const {
+    return error_msg;
+  }
+
+  const std::string& getStatDist() const {
+    return statdist;
+  }
+
+  const std::string& getProbTraj() const {
+    return probtraj;
+  }
+
+  const std::string& getTraj() const {
+    return traj;
+  }
+
+  const std::string& getFP() const {
+    return fp;
+  }
+
+  const std::string& getFinalProb() const {
+    return finalprob;
+  }
+
+  const std::string& getRunLog() const {
+    return run_log;
+  }
 };
 
 #endif

@@ -48,6 +48,8 @@
 #include <iostream>
 
 #include "RPC.h"
+#include "DataStreamer.h"
+#include "RequestController.h"
 
 static int rpc_hostNameToAddr(const char *name, struct in_addr *address)
 {
@@ -306,15 +308,21 @@ int rpc_Server::listen()
 	}
 
 	if (new_fd >= 0) {
-	  if (fork() == 0) {
-	    char* request = rpc_readStringData(new_fd);
-	    if (request != NULL) {
+	  // 2024-02-18
+	  char* request = rpc_readStringData(new_fd);
+	  if (request != NULL) {
+	    manageRequest(new_fd, request);
+	    /*
+	    if (fork() == 0) {
+	      //char* request = rpc_readStringData(new_fd);
 	      manageRequest(new_fd, request);
 	      free(request);
+	      close(new_fd);
+	      exit(0);
 	    }
-	    close(new_fd);
-	    exit(0);
+	    */
 	  }
+	  free(request);
 	  close(new_fd);
 	}
       }

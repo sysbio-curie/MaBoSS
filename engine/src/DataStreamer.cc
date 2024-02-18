@@ -60,10 +60,28 @@ const unsigned long long DataStreamer::HEXFLOAT_FLAG = 0x1ULL;
 const unsigned long long DataStreamer::OVERRIDE_FLAG = 0x2ULL;
 const unsigned long long DataStreamer::AUGMENT_FLAG = 0x4ULL;
 const unsigned long long DataStreamer::FINAL_SIMULATION_FLAG = 0x1000ULL;
+
+// commands
 const std::string DataStreamer::COMMAND = "Command:";
 const std::string DataStreamer::RUN_COMMAND = "run";
 const std::string DataStreamer::CHECK_COMMAND = "check";
 const std::string DataStreamer::PARSE_COMMAND = "parse";
+// admin control commmands
+const std::string DataStreamer::SHOW_QUEUE_COMMAND = "showQueue";
+const std::string DataStreamer::SHOW_QUEUE_DETAILS_COMMAND = "showQueueDetails";
+const std::string DataStreamer::EMPTY_QUEUE_COMMAND = "emptyQueue";
+const std::string DataStreamer::KILL_JOBS_COMMAND = "killJobs";
+// client control commmands
+const std::string DataStreamer::JOB_STATUS_COMMAND = "jobStatus";
+const std::string DataStreamer::KILL_JOB_COMMAND = "killJob";
+
+const std::string DataStreamer::JOB_LIST = "JobList";
+const std::string DataStreamer::TOKEN = "Token";
+
+const std::string DataStreamer::MODE = "Mode";
+const std::string DataStreamer::BATCH = "batch";
+const std::string DataStreamer::FETCH_RESULT = "fetchResult";
+
 const std::string DataStreamer::NETWORK = "Network:";
 const std::string DataStreamer::CONFIGURATION = "Configuration:";
 const std::string DataStreamer::CONFIGURATION_EXPRESSIONS = "Configuration-Expressions:";
@@ -197,7 +215,7 @@ std::string DataStreamer::error(int status, const std::string& errmsg)
   return o_str.str();
 }
 
-int DataStreamer::parse_header_items(const std::string &header, std::vector<HeaderItem>& header_item_v, std::string& err_data)
+int DataStreamer::parseHeaderItems(const std::string &header, std::vector<HeaderItem>& headerItems, std::string& err_data)
 {
   size_t opos = 0;
   size_t pos = 0;
@@ -217,56 +235,61 @@ int DataStreamer::parse_header_items(const std::string &header, std::vector<Head
     std::string value = header.substr(opos, pos-opos);
     opos = pos+1;
     size_t pos2 = value.find("-");
+    /*
     if (directive == STATUS || directive == ERROR_MESSAGE || directive == PROTOCOL_VERSION || directive == FLAGS || directive == COMMAND) {
-      header_item_v.push_back(HeaderItem(directive, value));
+      headerItems.push_back(HeaderItem(directive, value));
     } else if (pos2 != std::string::npos) {
-      header_item_v.push_back(HeaderItem(directive, atoll(value.substr(0, pos2).c_str()), atoll(value.substr(pos2+1).c_str())));
+      headerItems.push_back(HeaderItem(directive, atoll(value.substr(0, pos2).c_str()), atoll(value.substr(pos2+1).c_str())));
     } else {
       err_data = "dash - not found in value " + value + " after directive " + directive;
       return 1;
+    */
+    if (pos2 != std::string::npos) {
+      //if (directive == CONFIGURATION || directive == NETWORK) {
+      headerItems.push_back(HeaderItem(directive, atoll(value.substr(0, pos2).c_str()), atoll(value.substr(pos2+1).c_str())));
+    } else {
+      headerItems.push_back(HeaderItem(directive, value));
     }
   }
 
   return 0;
 }
 
-int DataStreamer::parseStreamData(ClientData& client_data, const std::string& input_data, std::string& err_data)
+int DataStreamer::parseStreamDataBegin(const std::string& request, std::string& err_data, std::string& header, std::string& data, const std::string& MAGIC_PREFIX)
 {
-  //std::string magic = RUN + " " + MABOSS_MAGIC;
-  std::string magic = MABOSS_MAGIC;
-  size_t pos = input_data.find(magic);
+  std::string magic = MAGIC_PREFIX + MABOSS_MAGIC;
+  size_t pos = request.find(magic);
   if (pos == std::string::npos) {
     int status = 1;
-    err_data = error(status, "magic " + magic + " not found in header");
+    err_data = error(status, "Magic " + magic + " not found in header");
     return status;
   }
 
   size_t offset = magic.length();
-  pos = input_data.find("\n\n", offset);
+  pos = request.find("\n\n", offset);
   if (pos == std::string::npos) {
     int status = 2;
-    err_data = error(status, "separator double nl found in header");
+    err_data = error(status, "Two newlines separator not found in header");
     return status;
   }
 
   offset++;
-  std::string header = input_data.substr(offset, pos-offset+1);
-  std::string data  = input_data.substr(pos+2);
+  header = request.substr(offset, pos-offset+1);
+  data  = request.substr(pos+2);
+  return 0;
+}
 
-  std::vector<HeaderItem> header_item_v;
-  if (parse_header_items(header, header_item_v, err_data)) {
-    return 3;
-  }
-
-  for (std::vector<HeaderItem>::const_iterator header_item_iter = header_item_v.begin(); header_item_iter != header_item_v.end(); ++header_item_iter) {
-    const std::string& directive = header_item_iter->getDirective();
-    std::string data_value = data.substr(header_item_iter->getFrom(), header_item_iter->getTo() - header_item_iter->getFrom() + 1);
+int DataStreamer::parseStreamData(ClientData& client_data, const std::vector<HeaderItem>& headerItems, const std::string& data, ServerData& server_data)
+{
+  for (std::vector<HeaderItem>::const_iterator headerItemIter = headerItems.begin(); headerItemIter != headerItems.end(); ++headerItemIter) {
+    const std::string& directive = headerItemIter->getDirective();
+    std::string data_value = data.substr(headerItemIter->getFrom(), headerItemIter->getTo() - headerItemIter->getFrom() + 1);
     if (directive == PROTOCOL_VERSION) {
-      client_data.setProtocolVersion(header_item_iter->getValue());
+      client_data.setProtocolVersion(headerItemIter->getValue());
     } else if (directive == FLAGS) {
-      client_data.setFlags(atoll(header_item_iter->getValue().c_str()));
+      client_data.setFlags(atoll(headerItemIter->getValue().c_str()));
     } else if (directive == COMMAND) {
-      client_data.setCommand(header_item_iter->getValue());
+      client_data.setCommand(headerItemIter->getValue());
     } else if (directive == NETWORK) {
       client_data.setNetwork(data_value);
     } else if (directive == CONFIGURATION) {
@@ -276,13 +299,14 @@ int DataStreamer::parseStreamData(ClientData& client_data, const std::string& in
     } else if (directive == CONFIGURATION_VARIABLES) {
       client_data.setConfigVars(data_value);
     } else {
-      err_data = "unknown directive " + directive;
-      return 4;
+      server_data.setStatus(4);
+      server_data.setErrorMessage("unknown directive " + directive);
+      return 1;
     }
     /*
-    std::cout << "directive [" << header_item_iter->getDirective() << "]\n";
-    std::cout << "from [" << header_item_iter->getFrom() << "]\n";
-    std::cout << "to [" << header_item_iter->getTo() << "]\n";
+    std::cout << "directive [" << headerItemIter->getDirective() << "]\n";
+    std::cout << "from [" << headerItemIter->getFrom() << "]\n";
+    std::cout << "to [" << headerItemIter->getTo() << "]\n";
     */
   }
 
@@ -291,44 +315,33 @@ int DataStreamer::parseStreamData(ClientData& client_data, const std::string& in
   return 0;
 }
 
-int DataStreamer::parseStreamData(ServerData& server_data, const std::string& input_data)
+int DataStreamer::parseStreamData(ServerData& server_data, const std::string& request)
 {
-  std::string magic = RETURN + " " + MABOSS_MAGIC;
-  size_t pos = input_data.find(magic);
-  if (pos == std::string::npos) {
-    server_data.setStatus(1);
-    server_data.setErrorMessage("magic " + magic + " not found in header");
-    return 1;
-  }
-
-  size_t offset = magic.length();
-  pos = input_data.find("\n\n", offset);
-  if (pos == std::string::npos) {
-    server_data.setStatus(2);
-    server_data.setErrorMessage("separator double nl found in header");
-    return 1;
-  }
-
-  offset++;
-  std::string header = input_data.substr(offset, pos-offset+1);
-  std::string data  = input_data.substr(pos+2);
-
-  std::vector<HeaderItem> header_item_v;
+  std::string header;
+  std::string data;
   std::string err_data;
-  if (parse_header_items(header, header_item_v, err_data)) {
+  int status = parseStreamDataBegin(request, err_data, header, data, RETURN + " ");
+  if (status) {
+    server_data.setStatus(status);
+    server_data.setErrorMessage(err_data);
+    return 1;
+  }
+
+  std::vector<HeaderItem> headerItems;
+  if (parseHeaderItems(header, headerItems, err_data)) {
     server_data.setStatus(3);
     server_data.setErrorMessage(err_data);
     return 1;
   }
 
-  for (std::vector<HeaderItem>::const_iterator header_item_iter = header_item_v.begin(); header_item_iter != header_item_v.end(); ++header_item_iter) {
-    const std::string& directive = header_item_iter->getDirective();
+  for (std::vector<HeaderItem>::const_iterator headerItemIter = headerItems.begin(); headerItemIter != headerItems.end(); ++headerItemIter) {
+    const std::string& directive = headerItemIter->getDirective();
     if (directive == STATUS) {
-      server_data.setStatus(atoi(header_item_iter->getValue().c_str()));
+      server_data.setStatus(atoi(headerItemIter->getValue().c_str()));
     } else if (directive == ERROR_MESSAGE) {
-      server_data.setErrorMessage(header_item_iter->getValue());
+      server_data.setErrorMessage(headerItemIter->getValue());
     } else {
-      std::string data_value = data.substr(header_item_iter->getFrom(), header_item_iter->getTo() - header_item_iter->getFrom() + 1);
+      std::string data_value = data.substr(headerItemIter->getFrom(), headerItemIter->getTo() - headerItemIter->getFrom() + 1);
 
       if (directive == STATIONARY_DISTRIBUTION) {
 	server_data.setStatDist(data_value);

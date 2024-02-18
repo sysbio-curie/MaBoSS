@@ -26,7 +26,8 @@ check_file()
 echo
 echo "Server test"
 rm -rf tmp; mkdir -p tmp
-$MABOSS_SERVER -q --host 0.0.0.0 --port 7777 $VERBOSE &
+#QUIET=-q
+$MABOSS_SERVER $QUIET --host 0.0.0.0 --port 7777 $VERBOSE &
 SERVER_PID=$!;
 echo "Launched server on pid ${SERVER_PID}"
 sleep 2

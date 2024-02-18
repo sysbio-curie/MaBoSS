@@ -50,8 +50,9 @@
 
 #include <string>
 #include <vector>
-#include "Client.h"
-#include "Server.h"
+
+#include "ClientData.h"
+#include "ServerData.h"
 
 class DataStreamer {
 public:
@@ -67,6 +68,22 @@ public:
   static const std::string RUN_COMMAND;
   static const std::string CHECK_COMMAND;
   static const std::string PARSE_COMMAND;
+  // admin control commmands
+  static const std::string SHOW_QUEUE_COMMAND;
+  static const std::string SHOW_QUEUE_DETAILS_COMMAND;
+  static const std::string EMPTY_QUEUE_COMMAND;
+  static const std::string KILL_JOBS_COMMAND;
+  // client control commmands
+  static const std::string JOB_STATUS_COMMAND;
+  static const std::string KILL_JOB_COMMAND;
+
+  static const std::string JOB_LIST;
+  static const std::string TOKEN;
+
+  static const std::string MODE;
+  static const std::string BATCH;
+  static const std::string FETCH_RESULT;
+
   static const std::string RETURN;
   static const std::string STATUS;
   static const std::string ERROR_MESSAGE;
@@ -82,7 +99,7 @@ public:
   static const std::string RUN_LOG;
   static std::string error(int status, const std::string& errmsg);
 
-private:
+  //private:
   class HeaderItem {
     std::string directive;
     size_t from;
@@ -98,12 +115,12 @@ private:
     const std::string& getValue() const {return value;}
   };
 
-  static int parse_header_items(const std::string &header, std::vector<HeaderItem>& header_item_v, std::string& err_data);
-
+  static int parseHeaderItems(const std::string &header, std::vector<HeaderItem>& header_item_v, std::string& err_data);
 public:
   static void buildStreamData(std::string& data, const ClientData& client_data);
   static void buildStreamData(std::string &data, const ServerData& server_data);
-  static int parseStreamData(ClientData& client_data, const std::string& data, std::string& err_data);
+  static int parseStreamDataBegin(const std::string& request, std::string& err_data, std::string& header, std::string& data, const std::string& MAGIC_PREFIX = "");
+  static int parseStreamData(ClientData& client_data, const std::vector<HeaderItem>& headerItems, const std::string& data, ServerData& server_data);
   static int parseStreamData(ServerData& server_data, const std::string& data);
 };
 

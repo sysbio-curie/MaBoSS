@@ -115,6 +115,7 @@ int Server::manageRequests()
 
 void Server::run(const ClientData& client_data, ServerData& server_data)
 {
+  std::cerr << "ProtocolVersion: [" << client_data.getProtocolVersion() << "]\n";
   static const std::string hst = "==================";
   std::ostream* output_run = NULL;
   std::ostream* output_traj = NULL;
@@ -260,23 +261,37 @@ void Server::run(const ClientData& client_data, ServerData& server_data)
   Function::destroyFuncMap();
 }
 
-void Server::manageRequest(int fd, const char* request)
+void Server::manageRequest(int fd, const std::string& request)
+{
+  requestController->manageRequest(fd, request);
+}
+
+void Server::launchJob(Job* job)
+{
+  pid_t pid;
+  if ((pid = fork()) == 0) {
+    manageRequestPerform(job->getFd(), job->getRequest(), job->getHeaderItems(), job->getData());
+    close(job->getFd());
+    exit(0);
+  }
+
+  job->setPid(pid);
+  job->setStatus(JobStatus::RUNNING);
+  std::cerr << "Job Token [" << job->getToken() << "] Pid [" << pid << "] Status [" << job->getStatus() << "]\n";
+}
+
+void Server::manageRequestPerform(int fd, const std::string& request, const std::vector<DataStreamer::HeaderItem>& headerItems, const std::string& data)
 {
   ClientData client_data;
   ServerData server_data;
-  std::string err_data;
+  //std::string err_data;
   int status;
 
   if (verbose) {
     std::cout << "request [" << request << "]\n";
   }
-
-  if ((status = DataStreamer::parseStreamData(client_data, request, err_data)) != 0) {
-    server_data.setStatus(status);
-    server_data.setErrorMessage(err_data);
-    //rpc_writeStringData(fd, err_data.c_str(), err_data.length());
-    //return;
-  } else {
+  
+  if ((status = DataStreamer::parseStreamData(client_data, headerItems, data, server_data)) == 0) {
     if (client_data.getCommand() == DataStreamer::RUN_COMMAND || client_data.getCommand() == DataStreamer::CHECK_COMMAND) {
       run(client_data, server_data);
     } else {
@@ -285,10 +300,10 @@ void Server::manageRequest(int fd, const char* request)
     }
   }
 
-  std::string data;
-  DataStreamer::buildStreamData(data, server_data);
+  std::string r_data;
+  DataStreamer::buildStreamData(r_data, server_data);
   if (verbose) {
-    std::cout << "response [" << data << "]\n";
+    std::cout << "response [" << r_data << "]\n";
   }
-  rpc_writeStringData(fd, data.c_str(), data.length());
+  rpc_writeStringData(fd, r_data.c_str(), r_data.length());
 }

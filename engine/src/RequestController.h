@@ -36,35 +36,53 @@
 #############################################################################
 
    Module:
-     Client.h
+     RequestController.h
      
      Authors:
      Eric Viara <viara@sysra.com>
      
      Date:
-     May 2018
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef _REQUESTCONTROLLER_H_
+#define _REQUESTCONTROLLER_H_
 
-#include <string>
 #include <vector>
+#include <iostream>
+#include <unistd.h>
+#include <sys/time.h>
 
-#include "RPC.h"
-#include "ClientData.h"
+#include "TokenGenerator.h"
+#include "DataStreamer.h"
+#include "Job.h"
 
-class ServerData;
+class Server;
 
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+class RequestController {
+
+  Server* server;
+  JobQueue* jobQueue;
+  unsigned int queue_size;
+  unsigned int max_cores;
+  unsigned int cores_per_job;
+  int sendErrorData(int fd, int status, const std::string& err_data);
 
 public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
+  static const unsigned int QUEUE_SIZE_DEFAULT = 100;
+  static const unsigned int MAX_CORES_DEFAULT = 6;
+  static const unsigned int CORES_PER_JOB_DEFAULT = 6;
 
-  void send(const ClientData& client_data, ServerData& server_data);
+  RequestController(Server* server, unsigned int queue_size, unsigned int max_cores, unsigned int cores_per_job) {
+    this->server = server;
+    this->queue_size = queue_size != 0 ? queue_size : QUEUE_SIZE_DEFAULT;
+    this->max_cores = max_cores != 0 ? max_cores : MAX_CORES_DEFAULT;
+    this->cores_per_job = cores_per_job != 0 ? cores_per_job : CORES_PER_JOB_DEFAULT;
+
+    this->jobQueue = new JobQueue();
+  }
+
+  int manageRequest(int fd, const std::string& request);
 };
-
+  
 #endif

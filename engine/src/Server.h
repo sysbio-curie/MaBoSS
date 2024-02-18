@@ -49,106 +49,33 @@
 #define _SERVER_H_
 
 #include <string>
+
 #include "RPC.h"
 #include "Utils.h"
+#include "ServerData.h"
+#include "DataStreamer.h"
+#include "RequestController.h"
 
 class ClientData;
-
-class ServerData {
-  int status;
-  std::string error_msg;
-  std::string statdist;
-  std::string probtraj;
-  std::string traj;
-  std::string fp;
-  std::string finalprob;
-  std::string run_log;
-
-public:
-  void setStatus(int status) {
-    this->status = status;
-  }
-
-  void setErrorMessage(const std::string& error_msg) {
-    this->error_msg = stringReplaceAll(error_msg, "\n", NL_PATTERN);
-  }
-
-  void setStatDist(const std::string& statdist) {
-    this->statdist = statdist;
-  }
-
-  void setProbTraj(const std::string& probtraj) {
-    this->probtraj = probtraj;
-  }
-
-  void setTraj(const std::string& traj) {
-    this->traj = traj;
-  }
-
-  void setFP(const std::string& fp) {
-    this->fp = fp;
-  }
-
-  void setFinalProb(const std::string& finalprob) {
-    this->finalprob = finalprob;
-  }
-
-  void setRunLog(const std::string& run_log) {
-    this->run_log = run_log;
-  }
-
-  int getStatus() const {
-    return status;
-  }
-
-  const std::string getErrorMessage() const {
-    return stringReplaceAll(error_msg, NL_PATTERN, "\n");
-  }
-
-  const std::string& getErrorMessageRaw() const {
-    return error_msg;
-  }
-
-  const std::string& getStatDist() const {
-    return statdist;
-  }
-
-  const std::string& getProbTraj() const {
-    return probtraj;
-  }
-
-  const std::string& getTraj() const {
-    return traj;
-  }
-
-  const std::string& getFP() const {
-    return fp;
-  }
-
-  const std::string& getFinalProb() const {
-    return finalprob;
-  }
-
-  const std::string& getRunLog() const {
-    return run_log;
-  }
-};
 
 class Server : public rpc_Server {
   std::string prog;
   std::string pidfile;
   bool quiet;
   bool verbose;
+  RequestController* requestController;
   static Server* server;
 
   Server(const std::string& host, const std::string& port, const std::string& prog, const std::string& pidfile, bool quiet = false, bool verbose = false) : rpc_Server(host, port), prog(prog), pidfile(pidfile), quiet(verbose), verbose(verbose) { }
 
   void run(const ClientData& client_data, ServerData& server_data);
+  void manageRequestPerform(int fd, const std::string& request, const std::vector<DataStreamer::HeaderItem>& headerItems, const std::string& data);
 
 public:
-  static Server* getServer(const std::string& host, const std::string& port, const std::string& prog, const std::string& pidfile = "", bool quiet = false, bool verbose = false) {
+  static Server* getServer(unsigned int max_queue_size, unsigned int max_cores_size, unsigned int cores_per_job, const std::string& host, const std::string& port, const std::string& prog, const std::string& pidfile = "", bool quiet = false, bool verbose = false) {
     if (NULL == server) {
       server = new Server(host, port, prog, pidfile, quiet, verbose);
+      server->setRequestcontroller(new RequestController(server, max_queue_size, max_cores_size, cores_per_job));
     }
     return server;
   }
@@ -157,13 +84,20 @@ public:
     return server;
   }
 
+  void setRequestcontroller(RequestController* requestController) {
+    this->requestController = requestController;
+  }
+
   void setQuiet(bool quiet) {this->quiet = quiet;}
   void setVerbose(bool verbose) {this->verbose = verbose;}
 
   const std::string& getPidFile() const {return pidfile;}
 
+  RequestController* getRequestcontroller() {return requestController;}
+  
   int manageRequests();
-  void manageRequest(int fd, const char* request);
+  void manageRequest(int fd, const std::string& request);
+  void launchJob(Job* job);
 };
 
 #endif

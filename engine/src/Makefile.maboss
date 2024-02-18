@@ -111,7 +111,8 @@ POP_LIB_OBJS := PopMaBEstEngine$(INFIX).o
 LIB_SRC := FinalStateSimulationEngine.cc StochasticSimulationEngine.cc MetaEngine.cc FixedPointEngine.cc ProbTrajEngine.cc MaBEstEngine.cc EnsembleEngine.cc ProbaDist.cc StatDistDisplayer.cc FinalStateDisplayer.cc
 LIB_OBJS := FinalStateSimulationEngine$(INFIX).o StochasticSimulationEngine$(INFIX).o MetaEngine$(INFIX).o FixedPointEngine$(INFIX).o ProbTrajEngine$(INFIX).o MaBEstEngine$(INFIX).o EnsembleEngine$(INFIX).o ProbaDist$(INFIX).o StatDistDisplayer$(INFIX).o FinalStateDisplayer$(INFIX).o
 
-SERVER_OBJS := Server$(INFIX).o DataStreamer$(INFIX).o RPC$(INFIX).o
+SERVER_SRC := MaBoSS-server.cc MaBoSS-client.cc Server.cc DataStreamer.cc RPC.cc RequestController.cc TokenGenerator.cc
+SERVER_OBJS := Server$(INFIX).o DataStreamer$(INFIX).o RPC$(INFIX).o RequestController$(INFIX).o TokenGenerator$(INFIX).o Job$(INFIX).o
 
 # if USE_LIB is set, maboss library will be used for MaBoSS and MaBoSS-server programs => that will oblige the user to set LD_LIBRARY_PATH or DYLD_LIBRARY_PATH environment variable to execute MaBoSS or MaBoSS-server
 #USE_LIB = 1
@@ -196,8 +197,8 @@ init:
 force-init:
 	@CXX=$(CXX) sh init-config.sh force
 
-depend: $(CORE_LIB_SRC)
-	@$(MAKEDEPEND) $(BITSET_FLAG) -DMAXNODES=$(MAXNODES) $(WINDOWS_FLAG) $(CORE_LIB_SRC) $(POP_LIB_SRC) $(LIB_SRC) MaBoSS.cc PopMaBoSS.cc > depend_tmp.mk
+depend: $(CORE_LIB_SRC) $(SERVER_SRC)
+	@$(MAKEDEPEND) $(BITSET_FLAG) -DMAXNODES=$(MAXNODES) $(WINDOWS_FLAG) $(CORE_LIB_SRC) $(SERVER_SRC) $(POP_LIB_SRC) $(LIB_SRC) MaBoSS.cc PopMaBoSS.cc > depend_tmp.mk
 	@sed -e "s/\.o:/$(INFIX).o:/g" depend_tmp.mk > depend.mk
 	@rm -f depend_tmp.mk
 

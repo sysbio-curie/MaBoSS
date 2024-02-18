@@ -60,6 +60,9 @@ static int usage(std::ostream& os = std::cerr)
   os << "  " << prog << " [--version]\n\n";
   os << "  " << prog << " [--verbose]\n\n";
   os << "  " << prog << " --port PORT [--host HOST]\n";
+  os << "  " << prog << " --queue-size QUEUE_SIZE\n";
+  os << "  " << prog << " --max-cores MAX_CORES\n";
+  os << "  " << prog << " --cores-per-job CORES_PER_JOB\n";
   os << "  " << prog << " [-q] [--pidfile PIDFILE]\n";
   return 1;
 }
@@ -73,6 +76,9 @@ static int help()
   std::cout << "  --host HOST                             : uses given host\n";
   std::cout << "  --port PORT                             : uses given PORT (number or filename)\n";
   std::cout << "  --pidfile PIDFILE                       : optional; pidfile to store pid process\n";
+  std::cout << " --queue-size QUEUE_SIZE                  : optional; queue size, default is " << RequestController::QUEUE_SIZE_DEFAULT << "\n";
+  std::cout << " --max-cores MAX_CORES                    : optional; max cores, default is " << RequestController::MAX_CORES_DEFAULT << "\n";
+  std::cout << " --cores-per-job CORES_PER_JOB            : optional; cores per job, default is " << RequestController::CORES_PER_JOB_DEFAULT << "\n";
   std::cout << "  -q                                      : quiet mode, no output at all\n";
   std::cout << "  --verbose                               : verbose mode\n";
   std::cout << "  -h --help                               : displays this message\n";
@@ -84,6 +90,9 @@ int main(int argc, char* argv[])
   std::string port;
   std::string host;
   std::string pidfile;
+  unsigned int queue_size;
+  unsigned int max_cores;
+  unsigned int cores_per_job;
   bool quiet = false;
   bool verbose = false;
 
@@ -112,6 +121,24 @@ int main(int argc, char* argv[])
       quiet = true;
     } else if (!strcmp(opt, "--verbose")) {
       verbose = true;
+    } else if (!strcmp(opt, "--queue-size")) {
+      if (checkArgMissing(prog, opt, nn, argc)) {
+	return usage();
+      }
+      queue_size = atoi(argv[++nn]);
+      if (queue_size == 0) {return usage();}
+    } else if (!strcmp(opt, "--max-cores")) {
+      if (checkArgMissing(prog, opt, nn, argc)) {
+	return usage();
+      }
+      max_cores = atoi(argv[++nn]);
+      if (max_cores == 0) {return usage();}
+    } else if (!strcmp(opt, "--cores-per-job")) {
+      if (checkArgMissing(prog, opt, nn, argc)) {
+	return usage();
+      }
+      cores_per_job = atoi(argv[++nn]);
+      if (cores_per_job == 0) {return usage();}
     } else if (!strcmp(opt, "--help") || !strcmp(opt, "-h")) {
       return help();
     } else {
@@ -125,7 +152,7 @@ int main(int argc, char* argv[])
     return usage();
   }
 
-  Server* server = Server::getServer(host, port, prog, pidfile, quiet, verbose);
+  Server* server = Server::getServer(queue_size, max_cores, cores_per_job, host, port, prog, pidfile, quiet, verbose);
   if (quiet) {
     close(0);
     close(1);

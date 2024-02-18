@@ -36,35 +36,38 @@
 #############################################################################
 
    Module:
-     Client.h
-     
-     Authors:
+     TokenGenerator.h
+
+   Authors:
      Eric Viara <viara@sysra.com>
-     
-     Date:
-     May 2018
+ 
+   Date:
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef _TOKENGENERATOR_H_
+#define _TOKENGENERATOR_H_
 
-#include <string>
-#include <vector>
+class RandomGenerator;
 
-#include "RPC.h"
-#include "ClientData.h"
+class TokenGenerator {
+  RandomGenerator *randomGenerator;
+  unsigned int jobStart;
+  std::string randomIntString();
+  static TokenGenerator* tokenGenerator;
 
-class ServerData;
-
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+  TokenGenerator();
 
 public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
-
-  void send(const ClientData& client_data, ServerData& server_data);
+  static TokenGenerator* getTokenGenerator() {
+    if (tokenGenerator == NULL) {
+      tokenGenerator = new TokenGenerator();
+    }
+    return tokenGenerator;
+  }
+  
+  std::string generateJobToken();
+  std::string generateAdminToken();
 };
 
 #endif

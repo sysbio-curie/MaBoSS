@@ -36,35 +36,57 @@
 #############################################################################
 
    Module:
-     Client.h
-     
-     Authors:
+     TokenGenerator.cc
+
+   Authors:
      Eric Viara <viara@sysra.com>
-     
-     Date:
-     May 2018
+ 
+   Date:
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#include <sstream>
+#include <sys/time.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include "TokenGenerator.h"
+#include "RandomGenerator.h"
 
-#include <string>
-#include <vector>
+std::string TokenGenerator::randomIntString()
+{
+  std::ostringstream ostr;
+  double rd = randomGenerator->generate();
+  ostr << rd;
+  std::string s_rd = ostr.str();
+  s_rd.replace(0, 2, "");
+  return s_rd;
+}
 
-#include "RPC.h"
-#include "ClientData.h"
+TokenGenerator* TokenGenerator::tokenGenerator;
 
-class ServerData;
+TokenGenerator::TokenGenerator()
+{
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  randomGenerator = new Rand48RandomGenerator(tv.tv_sec);
+  std::string rd = randomIntString(); 
+  jobStart = atoi(rd.c_str());
+}
 
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+std::string TokenGenerator::generateJobToken()
+{
+  std::ostringstream ostr;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  ostr << jobStart++ << "::" << randomIntString() << "::" << tv.tv_usec;
+  return ostr.str();
+}
 
-public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
-
-  void send(const ClientData& client_data, ServerData& server_data);
-};
-
-#endif
+std::string TokenGenerator::generateAdminToken()
+{
+  std::ostringstream ostr;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  ostr << "adm::" << randomIntString() << "::" << randomIntString() << "::" << tv.tv_usec;
+  return ostr.str();
+}

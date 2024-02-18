@@ -36,35 +36,44 @@
 #############################################################################
 
    Module:
-     Client.h
-     
-     Authors:
+     Job.cc
+
+   Authors:
      Eric Viara <viara@sysra.com>
-     
-     Date:
-     May 2018
+ 
+   Date:
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#include "Job.h"
 
-#include <string>
-#include <vector>
+JobQueue::JobQueue()
+{
+  // for now
+}
 
-#include "RPC.h"
-#include "ClientData.h"
+std::string JobStatus::toString() const
+{
+  switch(status) {
+  case QUEUED:
+    return "Queued";
+      
+  case KILLED:
+    return "Killed";
 
-class ServerData;
+  case RUNNING:
+    return "Running";
 
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+  case TERMINATED:
+    return "Terminated";
 
-public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
+  default:
+    return "<unknown>";
+  }
+}
 
-  void send(const ClientData& client_data, ServerData& server_data);
-};
-
-#endif
+std::ostream& operator<<(std::ostream& os, JobStatus status)
+{
+  os << status.toString();
+  return os;
+}

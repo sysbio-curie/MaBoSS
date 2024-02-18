@@ -36,35 +36,81 @@
 #############################################################################
 
    Module:
-     Client.h
+     Job.h
      
      Authors:
      Eric Viara <viara@sysra.com>
      
      Date:
-     May 2018
+     Feb 2024
 */
 
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef _JOB_H_
+#define _JOB_H_
 
-#include <string>
-#include <vector>
+#include "DataStreamer.h"
+#include "TokenGenerator.h"
 
-#include "RPC.h"
-#include "ClientData.h"
-
-class ServerData;
-
-class Client : public rpc_Client {
-  std::string host;
-  std::string port;
-  bool verbose;
+class JobStatus {
 
 public:
-  Client(const std::string& host, const std::string& port, bool verbose = false) : rpc_Client(host, port), verbose(verbose) { }
+  enum Status {
+    QUEUED = 1,
+    KILLED,
+    RUNNING,
+    TERMINATED
+  } status;
 
-  void send(const ClientData& client_data, ServerData& server_data);
+  JobStatus(Status status) {
+    this->status = status;
+  }
+
+  std::string toString() const;
+};
+
+std::ostream& operator<<(std::ostream& os, JobStatus status);
+
+class Job {
+  int fd;
+  std::string request;
+  const std::vector<DataStreamer::HeaderItem> headerItems;
+  const std::string data;
+  std::string token;
+  pid_t pid;
+  JobStatus status;
+  time_t ts_submitted;
+  
+public:
+  Job(int fd, const std::string& request, const std::vector<DataStreamer::HeaderItem>& headerItems, const std::string& data, const std::string& token) : request(request), headerItems(headerItems), data(data), token(token), status(JobStatus::QUEUED) {
+    this->fd = fd;
+    pid = 0;
+    time(&ts_submitted);
+  }
+
+  int getFd() const {return fd;}
+  const std::string& getRequest() const {return request;}
+  const std::vector<DataStreamer::HeaderItem>& getHeaderItems() const {return headerItems;}
+  const std::string& getData() const {return data;}
+
+  const std::string& getToken() const {return token;}
+  void setPid(pid_t pid) {this->pid = pid;}
+  void setStatus(JobStatus status) {this->status = status;}
+  JobStatus getStatus() const {return status;}
+};
+
+class JobQueue {
+  std::vector<Job*> jobQueue;
+
+public:
+  JobQueue();
+
+  Job* addJob(int fd, const std::string& request, const std::vector<DataStreamer::HeaderItem>& headerItems, const std::string& data) {
+    Job* job = new Job(fd, request, headerItems, data, TokenGenerator::getTokenGenerator()->generateJobToken());
+    jobQueue.push_back(job);
+    return job;
+  }
+
+  size_t getQueueSize() const {return jobQueue.size();}
 };
 
 #endif
