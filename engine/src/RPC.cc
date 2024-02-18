@@ -312,15 +312,6 @@ int rpc_Server::listen()
 	  char* request = rpc_readStringData(new_fd);
 	  if (request != NULL) {
 	    manageRequest(new_fd, request);
-	    /*
-	    if (fork() == 0) {
-	      //char* request = rpc_readStringData(new_fd);
-	      manageRequest(new_fd, request);
-	      free(request);
-	      close(new_fd);
-	      exit(0);
-	    }
-	    */
 	  }
 	  free(request);
 	  close(new_fd);
