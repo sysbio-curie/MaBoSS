@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS/blob/master/tutorial/Montagud_2022_Prostate_Cancer/README.md,12,3
+/sysbio-curie/MaBoSS,9,5
+/sysbio-curie/MaBoSS/tree/master/engine,4,2
+/sysbio-curie/MaBoSS/blob/master/engine/examples/Cell_cycle/cellcycle_ds_out_probtraj.ods,4,1
+/sysbio-curie/MaBoSS/tree/master/conda,4,1
+/sysbio-curie/MaBoSS/tree/master/conda/cmaboss,4,1
+/sysbio-curie/MaBoSS/tree/master/.github/workflows,4,1
+/sysbio-curie/MaBoSS/actions,2,1
+/sysbio-curie/MaBoSS/actions/runs/10559189254,2,1
+/sysbio-curie/MaBoSS/blob/master/bindings/python/test_maboss.py,2,1
