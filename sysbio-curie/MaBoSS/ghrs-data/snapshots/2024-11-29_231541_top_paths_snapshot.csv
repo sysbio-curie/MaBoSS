@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS/actions,11,1
+/sysbio-curie/MaBoSS/actions/runs/11912960965,7,1
+/sysbio-curie/MaBoSS/actions/caches,6,1
+/sysbio-curie/MaBoSS,5,3
+/sysbio-curie/MaBoSS/actions/runs/11912960965/job/33200805462,4,1
+/sysbio-curie/MaBoSS/actions/runs/11863098139/job/33063856804,3,1
+/sysbio-curie/MaBoSS/actions/runs/11915732041/job/33206694547,3,1
+/sysbio-curie/MaBoSS/actions/runs/11975167866/job/33387909356,3,1
+/sysbio-curie/MaBoSS/actions/workflows/maboss-macos.yml,3,1
+/sysbio-curie/MaBoSS/tree/master/engine/src,3,1
