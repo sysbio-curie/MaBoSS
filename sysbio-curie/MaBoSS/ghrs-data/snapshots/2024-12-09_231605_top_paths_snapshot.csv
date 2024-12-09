@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS,10,7
+/sysbio-curie/MaBoSS/tree/master/tutorial/Montagud_2022_Prostate_Cancer,3,3
+/sysbio-curie/MaBoSS/tree/master/tutorial/MaBoSS-2.0,2,2
+/sysbio-curie/MaBoSS/actions/runs/11975167866/job/33387909356,2,1
+/sysbio-curie/MaBoSS/blob/master/engine/src/BooleanGrammar.h,1,1
+/sysbio-curie/MaBoSS/blob/master/engine/src/BooleanNetwork.cc,1,1
+/sysbio-curie/MaBoSS/blob/master/tutorial/MaBoSS-2.0/example.bnd,1,1
+/sysbio-curie/MaBoSS/blob/master/tutorial/MaBoSS-2.0/example.cfg,1,1
+/sysbio-curie/MaBoSS/blob/master/tutorial/MaBoSS-2.0/example.zginml,1,1
+/sysbio-curie/MaBoSS/blob/master/tutorial/MaBoSS-2.0/TutorialMaBoSS_2_0.pdf,1,1
