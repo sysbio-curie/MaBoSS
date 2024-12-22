@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS,5,4
+/sysbio-curie/MaBoSS/blob/master/tools/MBSS_TrajectoryFig.py,4,3
+/sysbio-curie/MaBoSS/blob/master/bindings/python/maboss/result.py,4,1
+/sysbio-curie/MaBoSS/blob/master/bindings/python/maboss/__init__.py,3,1
+/sysbio-curie/MaBoSS/tree/master/bindings/python/maboss,3,1
+/sysbio-curie/MaBoSS/tree/master/engine/benchmark/results,2,1
+/sysbio-curie/MaBoSS/blame/master/bindings/python/maboss/__init__.py,1,1
+/sysbio-curie/MaBoSS/blob/master/bindings/python/maboss/atexit.py,1,1
+/sysbio-curie/MaBoSS/blob/master/bindings/python/maboss/comm.py,1,1
+/sysbio-curie/MaBoSS/blob/master/bindings/python/maboss/simul.py,1,1
