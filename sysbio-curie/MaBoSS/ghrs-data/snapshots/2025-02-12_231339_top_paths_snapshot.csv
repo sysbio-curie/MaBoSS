@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS/actions,128,1
+/sysbio-curie/MaBoSS,17,2
+/sysbio-curie/MaBoSS/actions/caches,7,1
+/sysbio-curie/MaBoSS/actions/runs/13180996619,5,1
+/sysbio-curie/MaBoSS/actions/runs/13165025506,4,1
+/sysbio-curie/MaBoSS/actions/runs/13178211618,4,1
+/sysbio-curie/MaBoSS/actions/runs/13178211618/job/36784771363,4,1
+/sysbio-curie/MaBoSS/actions/runs/13178211628,4,1
+/sysbio-curie/MaBoSS/actions/runs/13179932596,4,1
+/sysbio-curie/MaBoSS/actions/workflows/cmaboss-ubuntu.yml,4,1
