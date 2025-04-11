@@ -452,6 +452,6 @@ jobs:
         anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u vincent-noel C:\Miniconda\envs\test\conda-bld\win-64\*.conda --force;
     
     - name: Upload MaBoSS Ananconda package on colomoto
-      if: github.repository == 'sysbio-curie/MaBoSS' && github.event_name == 'release'
+      # if: github.repository == 'sysbio-curie/MaBoSS' && github.event_name == 'release'
       run: |
         anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u colomoto C:\Miniconda\envs\test\conda-bld\win-64\*.conda --force;
