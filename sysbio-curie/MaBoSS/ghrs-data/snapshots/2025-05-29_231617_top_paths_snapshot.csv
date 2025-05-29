@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS/actions,16,1
+/sysbio-curie/MaBoSS,11,6
+/sysbio-curie/MaBoSS/actions/runs/15073508175,5,1
+/sysbio-curie/MaBoSS/actions/runs/15073508175/job/42376006367,3,1
+/sysbio-curie/MaBoSS/actions/runs/15073508192,3,1
+/sysbio-curie/MaBoSS/tree/master/tutorial/Montagud_2022_Prostate_Cancer,2,2
+/sysbio-curie/MaBoSS/actions/runs/15053295330/job/42314590181,2,1
+/sysbio-curie/MaBoSS/actions/runs/15070573150,2,1
+/sysbio-curie/MaBoSS/actions/runs/15073508186/job/42375988090,2,1
+/sysbio-curie/MaBoSS/actions/workflows/maboss-macos.yml,2,1
