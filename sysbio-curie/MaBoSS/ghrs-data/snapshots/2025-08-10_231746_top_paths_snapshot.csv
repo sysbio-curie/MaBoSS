@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS,9,3
+/sysbio-curie/MaBoSS/blob/master/scripts/build_libsbml.bat,2,1
+/sysbio-curie/MaBoSS/tree/master/containers,2,1
+/sysbio-curie/MaBoSS/blob/development/scripts/build_libsbml.bat,1,1
+/sysbio-curie/MaBoSS/blob/master/containers/apptainer/maboss.def,1,1
+/sysbio-curie/MaBoSS/blob/master/containers/docker/Dockerfile,1,1
+/sysbio-curie/MaBoSS/blob/master/.github/workflows/cmaboss-windows.yml,1,1
+/sysbio-curie/MaBoSS/blob/master/.github/workflows/maboss-windows.yml,1,1
+/sysbio-curie/MaBoSS/blob/master/scripts/build_libsbml.sh,1,1
+/sysbio-curie/MaBoSS/tree/development/.github,1,1
