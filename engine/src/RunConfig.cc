@@ -377,4 +377,19 @@ void RunConfig::dump_perform(Network* network, std::ostream& os, bool is_templat
     os << ";\n";
   }
   
+  for (const auto* node: network->getNodes())
+  {
+    if (node->getScheduledFlips() != NULL)
+    {
+      os << '\n';
+      if (is_template) {
+        os << "// scheduled flips for node " << node->getLabel() << "\n";
+      }
+      for (const auto& sf : *(node->getScheduledFlips()))
+      {
+        os << node->getLabel() << ".schedule = " << sf.first << " " << sf.second->toString() << ";\n";
+      }
+    }
+  }
+  
 }
