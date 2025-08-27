@@ -59,6 +59,8 @@ PyMethodDef cMaBoSSNode_methods[] = {
     {"set_rate_down", (PyCFunction) cMaBoSSNode_setRawRateDown, METH_VARARGS, "sets the rate of the node"},
     {"get_rate_up", (PyCFunction) cMaBoSSNode_getRateUp, METH_NOARGS, "returns the rate of the node"},
     {"get_rate_down", (PyCFunction) cMaBoSSNode_getRateDown, METH_NOARGS, "returns the rate of the node"},
+    {"set_schedule", (PyCFunction) cMaBoSSNode_setSchedule, METH_VARARGS, "sets the schedule of the node"},
+    {"get_schedule", (PyCFunction) cMaBoSSNode_getSchedule, METH_NOARGS, "returns the schedule of the node"},
     {NULL}  /* Sentinel */
 };
 
@@ -325,6 +327,55 @@ PyObject* cMaBoSSNode_getRateDown(cMaBoSSNodeObject* self)
   PyObject* rate_down_str = PyUnicode_FromString(self->node->getRateDownExpression()->toString().c_str());
   Py_INCREF(rate_down_str);
   return rate_down_str;
+}
+
+PyObject * cMaBoSSNode_setSchedule(cMaBoSSNodeObject* self, PyObject* args)
+{
+  PyObject* schedule = NULL;
+  if (!PyArg_ParseTuple(args, "O", &schedule))
+    return NULL;
+  
+  try{
+    if (schedule != NULL && schedule != Py_None && PyObject_IsInstance(schedule, (PyObject *)&PyDict_Type)) 
+    {
+      for (Py_ssize_t i = 0; i < PyList_Size(PyDict_Keys(schedule)); i++) {
+        PyObject* time = PyList_GetItem(PyDict_Keys(schedule), i);  
+        if (!PyObject_IsInstance(time, (PyObject*)&PyFloat_Type) && !PyObject_IsInstance(time, (PyObject*)&PyLong_Type)) {
+          PyErr_SetString(PyBNException, "The keys of the schedule dictionary must be float or int values");
+          return NULL;          
+        }
+        PyObject* flip = PyDict_GetItem(schedule, time);
+        if (!flip || !PyObject_IsInstance(flip, (PyObject*)&PyUnicode_Type)) {
+          PyErr_SetString(PyBNException, "The values of the schedule dictionary must be strings");
+          return NULL;
+        }
+        if (self->node->getScheduledFlips() == NULL) {
+          self->node->setScheduledFlips(new std::map<double, Expression*>());
+        }
+        (*self->node->getScheduledFlips())[PyFloat_AsDouble(time)] = self->network->parseSingleExpression(PyUnicode_AsUTF8(flip));
+      }
+    }    
+  } catch (BNException& e) {
+    PyErr_SetString(PyBNException, e.getMessage().c_str());
+    return NULL;
+  }
+  
+  Py_RETURN_NONE;
+  
+}
+
+PyObject * cMaBoSSNode_getSchedule(cMaBoSSNodeObject* self)
+{
+  if (self->node->getScheduledFlips() != NULL) 
+  {
+    PyObject* schedule = PyDict_New();
+    for (auto const& it : *(self->node->getScheduledFlips())) {
+      PyDict_SetItem(schedule, PyFloat_FromDouble(it.first), PyUnicode_FromString(it.second->toString().c_str()));
+    }
+    Py_INCREF(schedule);
+    return schedule;
+  }
+  Py_RETURN_NONE;
 }
 
 PyObject * cMaBoSSNode_new(PyTypeObject* type, PyObject *args, PyObject* kwargs) 

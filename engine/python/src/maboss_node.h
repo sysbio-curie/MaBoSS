@@ -67,6 +67,8 @@ PyObject * cMaBoSSNode_setRawRateDown(cMaBoSSNodeObject* self, PyObject* args);
 PyObject* cMaBoSSNode_setRate(cMaBoSSNodeObject* self, PyObject* args);
 PyObject* cMaBoSSNode_getRateUp(cMaBoSSNodeObject* self);
 PyObject* cMaBoSSNode_getRateDown(cMaBoSSNodeObject* self); 
+PyObject * cMaBoSSNode_setSchedule(cMaBoSSNodeObject* self, PyObject* args);
+PyObject * cMaBoSSNode_getSchedule(cMaBoSSNodeObject* self);
 PyObject * cMaBoSSNode_new(PyTypeObject* type, PyObject *args, PyObject* kwargs);
 int cMaBoSSNode_init(PyObject *self, PyObject *args, PyObject *kwargs);
 
