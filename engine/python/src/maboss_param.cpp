@@ -54,6 +54,7 @@ PyMethodDef cMaBoSSParam_methods[] = {
   {"keys", (PyCFunction) cMaBoSSParam_getKeys, METH_NOARGS, "returns the keys"},
   {"values", (PyCFunction) cMaBoSSParam_getValues, METH_NOARGS, "returns the values"},
   {"items", (PyCFunction) cMaBoSSParam_getItems, METH_NOARGS, "returns the items"},
+  {"update", (PyCFunction) cMaBoSSParam_update, METH_VARARGS | METH_KEYWORDS, "updates the parameters"},
   {NULL}  /* Sentinel */
 };
 
@@ -199,6 +200,25 @@ PyObject* cMaBoSSParam_update_parameters(cMaBoSSParamObject* self, PyObject *arg
   }
   
   Py_RETURN_NONE;
+}
+
+PyObject* cMaBoSSParam_update(cMaBoSSParamObject* self, PyObject *args, PyObject* kwargs)
+{  
+  PyObject * params = PyDict_New();
+  
+  if (args != NULL && args != Py_None && PyDict_Check(args)) {
+    PyDict_Update(params, args);
+  }
+
+  
+  // PyObject* key, *value;
+  // Py_ssize_t pos = 0;
+  // while (PyDict_Next(kwargs, &pos, &key, &value)) 
+  // {  
+  //   PyDict_SetItem(params, key, value);
+  // }
+  
+  return cMaBoSSParam_update_parameters(self, Py_None, params);
 }
 
 int cMaBoSSParam_SetItem(cMaBoSSParamObject* self, PyObject *key, PyObject* value) 

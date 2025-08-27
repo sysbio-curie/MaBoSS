@@ -69,5 +69,5 @@ Py_ssize_t cMaBoSSParam_Length(cMaBoSSParamObject* self);
 PyObject* cMaBoSSParam_getKeys(cMaBoSSParamObject* self);
 PyObject* cMaBoSSParam_getValues(cMaBoSSParamObject* self);
 PyObject* cMaBoSSParam_getItems(cMaBoSSParamObject* self);
-
+PyObject* cMaBoSSParam_update(cMaBoSSParamObject* self, PyObject *args, PyObject* kwargs);
 #endif
