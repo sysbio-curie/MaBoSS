@@ -239,6 +239,7 @@ jobs:
         make install_static CC=clang CXX=clang++ MAXNODES=256 SBML_COMPAT=1 -j "${CPU_COUNT}"
         make install_static CC=clang CXX=clang++ MAXNODES=512 SBML_COMPAT=1 -j "${CPU_COUNT}"
         make install_static CC=clang CXX=clang++ MAXNODES=1024 SBML_COMPAT=1 -j "${CPU_COUNT}"
+        make install_static CC=clang CXX=clang++ USE_DYNAMIC_BITSET_STD_ALLOC=1 SBML_COMPAT=1 -j "${CPU_COUNT}"
         cd ../pub
         zip MaBoSS-osx64.zip *
       
@@ -314,6 +315,7 @@ jobs:
         make install_static CC=clang CXX=clang++ MAXNODES=256 SBML_COMPAT=1 -j "${CPU_COUNT}"
         make install_static CC=clang CXX=clang++ MAXNODES=512 SBML_COMPAT=1 -j "${CPU_COUNT}"
         make install_static CC=clang CXX=clang++ MAXNODES=1024 SBML_COMPAT=1 -j "${CPU_COUNT}"
+        make install_static CC=clang CXX=clang++ USE_DYNAMIC_BITSET_STD_ALLOC=1 SBML_COMPAT=1 -j "${CPU_COUNT}"
         cd ../pub
         zip MaBoSS-osx-arm64.zip *
     
@@ -375,12 +377,14 @@ jobs:
         lipo -create -output MaBoSS_256n MaBoSS-osx64/MaBoSS_256n MaBoSS-osx-arm64/MaBoSS_256n
         lipo -create -output MaBoSS_512n MaBoSS-osx64/MaBoSS_512n MaBoSS-osx-arm64/MaBoSS_512n
         lipo -create -output MaBoSS_1024n MaBoSS-osx64/MaBoSS_1024n MaBoSS-osx-arm64/MaBoSS_1024n
+        lipo -create -output MaBoSS_dn MaBoSS-osx64/MaBoSS_dn MaBoSS-osx-arm64/MaBoSS_dn
         lipo -create -output PopMaBoSS MaBoSS-osx64/PopMaBoSS MaBoSS-osx-arm64/PopMaBoSS
         lipo -create -output PopMaBoSS_128n MaBoSS-osx64/PopMaBoSS_128n MaBoSS-osx-arm64/PopMaBoSS_128n
         lipo -create -output PopMaBoSS_256n MaBoSS-osx64/PopMaBoSS_256n MaBoSS-osx-arm64/PopMaBoSS_256n
         lipo -create -output PopMaBoSS_512n MaBoSS-osx64/PopMaBoSS_512n MaBoSS-osx-arm64/PopMaBoSS_512n
         lipo -create -output PopMaBoSS_1024n MaBoSS-osx64/PopMaBoSS_1024n MaBoSS-osx-arm64/PopMaBoSS_1024n
-        zip MaBoSS-osx-universal.zip MaBoSS MaBoSS_128n MaBoSS_256n MaBoSS_512n MaBoSS_1024n PopMaBoSS PopMaBoSS_128n PopMaBoSS_256n PopMaBoSS_512n PopMaBoSS_1024n
+        lipo -create -output PopMaBoSS_dn MaBoSS-osx64/PopMaBoSS_dn MaBoSS-osx-arm64/PopMaBoSS_dn
+        zip MaBoSS-osx-universal.zip MaBoSS MaBoSS_128n MaBoSS_256n MaBoSS_512n MaBoSS_1024n PopMaBoSS PopMaBoSS_128n PopMaBoSS_256n PopMaBoSS_512n PopMaBoSS_1024n MaBoSS_dn PopMaBoSS_dn
     
         
     - uses: actions/upload-artifact@v4
@@ -423,11 +427,13 @@ jobs:
         make install_lib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_lib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-osx64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -474,11 +480,13 @@ jobs:
         make install_lib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-macos-arm64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -551,11 +559,13 @@ jobs:
         make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=256 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=512 CXX=g++-12 -j "${CPU_COUNT}"
         make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=1024 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-12 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=128 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=256 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=512 CXX=g++-12 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=1024 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-12 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-12 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-sbml-osx64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib

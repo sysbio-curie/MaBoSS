@@ -430,6 +430,7 @@ jobs:
         make install_static MAXNODES=256 SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
         make install_static MAXNODES=512 SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
         make install_static MAXNODES=1024 SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
+        make install_static USE_DYNAMIC_BITSET_STD_ALLOC=1 SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
         cd ../pub
         zip MaBoSS-linux64.zip *
         
@@ -476,11 +477,13 @@ jobs:
         make install_lib MAXNODES=256 -j "${CPU_COUNT}"
         make install_lib MAXNODES=512 -j "${CPU_COUNT}"
         make install_lib MAXNODES=1024 -j "${CPU_COUNT}"
+        make install_lib USE_DYNAMIC_BITSET_STD_ALLOC=1 -j "${CPU_COUNT}"
         make install_alib  -j "${CPU_COUNT}"
         make install_alib MAXNODES=128 -j "${CPU_COUNT}"
         make install_alib MAXNODES=256 -j "${CPU_COUNT}"
         make install_alib MAXNODES=512 -j "${CPU_COUNT}"
         make install_alib MAXNODES=1024 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-linux64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -547,11 +550,13 @@ jobs:
         make install_lib SBML_COMPAT=1 MAXNODES=256 -j "${CPU_COUNT}"
         make install_lib SBML_COMPAT=1 MAXNODES=512 -j "${CPU_COUNT}"
         make install_lib SBML_COMPAT=1 MAXNODES=1024 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 USE_DYNAMIC_BITSET_STD_ALLOC=1 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1  -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 MAXNODES=128 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 MAXNODES=256 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 MAXNODES=512 -j "${CPU_COUNT}"
         make install_alib SBML_COMPAT=1 MAXNODES=1024 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 USE_DYNAMIC_BITSET_STD_ALLOC=1 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-sbml-linux64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
