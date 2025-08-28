@@ -205,18 +205,20 @@ PyObject* cMaBoSSParam_update_parameters(cMaBoSSParamObject* self, PyObject *arg
 PyObject* cMaBoSSParam_update(cMaBoSSParamObject* self, PyObject *args, PyObject* kwargs)
 {  
   PyObject * params = PyDict_New();
-  
-  if (args != NULL && args != Py_None && PyDict_Check(args)) {
-    PyDict_Update(params, args);
+
+  if (args != NULL && args != Py_None && PyTuple_Size(args) > 0 && PyDict_Check(PyTuple_GetItem(args, 0))) 
+  {
+    PyDict_Update(params, PyTuple_GetItem(args, 0));
   }
 
-  
-  // PyObject* key, *value;
-  // Py_ssize_t pos = 0;
-  // while (PyDict_Next(kwargs, &pos, &key, &value)) 
-  // {  
-  //   PyDict_SetItem(params, key, value);
-  // }
+  if (kwargs != NULL && kwargs != Py_None && PyDict_Size(kwargs) > 0) {
+    PyObject* key, *value;
+    Py_ssize_t pos = 0;
+    while (PyDict_Next(kwargs, &pos, &key, &value)) 
+    {  
+      PyDict_SetItem(params, key, value);
+    }
+  }
   
   return cMaBoSSParam_update_parameters(self, Py_None, params);
 }

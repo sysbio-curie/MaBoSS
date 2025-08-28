@@ -355,7 +355,6 @@ PyObject* cMaBoSSSim_copy(cMaBoSSSimObject* self) {
   PyObject* config_str = PyUnicode_FromString(cfg.str().c_str());
   Py_INCREF(config_str);
   
-  
   PyObject *args = PyTuple_New(0);
   PyObject *kwargs = Py_BuildValue("{s:O,s:O}", "network_str", PyUnicode_FromString(bnd.str().c_str()), "config_str", PyUnicode_FromString(cfg.str().c_str()));
 

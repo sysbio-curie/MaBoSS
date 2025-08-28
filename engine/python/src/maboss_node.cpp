@@ -341,18 +341,32 @@ PyObject * cMaBoSSNode_setSchedule(cMaBoSSNodeObject* self, PyObject* args)
       for (Py_ssize_t i = 0; i < PyList_Size(PyDict_Keys(schedule)); i++) {
         PyObject* time = PyList_GetItem(PyDict_Keys(schedule), i);  
         if (!PyObject_IsInstance(time, (PyObject*)&PyFloat_Type) && !PyObject_IsInstance(time, (PyObject*)&PyLong_Type)) {
-          PyErr_SetString(PyBNException, "The keys of the schedule dictionary must be float or int values");
+          PyErr_SetString(PyBNException, "The time of the schedule must be float or int values");
           return NULL;          
         }
         PyObject* flip = PyDict_GetItem(schedule, time);
-        if (!flip || !PyObject_IsInstance(flip, (PyObject*)&PyUnicode_Type)) {
-          PyErr_SetString(PyBNException, "The values of the schedule dictionary must be strings");
+        if (!flip || (!PyObject_IsInstance(flip, (PyObject*)&PyUnicode_Type) && !PyObject_IsInstance(flip, (PyObject*)&PyFloat_Type) && !PyObject_IsInstance(flip, (PyObject*)&PyLong_Type))) {
+          PyErr_SetString(PyBNException, "The values of the schedule dictionary must be int, float or string");
           return NULL;
         }
         if (self->node->getScheduledFlips() == NULL) {
           self->node->setScheduledFlips(new std::map<double, Expression*>());
         }
-        (*self->node->getScheduledFlips())[PyFloat_AsDouble(time)] = self->network->parseSingleExpression(PyUnicode_AsUTF8(flip));
+        Expression* value = NULL;
+        if (PyObject_IsInstance(flip, (PyObject*) &PyFloat_Type))
+        {
+          value = new ConstantExpression(PyFloat_AsDouble(flip));
+        }
+        else if (PyObject_IsInstance(flip, (PyObject*) &PyLong_Type))
+        { 
+          value = new ConstantExpression(PyLong_AsDouble(flip));
+        } 
+        else 
+        {
+          value = self->network->parseSingleExpression(PyUnicode_AsUTF8(flip));
+        }
+        
+        (*self->node->getScheduledFlips())[PyFloat_AsDouble(time)] = value;
       }
     }    
   } catch (BNException& e) {
