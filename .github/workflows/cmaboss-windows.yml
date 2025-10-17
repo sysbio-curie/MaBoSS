@@ -42,7 +42,7 @@ jobs:
             vcpkg install libxml2:${{ matrix.build.triplet}} &&
             choco install winflexbison3 &&
             set LIBXML_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/libxml2.lib" &&
-            set LIBXML_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/" &&
+            set LIBXML_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/libxml2/" &&
             set LIBBZ_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/libbz2.lib" &&
             set LIBBZ_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/" &&
             set ZLIB_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/zlib.lib" &&

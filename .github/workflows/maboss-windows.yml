@@ -75,7 +75,7 @@ jobs:
         CXX: cl.exe
         LIBSBML_INSTALL_PREFIX: C:/vcpkg/installed/x64-windows/
         LIBXML_LIBRARY: C:/vcpkg/installed/x64-windows/lib/libxml2.lib
-        LIBXML_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/
+        LIBXML_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/libxml2/
         ZLIB_LIBRARY: C:/vcpkg/installed/x64-windows/lib/zlib.lib
         ZLIB_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/
         CPU_COUNT: 4
@@ -125,7 +125,7 @@ jobs:
           -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
-          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
           -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
           -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
           -DSTD_THREAD=1 `
@@ -140,7 +140,7 @@ jobs:
           -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
-          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
           -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
           -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
           -DSTD_THREAD=1 `
