@@ -386,8 +386,8 @@ jobs:
       fail-fast: false
       matrix:
         repo: [
-          { id: 0, name: "defaults", libsbml_package: "libsbml-plus-packages"},
-          { id: 1, name: "conda-forge", libsbml_package: "libsbml"}
+          {name: "defaults", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"},
+          {name: "conda-forge", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
         
     runs-on: windows-2022
@@ -417,18 +417,16 @@ jobs:
       if: matrix.repo.name == 'defaults'
       run: |        
         conda install -c conda-forge winflexbison
-        Get-Content .\conda\maboss\meta.yaml | Where-Object {$_ -notmatch 'winflexbison'} | Set-Content out.yaml
-        xcopy out.yaml .\conda\maboss\meta.yaml /y
         
     - name: Build Anaconda package
       if: matrix.repo.name == 'defaults'
       env: 
-        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.id }}
+        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.build_number }}
         FLEX_ROOT: C:\Miniconda\envs\test\Library\bin\
         BISON_ROOT: C:\Miniconda\envs\test\Library\bin\
         LIBSBML_PACKAGE: ${{ matrix.repo.libsbml_package }}
       run: |
-        conda build -c ${{ matrix.repo.name }} -c vincent-noel conda/maboss
+        conda build -c ${{ matrix.repo.name }} -c ${{ matrix.repo.libsbml_source }} ${{ matrix.repo.folder }}/maboss
     
     - name: Build Anaconda package
       if: matrix.repo.name == 'conda-forge'
@@ -436,7 +434,7 @@ jobs:
         CUSTOM_BUILD_NUMBER: ${{ matrix.repo.id }}
         LIBSBML_PACKAGE: ${{ matrix.repo.libsbml_package }}
       run: |
-        conda build -c ${{ matrix.repo.name }} conda/maboss
+        conda build -c ${{ matrix.repo.name }} ${{ matrix.repo.folder }}/maboss
           
     - name: Upload MaBoSS Ananconda package on vincent-noel
       run: |

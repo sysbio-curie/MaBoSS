@@ -6,7 +6,7 @@ package:
   version: '{{ version }}'
 
 source:
-  path: ../..
+  path: ../../..
 
 
 build:
@@ -33,6 +33,7 @@ requirements:
     - python {{ python }}
     - numpy
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
     - python-gil  # [py>=313]
 
   host: 
@@ -41,12 +42,14 @@ requirements:
     - scikit-build-core
     - {{ pin_compatible('numpy', min_pin='x.x', max_pin='x') }}
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
     - python-gil  # [py>=313]
   
   run: 
     - python {{ python }}
     - {{ pin_compatible('numpy', min_pin='x.x', max_pin='x') }}
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
     - python-gil  # [py>=313]
 test:
   requires:

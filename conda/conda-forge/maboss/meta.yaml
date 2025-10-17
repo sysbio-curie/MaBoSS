@@ -6,7 +6,7 @@ package:
   version: '{{ version }}'
 
 source:
-  path: ../..
+  path: ../../..
     
 build:
   {% if CUSTOM_BUILD_NUMBER is defined %}
@@ -31,12 +31,15 @@ requirements:
     - cmake  # [win]
     - ninja  # [win]
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
         
   host:
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
     
   run:
     - {{ LIBSBML_PACKAGE }}
+    - libxml2-devel
     
 test:
   requires:

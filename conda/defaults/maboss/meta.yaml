@@ -1,0 +1,46 @@
+{% set name = "MaBoSS" %}
+{% set version = "2.6.5" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  path: ../../..
+    
+build:
+  {% if CUSTOM_BUILD_NUMBER is defined %}
+  number: {{ CUSTOM_BUILD_NUMBER }}
+  binary_relocation: False
+  {% else %}
+  number: 0
+  binary_relocation: False
+  {% endif %}
+  script_env:
+    - SBML_COMPAT
+    - SEDML_COMPAT
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - flex  # [not win]
+    - bison  # [not win]
+    - make  # [not win]
+    - cmake  # [win]
+    - ninja  # [win]
+    - {{ LIBSBML_PACKAGE }}
+        
+  host:
+    - {{ LIBSBML_PACKAGE }}
+    
+  run:
+    - {{ LIBSBML_PACKAGE }}
+    
+test:
+  requires:
+    - numpy
+
+about:
+  home:  https://maboss.curie.fr
+

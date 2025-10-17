@@ -595,8 +595,8 @@ jobs:
       fail-fast: false
       matrix:
         repo: [
-          {id: 0, name: "defaults", deployment_target: "10.13", libsbml_package: "libsbml-plus-packages"}, 
-          {id: 1, name: "conda-forge", deployment_target: "10.13", libsbml_package: "libsbml"}
+          {name: "defaults", deployment_target: "10.13", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
+          {name: "conda-forge", deployment_target: "10.13", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
     runs-on: macos-13
     defaults:
@@ -631,10 +631,10 @@ jobs:
         
     - name: Build MaBoSS Anaconda package
       env: 
-        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.id }}
+        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.build_number }}
         LIBSBML_PACKAGE: ${{ matrix.repo.libsbml_package }}
       run: |
-        conda build -c ${{ matrix.repo.name }} -c vincent-noel conda/maboss
+        conda build -c ${{ matrix.repo.name }} -c ${{ matrix.repo.libsbml_source }} ${{ matrix.repo.folder }}/maboss
     
     - name: Upload MaBoSS to Anaconda cloud on vincent-noel
       run: |   
@@ -653,8 +653,8 @@ jobs:
       fail-fast: false
       matrix:
         repo: [
-          {id: 0, name: "defaults", libsbml_package: "libsbml-plus-packages"}, 
-          {id: 1, name: "conda-forge", libsbml_package: "libsbml"}
+          {name: "defaults", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
+          {name: "conda-forge", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
     runs-on: macos-14
     defaults:
@@ -689,10 +689,10 @@ jobs:
         
     - name: Build MaBoSS Anaconda package
       env: 
-        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.id }}
+        CUSTOM_BUILD_NUMBER: ${{ matrix.repo.build_number }}
         LIBSBML_PACKAGE: ${{ matrix.repo.libsbml_package }}
       run: |
-        conda build -c ${{ matrix.repo.name }} -c vincent-noel conda/maboss
+        conda build -c ${{ matrix.repo.name }} -c ${{ matrix.repo.libsbml_source }} ${{ matrix.repo.folder }}/maboss
     
     - name: Upload MaBoSS to Anaconda cloud on vincent-noel
       run: |   
