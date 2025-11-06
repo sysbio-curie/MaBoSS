@@ -85,6 +85,85 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         run: |
           python -m twine upload --skip-existing wheelhouse/cmaboss*
+   
+          
+  build_wheels_windows_arm:
+    name: Build arm64 windows wheels
+    runs-on: windows-11-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        build: [
+          {name: "winarm64", pattern: "cp*-win_arm64", arch: "arm64", triplet: "arm64-windows"}
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.build.arch }}
+    
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel numpy twine
+
+      - name: Build wheels  
+        env: 
+          CC: cl.exe
+          CXX: cl.exe
+          LIBSBML_DIR: "C:/libsbml/"
+          LIBXML_DIR: "C:/vcpkg/installed/${{ matrix.build.triplet}}/"
+          CMAKE_BUILD_PARALLEL_LEVEL: 1
+          CIBW_BUILD: ${{ matrix.build.pattern }}
+          CIBW_BEFORE_ALL: >
+            vcpkg install libxml2:${{ matrix.build.triplet}} &&
+            choco install winflexbison3 &&
+            set LIBXML_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/libxml2.lib" &&
+            set LIBXML_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/libxml2/" &&
+            set LIBBZ_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/libbz2.lib" &&
+            set LIBBZ_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/" &&
+            set ZLIB_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/zlib.lib" &&
+            set ZLIB_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/" &&
+            set LIBSBML_INSTALL_PREFIX="C:/libsbml/" &&
+            .\\scripts\build_libsbml.bat &&
+            .\\scripts\install_libsbml.bat
+          CIBW_SKIP: pp*
+          CIBW_BUILD_VERBOSITY: 1
+          CIBW_BEFORE_BUILD: > 
+            pip install delvewheel
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
+            delvewheel repair -w {dest_dir} {wheel} --add-path C:/vcpkg/installed/${{ matrix.build.triplet}}/bin/;C:/libsbml/bin/
+          CIBW_ENVIRONMENT_PASS_WINDOWS: SBML_COMPAT
+          CIBW_TEST_REQUIRES: pandas
+          CIBW_TEST_COMMAND: >
+            cd /d {project}/engine/tests/cmaboss &&
+            python -m unittest test.py &&
+            python -m unittest test_128n.py
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse engine/python
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels_${{ matrix.build.name }}
+          path: wheelhouse/*.whl
+          
+      - name: Upload cMaBoSS to test Pypi
+        if: github.repository == 'sysbio-curie/MaBoSS' && github.ref == 'refs/heads/master'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TEST_TOKEN }}
+        run: |
+          python -m twine upload --repository testpypi --skip-existing wheelhouse/cmaboss*
+          
+      - name: Upload cMaBoSS to Pypi
+        if: github.repository == 'sysbio-curie/MaBoSS' && github.event_name == 'release'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python -m twine upload --skip-existing wheelhouse/cmaboss*
         
   cmaboss_conda:
     name: Build cMaBoSS conda package (${{matrix.repo.name}}, python ${{matrix.version.python}}, numpy ${{matrix.version.numpy}})

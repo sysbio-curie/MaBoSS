@@ -122,8 +122,72 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         run: |
           python -m twine upload --skip-existing wheelhouse/cmaboss*
+         
           
-  
+  build_wheels_linux_arm:
+    name: Build arm64 linux wheels (scikit-build-core)
+    runs-on:   ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        build: ["cp*-manylinux_aarch64"]
+    needs: cmaboss
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel numpy twine
+
+      - name: Build wheels
+        env: 
+          SBML_COMPAT: 1
+          CIBW_BUILD: ${{ matrix.build }}
+          CIBW_BEFORE_ALL: >
+            yum install wget flex bison libxml2-devel libxslt-devel gettext-devel texinfo help2man -y &&
+            git clone https://github.com/westes/flex.git &&
+            cd flex && ./autogen.sh && ./configure --prefix=/usr && make && make install && cd .. &&
+            wget https://ftp.gnu.org/gnu/bison/bison-3.8.2.tar.gz &&
+            tar -xzf bison-3.8.2.tar.gz &&
+            cd bison-3.8.2 && ./configure --prefix=/usr && make -j 4 && make install && cd .. &&
+            CC=gcc CXX=g++ INSTALL_PATH=/usr/ BUILD_PATH=/tmp/ \
+              LIBXML_LIBDIR=/usr/lib64/libxml2.so \
+              LIBXML_INCLUDEDIR=/usr/include/libxml2 \
+              CPU_COUNT=4 bash scripts/build_libsbml.sh &&
+            BUILD_PATH=/tmp/ bash scripts/install_libsbml.sh
+          CIBW_ENVIRONMENT_PASS_LINUX: SBML_COMPAT
+          CIBW_TEST_REQUIRES: pandas
+          CIBW_TEST_COMMAND: >
+            cd {project}/engine/tests/cmaboss &&
+            python -m unittest test.py &&
+            python -m unittest test_128n.py
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse engine/python
+
+      - uses: actions/upload-artifact@v4
+        if: matrix.build == 'cp*-manylinux_aarch64'
+        with:
+          name: wheels-cpython
+          path: wheelhouse/*.whl
+      
+      - name: Upload cMaBoSS to test Pypi
+        if: github.repository == 'sysbio-curie/MaBoSS' && github.ref == 'refs/heads/master'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TEST_TOKEN }}
+        run: |
+          python -m twine upload --repository testpypi --skip-existing wheelhouse/cmaboss*
+          
+      - name: Upload cMaBoSS to Pypi
+        if: github.repository == 'sysbio-curie/MaBoSS' && github.event_name == 'release'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python -m twine upload --skip-existing wheelhouse/cmaboss*          
+
   cmaboss_conda_condaforge:
     name: Build cMaBoSS conda package (${{matrix.repo.name}}, python ${{matrix.version.python}}, numpy ${{matrix.version.numpy}})
     runs-on: ubuntu-24.04
