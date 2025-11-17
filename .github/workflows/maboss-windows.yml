@@ -385,12 +385,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        images: [
+          {os: windows-2022, conda_id: win-64},
+          {os: windows-11-arm, conda_id: win-arm64}
+        ]
         repo: [
           {name: "defaults", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"},
           {name: "conda-forge", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
         
-    runs-on: windows-2022
+    runs-on: ${{ matrix.images.os }}
 
     needs: [maboss_windows, maboss_windows_cmake]
     
@@ -438,9 +442,9 @@ jobs:
           
     - name: Upload MaBoSS Ananconda package on vincent-noel
       run: |
-        anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u vincent-noel C:\Miniconda\envs\test\conda-bld\win-64\*.conda --force;
+        anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u vincent-noel C:\Miniconda\envs\test\conda-bld\${{ matrix.images.conda_id }}\*.conda --force;
     
     - name: Upload MaBoSS Ananconda package on colomoto
       if: github.repository == 'sysbio-curie/MaBoSS' && github.event_name == 'release'
       run: |
-        anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u colomoto C:\Miniconda\envs\test\conda-bld\win-64\*.conda --force;
+        anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload -u colomoto C:\Miniconda\envs\test\conda-bld\${{ matrix.images.conda_id }}\*.conda --force;
