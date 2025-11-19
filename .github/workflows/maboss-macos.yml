@@ -9,13 +9,13 @@ on:
 jobs:
   maboss_macos:
     name: MaBoSS
-    runs-on: macos-13
+    runs-on: macos-15-intel
     env:
-      CC: gcc-12
-      CXX: g++-12
+      CC: gcc-14
+      CXX: g++-14
       INSTALL_PATH: /usr/local
       BUILD_PATH: /tmp/
-      LIBXML_LIBDIR: /usr/local/opt/libxml2/lib/libxml2.2.dylib
+      LIBXML_LIBDIR: /usr/local/opt/libxml2/lib/libxml2.dylib
       LIBXML_INCLUDEDIR: /usr/local/opt/libxml2/include/libxml2/
       MACOSX_DEPLOYMENT_TARGET: 10.13
       SBML_COMPAT: 1
@@ -54,8 +54,8 @@ jobs:
         make clean
         export CXXFLAGS="${CXXFLAGS} -I/usr/local/include -I/usr/local/include/libxml2"
         export LDFLAGS="${LDFLAGS} -L/usr/local/lib -lxml2"
-        make CXX=g++-12 CC=gcc-12 install SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
-        make CXX=g++-12 CC=gcc-12 MAXNODES=128 install SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
+        make CXX=g++-14 CC=gcc-14 install SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
+        make CXX=g++-14 CC=gcc-14 MAXNODES=128 install SBML_COMPAT=1 CLIENT_SERVER=1 -j "${CPU_COUNT}"
         
     - name: Test MaBoSS
       run: |
@@ -68,7 +68,7 @@ jobs:
         
   maboss_macos_cmake:
     name: MaBoSS (cmake)
-    runs-on: macos-13
+    runs-on: macos-15-intel
     env:
       CC: clang
       CXX: clang++
@@ -136,7 +136,7 @@ jobs:
 
   maboss_llvm_macos:
     name: MaBoSS (clang)
-    runs-on: macos-13
+    runs-on: macos-15-intel
     env:
       CC: clang
       CXX: clang++
@@ -192,7 +192,7 @@ jobs:
       
   maboss_binary_macos:
     name: MaBoSS MacOSX x86_64 binary
-    runs-on: macos-13
+    runs-on: macos-15-intel
     needs: [maboss_macos, maboss_llvm_macos, maboss_macos_cmake]
     env:
       CC: clang
@@ -345,7 +345,7 @@ jobs:
   maboss_binary_macos_universal:
     name: MaBoSS MacOSX universal binary
     needs: [maboss_binary_macos_m1, maboss_binary_macos]
-    runs-on: macos-13
+    runs-on: macos-15-intel
 
     steps:
     - uses: actions/checkout@v4
@@ -405,7 +405,7 @@ jobs:
         
   maboss_library_macos:
     name: Building MaBoSS osx library
-    runs-on: macos-13
+    runs-on: macos-15-intel
     needs: [maboss_macos, maboss_llvm_macos, maboss_macos_cmake]
     env: 
       CPU_COUNT: 4
@@ -422,18 +422,18 @@ jobs:
         rm -fr engine/pub/*
         cd engine/src
         make clean
-        make install_lib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_lib CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=128 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=256 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=512 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=1024 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=128 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=256 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=512 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=1024 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-osx64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -475,18 +475,18 @@ jobs:
         rm -fr engine/pub/*
         cd engine/src
         make clean
-        make install_lib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=128 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=256 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=512 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib MAXNODES=1024 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
+        make install_lib CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=128 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=256 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=512 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib MAXNODES=1024 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=128 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=256 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=512 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib MAXNODES=1024 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib USE_DYNAMIC_BITSET_STD_ALLOC=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-macos-arm64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -509,11 +509,11 @@ jobs:
         
   maboss_library_sbml_macos:
     name: Building MaBoSS osx library with libSBML
-    runs-on: macos-13
+    runs-on: macos-15-intel
     needs: [maboss_macos, maboss_llvm_macos, maboss_macos_cmake]
     env:  
-      CC: gcc-12
-      CXX: g++-12
+      CC: gcc-14
+      CXX: g++-14
       INSTALL_PATH: /usr/local/
       BUILD_PATH: /tmp/
       LIBXML_LIBDIR: /usr/local/opt/libxml2/lib/libxml2.dylib
@@ -553,19 +553,19 @@ jobs:
         rm -fr engine/pub/*
         cd engine/src
         make clean
-        make install CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=128 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=256 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=512 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 MAXNODES=1024 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_lib SBML_COMPAT=1 CC=gcc-12 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=128 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=256 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=512 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 MAXNODES=1024 CXX=g++-12 -j "${CPU_COUNT}"
-        make install_alib SBML_COMPAT=1 CC=gcc-12 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-12 -j "${CPU_COUNT}"
+        make install CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 MAXNODES=128 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 MAXNODES=256 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 MAXNODES=512 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 MAXNODES=1024 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_lib SBML_COMPAT=1 CC=gcc-14 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 MAXNODES=128 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 MAXNODES=256 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 MAXNODES=512 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 MAXNODES=1024 CXX=g++-14 -j "${CPU_COUNT}"
+        make install_alib SBML_COMPAT=1 CC=gcc-14 USE_DYNAMIC_BITSET_STD_ALLOC=1 CXX=g++-14 -j "${CPU_COUNT}"
         make clean
         cd ../../../
         tar -zcvf libMaBoSS-sbml-osx64.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
@@ -598,7 +598,7 @@ jobs:
           {name: "defaults", deployment_target: "10.13", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
           {name: "conda-forge", deployment_target: "10.13", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
-    runs-on: macos-13
+    runs-on: macos-15-intel
     defaults:
       run:
         shell: sh -l {0}
