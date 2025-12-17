@@ -113,7 +113,7 @@ jobs:
         auto-update-conda: true
         conda-remove-defaults: "true"
         channels: ${{ matrix.repo.name }}
-        python-version: 3.12
+        python-version: 3.11
         use-mamba: true
     
     - name: Install conda-build
