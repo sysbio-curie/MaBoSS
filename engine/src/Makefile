@@ -300,13 +300,45 @@ install_lib: $(MABOSS_LIB)
 	cp $(MABOSS_LIB) ../lib
 	mkdir -p ../include/
 	cp *.h ../include/
+	mkdir -p ../include/engines
+	cp engines/*.h ../include/engines
+	mkdir -p ../include/displayers
+	cp displayers/*.h ../include/displayers
+	mkdir -p ../include/parsers
+	cp parsers/*.h ../include/parsers
+	mkdir -p ../include/rpc
+	cp rpc/*.h ../include/rpc
+ifdef SBML_COMPAT
+	mkdir -p ../include/sbml
+	cp sbml/*.h ../include/sbml
+ifdef SEDML_COMPAT
+	mkdir -p ../include/sedml
+	cp sedml/*.h ../include/sedml
+endif
+endif
 
 install_alib: $(MABOSS_ALIB)
 	mkdir -p ../lib
 	cp $(MABOSS_ALIB) ../lib
 	mkdir -p ../include/
 	cp *.h ../include/
-	
+	mkdir -p ../include/engines
+	cp engines/*.h ../include/engines
+	mkdir -p ../include/displayers
+	cp displayers/*.h ../include/displayers
+	mkdir -p ../include/parsers
+	cp parsers/*.h ../include/parsers
+	mkdir -p ../include/rpc
+	cp rpc/*.h ../include/rpc
+ifdef SBML_COMPAT
+	mkdir -p ../include/sbml
+	cp sbml/*.h ../include/sbml
+ifdef SEDML_COMPAT
+	mkdir -p ../include/sedml
+	cp sedml/*.h ../include/sedml
+endif
+endif
+
 install_static: MaBoSS$(INFIX).o $(MABOSS_OBJS) PopMaBoSS$(INFIX).o $(MABOSS_OBJS)
 	$(CXX) -o $(MABOSS) MaBoSS$(INFIX).o $(MABOSS_OBJS) $(SBML_LIB_STATIC) $(STATIC_LIBS) -lpthread $(LDL_FLAG) -L.  $(LDFLAGS) $(EXTRA_LDFLAGS)
 	$(CXX) -o $(POPMABOSS) PopMaBoSS$(INFIX).o $(MABOSS_OBJS) $(SBML_LIB_STATIC) $(STATIC_LIBS) -lpthread $(LDL_FLAG) -L. $(LDFLAGS) $(EXTRA_LDFLAGS)
