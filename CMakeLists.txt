@@ -226,7 +226,7 @@ else()
   install( 
     TARGETS ${MABOSS_LIBNAME}-static
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    COMPONENT libraries
+    COMPONENT static_libraries
   )
 
   install( 
@@ -238,7 +238,7 @@ else()
   install( 
     DIRECTORY ${CMAKE_SOURCE_DIR}/engine/src/ 
     DESTINATION include
-    COMPONENT libraries
+    COMPONENT libraries_headers
     FILES_MATCHING PATTERN "*.h"
   )
 
