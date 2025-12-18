@@ -446,7 +446,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries 
+        cmake --install build
         
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
@@ -462,7 +462,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries 
+        cmake --install build 
         
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
@@ -478,7 +478,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries
+        cmake --install build
         
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
@@ -494,7 +494,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries
+        cmake --install build
         
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
@@ -510,7 +510,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries
+        cmake --install build
        
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
@@ -526,8 +526,7 @@ jobs:
           -DSBML=1
 
         cmake --build build --parallel "${CPU_COUNT}" --verbose
-        cmake --install build --component libraries
-      
+        cmake --install build
         
         cd ../
         tar -zcvf libMaBoSS-sbml-win64-msvc.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
