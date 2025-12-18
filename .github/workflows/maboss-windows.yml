@@ -378,7 +378,177 @@ jobs:
         asset_name: libMaBoSS-sbml-win64.tar.gz
         asset_path: D:\a\MaBoSS/libMaBoSS-sbml-win64.tar.gz
         asset_content_type: application/gzip
-  
+        
+  maboss_library_windows_msvc:
+    runs-on: windows-2022
+    name: Building MaBoSS Windows MSVC 64bits library
+    needs: [maboss_windows, maboss_windows_cmake]
+    env: 
+        CC: cl.exe
+        CXX: cl.exe
+        LIBSBML_INSTALL_PREFIX: C:/vcpkg/installed/x64-windows/
+        LIBXML_LIBRARY: C:/vcpkg/installed/x64-windows/lib/libxml2.lib
+        LIBXML_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/libxml2/
+        ZLIB_LIBRARY: C:/vcpkg/installed/x64-windows/lib/zlib.lib
+        ZLIB_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/
+        CPU_COUNT: 4
+      
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ilammy/msvc-dev-cmd@v1 
+    
+    - name: Install dependencies
+      run: |
+        choco install winflexbison3
+        python -m pip install numpy
+    
+    - name: Cache compiled vcpkg packages
+      id: cache-vcpkg
+      uses: actions/cache@v4
+      with:
+        path: C:\vcpkg\
+        key: ${{ runner.os }}-vcpkg-msvc
+        
+    - name: Install libxml2
+      if: steps.cache-vcpkg.outputs.cache-hit != 'true'
+      run: |
+        vcpkg install libxml2
+    
+    - name: Cache compiled libSBML
+      id: cache-libsbml-msvc
+      uses: actions/cache@v4
+      with:
+        path: D:\a\MaBoSS\MaBoSS\libsbml-5.20.5\
+        key: ${{ runner.os }}-libSBML-5.20.5-msvc-namespace
+
+    - name: Compiling libSBML
+      if: steps.cache-libsbml-msvc.outputs.cache-hit != 'true'
+      
+      run: |
+        .\\scripts\\build_libsbml.bat 
+
+    - name: Install libSBML
+      run: |
+        .\\scripts\install_libsbml.bat
+
+    - name: Build MaBoSS
+      run: |
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries 
+        
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DMAXNODES=128 `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries 
+        
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DMAXNODES=256 `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries
+        
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DMAXNODES=512 `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries
+        
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DMAXNODES=1024 `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries
+       
+        cmake -B build -S . -G Ninja `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/zlib.lib" `
+          -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
+          -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
+          -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
+          -DLIBSBML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include" `
+          -DLIBSBML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libsbml.lib" `
+          -DDYNBITSET=1 -DDYNBITSET_STD_ALLOC=1 `
+          -DSTD_THREAD=1 `
+          -DSBML=1
+
+        cmake --build build --parallel "${CPU_COUNT}" --verbose
+        cmake --install build --component libraries
+      
+        
+        cd ../
+        tar -zcvf libMaBoSS-sbml-win64-msvc.tar.gz MaBoSS/README.md MaBoSS/LICENSE MaBoSS/engine/src MaBoSS/engine/include MaBoSS/engine/lib
+        
+    - uses: actions/upload-artifact@v4
+      if: github.event_name != 'release'
+      with:
+        name: libMaBoSS-sbml-win64-msvc
+        path: D:\a\MaBoSS/libMaBoSS-sbml-win64-msvc.tar.gz
+        
+    - uses: actions/upload-release-asset@v1
+      if: github.event_name == 'release'
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_name: libMaBoSS-sbml-win64-msvc.tar.gz
+        asset_path: D:\a\MaBoSS/libMaBoSS-sbml-win64-msvc.tar.gz
+        asset_content_type: application/gzip
+        
         
   maboss_conda:
     name: Build MaBoSS Anaconda package
