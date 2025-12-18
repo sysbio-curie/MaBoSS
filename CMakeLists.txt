@@ -92,31 +92,46 @@ else()
   
   include(engine/src/CMakeLists.txt)
   
-  add_library(${MABOSS_LIBNAME} STATIC ${src_files})
+  add_library(${MABOSS_LIBNAME}-static STATIC ${src_files})
+  target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC MAXNODES=${MAXNODES} ${DYNBITSET_FLAG})
+  
+  add_library(${MABOSS_LIBNAME} SHARED ${src_files})
   target_compile_definitions(${MABOSS_LIBNAME} PUBLIC MAXNODES=${MAXNODES} ${DYNBITSET_FLAG})
-
+    
   if(MPI)
       find_package(MPI)
       if(MPI_CXX_FOUND)
+          target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC MPI_COMPAT=1)
+          target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${MPI_CXX_INCLUDE_PATH})
+          target_link_libraries(${MABOSS_LIBNAME}-static ${MPI_CXX_LIBRARIES})
+          
           target_compile_definitions(${MABOSS_LIBNAME} PUBLIC MPI_COMPAT=1)
           target_include_directories(${MABOSS_LIBNAME} PUBLIC ${MPI_CXX_INCLUDE_PATH})
           target_link_libraries(${MABOSS_LIBNAME} ${MPI_CXX_LIBRARIES})
+ 
       endif()
   endif()
 
   if(STD_THREAD)
+    target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC STD_THREAD=1)
     target_compile_definitions(${MABOSS_LIBNAME} PUBLIC STD_THREAD=1)
   else()
     if (NOT MSVC)
+      target_link_libraries(${MABOSS_LIBNAME}-static -lpthread)
       target_link_libraries(${MABOSS_LIBNAME} -lpthread)
     endif()
   endif()
   
+  target_link_libraries(${MABOSS_LIBNAME}-static ${CMAKE_DL_LIBS})
   target_link_libraries(${MABOSS_LIBNAME} ${CMAKE_DL_LIBS})
   
   if (HDF5)
     find_package(HDF5)
     if(HDF5_FOUND)
+        target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC HDF5_COMPAT=1)
+        target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${HDF5_INCLUDE_DIRS})
+        target_link_libraries(${MABOSS_LIBNAME}-static ${HDF5_LIBRARIES})
+        
         target_compile_definitions(${MABOSS_LIBNAME} PUBLIC HDF5_COMPAT=1)
         target_include_directories(${MABOSS_LIBNAME} PUBLIC ${HDF5_INCLUDE_DIRS})
         target_link_libraries(${MABOSS_LIBNAME} ${HDF5_LIBRARIES})
@@ -127,6 +142,10 @@ else()
       
       find_package(LIBSBML REQUIRED)
       if(LIBSBML_FOUND)
+          target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC SBML_COMPAT=1)
+          target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${LIBSBML_INCLUDE_DIR})
+          target_link_libraries(${MABOSS_LIBNAME}-static ${LIBSBML_LIBRARY})
+          
           target_compile_definitions(${MABOSS_LIBNAME} PUBLIC SBML_COMPAT=1)
           target_include_directories(${MABOSS_LIBNAME} PUBLIC ${LIBSBML_INCLUDE_DIR})
           target_link_libraries(${MABOSS_LIBNAME} ${LIBSBML_LIBRARY})
@@ -136,6 +155,10 @@ else()
           
           find_package(LIBSEDML REQUIRED)
           if (LIBSEDML_FOUND)
+              target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC SBML_COMPAT=1 SEDML_COMPAT=1)
+              target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${LIBSEDML_INCLUDE_DIR})
+              target_link_libraries(${MABOSS_LIBNAME}-static ${LIBSEDML_LIBRARY})
+              
               target_compile_definitions(${MABOSS_LIBNAME} PUBLIC SBML_COMPAT=1 SEDML_COMPAT=1)
               target_include_directories(${MABOSS_LIBNAME} PUBLIC ${LIBSEDML_INCLUDE_DIR})
               target_link_libraries(${MABOSS_LIBNAME} ${LIBSEDML_LIBRARY})
@@ -144,12 +167,17 @@ else()
           find_package(LIBNUML REQUIRED)
           if (LIBNUML_FOUND)
               # target_include_directories(${MABOSS_LIBNAME} PUBLIC ${LIBNUML_INCLUDE_DIR})
+              target_link_libraries(${MABOSS_LIBNAME}-static ${LIBNUML_LIBRARY})
+              
               target_link_libraries(${MABOSS_LIBNAME} ${LIBNUML_LIBRARY})
           endif()
       endif()
       
       find_package(LIBXML REQUIRED)
       if (LIBXML_FOUND)
+          target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${LIBXML_INCLUDE_DIR})
+          target_link_libraries(${MABOSS_LIBNAME}-static ${LIBXML_LIBRARY})
+          
           target_include_directories(${MABOSS_LIBNAME} PUBLIC ${LIBXML_INCLUDE_DIR})
           target_link_libraries(${MABOSS_LIBNAME} ${LIBXML_LIBRARY})
       endif()
@@ -157,22 +185,29 @@ else()
       find_package(ZLIB)
       if (ZLIB_FOUND)
           # target_include_directories(${MABOSS_LIBNAME} PUBLIC ${ZLIB_INCLUDE_DIR})
+          target_link_libraries(${MABOSS_LIBNAME}-static ${ZLIB_LIBRARY})
+          
           target_link_libraries(${MABOSS_LIBNAME} ${ZLIB_LIBRARY})
       endif()
   
       find_package(BZ2)
       if (BZ2_FOUND)
           # target_include_directories(${MABOSS_LIBNAME} PUBLIC ${LIBBZ2_INCLUDE_DIR})
+          target_link_libraries(${MABOSS_LIBNAME}-static ${LIBBZ_LIBRARY})
+          
           target_link_libraries(${MABOSS_LIBNAME} ${LIBBZ_LIBRARY})
       endif()
       
   endif()
   
+  target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${CMAKE_SOURCE_DIR}/engine/src)
+  target_include_directories(${MABOSS_LIBNAME}-static PUBLIC ${CMAKE_SOURCE_DIR}/engine/src/parsers)
+  
   target_include_directories(${MABOSS_LIBNAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/src)
   target_include_directories(${MABOSS_LIBNAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/src/parsers)
   
-  target_link_libraries(${MABOSS_NAME} ${MABOSS_LIBNAME})
-  target_link_libraries(${POPMABOSS_NAME} ${MABOSS_LIBNAME})
+  target_link_libraries(${MABOSS_NAME} ${MABOSS_LIBNAME}-static)
+  target_link_libraries(${POPMABOSS_NAME} ${MABOSS_LIBNAME}-static)
 
   list(APPEND list_targets ${MABOSS_NAME} ${POPMABOSS_NAME})
 
@@ -189,9 +224,22 @@ else()
   )
 
   install( 
+    TARGETS ${MABOSS_LIBNAME}-static
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    COMPONENT libraries
+  )
+
+  install( 
     TARGETS ${MABOSS_LIBNAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    COMPONENT libs
+    COMPONENT libraries
+  )
+  
+  install( 
+    DIRECTORY ${CMAKE_SOURCE_DIR}/engine/src/ 
+    DESTINATION include
+    COMPONENT libraries
+    FILES_MATCHING PATTERN "*.h"
   )
 
 endif()
