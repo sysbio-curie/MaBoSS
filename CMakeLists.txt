@@ -80,9 +80,6 @@ else()
   endif()
   set(MABOSS_CLIENT_NAME MaBoSS-client)
   
-  set(CMAKE_SHARED_LIBRARY_PREFIX "")
-  set(CMAKE_STATIC_LIBRARY_PREFIX "")
-  
   # configuring executables
   add_executable(${MABOSS_NAME} engine/src/MaBoSS.cc)
   add_executable(${POPMABOSS_NAME} engine/src/PopMaBoSS.cc)
@@ -94,10 +91,12 @@ else()
   
   add_library(${MABOSS_LIBNAME}-static STATIC ${src_files})
   target_compile_definitions(${MABOSS_LIBNAME}-static PUBLIC MAXNODES=${MAXNODES} ${DYNBITSET_FLAG})
+  set_target_properties(${MABOSS_LIBNAME}-static PROPERTIES OUTPUT_NAME ${MABOSS_NAME}-static)
   
   add_library(${MABOSS_LIBNAME} SHARED ${src_files})
   target_compile_definitions(${MABOSS_LIBNAME} PUBLIC MAXNODES=${MAXNODES} ${DYNBITSET_FLAG})
-    
+  set_target_properties(${MABOSS_LIBNAME} PROPERTIES OUTPUT_NAME ${MABOSS_NAME})
+
   if(MPI)
       find_package(MPI)
       if(MPI_CXX_FOUND)
