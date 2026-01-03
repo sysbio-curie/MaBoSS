@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS/actions,8,5
+/sysbio-curie/MaBoSS,5,2
+/sysbio-curie/MaBoSS/releases/tag/v2.6.5.3,5,1
+/sysbio-curie/MaBoSS/actions/runs/20385770871,2,1
+/sysbio-curie/MaBoSS/actions/runs/20385770871/job/58586234358,2,1
+/sysbio-curie/MaBoSS/actions/runs/20385770871/job/58586234351,1,1
+/sysbio-curie/MaBoSS/actions/runs/20385770871/job/58586234353,1,1
+/sysbio-curie/MaBoSS/actions/runs/20385770872,1,1
+/sysbio-curie/MaBoSS/actions/runs/20385770872/job/58586568818,1,1
+/sysbio-curie/MaBoSS/actions/workflows/repo-stats.yml,1,1
