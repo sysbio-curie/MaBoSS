@@ -1,0 +1,212 @@
+\doxysection{Ma\+BEst\+Engine Class Reference}
+\hypertarget{classMaBEstEngine}{}\label{classMaBEstEngine}\index{MaBEstEngine@{MaBEstEngine}}
+
+
+Inheritance diagram for Ma\+BEst\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classMaBEstEngine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ma\+BEst\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMaBEstEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMaBEstEngine_a3115f709dee3f15303bfa51853bf8112}\label{classMaBEstEngine_a3115f709dee3f15303bfa51853bf8112} 
+{\bfseries Ma\+BEst\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+void \mbox{\hyperlink{classMaBEstEngine_a0e264360de0c209346f9d44dcf82e570}{run}} (std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+traj=NULL)
+\item 
+void \mbox{\hyperlink{classMaBEstEngine_a6bdd228c75897c8a9fecd5faf1421586}{display\+Run\+Stats}} (std\+::ostream \&os, time\+\_\+t start\+\_\+time, time\+\_\+t end\+\_\+time) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classProbTrajEngine}{Prob\+Traj\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Prob\+Traj\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Merged\+Cumulator} ()
+\item 
+int \mbox{\hyperlink{classProbTrajEngine_ad481fd08c58a2fd258e59223116d1fde}{get\+Max\+Tick\+Index}} () const
+\item 
+double \mbox{\hyperlink{classProbTrajEngine_a112ce8a1571d4535e5276dbee55ae6c0}{get\+Final\+Time}} () const
+\item 
+void \mbox{\hyperlink{classProbTrajEngine_a87f2ba8085ea8ce2cc785e3d75170b83}{display\+Stat\+Dist}} (Stat\+Dist\+Displayer \texorpdfstring{$\ast$}{*}output\+\_\+statdist) const
+\item 
+void \mbox{\hyperlink{classProbTrajEngine_a7117aa4d59e0f5415d95724b046ebdfb}{display\+Prob\+Traj}} (\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+void \mbox{\hyperlink{classProbTrajEngine_a9abf644221eb866a1c66ff6837a7058d}{display}} (\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*}probtraj\+\_\+displayer, Stat\+Dist\+Displayer \texorpdfstring{$\ast$}{*}statdist\+\_\+displayer, Fixed\+Point\+Displayer \texorpdfstring{$\ast$}{*}fp\+\_\+displayer) const
+\item 
+void \mbox{\hyperlink{classProbTrajEngine_a9da9b50134fff65c47f88c5b8a78489a}{display\+Observed\+Graph}} (std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+observed\+\_\+graph, std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+observed\+\_\+durations)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classFixedPointEngine}{Fixed\+Point\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Fixed\+Point\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+bool \mbox{\hyperlink{classFixedPointEngine_affe5dc0acaf89eab107198990a451700}{converges}} () const
+\item 
+const Fixed\+Points \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classFixedPointEngine_a99a076fb8aa584581543babdc27e0e58}{get\+Fixpoints}} () const
+\item 
+const std\+::map$<$ unsigned int, std\+::pair$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}}, double $>$ $>$ \mbox{\hyperlink{classFixedPointEngine_ab8f0ef1e2d2e585a6be6724b75b35883}{get\+Fix\+Points\+Dists}} () const
+\item 
+void \mbox{\hyperlink{classFixedPointEngine_aa49f499f42d334f4ae589b7245ecccc1}{display\+Fixpoints}} (Fixed\+Point\+Displayer \texorpdfstring{$\ast$}{*}displayer) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Meta\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+Node\+Index \mbox{\hyperlink{classMetaEngine_ae95edf198133820b127e4e71e6517949}{get\+Target\+Node}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+double \mbox{\hyperlink{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}{compute\+TH}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{get\+Elapsed\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}{get\+User\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}{get\+Elapsed\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}{get\+User\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}{get\+Elapsed\+Stat\+Dist\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}{get\+User\+Stat\+Dist\+Run\+Time}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMaBEstEngine_adab25874360081f4fc05a019e5cda7e1}\label{classMaBEstEngine_adab25874360081f4fc05a019e5cda7e1} 
+static const std\+::string {\bfseries VERSION} = "{}2.\+6.\+5"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Initializes the engine. \end{DoxyCompactList}\item 
+static void {\bfseries load\+User\+Funcs} (const char \texorpdfstring{$\ast$}{*}module)
+\begin{DoxyCompactList}\small\item\em Calls \doxylink{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}{init}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classProbTrajEngine}{Prob\+Traj\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries build\+Schedule} ()
+\begin{DoxyCompactList}\small\item\em Takes all the nodes\textquotesingle{} schedule to create a global schedule, sorted by time (sooner to later) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classProbTrajEngine_a4c298e74e489a0a651ae6783cc017739}{apply\+Schedule}} (\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, std\+::vector$<$ double $>$ \&times, double time)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classProbTrajEngine}{Prob\+Traj\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classProbTrajEngine_a6c0424242a2ae8b5832b4b848c801482}{thread\+Merge\+Wrapper}} (void \texorpdfstring{$\ast$}{*}arg)
+\item 
+static void \mbox{\hyperlink{classProbTrajEngine_aa7eae6f9e621c1e433bb7ef23abb796d}{merge\+Results}} (std\+::vector$<$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*} $>$ \&cumulator\+\_\+v, std\+::vector$<$ Fixed\+Points \texorpdfstring{$\ast$}{*} $>$ \&fixpoint\+\_\+map\+\_\+v, std\+::vector$<$ \mbox{\hyperlink{classObservedGraph}{Observed\+Graph}} \texorpdfstring{$\ast$}{*} $>$ \&observed\+\_\+graph\+\_\+v)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classFixedPointEngine}{Fixed\+Point\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classFixedPointEngine_afda353a708ffbc49d8495e0e14d7d09d}{merge\+Pair\+Of\+Fixpoints}} (Fixed\+Points \texorpdfstring{$\ast$}{*}fixpoints\+\_\+1, Fixed\+Points \texorpdfstring{$\ast$}{*}fixpoints\+\_\+2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classProbTrajEngine}{Prob\+Traj\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classObservedGraph}{Observed\+Graph}} \texorpdfstring{$\ast$}{*} {\bfseries observed\+\_\+graph}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classObservedGraph}{Observed\+Graph}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries observed\+\_\+graph\+\_\+v}
+\item 
+\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries merged\+\_\+cumulator}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}} $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries cumulator\+\_\+v}
+\item 
+std\+::map$<$ double, std\+::map$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries schedule}
+\item 
+std\+::vector$<$ double $>$ {\bfseries schedule\+\_\+times}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classFixedPointEngine}{Fixed\+Point\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+Fixed\+Points \texorpdfstring{$\ast$}{*} {\bfseries fixpoints}
+\item 
+std\+::vector$<$ Fixed\+Points \texorpdfstring{$\ast$}{*} $>$ {\bfseries fixpoint\+\_\+map\+\_\+v}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*} {\bfseries network}
+\item 
+\mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*} {\bfseries runconfig}
+\item 
+double {\bfseries time\+\_\+tick}
+\item 
+double {\bfseries max\+\_\+time}
+\item 
+unsigned int {\bfseries sample\+\_\+count}
+\item 
+unsigned int {\bfseries statdist\+\_\+trajcount}
+\item 
+bool {\bfseries discrete\+\_\+time}
+\item 
+unsigned int {\bfseries thread\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries reference\+\_\+state}
+\item 
+unsigned int {\bfseries refnode\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries refnode\+\_\+mask}
+\item 
+long long {\bfseries elapsed\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+epilogue\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+epilogue\+\_\+runtime}
+\item 
+std\+::vector$<$ long long int $>$ {\bfseries thread\+\_\+elapsed\+\_\+runtimes}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMaBEstEngine_a6bdd228c75897c8a9fecd5faf1421586}\label{classMaBEstEngine_a6bdd228c75897c8a9fecd5faf1421586} 
+\index{MaBEstEngine@{MaBEstEngine}!displayRunStats@{displayRunStats}}
+\index{displayRunStats@{displayRunStats}!MaBEstEngine@{MaBEstEngine}}
+\doxysubsubsection{\texorpdfstring{displayRunStats()}{displayRunStats()}}
+{\footnotesize\ttfamily void Ma\+BEst\+Engine\+::display\+Run\+Stats (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{time\+\_\+t}]{start\+\_\+time,  }\item[{time\+\_\+t}]{end\+\_\+time }\end{DoxyParamCaption}) const}
+
+Displays various info about the simulation 
+\begin{DoxyParams}{Parameters}
+{\em os} & reference to the output stream \\
+\hline
+{\em start\+\_\+time} & start time of the simulation \\
+\hline
+{\em end\+\_\+time} & end time of the simulation \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMaBEstEngine_a0e264360de0c209346f9d44dcf82e570}\label{classMaBEstEngine_a0e264360de0c209346f9d44dcf82e570} 
+\index{MaBEstEngine@{MaBEstEngine}!run@{run}}
+\index{run@{run}!MaBEstEngine@{MaBEstEngine}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Ma\+BEst\+Engine\+::run (\begin{DoxyParamCaption}\item[{std\+::ostream \texorpdfstring{$\ast$}{*}}]{output\+\_\+traj = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+Main function that launches the whole execution of the simulation. It distributes the trajectories between the threads and executes the final phase while recording execution times. 
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+traj} & (optional) prints info about trajectories (see \doxylink{a2e0ce8d20b5f99eb8558728c3a173b54}{run\+Thread} ) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/engines/Ma\+BEst\+Engine.\+h\item 
+engine/src/engines/Ma\+BEst\+Engine.\+cc\end{DoxyCompactItemize}

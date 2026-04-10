@@ -1,0 +1,105 @@
+\doxysection{Stochastic\+Simulation\+Engine.\+h}
+\hypertarget{StochasticSimulationEngine_8h_source}{}\label{StochasticSimulationEngine_8h_source}\index{engine/src/engines/StochasticSimulationEngine.h@{engine/src/engines/StochasticSimulationEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ StochasticSimulationEngine.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_STOCHASTICSIMULATIONENGINE\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_STOCHASTICSIMULATIONENGINE\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}../Network.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}../RandomGenerator.h"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}../RunConfig.h"{}}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classStochasticSimulationEngine}{StochasticSimulationEngine}}\ \{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{classNetwork}{Network}}*\ network;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ Duration\ of\ the\ simulation}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{double}\ max\_time;}
+\DoxyCodeLine{00068\ \ \ }
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Using\ discrete\ time}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ discrete\_time;}
+\DoxyCodeLine{00071\ \ \ }
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ Time\ tick\ for\ discrete\ time}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{double}\ time\_tick;}
+\DoxyCodeLine{00074\ \ \ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ NodeIndex\ getTargetNode(\mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ \_random\_generator,\ \textcolor{keyword}{const}\ std::vector<double>\&\ nodeTransitionRates,\ \textcolor{keywordtype}{double}\ total\_rate)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ VERSION;}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ *random\_generator;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ }
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{classStochasticSimulationEngine}{StochasticSimulationEngine}}(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig,\ \textcolor{keywordtype}{int}\ seed):\ network(network),\ max\_time(runconfig-\/>getMaxTime()),\ discrete\_time(runconfig-\/>isDiscreteTime()),\ time\_tick(runconfig-\/>getTimeTick())\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ random\_generator\ =\ runconfig-\/>getRandomGeneratorFactory()-\/>generateRandomGenerator(seed);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{classStochasticSimulationEngine}{\string~StochasticSimulationEngine}}()\ \{\ \textcolor{keyword}{delete}\ random\_generator;\ \}}
+\DoxyCodeLine{00087\ \ \ }
+\DoxyCodeLine{00088\ \ \ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int}\ \_seed)\ \{\ }
+\DoxyCodeLine{00090\ \ \ \ \ random\_generator-\/>setSeed(\_seed);\ }
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ setMaxTime(\textcolor{keywordtype}{double}\ \_max\_time)\ \{\ this-\/>max\_time\ =\ \_max\_time;\ \}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ setDiscreteTime(\textcolor{keywordtype}{bool}\ \_discrete\_time)\ \{\ this-\/>discrete\_time\ =\ \_discrete\_time;\ \}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ setTimeTick(\textcolor{keywordtype}{double}\ \_time\_tick)\ \{\ this-\/>time\_tick\ =\ \_time\_tick;\ \}}
+\DoxyCodeLine{00095\ \ \ }
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ run(\mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ initial\_state,\ std::ostream*\ output\_traj\ =\ NULL);}
+\DoxyCodeLine{00097\ \};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

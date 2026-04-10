@@ -1,0 +1,19 @@
+\doxysection{maps\+\_\+header.\+h}
+\hypertarget{maps__header_8h_source}{}\label{maps__header_8h_source}\index{engine/src/maps\_header.h@{engine/src/maps\_header.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NETWORKSTATE\_STD\_MAP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ USE\_UNORDERED\_MAP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ STATE\_MAP\ std::unordered\_map}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ HASH\_STRUCT\ hash}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ STATE\_MAP\ std::map}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MAP\ std::map}}
+
+\end{DoxyCode}

@@ -1,0 +1,60 @@
+\doxysection{Observed\+Graph.\+h}
+\hypertarget{ObservedGraph_8h_source}{}\label{ObservedGraph_8h_source}\index{engine/src/ObservedGraph.h@{engine/src/ObservedGraph.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_OBSERVED\_GRAPH\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_OBSERVED\_GRAPH\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classObservedGraph}{ObservedGraph}}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ std::map<NetworkState\_Impl,\ std::map<NetworkState\_Impl,\ unsigned\ int>>\ counts;}
+\DoxyCodeLine{00013\ \ \ \ \ std::map<NetworkState\_Impl,\ std::map<NetworkState\_Impl,\ double>>\ durations;}
+\DoxyCodeLine{00014\ \ \ \ \ NetworkState\_Impl\ graph\_mask;}
+\DoxyCodeLine{00015\ \ \ \ \ std::vector<const\ Node*>\ graph\_nodes;}
+\DoxyCodeLine{00016\ \ \ \ \ std::vector<NetworkState\_Impl>\ graph\_states;}
+\DoxyCodeLine{00017\ \ \ \ \ NetworkState\_Impl\ last\_state;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ last\_time;}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ NetworkState\_Impl\ getObservedState(\mbox{\hyperlink{classNetworkState}{NetworkState}}\ state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network);\ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count=0,\ \textcolor{keywordtype}{double}\ duration=0.0);\ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ addFirstTransition(\mbox{\hyperlink{classNetworkState}{NetworkState}}\ origin\_state);\ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ addTransition(\mbox{\hyperlink{classNetworkState}{NetworkState}}\ destination\_state,\ \textcolor{keywordtype}{double}\ time);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ std::map<NetworkState\_Impl,\ std::map<NetworkState\_Impl,\ unsigned\ int>>\&\ getCounts()\ \textcolor{keyword}{const};\ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{const}\ std::map<NetworkState\_Impl,\ std::map<NetworkState\_Impl,\ double>>\&\ getDurations()\ \textcolor{keyword}{const};\ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<NetworkState\_Impl>\ getStates()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\ *\ output\_observed\_graph,\ std::ostream\ *\ output\_observed\_durations,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ mergePairOfObservedGraph(\textcolor{keyword}{const}\ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}*\ observed\_graph\_2);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ epilogue();}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}(\textcolor{keywordtype}{char}\ *\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size);}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ mergePairOfMPIObservedGraph(\mbox{\hyperlink{classObservedGraph}{ObservedGraph}}*\ graph,\ \textcolor{keywordtype}{int}\ world\_rank,\ \textcolor{keywordtype}{int}\ dest,\ \textcolor{keywordtype}{int}\ origin,\ \textcolor{keywordtype}{bool}\ pack=\textcolor{keyword}{true});}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ MPI\_Pack\_Size\_ObservedGraph()\ \textcolor{keyword}{const};\ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ MPI\_Unpack\_ObservedGraph(\textcolor{keywordtype}{char}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{char}*\ MPI\_Pack\_ObservedGraph(\textcolor{keywordtype}{int}\ dest,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *\ buff\_size)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ MPI\_Send\_ObservedGraph(\textcolor{keywordtype}{int}\ dest)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ MPI\_Recv\_ObservedGraph(\textcolor{keywordtype}{int}\ origin);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00049\ \ \ \ \ PyObject*\ getNumpyObservedGraph(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ \ \ \ \ PyObject*\ getNumpyObservedDurations(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

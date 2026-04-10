@@ -1,0 +1,80 @@
+\doxysection{Network\+State Class Reference}
+\hypertarget{classNetworkState}{}\label{classNetworkState}\index{NetworkState@{NetworkState}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNetworkState_a8019b498f10b603f6bde02a2f7dab18f}\label{classNetworkState_a8019b498f10b603f6bde02a2f7dab18f} 
+{\bfseries Network\+State} (const Network\+State\+\_\+\+Impl \&\+\_\+state)
+\item 
+\Hypertarget{classNetworkState_a4e5b4b680191893b9e2a985966794020}\label{classNetworkState_a4e5b4b680191893b9e2a985966794020} 
+{\bfseries Network\+State} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&\+\_\+state)
+\item 
+\Hypertarget{classNetworkState_a8bd0a89ff422b956514e610054bd6a58}\label{classNetworkState_a8bd0a89ff422b956514e610054bd6a58} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} \& {\bfseries operator=} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&\+\_\+state)
+\item 
+\Hypertarget{classNetworkState_a92aedc0b56762b0ba9b804eba176566a}\label{classNetworkState_a92aedc0b56762b0ba9b804eba176566a} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries operator\&} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&mask) const
+\item 
+\Hypertarget{classNetworkState_af1a90876be8bdf5691d4eb6eafe9fa54}\label{classNetworkState_af1a90876be8bdf5691d4eb6eafe9fa54} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries apply\+Mask} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&mask, std\+::map$<$ unsigned int, unsigned int $>$ \&) const
+\item 
+\Hypertarget{classNetworkState_aad85301b328d1f8ede76f4b2ed950dc1}\label{classNetworkState_aad85301b328d1f8ede76f4b2ed950dc1} 
+void {\bfseries set} ()
+\item 
+\Hypertarget{classNetworkState_a667922b79fcce6400f6d676b3f9d0565}\label{classNetworkState_a667922b79fcce6400f6d676b3f9d0565} 
+void {\bfseries reset} ()
+\item 
+\Hypertarget{classNetworkState_ac1ad524bdd11213dc2b32dc24bf5ce50}\label{classNetworkState_ac1ad524bdd11213dc2b32dc24bf5ce50} 
+\mbox{\hyperlink{classNodeState}{Node\+State}} {\bfseries get\+Node\+State} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+\Hypertarget{classNetworkState_a05c92d0f3ccc3a3e0d5ca9ba32a7198f}\label{classNetworkState_a05c92d0f3ccc3a3e0d5ca9ba32a7198f} 
+void {\bfseries set\+Node\+State} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{classNodeState}{Node\+State}} node\+\_\+state)
+\item 
+\Hypertarget{classNetworkState_a25e8fa290a6fd3ad1c31aebaf6eba28c}\label{classNetworkState_a25e8fa290a6fd3ad1c31aebaf6eba28c} 
+void {\bfseries flip\+State} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node)
+\item 
+\Hypertarget{classNetworkState_a89b1dd457d7325ca227ed74b871a40a9}\label{classNetworkState_a89b1dd457d7325ca227ed74b871a40a9} 
+bool {\bfseries compute\+Node\+State} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{classNodeState}{Node\+State}} \&node\+\_\+state)
+\item 
+\Hypertarget{classNetworkState_ab5d23a4324814695aa029993a63a6e9f}\label{classNetworkState_ab5d23a4324814695aa029993a63a6e9f} 
+std\+::set$<$ Network\+State\+\_\+\+Impl $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Network\+States} () const
+\item 
+\Hypertarget{classNetworkState_a7873598d72938a4b1ba0e2a79dfd17bd}\label{classNetworkState_a7873598d72938a4b1ba0e2a79dfd17bd} 
+Network\+State\+\_\+\+Impl {\bfseries get\+State} () const
+\item 
+\Hypertarget{classNetworkState_a727f0d7813a819a479847d38133e524e}\label{classNetworkState_a727f0d7813a819a479847d38133e524e} 
+void {\bfseries display} (std\+::ostream \&os, const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network) const
+\item 
+\Hypertarget{classNetworkState_a63ea7e87a2e5eb2eff6be6a03f3ccdf8}\label{classNetworkState_a63ea7e87a2e5eb2eff6be6a03f3ccdf8} 
+std\+::string {\bfseries get\+Name} (const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const std\+::string \&sep="{} -\/-\/ "{}) const
+\item 
+\Hypertarget{classNetworkState_aa57ea4e83dcaed6950a2f1bca4d7bf0b}\label{classNetworkState_aa57ea4e83dcaed6950a2f1bca4d7bf0b} 
+void {\bfseries display\+One\+Line} (std\+::ostream \&os, const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const std\+::string \&sep="{} -\/-\/ "{}) const
+\item 
+\Hypertarget{classNetworkState_aa10ef47748cb75e80f1949360c29e075}\label{classNetworkState_aa10ef47748cb75e80f1949360c29e075} 
+void {\bfseries display\+JSON} (std\+::ostream \&os, const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const std\+::string \&sep="{} -\/-\/ "{}) const
+\item 
+\Hypertarget{classNetworkState_ae39dcb907d7070e640042426848eb7ee}\label{classNetworkState_ae39dcb907d7070e640042426848eb7ee} 
+unsigned int {\bfseries hamming} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const Network\+State\+\_\+\+Impl \&state) const
+\item 
+\Hypertarget{classNetworkState_a2762565a8fa61a681a1cc10e2c74c166}\label{classNetworkState_a2762565a8fa61a681a1cc10e2c74c166} 
+unsigned int {\bfseries hamming} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&state) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNetworkState_a2139690605c3b2e646e1ee31dcc5308d}\label{classNetworkState_a2139690605c3b2e646e1ee31dcc5308d} 
+static Network\+State\+\_\+\+Impl {\bfseries node\+Bit} (Node\+Index node\+\_\+index)
+\item 
+\Hypertarget{classNetworkState_a10f76eaf935fa7f3abe004f8c6ba945a}\label{classNetworkState_a10f76eaf935fa7f3abe004f8c6ba945a} 
+static bool {\bfseries is\+Pop\+State} ()
+\item 
+\Hypertarget{classNetworkState_a2615920be918edb767beb09159c6264f}\label{classNetworkState_a2615920be918edb767beb09159c6264f} 
+static \mbox{\hyperlink{classNodeState}{Node\+State}} {\bfseries get\+State} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, const Network\+State\+\_\+\+Impl \&state)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Network\+State.\+h\item 
+engine/src/Network\+State.\+cc\end{DoxyCompactItemize}

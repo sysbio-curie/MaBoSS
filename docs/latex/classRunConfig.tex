@@ -1,0 +1,104 @@
+\doxysection{Run\+Config Class Reference}
+\hypertarget{classRunConfig}{}\label{classRunConfig}\index{RunConfig@{RunConfig}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRunConfig_a16fe217ee369121725622373f2865b14}\label{classRunConfig_a16fe217ee369121725622373f2865b14} 
+{\bfseries Run\+Config} (const \mbox{\hyperlink{classRunConfig}{Run\+Config}} \&other)
+\item 
+\Hypertarget{classRunConfig_a4a8854db3567db265483bdcf490d72a2}\label{classRunConfig_a4a8854db3567db265483bdcf490d72a2} 
+int {\bfseries parse} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const char \texorpdfstring{$\ast$}{*}file=NULL)
+\item 
+\Hypertarget{classRunConfig_a9c176244d50034ef98ec63119fd6c6bf}\label{classRunConfig_a9c176244d50034ef98ec63119fd6c6bf} 
+int {\bfseries parse\+Expression} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const char \texorpdfstring{$\ast$}{*}expr)
+\item 
+\Hypertarget{classRunConfig_ac87eccf54dd889fa0713bdb9ea42eafd}\label{classRunConfig_ac87eccf54dd889fa0713bdb9ea42eafd} 
+void {\bfseries set\+Parameter} (const std\+::string \&param, double value)
+\item 
+\Hypertarget{classRunConfig_add6d00c3c37c5cf0f2e2174edd5d384f}\label{classRunConfig_add6d00c3c37c5cf0f2e2174edd5d384f} 
+void {\bfseries set\+Custom\+Pop\+Output\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\Hypertarget{classRunConfig_a1e7c7468dd2c70f77a1bec1fea51721a}\label{classRunConfig_a1e7c7468dd2c70f77a1bec1fea51721a} 
+bool {\bfseries has\+Custom\+Pop\+Output} () const
+\item 
+\Hypertarget{classRunConfig_a31a02baa606d7e16b4358cafd2d39275}\label{classRunConfig_a31a02baa606d7e16b4358cafd2d39275} 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Custom\+Pop\+Output\+Expression} () const
+\item 
+\Hypertarget{classRunConfig_a574a8d21c4dabda4fd54563900cb4e3a}\label{classRunConfig_a574a8d21c4dabda4fd54563900cb4e3a} 
+\mbox{\hyperlink{classRandomGeneratorFactory}{Random\+Generator\+Factory}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Random\+Generator\+Factory} () const
+\item 
+\Hypertarget{classRunConfig_a6305388c8698bbcf26fd6494862e70b2}\label{classRunConfig_a6305388c8698bbcf26fd6494862e70b2} 
+unsigned int {\bfseries get\+Init\+Pop} () const
+\item 
+\Hypertarget{classRunConfig_acfcb18e998d95ba5cb80d4fda35dfd95}\label{classRunConfig_acfcb18e998d95ba5cb80d4fda35dfd95} 
+double {\bfseries get\+Pop\+Base} () const
+\item 
+\Hypertarget{classRunConfig_a1d8c0aeb53143e536b5a53f169a80c65}\label{classRunConfig_a1d8c0aeb53143e536b5a53f169a80c65} 
+double {\bfseries get\+Time\+Tick} () const
+\item 
+\Hypertarget{classRunConfig_adc818439101d86896460afad2c26efa3}\label{classRunConfig_adc818439101d86896460afad2c26efa3} 
+double {\bfseries get\+Max\+Time} () const
+\item 
+\Hypertarget{classRunConfig_a3b1b3aff71a684147893307dc30b0768}\label{classRunConfig_a3b1b3aff71a684147893307dc30b0768} 
+unsigned int {\bfseries get\+Sample\+Count} () const
+\item 
+\Hypertarget{classRunConfig_a63cfc1f7f6cdbf633d5f40d4f22d248a}\label{classRunConfig_a63cfc1f7f6cdbf633d5f40d4f22d248a} 
+bool {\bfseries is\+Discrete\+Time} () const
+\item 
+\Hypertarget{classRunConfig_ae4f9b1b3bf050175d7c0e8d3756e6524}\label{classRunConfig_ae4f9b1b3bf050175d7c0e8d3756e6524} 
+bool {\bfseries use\+Phys\+Rand\+Gen} () const
+\item 
+\Hypertarget{classRunConfig_a2244fd11bc917e66b726e4fcd0db5166}\label{classRunConfig_a2244fd11bc917e66b726e4fcd0db5166} 
+bool {\bfseries use\+Glibc\+Rand\+Gen} () const
+\item 
+\Hypertarget{classRunConfig_a71b7514ad40bff77bff993b04759d095}\label{classRunConfig_a71b7514ad40bff77bff993b04759d095} 
+bool {\bfseries use\+MTRand\+Gen} () const
+\item 
+\Hypertarget{classRunConfig_a6d5f606044a4ca9a393f86279fec4413}\label{classRunConfig_a6d5f606044a4ca9a393f86279fec4413} 
+bool {\bfseries get\+Display\+Trajectories} () const
+\item 
+\Hypertarget{classRunConfig_aab8869162353902f0f96bb422315bc35}\label{classRunConfig_aab8869162353902f0f96bb422315bc35} 
+int {\bfseries get\+Seed\+Pseudo\+Random} () const
+\item 
+\Hypertarget{classRunConfig_a982d218b99ed8742c19f84d6017b063f}\label{classRunConfig_a982d218b99ed8742c19f84d6017b063f} 
+void {\bfseries set\+Seed\+Pseudo\+Random} (int seed)
+\item 
+\Hypertarget{classRunConfig_a3598c73a298bb2fc187b8ce18cce5272}\label{classRunConfig_a3598c73a298bb2fc187b8ce18cce5272} 
+void {\bfseries display} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, time\+\_\+t start\+\_\+time, time\+\_\+t end\+\_\+time, std\+::ostream \&os) const
+\item 
+\Hypertarget{classRunConfig_a908cb5d3e7f188d2a4276e772503d3d4}\label{classRunConfig_a908cb5d3e7f188d2a4276e772503d3d4} 
+bool {\bfseries display\+Trajectories} () const
+\item 
+\Hypertarget{classRunConfig_ab9a816c17708db02132d14f70b94d023}\label{classRunConfig_ab9a816c17708db02132d14f70b94d023} 
+unsigned int {\bfseries get\+Thread\+Count} () const
+\item 
+\Hypertarget{classRunConfig_a4d8d0525294d32bfc82fb98a8d6a48a2}\label{classRunConfig_a4d8d0525294d32bfc82fb98a8d6a48a2} 
+unsigned int {\bfseries get\+Stat\+Dist\+Traj\+Count} () const
+\item 
+\Hypertarget{classRunConfig_aea9c6ad45927a62f0c698744f8c1e269}\label{classRunConfig_aea9c6ad45927a62f0c698744f8c1e269} 
+double {\bfseries get\+Statdist\+Cluster\+Threshold} () const
+\item 
+\Hypertarget{classRunConfig_af7ab3dfb7b8284a653f3caf231cdfa72}\label{classRunConfig_af7ab3dfb7b8284a653f3caf231cdfa72} 
+unsigned int {\bfseries get\+Stat\+Dist\+Similarity\+Cache\+Max\+Size} () const
+\item 
+\Hypertarget{classRunConfig_aaf0925f6a90804f426c0574d3e29bfeb}\label{classRunConfig_aaf0925f6a90804f426c0574d3e29bfeb} 
+void {\bfseries generate\+Template} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, std\+::ostream \&os, std\+::string version) const
+\item 
+\Hypertarget{classRunConfig_a1d4e656a6f99bdeb19507065b6679841}\label{classRunConfig_a1d4e656a6f99bdeb19507065b6679841} 
+void {\bfseries dump} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, std\+::ostream \&os, std\+::string version, bool header=true) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRunConfig_a4c3cb4b34bf941b30a27c77596432f14}\label{classRunConfig_a4c3cb4b34bf941b30a27c77596432f14} 
+static void {\bfseries set\+Verbose} (unsigned int level)
+\item 
+\Hypertarget{classRunConfig_a01e0239605813c5bc14b2cf904ce6c5c}\label{classRunConfig_a01e0239605813c5bc14b2cf904ce6c5c} 
+static unsigned int {\bfseries get\+Verbose} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Run\+Config.\+h\item 
+engine/src/Run\+Config.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,178 @@
+\doxysection{Pop\+Network.\+h}
+\hypertarget{PopNetwork_8h_source}{}\label{PopNetwork_8h_source}\index{engine/src/PopNetwork.h@{engine/src/PopNetwork.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ PopNetwork.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_POPNETWORK\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_POPNETWORK\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}IStates.h"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}Expressions.h"{}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDivisionRule}{DivisionRule}}\ \{}
+\DoxyCodeLine{00058\ \ \ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{comment}{//During\ a\ division,\ you\ remove\ the\ cell\ and\ create\ two\ new\ cells}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DAUGHTER\_1;}
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ and\ }}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DAUGHTER\_2;}
+\DoxyCodeLine{00065\ \ \ }
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ Each\ one\ has\ it's\ own\ map\ which\ will\ change\ a\ node\ value\ according\ to\ an\ expression}}
+\DoxyCodeLine{00067\ \ \ std::map<Node*,\ Expression*>\ daughter1;}
+\DoxyCodeLine{00068\ \ \ std::map<Node*,\ Expression*>\ daughter2;}
+\DoxyCodeLine{00069\ \ \ }
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//\ And\ we\ have\ an\ map\ to\ select\ the\ map\ of\ each\ daughter}}
+\DoxyCodeLine{00071\ \ \ std::map<int,\ std::map<Node*,\ Expression*>\ >\ daughters\ =\ \{\{DAUGHTER\_1,\ daughter1\},\ \{DAUGHTER\_2,\ daughter2\}\};}
+\DoxyCodeLine{00072\ \ \ }
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ Division\ also\ have\ a\ rate}}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ rate;}
+\DoxyCodeLine{00075\ \ \ }
+\DoxyCodeLine{00076\ \ \ }
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{classDivisionRule}{DivisionRule}}()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ daughter1.clear();}
+\DoxyCodeLine{00079\ \ \ \ \ daughter2.clear();}
+\DoxyCodeLine{00080\ \ \ \ \ rate\ =\ NULL;}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ }
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{classDivisionRule}{\string~DivisionRule}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ daughter\ :\ daughters)\ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node\_expr\ :\ daughter.second)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ node\_expr.second;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \}\ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{delete}\ rate;}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ \ \ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ setRate(\mbox{\hyperlink{classExpression}{Expression}}*\ rate);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{double}\ getRate(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop);}
+\DoxyCodeLine{00094\ \ \ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ addDaughterNode(\textcolor{keywordtype}{int}\ daughter,\ \mbox{\hyperlink{classNode}{Node}}*\ node,\ \mbox{\hyperlink{classExpression}{Expression}}*\ expression)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ daughters[daughter][node]\ =\ expression;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ \ \ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ This\ will\ return\ a\ new\ state\ based\ on\ the\ mother\ cell,\ properly\ modified\ according\ to\ the\ maps}}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ applyRules(\textcolor{keywordtype}{int}\ daughter,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop);}
+\DoxyCodeLine{00101\ \ \ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00104\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}division\ \{"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00105\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ rate="{}}\ <<\ this-\/>rate-\/>toString()\ <<\ \textcolor{stringliteral}{"{};"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ node\_expr\ :\ daughters.at(DAUGHTER\_1))\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ node\_expr.first-\/>getLabel()\ <<\ \textcolor{stringliteral}{"{}.DAUGHTER1\ =\ "{}}\ <<\ node\_expr.second-\/>toString()\ <<\ \textcolor{stringliteral}{"{};"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ node\_expr\ :\ daughters.at(DAUGHTER\_2))\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ node\_expr.first-\/>getLabel()\ <<\ \textcolor{stringliteral}{"{}.DAUGHTER2\ =\ "{}}\ <<\ node\_expr.second-\/>toString()\ <<\ \textcolor{stringliteral}{"{};"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\}"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00114\ \ \ \}}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopIStateGroup}{PopIStateGroup}};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopNetwork}{PopNetwork}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classNetwork}{Network}}\ \{}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00121\ \ \ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ Population\ networks\ have\ two\ extra\ fields\ :}}
+\DoxyCodeLine{00123\ \ \ }
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{//\ Rules\ for\ division\ (speed,\ state\ modifications)}}
+\DoxyCodeLine{00125\ \ \ std::vector<DivisionRule*>\ divisionRules;}
+\DoxyCodeLine{00126\ \ \ }
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ Death\ rate}}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ deathRate;}
+\DoxyCodeLine{00129\ \ \ }
+\DoxyCodeLine{00130\ \ \ std::vector<PopIStateGroup*>*\ pop\_istate\_group\_list;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{classPopNetwork}{PopNetwork}}();}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{classPopNetwork}{\string~PopNetwork}}();}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{classPopNetwork}{PopNetwork}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetwork}{PopNetwork}}\&\ network);}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{classPopNetwork}{PopNetwork}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetwork}{PopNetwork}}\&\ network);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{int}\ parse(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file\ =\ NULL,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL,\ \textcolor{keywordtype}{bool}\ is\_temp\_file\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{int}\ parseExpression(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ content,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL);}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ parseSingleExpression(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ content,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL);}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{void}\ initPopStates(\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ initial\_pop\_state,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ randgen,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{void}\ addDivisionRule(\mbox{\hyperlink{classDivisionRule}{DivisionRule}}*\ rule)\ \{\ divisionRules.push\_back(rule);\ \}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{void}\ removeDivisionRule(\textcolor{keywordtype}{size\_t}\ index)\ \{\ }
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{classDivisionRule}{DivisionRule}}*\ dr\ =\ divisionRules[index];\ }
+\DoxyCodeLine{00145\ \ \ \ \ divisionRules.erase(divisionRules.begin()\ +\ index);\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{delete}\ dr;}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ setDeathRate(\mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ \{\ deathRate\ =\ expr;\ \}}
+\DoxyCodeLine{00149\ \ \ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{const}\ std::vector<DivisionRule*>\ getDivisionRules()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ divisionRules;\ \}}
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ getDeathRate()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ deathRate;\ \}}
+\DoxyCodeLine{00152\ \ \ }
+\DoxyCodeLine{00153\ \ \ \textcolor{comment}{//\ Evaluation\ of\ the\ death\ rate\ according\ to\ the\ state}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{double}\ getDeathRate(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00155\ \ \ }
+\DoxyCodeLine{00156\ \ \ std::vector<PopIStateGroup*>*\ getPopIStateGroup()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pop\_istate\_group\_list;\ \}}
+\DoxyCodeLine{00157\ \ \ }
+\DoxyCodeLine{00158\ \ \ std::string\ toString()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ std::ostringstream\ ostr;}
+\DoxyCodeLine{00160\ \ \ \ \ display(ostr);}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ ostr.str();}
+\DoxyCodeLine{00162\ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{void}\ clearPopIstates()\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ pop\_istate\_group\_list-\/>clear();}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ isPopNetwork()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

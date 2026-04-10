@@ -1,0 +1,139 @@
+\doxysection{Prob\+Traj\+Engine.\+h}
+\hypertarget{ProbTrajEngine_8h_source}{}\label{ProbTrajEngine_8h_source}\index{engine/src/engines/ProbTrajEngine.h@{engine/src/engines/ProbTrajEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ MetaEngine.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noel\ <contact@vincent-\/noel.fr>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ March\ 2019}}
+\DoxyCodeLine{00046\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ \_PROBTRAJENGINE\_H\_}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ \_PROBTRAJENGINE\_H\_}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}../Python\_headers.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ "{}../Network.h"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}FixedPointEngine.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}../Cumulator.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}../ObservedGraph.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}../RunConfig.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}../displayers/FixedPointDisplayer.h"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}../displayers/ProbTrajDisplayer.h"{}}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEnsembleArgWrapper}{EnsembleArgWrapper}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbTrajEngine}{ProbTrajEngine}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classFixedPointEngine}{FixedPointEngine}}\ \{}
+\DoxyCodeLine{00075\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}\ *observed\_graph;}
+\DoxyCodeLine{00077\ \ \ \ \ std::vector<ObservedGraph\ *>\ observed\_graph\_v;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}\ *merged\_cumulator;}
+\DoxyCodeLine{00080\ \ \ \ \ std::vector<Cumulator<NetworkState>\ *>\ cumulator\_v;}
+\DoxyCodeLine{00081\ \ \ \ \ std::map<double,\ std::map<Node\ *,\ Expression\ *>\ *>\ schedule;}
+\DoxyCodeLine{00082\ \ \ \ \ std::vector<double>\ schedule\_times;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_ab89fcdf47a724aaaa685174c9778c9e2}{buildSchedule}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_a4c298e74e489a0a651ae6783cc017739}{applySchedule}}(\mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ *random\_generator,\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ \&network\_state,\ std::vector<double>\ \&times,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{classProbTrajEngine_a6c0424242a2ae8b5832b4b848c801482}{threadMergeWrapper}}(\textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_aa7eae6f9e621c1e433bb7ef23abb796d}{mergeResults}}(std::vector<\mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}\ *>\ \&cumulator\_v,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<FixedPoints\ *>\ \&fixpoint\_map\_v,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<ObservedGraph\ *>\ \&observed\_graph\_v);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ mergeMPIResults(\mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig,\ \mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}\ *ret\_cumul,\ FixedPoints\ *fixpoints,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}\ *graph,\ \textcolor{keywordtype}{int}\ world\_size,\ \textcolor{keywordtype}{int}\ world\_rank,\ \textcolor{keywordtype}{bool}\ pack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{classProbTrajEngine}{ProbTrajEngine}}(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig,\ \textcolor{keywordtype}{int}\ world\_size,\ \textcolor{keywordtype}{int}\ world\_rank)\ :\ \mbox{\hyperlink{classFixedPointEngine}{FixedPointEngine}}(}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ network,\ runconfig,\ world\_size,\ world\_rank)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classProbTrajEngine}{ProbTrajEngine}}(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig)\ :\ \mbox{\hyperlink{classFixedPointEngine}{FixedPointEngine}}(network,\ runconfig)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}\ *getMergedCumulator()\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ merged\_cumulator;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classProbTrajEngine_ad481fd08c58a2fd258e59223116d1fde}{getMaxTickIndex}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ merged\_cumulator-\/>\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classProbTrajEngine_a112ce8a1571d4535e5276dbee55ae6c0}{getFinalTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ merged\_cumulator-\/>\mbox{\hyperlink{classCumulator_a75d4e07d4f20f4b7c59e794cdd65325d}{getFinalTime}}();\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_a87f2ba8085ea8ce2cc785e3d75170b83}{displayStatDist}}(StatDistDisplayer\ *output\_statdist)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_a7117aa4d59e0f5415d95724b046ebdfb}{displayProbTraj}}(\mbox{\hyperlink{classProbTrajDisplayer}{ProbTrajDisplayer<NetworkState>}}\ *displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_a9abf644221eb866a1c66ff6837a7058d}{display}}(\mbox{\hyperlink{classProbTrajDisplayer}{ProbTrajDisplayer<NetworkState>}}\ *probtraj\_displayer,\ StatDistDisplayer\ *statdist\_displayer,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FixedPointDisplayer\ *fp\_displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProbTrajEngine_a9da9b50134fff65c47f88c5b8a78489a}{displayObservedGraph}}(std::ostream\ *output\_observed\_graph,\ std::ostream\ *output\_observed\_durations);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00164\ \ \ \ \ PyObject\ *getNumpyObservedGraph();}
+\DoxyCodeLine{00165\ \ \ \ \ PyObject\ *getNumpyObservedDurations();}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00167\ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,384 @@
+\doxysection{IStates.\+h}
+\hypertarget{IStates_8h_source}{}\label{IStates_8h_source}\index{engine/src/IStates.h@{engine/src/IStates.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ IStates.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_ISTATES\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_ISTATES\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}BNException.h"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}NetworkState.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}Expressions.h"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopNetwork}{PopNetwork}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopIStateGroup}{PopIStateGroup}}\ \{}
+\DoxyCodeLine{00062\ \ \ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState}{PopProbaIState}}\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState_1_1PopIStateGroupIndividual}{PopIStateGroupIndividual}}\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ std::vector<double>\ state\_value\_list;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop\_size;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState_1_1PopIStateGroupIndividual}{PopIStateGroupIndividual}}(std::vector<Expression*>*\ state\_expr\_list,\ \mbox{\hyperlink{classExpression}{Expression}}*\ t\_pop\_size)\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ network\_state;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ state\_expr:\ *state\_expr\_list)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ state\_value\_list.push\_back(state\_expr-\/>eval(NULL,\ network\_state));}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ pop\_size\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ t\_pop\_size-\/>eval(NULL,\ network\_state);\ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState_1_1PopIStateGroupIndividual}{PopIStateGroupIndividual}}(std::vector<double>\ state\_value\_list,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop\_size)\ :\ state\_value\_list(state\_value\_list),\ pop\_size(pop\_size)\ \{\}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ std::vector<double>\ getStateValueList()\ \{\ \textcolor{keywordflow}{return}\ state\_value\_list;\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getPopSize()\ \{\ \textcolor{keywordflow}{return}\ pop\_size;\ \}\ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{double}\ proba\_value;}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ proba\_expr;}
+\DoxyCodeLine{00093\ \ \ \ \ std::vector<PopIStateGroupIndividual*>*\ individual\_list;}
+\DoxyCodeLine{00094\ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState}{PopProbaIState}}(\mbox{\hyperlink{classExpression}{Expression}}*\ proba\_expr,\ std::vector<PopIStateGroupIndividual*>*\ individual\_list)\ }
+\DoxyCodeLine{00096\ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ this-\/>proba\_expr\ =\ proba\_expr;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ network\_state;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ proba\_value\ =\ proba\_expr-\/>eval(NULL,\ network\_state);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ this-\/>individual\_list\ =\ individual\_list;}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{classPopIStateGroup_1_1PopProbaIState}{PopProbaIState}}(\textcolor{keywordtype}{double}\ proba\_value,\ std::vector<PopIStateGroupIndividual*>*\ individual\_list)\ :\ proba\_value(proba\_value),\ proba\_expr(NULL),\ individual\_list(individual\_list)\ \{\}}
+\DoxyCodeLine{00105\ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ std::vector<PopIStateGroupIndividual*>*\ getIndividualList()\ \{\ \textcolor{keywordflow}{return}\ individual\_list;\ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{double}\ getProbaValue()\ \{\ \textcolor{keywordflow}{return}\ proba\_value;\ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \string~PopProbaIState()\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ proba\_expr;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ individual:\ *individual\_list)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ individual;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ individual\_list;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \};}
+\DoxyCodeLine{00116\ \ \ }
+\DoxyCodeLine{00117\ \ \ std::vector<const\ Node*>*\ nodes;}
+\DoxyCodeLine{00118\ \ \ std::vector<PopProbaIState*>*\ proba\_istates;}
+\DoxyCodeLine{00119\ \ \ }
+\DoxyCodeLine{00120\ \ \ \mbox{\hyperlink{classPopIStateGroup}{PopIStateGroup}}(\mbox{\hyperlink{classPopNetwork}{PopNetwork}}*\ network,\ std::vector<const\ Node*>*\ nodes,\ std::vector<PopProbaIState*>*\ proba\_istates)\ :\ nodes(nodes),\ proba\_istates(proba\_istates)\ }
+\DoxyCodeLine{00121\ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ epilogue(network);\ }
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{classPopIStateGroup}{\string~PopIStateGroup}}()\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{delete}\ nodes;}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ delete\ proba\_istate;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{delete}\ proba\_istates;}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{void}\ epilogue(\mbox{\hyperlink{classPopNetwork}{PopNetwork}}*\ network);}
+\DoxyCodeLine{00131\ \ \ }
+\DoxyCodeLine{00132\ \ \ std::vector<const\ Node*>*\ getNodes()\ \{\ \textcolor{keywordflow}{return}\ nodes;\ \}}
+\DoxyCodeLine{00133\ \ \ std::vector<PopProbaIState*>*\ getPopProbaIStates()\ \{\ \textcolor{keywordflow}{return}\ proba\_istates;\ \}}
+\DoxyCodeLine{00134\ \ \ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initPopStates(\mbox{\hyperlink{classPopNetwork}{PopNetwork}}*\ network,\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ initial\_state,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ randgen,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ display(\mbox{\hyperlink{classPopNetwork}{PopNetwork}}*\ network,\ std::ostream\&\ os);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classIStateGroup}{IStateGroup}}\ \{}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{double}\ proba\_value;}
+\DoxyCodeLine{00147\ \ \ \ \ std::vector<double>*\ state\_value\_list;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}(\mbox{\hyperlink{classExpression}{Expression}}*\ proba\_expr,\ std::vector<Expression*>*\ state\_expr\_list)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ network\_state;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ proba\_value\ =\ proba\_expr-\/>eval(NULL,\ network\_state);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ state\_value\_list\ =\ \textcolor{keyword}{new}\ std::vector<double>();}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ state\_expr\ :\ *state\_expr\_list)}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ state\_value\_list-\/>push\_back(state\_expr-\/>eval(NULL,\ network\_state));}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}(\textcolor{keywordtype}{double}\ proba\_value,\ std::vector<double>*\ state\_value\_list)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ this-\/>proba\_value\ =\ proba\_value;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ this-\/>state\_value\_list\ =\ state\_value\_list;}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{comment}{//\ only\ one\ node}}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}(\textcolor{keywordtype}{double}\ proba\_value,\ \mbox{\hyperlink{classExpression}{Expression}}*\ state\_expr)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ this-\/>proba\_value\ =\ proba\_value;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ state\_value\_list\ =\ \textcolor{keyword}{new}\ std::vector<double>();}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ network\_state;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ state\_value\_list-\/>push\_back(state\_expr-\/>eval(NULL,\ network\_state));}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}(\textcolor{keywordtype}{double}\ proba\_value,\ \textcolor{keywordtype}{double}\ istate\_value)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ this-\/>proba\_value\ =\ proba\_value;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ state\_value\_list\ =\ \textcolor{keyword}{new}\ std::vector<double>();}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ state\_value\_list-\/>push\_back(istate\_value);}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}(\mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{ProbaIState}}*\ obj)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ this-\/>proba\_value\ =\ obj-\/>getProbaValue();}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ this-\/>state\_value\_list\ =\ \textcolor{keyword}{new}\ std::vector<double>(*(obj-\/>getStateValueList()));}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{\string~ProbaIState}}()\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ state\_value\_list;}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{double}\ getProbaValue()\ \{\textcolor{keywordflow}{return}\ proba\_value;\}}
+\DoxyCodeLine{00188\ \ \ \ \ std::vector<double>*\ getStateValueList()\ \{\textcolor{keywordflow}{return}\ state\_value\_list;\}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{void}\ normalizeProbaValue(\textcolor{keywordtype}{double}\ proba\_sum)\ \{proba\_value\ /=\ proba\_sum;\}}
+\DoxyCodeLine{00190\ \ \ \};}
+\DoxyCodeLine{00191\ \ \ }
+\DoxyCodeLine{00192\ \ \ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ std::vector<const\ Node*>*\ nodes,\ std::vector<ProbaIState*>*\ proba\_istates)\ :\ nodes(nodes),\ proba\_istates(proba\_istates)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ is\_random\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ node\_size\ =\ nodes-\/>size();}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00196\ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (proba\_istate-\/>getStateValueList()-\/>size()\ !=\ node\_size)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}size\ inconsistency\ in\ istate\ expression:\ got\ "{}}\ +\ std::to\_string(proba\_istate-\/>getStateValueList()-\/>size())\ +\ \textcolor{stringliteral}{"{}\ states,\ has\ "{}}\ +\ std::to\_string(node\_size)\ +\ \textcolor{stringliteral}{"{}\ nodes"{}});}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ epilogue(network);}
+\DoxyCodeLine{00202\ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ is\_random\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00206\ \ \ \ \ nodes\ =\ \textcolor{keyword}{new}\ std::vector<const\ Node*>();}
+\DoxyCodeLine{00207\ \ \ \ \ nodes-\/>push\_back(node);}
+\DoxyCodeLine{00208\ \ \ \ \ proba\_istates\ =\ \textcolor{keyword}{new}\ std::vector<ProbaIState*>();}
+\DoxyCodeLine{00209\ \ \ \ \ proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(0.5,\ 0.));}
+\DoxyCodeLine{00210\ \ \ \ \ proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(0.5,\ 1.));}
+\DoxyCodeLine{00211\ \ \ \ \ epilogue(network);}
+\DoxyCodeLine{00212\ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node,\ \mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ is\_random\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00216\ \ \ \ \ nodes\ =\ \textcolor{keyword}{new}\ std::vector<const\ Node*>();}
+\DoxyCodeLine{00217\ \ \ \ \ nodes-\/>push\_back(node);}
+\DoxyCodeLine{00218\ \ \ \ \ proba\_istates\ =\ \textcolor{keyword}{new}\ std::vector<ProbaIState*>();}
+\DoxyCodeLine{00219\ \ \ \ \ proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(1.,\ expr));}
+\DoxyCodeLine{00220\ \ \ \ \ epilogue(network);}
+\DoxyCodeLine{00221\ \ \ \}}
+\DoxyCodeLine{00222\ \ \ }
+\DoxyCodeLine{00223\ \ \ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(\mbox{\hyperlink{classIStateGroup}{IStateGroup}}*\ obj,\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ this-\/>is\_random\ =\ obj-\/>isRandom();}
+\DoxyCodeLine{00225\ \ \ \ \ this-\/>nodes\ =\ \textcolor{keyword}{new}\ std::vector<const\ Node*>();}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ node:\ *(obj-\/>getNodes()))\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ this-\/>nodes-\/>push\_back(node);}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ this-\/>proba\_istates\ =\ \textcolor{keyword}{new}\ std::vector<ProbaIState*>();}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ proba\_istate:\ *(obj-\/>getProbaIStates()))\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ this-\/>proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(proba\_istate));}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ epilogue(network);}
+\DoxyCodeLine{00234\ \ \ \}}
+\DoxyCodeLine{00235\ \ \ }
+\DoxyCodeLine{00236\ \ \ \mbox{\hyperlink{classIStateGroup}{\string~IStateGroup}}()\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{delete}\ nodes;}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ delete\ proba\_istate;}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{delete}\ proba\_istates;}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ std::vector<const\ Node*>*\ getNodes()\ \{\textcolor{keywordflow}{return}\ nodes;\}}
+\DoxyCodeLine{00245\ \ \ std::vector<ProbaIState*>*\ getProbaIStates()\ \{\textcolor{keywordflow}{return}\ proba\_istates;\}}
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{double}\ getProbaSum()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ proba\_sum;\}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{bool}\ isRandom()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ is\_random;\}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{bool}\ hasNode(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}\ *\ node)\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ t\_node\ :\ *nodes)}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ if\ (node\ ==\ t\_node)}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00256\ \ \ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ checkAndComplete(\mbox{\hyperlink{classNetwork}{Network}}*\ network);}
+\DoxyCodeLine{00259\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initStates(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ initial\_state,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ *\ randgen);}
+\DoxyCodeLine{00260\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ display(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ std::ostream\&\ os);}
+\DoxyCodeLine{00261\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ reset(\mbox{\hyperlink{classNetwork}{Network}}*\ network);}
+\DoxyCodeLine{00262\ \ \ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ removeNode(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}\ *\ node)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ Initialized\ at\ size(),\ so\ we\ can\ use\ <\ size()\ to\ check\ if\ something\ changed}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ to\_delete\ =\ network-\/>getIStateGroup()-\/>size();}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i=0;\ i\ <\ network-\/>getIStateGroup()-\/>size();\ i++)\ }
+\DoxyCodeLine{00269\ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ istate\_group\ =\ network-\/>getIStateGroup()-\/>at(i);\ \ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (istate\_group-\/>hasNode(node))\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (istate\_group-\/>getNodes()-\/>size()\ ==\ 1)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (to\_delete\ <\ network-\/>getIStateGroup()-\/>size())\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Two\ IStateGroup\ with\ the\ same\ node"{}});}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ to\_delete\ =\ i;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ node\ should\ be\ in\ a\ unique\ place,\ so\ it\ should\ work\ ?}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ii;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ std::vector<const\ Node*>*\ group\_nodes\ =\ istate\_group-\/>getNodes();}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(ii\ =\ 0;\ ii\ <\ group\_nodes-\/>size();\ ii++)\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (group\_nodes-\/>at(ii)\ ==\ node)\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ group\_nodes-\/>erase(group\_nodes-\/>begin()\ +\ (std::ptrdiff\_t)\ ii);}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ std::vector<IStateGroup::ProbaIState*>*\ proba\_istates\ =\ istate\_group-\/>getProbaIStates();}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ proba\_istate-\/>state\_value\_list-\/>erase(proba\_istate-\/>state\_value\_list-\/>begin()\ +\ (std::ptrdiff\_t)\ i);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}\ (to\_delete\ <\ network-\/>getIStateGroup()-\/>size())}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ network-\/>getIStateGroup()-\/>erase(network-\/>getIStateGroup()-\/>begin()\ +\ (std::ptrdiff\_t)\ to\_delete);}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ \ \ }
+\DoxyCodeLine{00302\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setStatesProbas(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ std::vector<const\ Node*>*\ nodes,\ std::map<std::vector<bool>,\ \textcolor{keywordtype}{double}>\&\ probas)\ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}*\ node:\ *nodes)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ IStateGroup::removeNode(network,\ node);}
+\DoxyCodeLine{00305\ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ }
+\DoxyCodeLine{00307\ \ \ \ \ std::vector<IStateGroup::ProbaIState*>*\ new\_proba\_istates\ =\ \textcolor{keyword}{new}\ std::vector<IStateGroup::ProbaIState*>();}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ state\_proba:\ probas)\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ std::vector<double>*\ state\_values\ =\ \textcolor{keyword}{new}\ std::vector<double>();}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node\_state:\ state\_proba.first)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ state\_values-\/>push\_back(node\_state\ ?\ 1.0\ :\ 0.0);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ new\_proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(state\_proba.second,\ state\_values));}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00317\ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \ \ \ \ }
+\DoxyCodeLine{00319\ \ \ \ \ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(network,\ nodes,\ new\_proba\_istates);}
+\DoxyCodeLine{00321\ \ \ \}}
+\DoxyCodeLine{00322\ \ \ }
+\DoxyCodeLine{00323\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setNodeProba(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \mbox{\hyperlink{classNode}{Node}}\ *\ node,\ \textcolor{keywordtype}{double}\ value)\ \{}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ IStateGroup::removeNode(network,\ node);}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ std::vector<const\ Node*>*\ new\_nodes\ =\ \textcolor{keyword}{new}\ std::vector<const\ Node*>();}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ new\_nodes-\/>push\_back(node);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ std::vector<IStateGroup::ProbaIState*>*\ new\_proba\_istates\ =\ \textcolor{keyword}{new}\ std::vector<IStateGroup::ProbaIState*>();}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0.0\ ||\ value\ ==\ 1.0)\ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ new\_proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(1.0,\ value));}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ new\_proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(1.0-\/value,\ 0.0));}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ new\_proba\_istates-\/>push\_back(\textcolor{keyword}{new}\ ProbaIState(value,\ 1.0));}
+\DoxyCodeLine{00339\ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{classIStateGroup}{IStateGroup}}(network,\ new\_nodes,\ new\_proba\_istates);}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setInitialState(\mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ *\ state)\ \{}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ node\ :\ network-\/>getNodes())}
+\DoxyCodeLine{00348\ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ setNodeProba(network,\ node,\ node-\/>\mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{getNodeState}}(*state));}
+\DoxyCodeLine{00350\ \ \ \}}
+\DoxyCodeLine{00351\ \ \ }
+\DoxyCodeLine{00352\ \}}
+\DoxyCodeLine{00353\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00354\ \ \ std::vector<const\ Node*>*\ nodes;}
+\DoxyCodeLine{00355\ \ \ std::vector<ProbaIState*>*\ proba\_istates;}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{double}\ proba\_sum;}
+\DoxyCodeLine{00357\ \ \ \textcolor{keywordtype}{bool}\ is\_random;}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{void}\ computeProbaSum()\ }
+\DoxyCodeLine{00360\ \ \ \{\ \ }
+\DoxyCodeLine{00361\ \ \ \ \ proba\_sum\ =\ 0;}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ proba\_sum\ +=\ proba\_istate-\/>getProbaValue();}
+\DoxyCodeLine{00364\ \ \ \ \ }
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *\ proba\_istate\ :\ *proba\_istates)}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ proba\_istate-\/>normalizeProbaValue(proba\_sum);}
+\DoxyCodeLine{00367\ \ \ \ \ }
+\DoxyCodeLine{00368\ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \textcolor{keywordtype}{void}\ epilogue(\mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \{}
+\DoxyCodeLine{00371\ \ \ \ \ computeProbaSum();}
+\DoxyCodeLine{00372\ \ \ \ \ network-\/>getIStateGroup()-\/>push\_back(\textcolor{keyword}{this});}
+\DoxyCodeLine{00373\ \ \ \}}
+\DoxyCodeLine{00374\ \};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ backward\_istate;}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

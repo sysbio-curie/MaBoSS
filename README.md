@@ -20,6 +20,10 @@ The directory tutorial contains two tutorials:
 - [MaBoSS 2.0 Tutorial](https://github.com/sysbio-curie/MaBoSS/tree/master/tutorial/MaBoSS-2.0), describing MaBoSS environment tools usage on model describing DNA damage effects on p53 pathway.
 - [MaBoSS 2.5.0 Tutorial](https://github.com/sysbio-curie/MaBoSS/tree/master/tutorial/Montagud_2022_Prostate_Cancer), describing usage of MaBoSS command line, pyMaBoSS (python bindings) and WebMaBoSS (web interface) on a prostate cancer model.
 
+### Documentation
+- The documentation is available [here](docs/html/index.html).
+- PDF of UML diagrams are also available [here](docs/diagrams/PDF).
+
 ### Conda repository
 
 MaBoSS is available as a conda package for Linux and MacOSX in the [CoLoMoTo repository](https://anaconda.org/colomoto/maboss).

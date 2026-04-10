@@ -1,0 +1,70 @@
+\doxysection{IState\+Group Class Reference}
+\hypertarget{classIStateGroup}{}\label{classIStateGroup}\index{IStateGroup@{IStateGroup}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{Proba\+IState}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classIStateGroup_a1a0435bb760ddc81300c4d155d529be2}\label{classIStateGroup_a1a0435bb760ddc81300c4d155d529be2} 
+{\bfseries IState\+Group} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, std\+::vector$<$ const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}nodes, std\+::vector$<$ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{Proba\+IState}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}proba\+\_\+istates)
+\item 
+\Hypertarget{classIStateGroup_ab05ade5a33d53327a21b733ca0a74a61}\label{classIStateGroup_ab05ade5a33d53327a21b733ca0a74a61} 
+{\bfseries IState\+Group} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node)
+\item 
+\Hypertarget{classIStateGroup_a8682d7173457cfc504be36022286703c}\label{classIStateGroup_a8682d7173457cfc504be36022286703c} 
+{\bfseries IState\+Group} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\Hypertarget{classIStateGroup_aaa78faf56573aa51d562e7afe39789d5}\label{classIStateGroup_aaa78faf56573aa51d562e7afe39789d5} 
+{\bfseries IState\+Group} (\mbox{\hyperlink{classIStateGroup}{IState\+Group}} \texorpdfstring{$\ast$}{*}obj, \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network)
+\item 
+\Hypertarget{classIStateGroup_a33e4022cb9270229402eefea493c44a1}\label{classIStateGroup_a33e4022cb9270229402eefea493c44a1} 
+std\+::vector$<$ const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Nodes} ()
+\item 
+\Hypertarget{classIStateGroup_afc6bd979e95f71e0f49ae91e62f99ed4}\label{classIStateGroup_afc6bd979e95f71e0f49ae91e62f99ed4} 
+std\+::vector$<$ \mbox{\hyperlink{structIStateGroup_1_1ProbaIState}{Proba\+IState}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Proba\+IStates} ()
+\item 
+\Hypertarget{classIStateGroup_a5ae59b89ec3df6a3c61a4f94612bee9e}\label{classIStateGroup_a5ae59b89ec3df6a3c61a4f94612bee9e} 
+double {\bfseries get\+Proba\+Sum} () const
+\item 
+\Hypertarget{classIStateGroup_ace8ad0c2cceb987c94cfafdc6f9bc97d}\label{classIStateGroup_ace8ad0c2cceb987c94cfafdc6f9bc97d} 
+bool {\bfseries is\+Random} () const
+\item 
+\Hypertarget{classIStateGroup_a9472b5626591383fbf99acd55242b6e1}\label{classIStateGroup_a9472b5626591383fbf99acd55242b6e1} 
+bool {\bfseries has\+Node} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classIStateGroup_a56371b0291813212259eb245cb4c94e3}\label{classIStateGroup_a56371b0291813212259eb245cb4c94e3} 
+static void {\bfseries check\+And\+Complete} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network)
+\item 
+\Hypertarget{classIStateGroup_a5929f03eed03e4b754cce5e18096a11e}\label{classIStateGroup_a5929f03eed03e4b754cce5e18096a11e} 
+static void {\bfseries init\+States} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classNetworkState}{Network\+State}} \&initial\+\_\+state, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}randgen)
+\item 
+\Hypertarget{classIStateGroup_ac8012f0cb0d98c098de98d26008a4842}\label{classIStateGroup_ac8012f0cb0d98c098de98d26008a4842} 
+static void {\bfseries display} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, std\+::ostream \&os)
+\item 
+\Hypertarget{classIStateGroup_a6d6cc6da344b8c987e2d6333b4fac100}\label{classIStateGroup_a6d6cc6da344b8c987e2d6333b4fac100} 
+static void {\bfseries reset} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network)
+\item 
+\Hypertarget{classIStateGroup_a6954db28b52fe28f78a78aeedadf416e}\label{classIStateGroup_a6954db28b52fe28f78a78aeedadf416e} 
+static void {\bfseries remove\+Node} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node)
+\item 
+\Hypertarget{classIStateGroup_aefd43bd1da79b605d8ea19ae3df2e7f8}\label{classIStateGroup_aefd43bd1da79b605d8ea19ae3df2e7f8} 
+static void {\bfseries set\+States\+Probas} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, std\+::vector$<$ const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}nodes, std\+::map$<$ std\+::vector$<$ bool $>$, double $>$ \&probas)
+\item 
+\Hypertarget{classIStateGroup_a3a59676e33c7b4af5f8d6b39a1147cdb}\label{classIStateGroup_a3a59676e33c7b4af5f8d6b39a1147cdb} 
+static void {\bfseries set\+Node\+Proba} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, double value)
+\item 
+\Hypertarget{classIStateGroup_a40b49b45ce43a78280fce4d5dc06c96e}\label{classIStateGroup_a40b49b45ce43a78280fce4d5dc06c96e} 
+static void {\bfseries set\+Initial\+State} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classNetworkState}{Network\+State}} \texorpdfstring{$\ast$}{*}state)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/IStates.\+h\item 
+engine/src/IStates.\+cc\end{DoxyCompactItemize}

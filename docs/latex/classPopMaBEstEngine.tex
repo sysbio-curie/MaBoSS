@@ -1,0 +1,172 @@
+\doxysection{Pop\+Ma\+BEst\+Engine Class Reference}
+\hypertarget{classPopMaBEstEngine}{}\label{classPopMaBEstEngine}\index{PopMaBEstEngine@{PopMaBEstEngine}}
+
+
+Inheritance diagram for Pop\+Ma\+BEst\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classPopMaBEstEngine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pop\+Ma\+BEst\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classPopMaBEstEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopMaBEstEngine_a7491662847f728020e3723c363726aed}\label{classPopMaBEstEngine_a7491662847f728020e3723c363726aed} 
+{\bfseries Pop\+Ma\+BEst\+Engine} (\mbox{\hyperlink{classPopNetwork}{Pop\+Network}} \texorpdfstring{$\ast$}{*}pop\+\_\+network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+\Hypertarget{classPopMaBEstEngine_ae90dd70b2818f5414c29b3ee4fbba3bd}\label{classPopMaBEstEngine_ae90dd70b2818f5414c29b3ee4fbba3bd} 
+void {\bfseries run} (std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+traj)
+\item 
+\Hypertarget{classPopMaBEstEngine_ab75673a90b5f5213e5f72d6ef5b83653}\label{classPopMaBEstEngine_ab75673a90b5f5213e5f72d6ef5b83653} 
+bool {\bfseries converges} () const
+\item 
+\Hypertarget{classPopMaBEstEngine_a60468b4ddcdc0ff26b048c7e34da9695}\label{classPopMaBEstEngine_a60468b4ddcdc0ff26b048c7e34da9695} 
+const Fixed\+Points \texorpdfstring{$\ast$}{*} {\bfseries get\+Fixpoints} () const
+\item 
+\Hypertarget{classPopMaBEstEngine_af5b9b4e9a48d990a2ffc7d37b9c9b5bb}\label{classPopMaBEstEngine_af5b9b4e9a48d990a2ffc7d37b9c9b5bb} 
+const std\+::map$<$ unsigned int, std\+::pair$<$ \mbox{\hyperlink{classNetworkState}{Network\+State}}, double $>$ $>$ {\bfseries get\+Fix\+Points\+Dists} () const
+\item 
+\Hypertarget{classPopMaBEstEngine_a14dd09aa4fe3181cd5454751f40e8508}\label{classPopMaBEstEngine_a14dd09aa4fe3181cd5454751f40e8508} 
+\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Merged\+Cumulator} ()
+\item 
+\Hypertarget{classPopMaBEstEngine_a2cce214793bef04e5fd7182080e6143a}\label{classPopMaBEstEngine_a2cce214793bef04e5fd7182080e6143a} 
+\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classPopSize}{Pop\+Size}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Custom\+Pop\+Cumulator} ()
+\item 
+\Hypertarget{classPopMaBEstEngine_aeb3fb2e5cbd13527d5d9e55b29812463}\label{classPopMaBEstEngine_aeb3fb2e5cbd13527d5d9e55b29812463} 
+void {\bfseries display\+Fixpoints} (Fixed\+Point\+Displayer \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a48fe01cefff893ef18718e7fe9b423ba}\label{classPopMaBEstEngine_a48fe01cefff893ef18718e7fe9b423ba} 
+void {\bfseries display\+Pop\+Prob\+Traj} (\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} $>$ \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a6dbaa9a57bbc88e4b1ca332d5b4428c0}\label{classPopMaBEstEngine_a6dbaa9a57bbc88e4b1ca332d5b4428c0} 
+void {\bfseries display} (\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} $>$ \texorpdfstring{$\ast$}{*}pop\+\_\+probtraj\+\_\+displayer, Fixed\+Point\+Displayer \texorpdfstring{$\ast$}{*}fp\+\_\+displayer) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a6c154fed0b3f44c6635bb282dbd779d1}\label{classPopMaBEstEngine_a6c154fed0b3f44c6635bb282dbd779d1} 
+\mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} {\bfseries get\+Target\+Node} (\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, const Pop\+Network\+State\+Map \&pop\+Node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a260e4a704d1cee04b4fc14d8f8dc8986}\label{classPopMaBEstEngine_a260e4a704d1cee04b4fc14d8f8dc8986} 
+double {\bfseries compute\+TH} (const MAP$<$ Node\+Index, double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a61cb914bc65e8e01b75453edd294f1e2}\label{classPopMaBEstEngine_a61cb914bc65e8e01b75453edd294f1e2} 
+void {\bfseries epilogue} ()
+\item 
+\Hypertarget{classPopMaBEstEngine_af51a017b35801a4e34100ce9dd3caac4}\label{classPopMaBEstEngine_af51a017b35801a4e34100ce9dd3caac4} 
+void {\bfseries run\+Thread} (\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} $>$ \texorpdfstring{$\ast$}{*}cumulator, \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ \mbox{\hyperlink{classPopSize}{Pop\+Size}} $>$ \texorpdfstring{$\ast$}{*}custom\+\_\+cumulator, unsigned int start\+\_\+count\+\_\+thread, unsigned int sample\+\_\+count\+\_\+thread, \mbox{\hyperlink{classRandomGeneratorFactory}{Random\+Generator\+Factory}} \texorpdfstring{$\ast$}{*}randgen\+\_\+factory, int seed, Fixed\+Points \texorpdfstring{$\ast$}{*}fixpoint\+\_\+map, std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+traj)
+\item 
+\Hypertarget{classPopMaBEstEngine_a33f6e65560c048d9a861c9725a192459}\label{classPopMaBEstEngine_a33f6e65560c048d9a861c9725a192459} 
+void {\bfseries display\+Run\+Stats} (std\+::ostream \&os, time\+\_\+t start\+\_\+time, time\+\_\+t end\+\_\+time) const
+\item 
+\Hypertarget{classPopMaBEstEngine_abf2e3de5b0aae27f4611bc99ecd93491}\label{classPopMaBEstEngine_abf2e3de5b0aae27f4611bc99ecd93491} 
+void {\bfseries display\+Custom\+Pop\+Prob\+Traj} (\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ \mbox{\hyperlink{classPopSize}{Pop\+Size}} $>$ \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+\Hypertarget{classPopMaBEstEngine_a904579573dcca39a7e8733bfbca76270}\label{classPopMaBEstEngine_a904579573dcca39a7e8733bfbca76270} 
+void {\bfseries merge\+Results} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Meta\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+Node\+Index \mbox{\hyperlink{classMetaEngine_ae95edf198133820b127e4e71e6517949}{get\+Target\+Node}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+double \mbox{\hyperlink{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}{compute\+TH}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{get\+Elapsed\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}{get\+User\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}{get\+Elapsed\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}{get\+User\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}{get\+Elapsed\+Stat\+Dist\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}{get\+User\+Stat\+Dist\+Run\+Time}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopMaBEstEngine_a04c72655137027ffcd0fcface69fb9ce}\label{classPopMaBEstEngine_a04c72655137027ffcd0fcface69fb9ce} 
+static void \texorpdfstring{$\ast$}{*} {\bfseries thread\+Wrapper} (void \texorpdfstring{$\ast$}{*}arg)
+\item 
+\Hypertarget{classPopMaBEstEngine_a599951aab7845e02b46008e215c1cfa8}\label{classPopMaBEstEngine_a599951aab7845e02b46008e215c1cfa8} 
+static void {\bfseries merge\+Pair\+Of\+Fixpoints} (Fixed\+Points \texorpdfstring{$\ast$}{*}fixpoints\+\_\+1, Fixed\+Points \texorpdfstring{$\ast$}{*}fixpoints\+\_\+2)
+\item 
+\Hypertarget{classPopMaBEstEngine_a0ec69346ae643ba0924b7d0c4a583150}\label{classPopMaBEstEngine_a0ec69346ae643ba0924b7d0c4a583150} 
+static void \texorpdfstring{$\ast$}{*} {\bfseries thread\+Merge\+Wrapper} (void \texorpdfstring{$\ast$}{*}arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Initializes the engine. \end{DoxyCompactList}\item 
+static void {\bfseries load\+User\+Funcs} (const char \texorpdfstring{$\ast$}{*}module)
+\begin{DoxyCompactList}\small\item\em Calls \doxylink{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}{init}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopMaBEstEngine_ab3096d328e49d3c3da4f9b44e83d8785}\label{classPopMaBEstEngine_ab3096d328e49d3c3da4f9b44e83d8785} 
+std\+::vector$<$ \mbox{\hyperlink{structArgWrapper}{Arg\+Wrapper}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries arg\+\_\+wrapper\+\_\+v}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopMaBEstEngine_a742b04f8da86a9a358a4e8f658eddc2b}\label{classPopMaBEstEngine_a742b04f8da86a9a358a4e8f658eddc2b} 
+static const std\+::string {\bfseries VERSION} = "{}0.\+0.\+1"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*} {\bfseries network}
+\item 
+\mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*} {\bfseries runconfig}
+\item 
+double {\bfseries time\+\_\+tick}
+\item 
+double {\bfseries max\+\_\+time}
+\item 
+unsigned int {\bfseries sample\+\_\+count}
+\item 
+unsigned int {\bfseries statdist\+\_\+trajcount}
+\item 
+bool {\bfseries discrete\+\_\+time}
+\item 
+unsigned int {\bfseries thread\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries reference\+\_\+state}
+\item 
+unsigned int {\bfseries refnode\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries refnode\+\_\+mask}
+\item 
+long long {\bfseries elapsed\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+epilogue\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+epilogue\+\_\+runtime}
+\item 
+std\+::vector$<$ long long int $>$ {\bfseries thread\+\_\+elapsed\+\_\+runtimes}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/engines/Pop\+Ma\+BEst\+Engine.\+h\item 
+engine/src/engines/Pop\+Ma\+BEst\+Engine.\+cc\end{DoxyCompactItemize}

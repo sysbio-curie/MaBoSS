@@ -1,0 +1,36 @@
+\doxysection{Random\+Generator\+Factory Class Reference}
+\hypertarget{classRandomGeneratorFactory}{}\label{classRandomGeneratorFactory}\index{RandomGeneratorFactory@{RandomGeneratorFactory}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRandomGeneratorFactory_a83d028e45f9da8b68f29b09061b1e1eb}\label{classRandomGeneratorFactory_a83d028e45f9da8b68f29b09061b1e1eb} 
+enum {\bfseries Type} \{ {\bfseries DEFAULT} = 1
+, {\bfseries GLIBC}
+, {\bfseries MERSENNE\+\_\+\+TWISTER}
+, {\bfseries PHYSICAL}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRandomGeneratorFactory_a9c07278c9a13cbc5b5633741b18f2714}\label{classRandomGeneratorFactory_a9c07278c9a13cbc5b5633741b18f2714} 
+{\bfseries Random\+Generator\+Factory} (Type \+\_\+type)
+\item 
+\Hypertarget{classRandomGeneratorFactory_a59728fc3458f1b64fe1cf98faae9a817}\label{classRandomGeneratorFactory_a59728fc3458f1b64fe1cf98faae9a817} 
+\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*} {\bfseries generate\+Random\+Generator} (int seed=1)
+\item 
+\Hypertarget{classRandomGeneratorFactory_ad3a3d9c3941a3c6753d7f543ab98583d}\label{classRandomGeneratorFactory_ad3a3d9c3941a3c6753d7f543ab98583d} 
+std\+::string {\bfseries get\+Name} () const
+\item 
+\Hypertarget{classRandomGeneratorFactory_a6f2ac9fe22a06047e0bff6437f2b7d88}\label{classRandomGeneratorFactory_a6f2ac9fe22a06047e0bff6437f2b7d88} 
+bool {\bfseries is\+Pseudo\+Random} () const
+\item 
+\Hypertarget{classRandomGeneratorFactory_ac4d4cdeb4371bd124856d3dff4a2d15f}\label{classRandomGeneratorFactory_ac4d4cdeb4371bd124856d3dff4a2d15f} 
+bool {\bfseries is\+Thread\+Safe} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Random\+Generator.\+h\item 
+engine/src/Random\+Generator.\+cc\end{DoxyCompactItemize}

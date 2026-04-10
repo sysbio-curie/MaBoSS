@@ -1,0 +1,398 @@
+\doxysection{MBDyn\+Bitset.\+h}
+\hypertarget{MBDynBitset_8h_source}{}\label{MBDynBitset_8h_source}\index{engine/src/MBDynBitset.h@{engine/src/MBDynBitset.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\#define\ USE\_MB\_SHIFT}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\#define\ MB\_COUNT}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ uint64\_t*\ data;}
+\DoxyCodeLine{00015\ \ \ \textcolor{keywordtype}{size\_t}\ num\_bits;}
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{size\_t}\ num\_bytes;}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{size\_t}\ num\_64;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getNumBytes(\textcolor{keywordtype}{size\_t}\ nbits)\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (nbits\ <\ 8)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{return}\ 1\ +\ (nbits\ -\/\ 1)\ /\ 8;}
+\DoxyCodeLine{00024\ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getNum64(\textcolor{keywordtype}{size\_t}\ nbits)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ 1\ +\ (nbits\ -\/\ 1)\ /\ 64;}
+\DoxyCodeLine{00028\ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ new\_cnt;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ new\_default\_cnt;}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ true\_copy\_cnt;}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ copy\_cnt;}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ assign\_cnt;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ assign\_and\_cnt;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ alloc\_cnt;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ del\_cnt;}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{static}\ uint8\_t*\ alloc(\textcolor{keywordtype}{size\_t}\ num\_bytes);}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ destroy(uint64\_t*\ data,\ \textcolor{keywordtype}{size\_t}\ num\_bytes);}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ decr\_refcount(uint64\_t*\ data,\ \textcolor{keywordtype}{size\_t}\ num\_bytes);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ incr\_refcount(uint64\_t*\ data,\ \textcolor{keywordtype}{size\_t}\ num\_bytes);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}()\ :\ data(0),\ num\_bits(0),\ num\_bytes(0),\ num\_64(0)\ \{}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00050\ \ \ \ \ new\_default\_cnt++;}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}(\textcolor{keywordtype}{size\_t}\ nbits)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ data\ =\ 0;}
+\DoxyCodeLine{00056\ \ \ \ \ num\_bits\ =\ 0;}
+\DoxyCodeLine{00057\ \ \ \ \ num\_bytes\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ num\_64\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ resize(nbits);}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00061\ \ \ \ \ new\_cnt++;}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//private:}}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\ \{}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00068\ \ \ \ \ copy\_cnt++;}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ \ \ \ \ num\_bits\ =\ bitset.num\_bits;}
+\DoxyCodeLine{00071\ \ \ \ \ num\_bytes\ =\ bitset.num\_bytes;}
+\DoxyCodeLine{00072\ \ \ \ \ num\_64\ =\ bitset.num\_64;}
+\DoxyCodeLine{00073\ \ \ \ \ data\ =\ bitset.data;}
+\DoxyCodeLine{00074\ \ \ \ \ incr\_refcount(data,\ num\_bytes);}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//public:}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset,\ \textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00080\ \ \ \ \ true\_copy\_cnt++;}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ \ \ \ \ data\ =\ 0;}
+\DoxyCodeLine{00083\ \ \ \ \ num\_bits\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ num\_bytes\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ num\_64\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ *\textcolor{keyword}{this}\ =\ bitset;}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&bitset)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (data\ !=\ 0)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ assign\_cnt++;}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ \ \ \ \ destroy(data,\ num\_bytes);}
+\DoxyCodeLine{00099\ \ \ \ \ num\_bits\ =\ bitset.num\_bits;}
+\DoxyCodeLine{00100\ \ \ \ \ num\_bytes\ =\ bitset.num\_bytes;}
+\DoxyCodeLine{00101\ \ \ \ \ num\_64\ =\ bitset.num\_64;}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_bits)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ data\ =\ (uint64\_t*)alloc(num\_bytes);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ \ data[0]\ =\ bitset.data[0];}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ memcpy(data,\ bitset.data,\ num\_bytes);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ data\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ operator\&=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ \&bitset)\ \{}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00119\ \ \ \ \ assign\_and\_cnt++;}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ \ \ \ \ *\textcolor{keyword}{this}\ =\ (*this)\ \&\ bitset;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ resize(\textcolor{keywordtype}{size\_t}\ nbits)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_bits\ ==\ nbits)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ memset(data,\ 0,\ num\_bytes);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ num\_bits\ =\ nbits;}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_bytes\ ==\ 0)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ num\_64\ =\ getNum64(num\_bits);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ num\_bytes\ =\ num\_64*\textcolor{keyword}{sizeof}(uint64\_t);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ data\ =\ (uint64\_t*)alloc(num\_bytes);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ \ data[0]\ =\ 0;}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ memset(data,\ 0,\ num\_bytes);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}BAD\ 1\(\backslash\)n"{}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ abort();}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{bool}\ test(\textcolor{keywordtype}{size\_t}\ pos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#ifdef\ USE\_MB\_SHIFT}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ >>\ 3;}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ -\/\ (byte\_loc\ *\ 8);}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ /\ 8;}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ \%\ 8;}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00155\ \ \ \ \ uint8\_t*\ b\_data\ =\ (uint8\_t*)data;}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{return}\ ((b\_data[byte\_loc]\ >>\ offset)\ \&\ 0x1)\ ==\ 1;}
+\DoxyCodeLine{00157\ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ \ \ \ data[0]\ =\ 0ULL;}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ ++nn)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ data[nn]\ =\ 0ULL;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ \ \ }
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ set()\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ \ \ \ data[0]\ =\ \string~0ULL;}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ ++nn)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ data[nn]\ =\ \string~0ULL;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ set(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keywordtype}{bool}\ state)\ \{}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#ifdef\ USE\_MB\_SHIFT}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ >>\ 3;}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ -\/\ (byte\_loc\ *\ 8);}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ /\ 8;}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ \%\ 8;}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00187\ \ \ \ \ uint8\_t\ bitfield\ =\ uint8\_t(1\ <<\ offset);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ uint8\_t*\ b\_data\ =\ (uint8\_t*)data;}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{if}\ (state)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ b\_data[byte\_loc]\ |=\ bitfield;}
+\DoxyCodeLine{00193\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ b\_data[byte\_loc]\ \&=\ \string~bitfield;}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{void}\ flip(\textcolor{keywordtype}{size\_t}\ pos)\ \{}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#ifdef\ USE\_MB\_SHIFT}}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ >>\ 3;}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ -\/\ (byte\_loc\ *\ 8);}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ byte\_loc\ =\ pos\ /\ 8;}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offset\ =\ pos\ \%\ 8;}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00206\ \ \ \ \ uint8\_t\ bitfield\ =\ uint8\_t(1\ <<\ offset);}
+\DoxyCodeLine{00207\ \ \ \ \ uint8\_t*\ b\_data\ =\ (uint8\_t*)data;}
+\DoxyCodeLine{00208\ \ \ \ \ uint8\_t\ value\ =\ (b\_data[byte\_loc]\ \&\ bitfield);}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}\ (value)\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ b\_data[byte\_loc]\ \&=\ \string~bitfield;}
+\DoxyCodeLine{00212\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ b\_data[byte\_loc]\ |=\ bitfield;}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ std::string\ toString()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00218\ \ \ \ \ std::stringstream\ ostr;}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ pos\ =\ 0;\ pos\ <\ num\_bits;\ pos++)\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ ostr\ <<\ (test(num\_bits\ -\/\ pos\ -\/\ 1)\ ?\ \textcolor{stringliteral}{"{}1"{}}\ :\ \textcolor{stringliteral}{"{}0"{}});}
+\DoxyCodeLine{00222\ \ \ \ \ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{return}\ ostr.str();}
+\DoxyCodeLine{00225\ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{int}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \ \ \ \ return\ data[0]\ ==\ bitset.data[0];}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ nn++)\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}\ (data[nn]\ !=\ bitset.data[nn])\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00238\ \ \ \}}
+\DoxyCodeLine{00239\ \ \ }
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{return}\ !((*this)\ ==\ bitset);}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ operator\&(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_bits\ !=\ bitset.num\_bits)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}BAD\ 2\(\backslash\)n"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ abort();}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ ret\_bitset(num\_bits);}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ \ \ \ uint64\_t*\ ret\_data\ =\ ret\_bitset.getData();}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ \ \ \ \ \ ret\_data[0]\ =\ (data[0]\ \&\ bitset.data[0]);}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ uint64\_t*\ ret\_data\ =\ ret\_bitset.getData();}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ nn++)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ ret\_data[nn]\ =\ (data[nn]\ \&\ bitset.data[nn]);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{return}\ ret\_bitset;}
+\DoxyCodeLine{00260\ \ \ \}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ bitset)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_bits\ !=\ bitset.num\_bits)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}BAD\ 3\(\backslash\)n"{}};}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ abort();}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ \ \ \ \ \ return\ data[0]\ -\/\ bitset.data[0]\ <\ 0;}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ nn++)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ delta\ =\ data[nn]\ -\/\ bitset.data[nn];}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{if}\ (delta\ <\ 0)\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{if}\ (delta\ >\ 0)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00278\ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00283\ \ \ \}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ operator\string~()\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ ret\_bitset(num\_bits);}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ pos\ =\ 0;\ pos\ <\ num\_bits;\ pos++)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ ret\_bitset.set(pos,\ !test(pos));}
+\DoxyCodeLine{00289\ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{return}\ ret\_bitset;}
+\DoxyCodeLine{00291\ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{bool}\ none()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{comment}{/*if\ (num\_64\ ==\ 1)\ \{}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ \ \ \ \ \ return\ !data[0];}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ \ \ \ \ \ \}\ else*/}\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ num\_64;\ nn++)\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}\ (data[nn])\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00300\ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00304\ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ uint64\_t*\ getData()\ \{\textcolor{keywordflow}{return}\ data;\}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#ifdef\ MB\_COUNT}}
+\DoxyCodeLine{00309\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getAllocCount()\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{return}\ alloc\_cnt;}
+\DoxyCodeLine{00311\ \ \ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getDeleteCount()\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{return}\ del\_cnt;}
+\DoxyCodeLine{00315\ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getCopyCount()\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{return}\ copy\_cnt;}
+\DoxyCodeLine{00319\ \ \ \}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getTrueCopyCount()\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordflow}{return}\ true\_copy\_cnt;}
+\DoxyCodeLine{00323\ \ \ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getAssignCount()\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordflow}{return}\ assign\_cnt;}
+\DoxyCodeLine{00327\ \ \ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getAssignAndCount()\ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{return}\ assign\_and\_cnt;}
+\DoxyCodeLine{00331\ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getNewCount()\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_cnt;}
+\DoxyCodeLine{00335\ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getNewDefaultCount()\ \{}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_default\_cnt;}
+\DoxyCodeLine{00339\ \ \ \}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ init\_pthread();}
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ end\_pthread();}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ stats();}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ uint64\_t\ to\_ulong()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00348\ \ \ \ \ uint64\_t\ ret\ =\ 0;}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\ =\ num\_bytes;}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{if}\ (max\ >\ \textcolor{keyword}{sizeof}(uint64\_t))\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ max\ =\ \textcolor{keyword}{sizeof}(uint64\_t);}
+\DoxyCodeLine{00352\ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ ret\ =\ data[0];}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00356\ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \mbox{\hyperlink{classMBDynBitset}{\string~MBDynBitset}}()\ \{}
+\DoxyCodeLine{00359\ \ \ \ \ destroy(data,\ num\_bytes);}
+\DoxyCodeLine{00360\ \ \ \}}
+\DoxyCodeLine{00361\ \};}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}>}
+\DoxyCodeLine{00365\ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val.to\_ulong();}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ \ \ \};}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }equal\_to<\mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ >}
+\DoxyCodeLine{00372\ \ \ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val1\ ==\ val2;}
+\DoxyCodeLine{00375\ \ \ \ \ \}}
+\DoxyCodeLine{00376\ \ \ \};}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }not\_equal\_to<\mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ >}
+\DoxyCodeLine{00379\ \ \ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val1\ !=\ val2;}
+\DoxyCodeLine{00382\ \ \ \ \ \}}
+\DoxyCodeLine{00383\ \ \ \};}
+\DoxyCodeLine{00384\ \ \ }
+\DoxyCodeLine{00385\ \ \ \textcolor{comment}{//\ Added\ less\ operator,\ necessary\ for\ maps,\ sets.\ Code\ from\ https://stackoverflow.com/a/21245301/11713763}}
+\DoxyCodeLine{00386\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }less<\mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}>}
+\DoxyCodeLine{00387\ \ \ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val1\ <\ val2;}
+\DoxyCodeLine{00390\ \ \ \ \ \}}
+\DoxyCodeLine{00391\ \ \ \};}
+\DoxyCodeLine{00392\ \}}
+
+\end{DoxyCode}

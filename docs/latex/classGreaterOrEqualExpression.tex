@@ -1,0 +1,148 @@
+\doxysection{Greater\+Or\+Equal\+Expression Class Reference}
+\hypertarget{classGreaterOrEqualExpression}{}\label{classGreaterOrEqualExpression}\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+
+
+Inheritance diagram for Greater\+Or\+Equal\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classGreaterOrEqualExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Greater\+Or\+Equal\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classGreaterOrEqualExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGreaterOrEqualExpression_abf06205246c62616a8a1ca4a62060f6a}\label{classGreaterOrEqualExpression_abf06205246c62616a8a1ca4a62060f6a} 
+{\bfseries Greater\+Or\+Equal\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}left, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}right)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classGreaterOrEqualExpression_a6f4b130e2be21c30ab3cc5b93c3c1f68}{clone}} () const
+\item 
+double \mbox{\hyperlink{classGreaterOrEqualExpression_a68bba1a6ad4c2ae0dd37eefeb769a52b}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classGreaterOrEqualExpression_ad312d32c94bdcf2cd3658f97da0e9927}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+void \mbox{\hyperlink{classGreaterOrEqualExpression_abaa71f35d49513bf100e9ccb6aae8f3b}{display}} (std\+::ostream \&os) const
+\item 
+virtual bool \mbox{\hyperlink{classGreaterOrEqualExpression_a53ec43ce74ae453296cc8d96fca2b264}{is\+Logical\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classGreaterOrEqualExpression_a276881d8830252ed06083fb580452f0f}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classBinaryExpression}{Binary\+Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Binary\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}left, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}right)
+\item 
+bool \mbox{\hyperlink{classBinaryExpression_a449ac6523dd79826da7e4e62299edf76}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+virtual bool \mbox{\hyperlink{classBinaryExpression_a0e572b9e844b77c5e5431a0382294f1d}{is\+Constant\+Expression}} () const
+\item 
+virtual std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classBinaryExpression_a893190df29c39cae92bb35f79fd29cb3}{get\+Nodes}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink} (bool \&) const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classBinaryExpression}{Binary\+Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries left}
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries right}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classGreaterOrEqualExpression_a6f4b130e2be21c30ab3cc5b93c3c1f68}\label{classGreaterOrEqualExpression_a6f4b130e2be21c30ab3cc5b93c3c1f68} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!clone@{clone}}
+\index{clone@{clone}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Greater\+Or\+Equal\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classGreaterOrEqualExpression_abaa71f35d49513bf100e9ccb6aae8f3b}\label{classGreaterOrEqualExpression_abaa71f35d49513bf100e9ccb6aae8f3b} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!display@{display}}
+\index{display@{display}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Greater\+Or\+Equal\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classGreaterOrEqualExpression_a68bba1a6ad4c2ae0dd37eefeb769a52b}\label{classGreaterOrEqualExpression_a68bba1a6ad4c2ae0dd37eefeb769a52b} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!eval@{eval}}
+\index{eval@{eval}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Greater\+Or\+Equal\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classGreaterOrEqualExpression_ad312d32c94bdcf2cd3658f97da0e9927}\label{classGreaterOrEqualExpression_ad312d32c94bdcf2cd3658f97da0e9927} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!eval@{eval}}
+\index{eval@{eval}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Greater\+Or\+Equal\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classGreaterOrEqualExpression_a276881d8830252ed06083fb580452f0f}\label{classGreaterOrEqualExpression_a276881d8830252ed06083fb580452f0f} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Greater\+Or\+Equal\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classGreaterOrEqualExpression_a53ec43ce74ae453296cc8d96fca2b264}\label{classGreaterOrEqualExpression_a53ec43ce74ae453296cc8d96fca2b264} 
+\index{GreaterOrEqualExpression@{GreaterOrEqualExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!GreaterOrEqualExpression@{GreaterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily virtual bool Greater\+Or\+Equal\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,503 @@
+\doxysection{Random\+Generator.\+h}
+\hypertarget{RandomGenerator_8h_source}{}\label{RandomGenerator_8h_source}\index{engine/src/RandomGenerator.h@{engine/src/RandomGenerator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ RandomGenerator.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_RANDOMGENERATOR\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_RANDOMGENERATOR\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ DO\ NOT\ define\ USE\_DUMMY\_RANDOM:\ except\ for\ profiling\ purpose:\ this\ flag\ has\ been\ introduced\ to\ get\ an\ estimation\ of\ random\ number\ generation\ time}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\#define\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\#define\ RANDOM\_TRACE}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <io.h>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#include\ "{}BNException.h"{}}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ generated\_number\_count;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ incrGeneratedNumberCount()\ \{generated\_number\_count++;\}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{virtual}\ std::string\ getName()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isPseudoRandom()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ generateUInt32()\ =\ 0;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ generate()\ =\ 0;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int}\ seed)\ =\ 0;}
+\DoxyCodeLine{00094\ \ \ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classRandomGenerator}{\string~RandomGenerator}}()\ \{\}}
+\DoxyCodeLine{00096\ \ \ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ resetGeneratedNumberCount()\ \{generated\_number\_count\ =\ 0;\}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getGeneratedNumberCount()\ \{\textcolor{keywordflow}{return}\ generated\_number\_count;\}}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRand48RandomGenerator}{Rand48RandomGenerator}}\ final:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}}
+\DoxyCodeLine{00102\ \{}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ RAND48\_N\ \ \ \ 16}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ RAND48\_MASK\ ((unsigned)(1\ <<\ (RAND48\_N\ -\/\ 1))\ +\ (1\ <<\ (RAND48\_N\ -\/\ 1))\ -\/\ 1)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ RAND48\_LOW(x)\ \ \ ((unsigned)(x)\ \&\ RAND48\_MASK)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ RAND48\_HIGH(x)\ \ RAND48\_LOW((x)\ >>\ RAND48\_N)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ RAND48\_MUL(x,\ y,\ z)\ \{\ long\ l\ =\ (long)(x)\ *\ (long)(y);\ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (z)[0]\ =\ RAND48\_LOW(l);\ (z)[1]\ =\ RAND48\_HIGH(l);\ \}}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ RAND48\_CARRY(x,\ y)\ \ ((long)(x)\ +\ (long)(y)\ >\ (long)(RAND48\_MASK))}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ RAND48\_ADDEQU(x,\ y,\ z)\ \ (z\ =\ RAND48\_CARRY(x,\ (y)),\ x\ =\ RAND48\_LOW(x\ +\ (y)))}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ RAND48\_X0\ \ \ 0x330E}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ RAND48\_X1\ \ \ 0xABCD}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ RAND48\_X2\ \ \ 0x1234}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ RAND48\_A0\ \ \ 0xE66D}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ RAND48\_A1\ \ \ 0xDEEC}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ RAND48\_A2\ \ \ 0x5}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ RAND48\_C\ \ \ \ 0xB}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ RAND48\_SET3(x,\ x0,\ x1,\ x2)\ \ ((x)[0]\ =\ (x0),\ (x)[1]\ =\ (x1),\ (x)[2]\ =\ (x2))}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ RAND48\_SETLOW(x,\ y,\ n)\ RAND48\_SET3(x,\ RAND48\_LOW((y)[n]),\ RAND48\_LOW((y)[(n)+1]),\ RAND48\_LOW((y)[(n)+2]))}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ RAND48\_SEED(x0,\ x1,\ x2)\ (RAND48\_SET3(x,\ x0,\ x1,\ x2),\ RAND48\_SET3(a,\ RAND48\_A0,\ RAND48\_A1,\ RAND48\_A2),\ c\ =\ RAND48\_C)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ RAND48\_REST(v)\ \ for\ (i\ =\ 0;\ i\ <\ 3;\ i++)\ \{\ xsubi[i]\ =\ x[i];\ x[i]\ =\ temp[i];\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ (v);}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ RAND48\_NEST(TYPE,\ f,\ F)\ TYPE\ f(xsubi)\ register\ unsigned\ short\ *xsubi;\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ register\ int\ i;\ register\ TYPE\ v;\ unsigned\ temp[3];\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ for\ (i\ =\ 0;\ i\ <\ 3;\ i++)\ \{\ temp[i]\ =\ x[i];\ x[i]\ =\ RAND48\_LOW(xsubi[i]);\ \}\ \ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \ \ v\ =\ F();\ RAND48\_REST(v);\ \}}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ RAND48\_HI\_BIT\ \ \ (1L\ <<\ (2\ *\ RAND48\_N\ -\/\ 1))}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{unsigned}\ x[3]\ =\ \{\ RAND48\_X0,\ RAND48\_X1,\ RAND48\_X2\ \},\ a[3]\ =\ \{\ RAND48\_A0,\ RAND48\_A1,\ RAND48\_A2\ \},\ c\ =\ RAND48\_C;}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{int}\ seed;}
+\DoxyCodeLine{00132\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{classRand48RandomGenerator}{Rand48RandomGenerator}}(\textcolor{keywordtype}{int}\ \_seed)}
+\DoxyCodeLine{00134\ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ setSeed(\_seed);}
+\DoxyCodeLine{00136\ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{bool}\ isPseudoRandom()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ std::string\ getName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}rand48"{}};}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{void}\ next()}
+\DoxyCodeLine{00146\ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ p[2],\ q[2],\ r[2],\ carry0,\ carry1;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ RAND48\_MUL(a[0],\ x[0],\ p);}
+\DoxyCodeLine{00150\ \ \ \ \ RAND48\_ADDEQU(p[0],\ c,\ carry0);}
+\DoxyCodeLine{00151\ \ \ \ \ RAND48\_ADDEQU(p[1],\ carry0,\ carry1);}
+\DoxyCodeLine{00152\ \ \ \ \ RAND48\_MUL(a[0],\ x[1],\ q);}
+\DoxyCodeLine{00153\ \ \ \ \ RAND48\_ADDEQU(p[1],\ q[0],\ carry0);}
+\DoxyCodeLine{00154\ \ \ \ \ RAND48\_MUL(a[1],\ x[0],\ r);}
+\DoxyCodeLine{00155\ \ \ \ \ x[2]\ =\ RAND48\_LOW(carry0\ +\ carry1\ +\ RAND48\_CARRY(p[1],\ r[0])\ +\ q[1]\ +\ r[1]\ +}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ a[0]\ *\ x[2]\ +\ a[1]\ *\ x[1]\ +\ a[2]\ *\ x[0]);}
+\DoxyCodeLine{00157\ \ \ \ \ x[1]\ =\ RAND48\_LOW(p[1]\ +\ r[0]);}
+\DoxyCodeLine{00158\ \ \ \ \ x[0]\ =\ RAND48\_LOW(p[0]);}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ generateUInt32()\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{return}\ \string~0U/2;}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ }
+\DoxyCodeLine{00167\ \ \ \ \ next();}
+\DoxyCodeLine{00168\ \ \ \ \ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#ifdef\ RANDOM\_TRACE}}
+\DoxyCodeLine{00170\ \ \ \ \ std::cout\ <<\ ((\textcolor{keywordtype}{unsigned}\ int)(((\textcolor{keywordtype}{long})x[2]\ <<\ (RAND48\_N\ -\/\ 1))\ +\ (x[1]\ >>\ 1)))\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{return}\ (((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})x[2]\ <<\ (RAND48\_N\ -\/\ 1))\ +\ (x[1]\ >>\ 1));}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ generate()\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.5;}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{double}\ two16m\ =\ 1.0\ /\ (1L\ <<\ RAND48\_N);}
+\DoxyCodeLine{00182\ \ \ \ \ next();}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#ifdef\ RANDOM\_TRACE}}
+\DoxyCodeLine{00185\ \ \ \ \ std::cout\ <<\ (two16m\ *\ (two16m\ *\ (two16m\ *\ x[0]\ +\ x[1])\ +\ x[2]))\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ (two16m\ *\ (two16m\ *\ (two16m\ *\ x[0]\ +\ x[1])\ +\ x[2]));}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int}\ \_seed)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ this-\/>seed\ =\ \_seed;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ RAND48\_SEED(RAND48\_X0,\ RAND48\_LOW(\_seed),\ RAND48\_HIGH(\_seed));}
+\DoxyCodeLine{00193\ \ \ \}}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classGLibCRandomGenerator}{GLibCRandomGenerator}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}}
+\DoxyCodeLine{00197\ \{}
+\DoxyCodeLine{00198\ \ \ \textcolor{comment}{//\ Info\ on\ this\ PRNG\ :\ https://www.mscs.dal.ca/\string~selinger/random/}}
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ rand()\ call\ simplification\ :\ https://stackoverflow.com/a/26630526}}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ This\ is\ the\ default\ prng\ used\ by\ rand,\ when\ srand\ is\ called}}
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ To\ be\ more\ accurate,\ this\ is\ the\ TYPE\_3\ rand()\ algorithm\ (https://code.woboq.org/userspace/glibc/stdlib/random.c.html)}}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ It\ is\ based\ on\ a\ linear-\/feedback\ shift\ register,\ with\ the\ polynomial\ being\ x\string^31\ +\ x\string^3\ +\ 1}}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ The\ nice\ thing\ about\ having\ it\ here\ and\ not\ in\ the\ GNU\ C\ library\ is\ that\ we\ can\ make\ it\ thread\_safe}}
+\DoxyCodeLine{00204\ \ \ }
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{int}\ seed;}
+\DoxyCodeLine{00206\ \ \ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \#define\ SIZE\_R\ 344}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \#define\ GLIBCRAND\_MAX\ 2147483647}}
+\DoxyCodeLine{00209\ \ \ }
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordtype}{int}\ n;}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{int}\ r[SIZE\_R];}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{void}\ glibc\_srand(\textcolor{keywordtype}{int}\ \_seed)\ \{}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{/*\ We\ must\ make\ sure\ the\ seed\ is\ not\ 0.\ \ Take\ arbitrarily\ 1\ in\ this\ case.\ \ }}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ \ \ \ Source:\ https://sourceware.org/git/?p=glibc.git;a=blob;f=stdlib/random\_r.c;hb=glibc-\/2.15\#l180}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_seed\ ==\ 0)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \_seed\ =\ 1;}
+\DoxyCodeLine{00220\ \ \ \ \ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00222\ \ \ \ \ r[0]\ =\ \_seed;}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{for}\ (i=1;\ i<31;\ i++)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ r[i]\ =\ (16807LL\ *\ r[i-\/1])\ \%\ GLIBCRAND\_MAX;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (r[i]\ <\ 0)\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ r[i]\ +=\ GLIBCRAND\_MAX;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{for}\ (i=31;\ i<34;\ i++)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ r[i]\ =\ r[i-\/31];}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{for}\ (i=34;\ i<SIZE\_R;\ i++)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ r[i]\ =\ r[i-\/31]\ +\ r[i-\/3];}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ n\ =\ 0;}
+\DoxyCodeLine{00236\ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ glibc\_rand()\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ x\ =\ r[n\%SIZE\_R]\ =\ r[(n+313)\%SIZE\_R]\ +\ r[(n+341)\%SIZE\_R];}
+\DoxyCodeLine{00240\ \ \ \ \ n\ =\ (n+1)\%SIZE\_R;}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{return}\ x\ >>\ 1;}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00245\ \ \ \mbox{\hyperlink{classGLibCRandomGenerator}{GLibCRandomGenerator}}(\textcolor{keywordtype}{int}\ \_seed)\ :\ seed(\_seed)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ glibc\_srand(\_seed);}
+\DoxyCodeLine{00247\ \ \ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordtype}{bool}\ isPseudoRandom()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00251\ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ std::string\ getName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}glibc"{}};}
+\DoxyCodeLine{00255\ \ \ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ generateUInt32()\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{return}\ \string~0U/2;}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{return}\ glibc\_rand();}
+\DoxyCodeLine{00263\ \ \ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ generate()\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.5;}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordflow}{return}\ double(glibc\_rand())\ /\ GLIBCRAND\_MAX;}
+\DoxyCodeLine{00271\ \ \ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int}\ \_seed)\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ this-\/>seed\ =\ \_seed;}
+\DoxyCodeLine{00275\ \ \ \ \ glibc\_srand(\_seed);}
+\DoxyCodeLine{00276\ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}}
+\DoxyCodeLine{00281\ \{}
+\DoxyCodeLine{00282\ \ \ \textcolor{comment}{//\ Info\ on\ this\ PRNG\ :\ http://www.cplusplus.com/reference/random/mt19937/}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{int}\ seed;}
+\DoxyCodeLine{00285\ \ \ std::mt19937\ generator;}
+\DoxyCodeLine{00286\ \ \ std::uniform\_real\_distribution<double>\ dis;}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordtype}{void}\ mt19937\_srand(\textcolor{keywordtype}{int}\ \_seed)\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ generator\ =\ std::mt19937(\_seed);}
+\DoxyCodeLine{00290\ \ \ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ mt19937\_rand()\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{return}\ generator();}
+\DoxyCodeLine{00294\ \ \ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00297\ \ \ \mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}(\textcolor{keywordtype}{int}\ \_seed)\ :\ seed(\_seed)\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ mt19937\_srand(\_seed);}
+\DoxyCodeLine{00299\ \ \ \ \ dis\ =\ std::uniform\_real\_distribution<double>(0.0,\ 1.0);}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordtype}{bool}\ isPseudoRandom()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00304\ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ std::string\ getName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}mt19937"{}};}
+\DoxyCodeLine{00308\ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ generateUInt32()\ \{}
+\DoxyCodeLine{00311\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordflow}{return}\ \string~0U/2;}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{return}\ mt19937\_rand();}
+\DoxyCodeLine{00316\ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ generate()\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.5;}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{return}\ dis(generator);}
+\DoxyCodeLine{00324\ \ \ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int}\ \_seed)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ this-\/>seed\ =\ \_seed;}
+\DoxyCodeLine{00328\ \ \ \ \ mt19937\_srand(\_seed);}
+\DoxyCodeLine{00329\ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \};}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPhysicalRandomGenerator}{PhysicalRandomGenerator}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ \{}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#ifndef\ \_MSC\_VER}}
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00337\ \ \ \mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}\ *\ mt\_randgen;}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00341\ \ \ \mbox{\hyperlink{classPhysicalRandomGenerator}{PhysicalRandomGenerator}}()\ \{}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#ifndef\ \_MSC\_VER\ }}
+\DoxyCodeLine{00343\ \ \ \ \ fd\ =\ open(\textcolor{stringliteral}{"{}/dev/urandom"{}},\ O\_RDONLY);}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{if}\ (fd\ <\ 0)\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Cannot\ open\ /dev/urandom"{}});}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#\ else\ }}
+\DoxyCodeLine{00348\ \ \ \ \ mt\_randgen\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}(42);}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00350\ \ \ \}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keywordtype}{bool}\ isPseudoRandom()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00354\ \ \ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ std::string\ getName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}physical"{}};}
+\DoxyCodeLine{00358\ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ generateUInt32()\ \{}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ incrGeneratedNumberCount();}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#ifndef\ \_MSC\_VER}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#ifdef\ USE\_DUMMY\_RANDOM}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{return}\ \string~0U/2;}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ result;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{//\ When\ compiling\ with\ NDEBUG,\ we\ don't\ have\ asserts,\ to\ res\ is\ not\ used}}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//\ This\ is\ just\ to\ make\ the\ compiler\ happy\ even\ in\ this\ case}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#ifndef\ NDEBUG\ }}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ read(fd,\ \&result,\ \textcolor{keyword}{sizeof}(result));}
+\DoxyCodeLine{00374\ \ \ \ \ assert(ret\ ==\ \textcolor{keyword}{sizeof}(result));}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ read(fd,\ \&result,\ \textcolor{keyword}{sizeof}(result));}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ \textcolor{keyword}{sizeof}(result))\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::exception();}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#ifdef\ RANDOM\_TRACE}}
+\DoxyCodeLine{00381\ \ \ \ \ std::cout\ <<\ result\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordflow}{return}\ mt\_randgen-\/>generateUInt32();}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00387\ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{double}\ generate()\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordtype}{double}\ result\ =\ ((double)generateUInt32())/\string~0U;\ \textcolor{comment}{//\ fixed\ this\ 2014-\/10-\/17,\ but\ I\ think\ I\ added\ /2\ because\ it\ did\ not\ work}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#ifdef\ RANDOM\_TRACE}}
+\DoxyCodeLine{00392\ \ \ \ \ std::cout\ <<\ result\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00395\ \ \ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordtype}{void}\ setSeed(\textcolor{keywordtype}{int})\ \{\}}
+\DoxyCodeLine{00398\ \ \ }
+\DoxyCodeLine{00399\ \ \ \mbox{\hyperlink{classPhysicalRandomGenerator}{\string~PhysicalRandomGenerator}}()\ \{}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#ifndef\ \_MSC\_VER\ }}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{if}\ (fd\ >=\ 0)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ close(fd);}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keyword}{delete}\ mt\_randgen;}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00407\ \ \ \}}
+\DoxyCodeLine{00408\ \};}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}\ \{}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00413\ \ \ \textcolor{keyword}{enum}\ Type\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ DEFAULT\ =\ 1,}
+\DoxyCodeLine{00415\ \ \ \ \ GLIBC,}
+\DoxyCodeLine{00416\ \ \ \ \ MERSENNE\_TWISTER,}
+\DoxyCodeLine{00417\ \ \ \ \ PHYSICAL}
+\DoxyCodeLine{00418\ \ \ \};}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00421\ \ \ Type\ type;}
+\DoxyCodeLine{00422\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ has\_shown\_warning;}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00425\ \ \ \mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}(Type\ \_type)\ :\ type(\_type)\ \{\ \}}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \ \ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ generateRandomGenerator(\textcolor{keywordtype}{int}\ seed=1)\ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordflow}{switch}(type)\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordflow}{case}\ DEFAULT:}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classRand48RandomGenerator}{Rand48RandomGenerator}}(seed);}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordflow}{case}\ GLIBC:}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classGLibCRandomGenerator}{GLibCRandomGenerator}}(seed);}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordflow}{case}\ MERSENNE\_TWISTER:}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}(seed);}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordflow}{case}\ PHYSICAL:}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classPhysicalRandomGenerator}{PhysicalRandomGenerator}}();}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classBNException}{BNException}}\&\ e)\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!has\_shown\_warning)\ \{}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ has\_shown\_warning\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Warning:\ cannot\ use\ physical\ random\ generator,\ falling\ back\ to\ Mersenne\ Twister:\ "{}}\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ this-\/>type\ =\ MERSENNE\_TWISTER;}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classMT19937RandomGenerator}{MT19937RandomGenerator}}(seed);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Unknown\ random\ number\ generator\ !"{}});}
+\DoxyCodeLine{00448\ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ std::string\ getName()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordflow}{switch}(type)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keywordflow}{case}\ DEFAULT:}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}rand48"{}};}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordflow}{case}\ GLIBC:}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}glibc"{}};\ \ \ }
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordflow}{case}\ MERSENNE\_TWISTER:}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}mt19937"{}};}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keywordflow}{case}\ PHYSICAL:}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}physical"{}};}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Unknown\ random\ number\ generator\ !"{}});}
+\DoxyCodeLine{00463\ \ \ \ \ \}}
+\DoxyCodeLine{00464\ \ \ \}}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \textcolor{keywordtype}{bool}\ isPseudoRandom()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keywordflow}{switch}(type)\ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordflow}{case}\ DEFAULT:}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \ \ \ \ \ }
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keywordflow}{case}\ GLIBC:}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{case}\ MERSENNE\_TWISTER:}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordflow}{case}\ PHYSICAL:}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Unknown\ random\ number\ generator\ !"{}});}
+\DoxyCodeLine{00478\ \ \ \ \ \}}
+\DoxyCodeLine{00479\ \ \ \}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \textcolor{keywordtype}{bool}\ isThreadSafe()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordflow}{switch}(type)\ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{case}\ DEFAULT:}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordflow}{case}\ GLIBC:}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordflow}{case}\ MERSENNE\_TWISTER:}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{case}\ PHYSICAL:}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}Unknown\ random\ number\ generator\ !"{}});}
+\DoxyCodeLine{00493\ \ \ \ \ \}}
+\DoxyCodeLine{00494\ \ \ \}}
+\DoxyCodeLine{00495\ \};}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

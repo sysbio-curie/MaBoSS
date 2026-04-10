@@ -1,0 +1,125 @@
+\doxysection{Final\+State\+Simulation\+Engine.\+h}
+\hypertarget{FinalStateSimulationEngine_8h_source}{}\label{FinalStateSimulationEngine_8h_source}\index{engine/src/engines/FinalStateSimulationEngine.h@{engine/src/engines/FinalStateSimulationEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ FinalStateSimulationEngine.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_FINAL\_STATE\_SIMULATION\_ENGINE\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_FINAL\_STATE\_SIMULATION\_ENGINE\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ NO\_IMPORT\_ARRAY}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ PY\_ARRAY\_UNIQUE\_SYMBOL\ MABOSS\_ARRAY\_API}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ NPY\_NO\_DEPRECATED\_API\ NPY\_1\_7\_API\_VERSION}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <numpy/arrayobject.h>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}MetaEngine.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}FixedPointEngine.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}../Network.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}../RandomGenerator.h"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}../RunConfig.h"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#include\ "{}../displayers/FinalStateDisplayer.h"{}}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structFinalStateArgWrapper}{FinalStateArgWrapper}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFinalStateSimulationEngine}{FinalStateSimulationEngine}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classMetaEngine}{MetaEngine}}\ \{}
+\DoxyCodeLine{00076\ \ \ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ has\_internal\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ internal\_state;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ std::vector<unsigned\ int>\ sample\_count\_per\_thread;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ std::vector<FinalStateArgWrapper*>\ arg\_wrapper\_v;}
+\DoxyCodeLine{00083\ \ \ NodeIndex\ getTargetNode(\mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ random\_generator,\ \textcolor{keyword}{const}\ std::vector<double>\&\ nodeTransitionRates,\ \textcolor{keywordtype}{double}\ total\_rate)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ epilogue();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ threadWrapper(\textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ runThread(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ start\_count\_thread,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count\_thread,\ \mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}*\ randgen\_factory,\ \textcolor{keywordtype}{int}\ seed,\ FixedPoints*\ final\_state\_map,\ std::ostream*\ output\_traj);}
+\DoxyCodeLine{00087\ \ \ }
+\DoxyCodeLine{00088\ \ \ FixedPoints*\ mergeFinalStateMaps();}
+\DoxyCodeLine{00089\ \ \ STATE\_MAP<NetworkState\_Impl,\ double>\ final\_states;}
+\DoxyCodeLine{00090\ \ \ std::vector<FixedPoints*>\ final\_states\_map\_v;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ VERSION;}
+\DoxyCodeLine{00094\ \ \ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{classFinalStateSimulationEngine}{FinalStateSimulationEngine}}(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig,\ \textcolor{keywordtype}{int}\ world\_size,\ \textcolor{keywordtype}{int}\ world\_rank);}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{classFinalStateSimulationEngine}{FinalStateSimulationEngine}}(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig);}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{void}\ run(std::ostream*\ output\_traj);}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{classFinalStateSimulationEngine}{\string~FinalStateSimulationEngine}}();}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{const}\ STATE\_MAP<Node*,\ double>\ getFinalNodes()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{double}\ getFinalTime()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ max\_time;\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00108\ \ \ PyObject*\ getNumpyLastStatesDists()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ \ \ std::vector<Node*>\ getNodes()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00110\ \ \ PyObject*\ getNumpyLastNodesDists(std::vector<Node*>\ output\_nodes)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ displayFinal(FinalStateDisplayer*\ displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00114\ \ \ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{void}\ displayRunStats(std::ostream\&\ os,\ time\_t\ start\_time,\ time\_t\ end\_time)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

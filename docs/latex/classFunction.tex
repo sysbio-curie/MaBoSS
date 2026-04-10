@@ -1,0 +1,68 @@
+\doxysection{Function Class Reference}
+\hypertarget{classFunction}{}\label{classFunction}\index{Function@{Function}}
+
+
+Inheritance diagram for Function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{classFunction__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classFunction_a3bcf401ca176c7195ebdaec8f5e36bb4}\label{classFunction_a3bcf401ca176c7195ebdaec8f5e36bb4} 
+const std\+::string \& {\bfseries get\+Fun\+Name} () const
+\item 
+\Hypertarget{classFunction_a8a1e539aee8eeba6010290715e604df8}\label{classFunction_a8a1e539aee8eeba6010290715e604df8} 
+unsigned int {\bfseries get\+Min\+Args} () const
+\item 
+\Hypertarget{classFunction_a2d77a2aaadf6188a8c2b64b51be753c2}\label{classFunction_a2d77a2aaadf6188a8c2b64b51be753c2} 
+unsigned int {\bfseries get\+Max\+Args} () const
+\item 
+\Hypertarget{classFunction_ae9e6120e370ecff541135e7e54650d32}\label{classFunction_ae9e6120e370ecff541135e7e54650d32} 
+virtual bool {\bfseries is\+Deterministic} () const
+\item 
+\Hypertarget{classFunction_a284aef084225756e3529075665cd85e4}\label{classFunction_a284aef084225756e3529075665cd85e4} 
+virtual std\+::string {\bfseries get\+Description} () const =0
+\item 
+\Hypertarget{classFunction_a6bf9d0a4691b0e807f356681259e61d3}\label{classFunction_a6bf9d0a4691b0e807f356681259e61d3} 
+void {\bfseries check} (\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\item 
+\Hypertarget{classFunction_a92a1df247269739896912db11d77c0bb}\label{classFunction_a92a1df247269739896912db11d77c0bb} 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)=0
+\item 
+\Hypertarget{classFunction_a706631b497b7600ebd74cfa5162a8a88}\label{classFunction_a706631b497b7600ebd74cfa5162a8a88} 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classFunction_a60f54965313bc3b0c10ad9afc57550cc}\label{classFunction_a60f54965313bc3b0c10ad9afc57550cc} 
+static \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Function} (const std\+::string \&funname)
+\item 
+\Hypertarget{classFunction_ac91f12654035d470913a9a0694e7f42f}\label{classFunction_ac91f12654035d470913a9a0694e7f42f} 
+static void {\bfseries display\+Function\+Descriptions} (std\+::ostream \&os)
+\item 
+\Hypertarget{classFunction_a1a071e8a8cfb186c90f40eb63645aa63}\label{classFunction_a1a071e8a8cfb186c90f40eb63645aa63} 
+static std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Func\+Map} ()
+\item 
+\Hypertarget{classFunction_a0a58e701e6215b8572deca0b045df970}\label{classFunction_a0a58e701e6215b8572deca0b045df970} 
+static void {\bfseries set\+Func\+Map} (std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+func\+\_\+map)
+\item 
+\Hypertarget{classFunction_ab078b0d244e1b274d53ffc6bb656173f}\label{classFunction_ab078b0d244e1b274d53ffc6bb656173f} 
+static void {\bfseries destroy\+Func\+Map} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classFunction_a2a1b0e8dc932a81d072a30a4da9874e3}\label{classFunction_a2a1b0e8dc932a81d072a30a4da9874e3} 
+{\bfseries Function} (const std\+::string \&funname, unsigned int min\+\_\+args, unsigned int max\+\_\+args=\texorpdfstring{$\sim$}{\string~}0U)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Function.\+h\item 
+engine/src/Function.\+cc\end{DoxyCompactItemize}

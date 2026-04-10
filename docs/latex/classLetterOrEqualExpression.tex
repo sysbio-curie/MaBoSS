@@ -1,0 +1,148 @@
+\doxysection{Letter\+Or\+Equal\+Expression Class Reference}
+\hypertarget{classLetterOrEqualExpression}{}\label{classLetterOrEqualExpression}\index{LetterOrEqualExpression@{LetterOrEqualExpression}}
+
+
+Inheritance diagram for Letter\+Or\+Equal\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classLetterOrEqualExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Letter\+Or\+Equal\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classLetterOrEqualExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classLetterOrEqualExpression_a826edec7cbc8a5d2763913cf2c8c85b2}\label{classLetterOrEqualExpression_a826edec7cbc8a5d2763913cf2c8c85b2} 
+{\bfseries Letter\+Or\+Equal\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}left, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}right)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classLetterOrEqualExpression_a3c6cc9860607d88065271062e1f0e3ca}{clone}} () const
+\item 
+double \mbox{\hyperlink{classLetterOrEqualExpression_a52cb61a3f119981fd3b3741b37b527ed}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classLetterOrEqualExpression_a9869e99bc94ebebae250daaade90c903}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+void \mbox{\hyperlink{classLetterOrEqualExpression_a549c52b6a4983bdc0e10094d47d8fd52}{display}} (std\+::ostream \&os) const
+\item 
+virtual bool \mbox{\hyperlink{classLetterOrEqualExpression_aebd7aee9e68d087bfee4aed2bf7a3988}{is\+Logical\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classLetterOrEqualExpression_a7f04195bd60bd9312544c97ff33b289b}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classBinaryExpression}{Binary\+Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Binary\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}left, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}right)
+\item 
+bool \mbox{\hyperlink{classBinaryExpression_a449ac6523dd79826da7e4e62299edf76}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+virtual bool \mbox{\hyperlink{classBinaryExpression_a0e572b9e844b77c5e5431a0382294f1d}{is\+Constant\+Expression}} () const
+\item 
+virtual std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classBinaryExpression_a893190df29c39cae92bb35f79fd29cb3}{get\+Nodes}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink} (bool \&) const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classBinaryExpression}{Binary\+Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries left}
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries right}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classLetterOrEqualExpression_a3c6cc9860607d88065271062e1f0e3ca}\label{classLetterOrEqualExpression_a3c6cc9860607d88065271062e1f0e3ca} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!clone@{clone}}
+\index{clone@{clone}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Letter\+Or\+Equal\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classLetterOrEqualExpression_a549c52b6a4983bdc0e10094d47d8fd52}\label{classLetterOrEqualExpression_a549c52b6a4983bdc0e10094d47d8fd52} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!display@{display}}
+\index{display@{display}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Letter\+Or\+Equal\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classLetterOrEqualExpression_a52cb61a3f119981fd3b3741b37b527ed}\label{classLetterOrEqualExpression_a52cb61a3f119981fd3b3741b37b527ed} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!eval@{eval}}
+\index{eval@{eval}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Letter\+Or\+Equal\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classLetterOrEqualExpression_a9869e99bc94ebebae250daaade90c903}\label{classLetterOrEqualExpression_a9869e99bc94ebebae250daaade90c903} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!eval@{eval}}
+\index{eval@{eval}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Letter\+Or\+Equal\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classLetterOrEqualExpression_a7f04195bd60bd9312544c97ff33b289b}\label{classLetterOrEqualExpression_a7f04195bd60bd9312544c97ff33b289b} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Letter\+Or\+Equal\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classLetterOrEqualExpression_aebd7aee9e68d087bfee4aed2bf7a3988}\label{classLetterOrEqualExpression_aebd7aee9e68d087bfee4aed2bf7a3988} 
+\index{LetterOrEqualExpression@{LetterOrEqualExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!LetterOrEqualExpression@{LetterOrEqualExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily virtual bool Letter\+Or\+Equal\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

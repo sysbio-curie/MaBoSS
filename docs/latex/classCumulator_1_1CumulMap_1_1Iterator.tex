@@ -1,0 +1,78 @@
+\doxysection{Cumulator\texorpdfstring{$<$}{<} S \texorpdfstring{$>$}{>}\+::Cumul\+Map\+::Iterator Class Reference}
+\hypertarget{classCumulator_1_1CumulMap_1_1Iterator}{}\label{classCumulator_1_1CumulMap_1_1Iterator}\index{Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_a09ef0de8fc45df1a398fd4a5395061d5}\label{classCumulator_1_1CumulMap_1_1Iterator_a09ef0de8fc45df1a398fd4a5395061d5} 
+{\bfseries Iterator} (const Cumul\+Map \&cumul\+\_\+map)
+\item 
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_ae0336ffdab7a2ad79855b1ddfca72a67}\label{classCumulator_1_1CumulMap_1_1Iterator_ae0336ffdab7a2ad79855b1ddfca72a67} 
+void {\bfseries rewind} ()
+\begin{DoxyCompactList}\small\item\em Set the iterator of the STATE MAP at the beginning. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed}{has\+Next}} () const
+\item 
+void \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_aebcd7d4aae041fa93f2e5fd1a15f80e4}{next}} (S \&state, Tick\+Value \&tick\+\_\+value)
+\item 
+const S \& \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70}{next2}} (Tick\+Value \&tick\+\_\+value)
+\item 
+void \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ae67c8b66029c79cda95ce5a80cc4fae1}{next}} (Tick\+Value \&tick\+\_\+value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed}\label{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed} 
+\index{Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}!hasNext@{hasNext}}
+\index{hasNext@{hasNext}!Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{hasNext()}{hasNext()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+bool \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+Cumul\+Map\+::\+Iterator\+::has\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+true if the current iteration is the last one 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_aebcd7d4aae041fa93f2e5fd1a15f80e4}\label{classCumulator_1_1CumulMap_1_1Iterator_aebcd7d4aae041fa93f2e5fd1a15f80e4} 
+\index{Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}!next@{next}}
+\index{next@{next}!Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+Cumul\+Map\+::\+Iterator\+::next (\begin{DoxyParamCaption}\item[{S \&}]{state,  }\item[{Tick\+Value \&}]{tick\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allows to change the value of the state and the tick\+\_\+value passed in parameters by replacing it with the ones found in the current iteration. Passes onto the next iteration. 
+\begin{DoxyParams}{Parameters}
+{\em state} & the reference of the state that must be replaced \\
+\hline
+{\em tick\+\_\+value} & the reference of the tick\+\_\+value that must be replaced \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_ae67c8b66029c79cda95ce5a80cc4fae1}\label{classCumulator_1_1CumulMap_1_1Iterator_ae67c8b66029c79cda95ce5a80cc4fae1} 
+\index{Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}!next@{next}}
+\index{next@{next}!Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+Cumul\+Map\+::\+Iterator\+::next (\begin{DoxyParamCaption}\item[{Tick\+Value \&}]{tick\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+change the value of the current iteration\textquotesingle{}s tick\+\_\+value and move onto the next 
+\begin{DoxyParams}{Parameters}
+{\em tick\+\_\+value} & the reference of the tick\+\_\+value to change \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70}\label{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70} 
+\index{Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}!next2@{next2}}
+\index{next2@{next2}!Cumulator$<$ S $>$::CumulMap::Iterator@{Cumulator$<$ S $>$::CumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next2()}{next2()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+const S \& \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+Cumul\+Map\+::\+Iterator\+::next2 (\begin{DoxyParamCaption}\item[{Tick\+Value \&}]{tick\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Change the value of the current iteration\textquotesingle{}s tick\+\_\+value and returns the state of the next iteration 
+\begin{DoxyParams}{Parameters}
+{\em tick\+\_\+value} & the reference of the tick\+\_\+value to replace \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the state of the the next iteration 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Cumulator.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,121 @@
+\doxysection{Final\+State\+Simulation\+Engine Class Reference}
+\hypertarget{classFinalStateSimulationEngine}{}\label{classFinalStateSimulationEngine}\index{FinalStateSimulationEngine@{FinalStateSimulationEngine}}
+
+
+Inheritance diagram for Final\+State\+Simulation\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classFinalStateSimulationEngine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Final\+State\+Simulation\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classFinalStateSimulationEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classFinalStateSimulationEngine_a562147983bfc2c295b444890b9b1b67d}\label{classFinalStateSimulationEngine_a562147983bfc2c295b444890b9b1b67d} 
+{\bfseries Final\+State\+Simulation\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+\Hypertarget{classFinalStateSimulationEngine_ab771a3351f79c25cffc7a41424c47f26}\label{classFinalStateSimulationEngine_ab771a3351f79c25cffc7a41424c47f26} 
+void {\bfseries run} (std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+traj)
+\item 
+\Hypertarget{classFinalStateSimulationEngine_a3d6652a268edfa207938a07794ba063b}\label{classFinalStateSimulationEngine_a3d6652a268edfa207938a07794ba063b} 
+const STATE\+\_\+\+MAP$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, double $>$ {\bfseries get\+Final\+Nodes} () const
+\item 
+\Hypertarget{classFinalStateSimulationEngine_a73eded80617e63485fa10f006d2cdfc0}\label{classFinalStateSimulationEngine_a73eded80617e63485fa10f006d2cdfc0} 
+double {\bfseries get\+Final\+Time} () const
+\item 
+\Hypertarget{classFinalStateSimulationEngine_ac8d8c090e6e51b757275ce3e76260ef1}\label{classFinalStateSimulationEngine_ac8d8c090e6e51b757275ce3e76260ef1} 
+void {\bfseries display\+Final} (Final\+State\+Displayer \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+\Hypertarget{classFinalStateSimulationEngine_a0824529c313ac9f0ce9f78662428aca1}\label{classFinalStateSimulationEngine_a0824529c313ac9f0ce9f78662428aca1} 
+void {\bfseries display\+Run\+Stats} (std\+::ostream \&os, time\+\_\+t start\+\_\+time, time\+\_\+t end\+\_\+time) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Meta\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+Node\+Index \mbox{\hyperlink{classMetaEngine_ae95edf198133820b127e4e71e6517949}{get\+Target\+Node}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+double \mbox{\hyperlink{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}{compute\+TH}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{get\+Elapsed\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}{get\+User\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}{get\+Elapsed\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}{get\+User\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}{get\+Elapsed\+Stat\+Dist\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}{get\+User\+Stat\+Dist\+Run\+Time}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classFinalStateSimulationEngine_ad1cf67e2ee86b06dcfcd6e1d876ac82c}\label{classFinalStateSimulationEngine_ad1cf67e2ee86b06dcfcd6e1d876ac82c} 
+static const std\+::string {\bfseries VERSION} = "{}1.\+0.\+0"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Initializes the engine. \end{DoxyCompactList}\item 
+static void {\bfseries load\+User\+Funcs} (const char \texorpdfstring{$\ast$}{*}module)
+\begin{DoxyCompactList}\small\item\em Calls \doxylink{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}{init}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classMetaEngine}{Meta\+Engine}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*} {\bfseries network}
+\item 
+\mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*} {\bfseries runconfig}
+\item 
+double {\bfseries time\+\_\+tick}
+\item 
+double {\bfseries max\+\_\+time}
+\item 
+unsigned int {\bfseries sample\+\_\+count}
+\item 
+unsigned int {\bfseries statdist\+\_\+trajcount}
+\item 
+bool {\bfseries discrete\+\_\+time}
+\item 
+unsigned int {\bfseries thread\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries reference\+\_\+state}
+\item 
+unsigned int {\bfseries refnode\+\_\+count}
+\item 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries refnode\+\_\+mask}
+\item 
+long long {\bfseries elapsed\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+core\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+statdist\+\_\+runtime}
+\item 
+long long {\bfseries elapsed\+\_\+epilogue\+\_\+runtime}
+\item 
+long long {\bfseries user\+\_\+epilogue\+\_\+runtime}
+\item 
+std\+::vector$<$ long long int $>$ {\bfseries thread\+\_\+elapsed\+\_\+runtimes}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/engines/Final\+State\+Simulation\+Engine.\+h\item 
+engine/src/engines/Final\+State\+Simulation\+Engine.\+cc\end{DoxyCompactItemize}

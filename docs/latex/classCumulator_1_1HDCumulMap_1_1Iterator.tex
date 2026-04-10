@@ -1,0 +1,92 @@
+\doxysection{Cumulator\texorpdfstring{$<$}{<} S \texorpdfstring{$>$}{>}\+::HDCumul\+Map\+::Iterator Class Reference}
+\hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator}{}\label{classCumulator_1_1HDCumulMap_1_1Iterator}\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a1acc5ca246865329a7a36ef21c4d5644}{Iterator}} (const HDCumul\+Map \&hd\+\_\+cumul\+\_\+map)
+\item 
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a0c5ab418fd240badec73d38701845d24}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a0c5ab418fd240badec73d38701845d24} 
+void {\bfseries rewind} ()
+\begin{DoxyCompactList}\small\item\em Puts the iteration of hd\+\_\+cumul\+\_\+map back at the beginning. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a8d302ac7e9d2a7ed6c9a76edd8a52c41}{has\+Next}} () const
+\item 
+void \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a88f619813958e65a7553da8bdb207f3a}{next}} (S \&state, double \&tm\+\_\+slice)
+\item 
+const S \& \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a919e866a1a76b7648c061004d1566dbb}{next2}} (double \&tm\+\_\+slice)
+\item 
+void \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a027cb281da17e9f0c672ae5c0b6b6385}{next}} (double \&tm\+\_\+slice)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a1acc5ca246865329a7a36ef21c4d5644}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a1acc5ca246865329a7a36ef21c4d5644} 
+\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}!Iterator@{Iterator}}
+\index{Iterator@{Iterator}!Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{Iterator()}{Iterator()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+HDCumul\+Map\+::\+Iterator\+::\+Iterator (\begin{DoxyParamCaption}\item[{const HDCumul\+Map \&}]{hd\+\_\+cumul\+\_\+map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em hd\+\_\+cumul\+\_\+map} & the \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a8d302ac7e9d2a7ed6c9a76edd8a52c41}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a8d302ac7e9d2a7ed6c9a76edd8a52c41} 
+\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}!hasNext@{hasNext}}
+\index{hasNext@{hasNext}!Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{hasNext()}{hasNext()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+bool \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+HDCumul\+Map\+::\+Iterator\+::has\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+true if the iteration is the last one 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a027cb281da17e9f0c672ae5c0b6b6385}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a027cb281da17e9f0c672ae5c0b6b6385} 
+\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}!next@{next}}
+\index{next@{next}!Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+HDCumul\+Map\+::\+Iterator\+::next (\begin{DoxyParamCaption}\item[{double \&}]{tm\+\_\+slice }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Replace the value of the tm\+\_\+slice passed in parameter by the one of the current iteration Moves on the next iteration 
+\begin{DoxyParams}{Parameters}
+{\em tm\+\_\+slice} & the reference of the time\+\_\+spent \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a88f619813958e65a7553da8bdb207f3a}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a88f619813958e65a7553da8bdb207f3a} 
+\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}!next@{next}}
+\index{next@{next}!Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+HDCumul\+Map\+::\+Iterator\+::next (\begin{DoxyParamCaption}\item[{S \&}]{state,  }\item[{double \&}]{tm\+\_\+slice }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allows to change the value of the state and the tm\+\_\+slice (time spent) passed in parameters by replacing it with the ones found in the current iteration. Passes onto the next iteration. 
+\begin{DoxyParams}{Parameters}
+{\em state} & the reference of the state that must be replaced \\
+\hline
+{\em tm\+\_\+slice} & the reference of the time spent in the state \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCumulator_1_1HDCumulMap_1_1Iterator_a919e866a1a76b7648c061004d1566dbb}\label{classCumulator_1_1HDCumulMap_1_1Iterator_a919e866a1a76b7648c061004d1566dbb} 
+\index{Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}!next2@{next2}}
+\index{next2@{next2}!Cumulator$<$ S $>$::HDCumulMap::Iterator@{Cumulator$<$ S $>$::HDCumulMap::Iterator}}
+\doxysubsubsection{\texorpdfstring{next2()}{next2()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+const S \& \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::\+HDCumul\+Map\+::\+Iterator\+::next2 (\begin{DoxyParamCaption}\item[{double \&}]{tm\+\_\+slice }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the state\textquotesingle{}s next iteration 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em tm\+\_\+slice} & the reference of the time spent \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Cumulator.\+h\end{DoxyCompactItemize}

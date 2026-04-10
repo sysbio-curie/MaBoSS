@@ -1,0 +1,107 @@
+\doxysection{GLib\+CRandom\+Generator Class Reference}
+\hypertarget{classGLibCRandomGenerator}{}\label{classGLibCRandomGenerator}\index{GLibCRandomGenerator@{GLibCRandomGenerator}}
+
+
+Inheritance diagram for GLib\+CRandom\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classGLibCRandomGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for GLib\+CRandom\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classGLibCRandomGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classGLibCRandomGenerator_ae53500b14c00e86014be40526dcb7bc2}\label{classGLibCRandomGenerator_ae53500b14c00e86014be40526dcb7bc2} 
+{\bfseries GLib\+CRandom\+Generator} (int \+\_\+seed)
+\item 
+bool \mbox{\hyperlink{classGLibCRandomGenerator_a3f77dc4ddd48d62f167beb2fb397e7b7}{is\+Pseudo\+Random}} () const
+\item 
+std\+::string \mbox{\hyperlink{classGLibCRandomGenerator_a84abd998b0e2d199ce35a970c7d7d86a}{get\+Name}} () const
+\item 
+unsigned int \mbox{\hyperlink{classGLibCRandomGenerator_a9a738ca8bb0898e1c78cb1827c92ef99}{generate\+UInt32}} ()
+\item 
+virtual double \mbox{\hyperlink{classGLibCRandomGenerator_a5fd01b9018d8fe18db9f01da2030bec5}{generate}} ()
+\item 
+virtual void \mbox{\hyperlink{classGLibCRandomGenerator_a58454f8c3c42187ed1a96db6023bdd0e}{set\+Seed}} (int \+\_\+seed)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries reset\+Generated\+Number\+Count} ()
+\item 
+static size\+\_\+t {\bfseries get\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries incr\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classGLibCRandomGenerator_a5fd01b9018d8fe18db9f01da2030bec5}\label{classGLibCRandomGenerator_a5fd01b9018d8fe18db9f01da2030bec5} 
+\index{GLibCRandomGenerator@{GLibCRandomGenerator}!generate@{generate}}
+\index{generate@{generate}!GLibCRandomGenerator@{GLibCRandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily virtual double GLib\+CRandom\+Generator\+::generate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classGLibCRandomGenerator_a9a738ca8bb0898e1c78cb1827c92ef99}\label{classGLibCRandomGenerator_a9a738ca8bb0898e1c78cb1827c92ef99} 
+\index{GLibCRandomGenerator@{GLibCRandomGenerator}!generateUInt32@{generateUInt32}}
+\index{generateUInt32@{generateUInt32}!GLibCRandomGenerator@{GLibCRandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generateUInt32()}{generateUInt32()}}
+{\footnotesize\ttfamily unsigned int GLib\+CRandom\+Generator\+::generate\+UInt32 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classGLibCRandomGenerator_a84abd998b0e2d199ce35a970c7d7d86a}\label{classGLibCRandomGenerator_a84abd998b0e2d199ce35a970c7d7d86a} 
+\index{GLibCRandomGenerator@{GLibCRandomGenerator}!getName@{getName}}
+\index{getName@{getName}!GLibCRandomGenerator@{GLibCRandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string GLib\+CRandom\+Generator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classGLibCRandomGenerator_a3f77dc4ddd48d62f167beb2fb397e7b7}\label{classGLibCRandomGenerator_a3f77dc4ddd48d62f167beb2fb397e7b7} 
+\index{GLibCRandomGenerator@{GLibCRandomGenerator}!isPseudoRandom@{isPseudoRandom}}
+\index{isPseudoRandom@{isPseudoRandom}!GLibCRandomGenerator@{GLibCRandomGenerator}}
+\doxysubsubsection{\texorpdfstring{isPseudoRandom()}{isPseudoRandom()}}
+{\footnotesize\ttfamily bool GLib\+CRandom\+Generator\+::is\+Pseudo\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classGLibCRandomGenerator_a58454f8c3c42187ed1a96db6023bdd0e}\label{classGLibCRandomGenerator_a58454f8c3c42187ed1a96db6023bdd0e} 
+\index{GLibCRandomGenerator@{GLibCRandomGenerator}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!GLibCRandomGenerator@{GLibCRandomGenerator}}
+\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
+{\footnotesize\ttfamily virtual void GLib\+CRandom\+Generator\+::set\+Seed (\begin{DoxyParamCaption}\item[{int}]{\+\_\+seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Random\+Generator.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,115 @@
+\doxysection{Ensemble\+Engine.\+h}
+\hypertarget{EnsembleEngine_8h_source}{}\label{EnsembleEngine_8h_source}\index{engine/src/engines/EnsembleEngine.h@{engine/src/engines/EnsembleEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ EnsembleEngine.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noel\ <contact@vincent-\/noel.fr>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ March\ 2019}}
+\DoxyCodeLine{00046\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ \_ENSEMBLEENGINE\_H\_}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ \_ENSEMBLEENGINE\_H\_}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}ProbTrajEngine.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}../Network.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}../Cumulator.h"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}../RandomGenerator.h"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}../RunConfig.h"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}../ObservedGraph.h"{}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEnsembleArgWrapper}{EnsembleArgWrapper}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classEnsembleEngine}{EnsembleEngine}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classProbTrajEngine}{ProbTrajEngine}}\ \{}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ std::vector<Network*>\ networks;}
+\DoxyCodeLine{00068\ \ \ std::vector<Cumulator<NetworkState>*>\ cumulators\_per\_model;\ \textcolor{comment}{//\ The\ final\ Cumulators\ for\ each\ model}}
+\DoxyCodeLine{00069\ \ \ std::vector<FixedPoints*\ >\ fixpoints\_per\_model;\ \textcolor{comment}{//\ The\ final\ fixpoints\ for\ each\ model}}
+\DoxyCodeLine{00070\ \ \ std::vector<ObservedGraph*\ >\ observed\_graph\_per\_model;\ \textcolor{comment}{//\ The\ final\ observed\ graph\ for\ each\ model}}
+\DoxyCodeLine{00071\ \ \ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ save\_individual\_result;\ \textcolor{comment}{//\ Do\ we\ want\ to\ save\ individual\ model\ simulation\ result}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{bool}\ random\_sampling;\ \textcolor{comment}{//\ Randomly\ select\ the\ number\ of\ simulation\ per\ model}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ std::vector<std::vector<unsigned\ int>\ >\ simulation\_indices\_v;\ \textcolor{comment}{//\ The\ list\ of\ indices\ of\ models\ to\ simulate\ for\ each\ thread}}
+\DoxyCodeLine{00076\ \ \ std::vector<std::vector<Cumulator<NetworkState>*>\ >\ cumulator\_models\_v;\ \textcolor{comment}{//\ The\ results\ for\ each\ model,\ by\ thread}}
+\DoxyCodeLine{00077\ \ \ std::vector<std::vector<Cumulator<NetworkState>*>\ >\ cumulators\_thread\_v;\ \textcolor{comment}{//\ The\ results\ for\ each\ model,\ by\ model}}
+\DoxyCodeLine{00078\ \ \ std::vector<std::vector<FixedPoints*>\ >\ fixpoints\_models\_v;\ \textcolor{comment}{//\ The\ fixpoints\ for\ each\ model,\ by\ thread}}
+\DoxyCodeLine{00079\ \ \ std::vector<std::vector<FixedPoints*>\ >\ fixpoints\_threads\_v;\ \textcolor{comment}{//\ The\ fixpoints\ for\ each\ model,\ by\ thread}}
+\DoxyCodeLine{00080\ \ \ std::vector<std::vector<ObservedGraph*\ >\ >\ observed\_graph\_models\_v;\ \textcolor{comment}{//\ The\ observed\ graph\ for\ each\ model,\ by\ thread}}
+\DoxyCodeLine{00081\ \ \ std::vector<std::vector<ObservedGraph*\ >\ >\ observed\_graph\_threads\_v;\ \textcolor{comment}{//\ The\ observed\ graph\ for\ each\ model,\ by\ thread}}
+\DoxyCodeLine{00082\ \ \ }
+\DoxyCodeLine{00083\ \ \ std::vector<EnsembleArgWrapper*>\ arg\_wrapper\_v;}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ epilogue();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ threadWrapper(\textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ runThread(\mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}*\ cumulator,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ start\_count\_thread,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count\_thread,\ \mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}*\ randgen\_factory,\ \textcolor{keywordtype}{int}\ seed,\ FixedPoints*\ fixpoint\_map,\ \mbox{\hyperlink{classObservedGraph}{ObservedGraph}}*\ observed\_graph,\ std::ostream*\ output\_traj,\ std::vector<unsigned\ int>\ simulation\_ind,\ std::vector<\mbox{\hyperlink{classCumulator}{Cumulator<NetworkState>}}*>\ t\_models\_cumulators,\ std::vector<FixedPoints*\ >\ t\_models\_fixpoints,\ std::vector<ObservedGraph*>\ t\_models\_observed\_graphs);}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ displayIndividualFixpoints(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ model\_id,\ FixedPointDisplayer*\ fp\_displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{void}\ mergeIndividual();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ mergeMPIIndividual(\textcolor{keywordtype}{bool}\ pack=\textcolor{keyword}{true});}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ VERSION;}
+\DoxyCodeLine{00096\ \ \ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{classEnsembleEngine}{EnsembleEngine}}(std::vector<Network*>\ network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig,\ \textcolor{keywordtype}{int}\ world\_size,\ \textcolor{keywordtype}{int}\ world\_rank,\ \textcolor{keywordtype}{bool}\ save\_individual\_result=\textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ random\_sampling=\textcolor{keyword}{false});}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{classEnsembleEngine}{EnsembleEngine}}(std::vector<Network*>\ network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig,\ \textcolor{keywordtype}{bool}\ save\_individual\_result=\textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ random\_sampling=\textcolor{keyword}{false});}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{void}\ run(std::ostream*\ output\_traj);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ displayIndividual(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ model\_id,\ \mbox{\hyperlink{classProbTrajDisplayer}{ProbTrajDisplayer<NetworkState>}}*\ probtraj\_displayer,\ StatDistDisplayer*\ statdist\_displayer,\ FixedPointDisplayer*\ fp\_displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{classEnsembleEngine}{\string~EnsembleEngine}}();}
+\DoxyCodeLine{00107\ \};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

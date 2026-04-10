@@ -1,0 +1,172 @@
+\doxysection{Pop\+Network Class Reference}
+\hypertarget{classPopNetwork}{}\label{classPopNetwork}\index{PopNetwork@{PopNetwork}}
+
+
+Inheritance diagram for Pop\+Network\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classPopNetwork__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pop\+Network\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classPopNetwork__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopNetwork_a08cbea85bad5db4b59598276936a51be}\label{classPopNetwork_a08cbea85bad5db4b59598276936a51be} 
+{\bfseries Pop\+Network} (const \mbox{\hyperlink{classPopNetwork}{Pop\+Network}} \&network)
+\item 
+\Hypertarget{classPopNetwork_ae5c20225e112b818d74d4aaf8e10cb30}\label{classPopNetwork_ae5c20225e112b818d74d4aaf8e10cb30} 
+\mbox{\hyperlink{classPopNetwork}{Pop\+Network}} \& {\bfseries operator=} (const \mbox{\hyperlink{classPopNetwork}{Pop\+Network}} \&network)
+\item 
+\Hypertarget{classPopNetwork_a19261a027a275563981c0af1fb39d0d4}\label{classPopNetwork_a19261a027a275563981c0af1fb39d0d4} 
+int {\bfseries parse} (const char \texorpdfstring{$\ast$}{*}file=NULL, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL, bool is\+\_\+temp\+\_\+file=false)
+\item 
+\Hypertarget{classPopNetwork_ac3a951567988576863ea79ebc6361cd6}\label{classPopNetwork_ac3a951567988576863ea79ebc6361cd6} 
+int {\bfseries parse\+Expression} (const char \texorpdfstring{$\ast$}{*}content, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\Hypertarget{classPopNetwork_a9014dbb76474ee99b9946baf30baa5cc}\label{classPopNetwork_a9014dbb76474ee99b9946baf30baa5cc} 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries parse\+Single\+Expression} (const char \texorpdfstring{$\ast$}{*}content, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\Hypertarget{classPopNetwork_a6980e5db4a36b3697f13d01faba45a0e}\label{classPopNetwork_a6980e5db4a36b3697f13d01faba45a0e} 
+void {\bfseries init\+Pop\+States} (\mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&initial\+\_\+pop\+\_\+state, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}randgen, unsigned int pop)
+\item 
+\Hypertarget{classPopNetwork_a457f425b56e11690c65d93c1ecfca507}\label{classPopNetwork_a457f425b56e11690c65d93c1ecfca507} 
+void {\bfseries add\+Division\+Rule} (\mbox{\hyperlink{classDivisionRule}{Division\+Rule}} \texorpdfstring{$\ast$}{*}rule)
+\item 
+\Hypertarget{classPopNetwork_a403bf1b2600894adf7f5c858487e1160}\label{classPopNetwork_a403bf1b2600894adf7f5c858487e1160} 
+void {\bfseries remove\+Division\+Rule} (size\+\_\+t index)
+\item 
+\Hypertarget{classPopNetwork_ab883fe4eccc3865ec640c7fa40778f74}\label{classPopNetwork_ab883fe4eccc3865ec640c7fa40778f74} 
+void {\bfseries set\+Death\+Rate} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\Hypertarget{classPopNetwork_a5a995f0fe3f3eecbc39b9bed5b4b50d3}\label{classPopNetwork_a5a995f0fe3f3eecbc39b9bed5b4b50d3} 
+const std\+::vector$<$ \mbox{\hyperlink{classDivisionRule}{Division\+Rule}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries get\+Division\+Rules} () const
+\item 
+\Hypertarget{classPopNetwork_ae670fcb5fcdfc64e53f5dce878e133ef}\label{classPopNetwork_ae670fcb5fcdfc64e53f5dce878e133ef} 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Death\+Rate} () const
+\item 
+\Hypertarget{classPopNetwork_a496f2978b778a69c40ab7ace7403ce20}\label{classPopNetwork_a496f2978b778a69c40ab7ace7403ce20} 
+double {\bfseries get\+Death\+Rate} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+\Hypertarget{classPopNetwork_a4eb24e4b147a43366ee49aa3c925bc98}\label{classPopNetwork_a4eb24e4b147a43366ee49aa3c925bc98} 
+std\+::vector$<$ \mbox{\hyperlink{classPopIStateGroup}{Pop\+IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Pop\+IState\+Group} () const
+\item 
+\Hypertarget{classPopNetwork_afdffa268e5557b4713dbbb8aed8736c3}\label{classPopNetwork_afdffa268e5557b4713dbbb8aed8736c3} 
+std\+::string {\bfseries to\+String} () const
+\item 
+void \mbox{\hyperlink{classPopNetwork_ab3fb506746978e239eaf9a51550593a9}{display}} (std\+::ostream \&os) const
+\item 
+\Hypertarget{classPopNetwork_a2e4ef6b6eca2b1e65149bb4a9629e483}\label{classPopNetwork_a2e4ef6b6eca2b1e65149bb4a9629e483} 
+void {\bfseries clear\+Pop\+Istates} ()
+\item 
+bool \mbox{\hyperlink{classPopNetwork_af06e738260cad3ab805bb9c6bb265f80}{is\+Pop\+Network}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classNetwork}{Network}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Network} (const \mbox{\hyperlink{classNetwork}{Network}} \&network)
+\item 
+\mbox{\hyperlink{classNetwork}{Network}} \& {\bfseries operator=} (const \mbox{\hyperlink{classNetwork}{Network}} \&network)
+\item 
+int {\bfseries parse} (const char \texorpdfstring{$\ast$}{*}file=NULL, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL, bool is\+\_\+temp\+\_\+file=false, bool use\+SBMLNames=false)
+\item 
+int {\bfseries parse\+Expression} (const char \texorpdfstring{$\ast$}{*}content=NULL, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries parse\+Single\+Expression} (const char \texorpdfstring{$\ast$}{*}content, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classIStateGroup}{IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+IState\+Group} ()
+\item 
+void {\bfseries clone\+IState\+Group} (std\+::vector$<$ \mbox{\hyperlink{classIStateGroup}{IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+istate\+\_\+group\+\_\+list)
+\item 
+\mbox{\hyperlink{classSymbolTable}{Symbol\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Symbol\+Table} ()
+\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries define\+Node} (const std\+::string \&label, const std\+::string \&description="{}"{})
+\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Node} (const std\+::string \&label)
+\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Node} (Node\+Index node\+\_\+idx)
+\item 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Or\+Make\+Node} (const std\+::string \&label)
+\item 
+size\+\_\+t {\bfseries get\+Node\+Count} () const
+\item 
+void {\bfseries compile} (std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Input\+Nodes} () const
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Non\+Input\+Nodes} () const
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Nodes} () const
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+void {\bfseries init\+States} (\mbox{\hyperlink{classNetworkState}{Network\+State}} \&initial\+\_\+state, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}randgen)
+\item 
+void {\bfseries display\+Header} (std\+::ostream \&os) const
+\item 
+void {\bfseries generate\+Logical\+Expressions} (std\+::ostream \&os) const
+\item 
+bool {\bfseries is\+Node\+Defined} (const std\+::string \&identifier)
+\item 
+void {\bfseries set\+Node\+As\+Defined} (const std\+::string \&identifier)
+\item 
+void {\bfseries reset\+Node\+Definition} ()
+\item 
+void {\bfseries remove\+Last\+Node} (const std\+::string \&identifier)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopNetwork_a0f3a365623d6073aeddef685448d7e7a}\label{classPopNetwork_a0f3a365623d6073aeddef685448d7e7a} 
+std\+::vector$<$ \mbox{\hyperlink{classDivisionRule}{Division\+Rule}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries division\+Rules}
+\item 
+\Hypertarget{classPopNetwork_a7e2a2e01513a9f80b638cb2f85d64e1c}\label{classPopNetwork_a7e2a2e01513a9f80b638cb2f85d64e1c} 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries death\+Rate}
+\item 
+\Hypertarget{classPopNetwork_a2d31690b424185feb5dfcc4fee35113f}\label{classPopNetwork_a2d31690b424185feb5dfcc4fee35113f} 
+std\+::vector$<$ \mbox{\hyperlink{classPopIStateGroup}{Pop\+IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries pop\+\_\+istate\+\_\+group\+\_\+list}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classNetwork}{Network}}}
+\begin{DoxyCompactItemize}
+\item 
+static size\+\_\+t {\bfseries get\+Max\+Node\+Size} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPopNetwork_ab3fb506746978e239eaf9a51550593a9}\label{classPopNetwork_ab3fb506746978e239eaf9a51550593a9} 
+\index{PopNetwork@{PopNetwork}!display@{display}}
+\index{display@{display}!PopNetwork@{PopNetwork}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Pop\+Network\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classNetwork}{Network}}.
+
+\Hypertarget{classPopNetwork_af06e738260cad3ab805bb9c6bb265f80}\label{classPopNetwork_af06e738260cad3ab805bb9c6bb265f80} 
+\index{PopNetwork@{PopNetwork}!isPopNetwork@{isPopNetwork}}
+\index{isPopNetwork@{isPopNetwork}!PopNetwork@{PopNetwork}}
+\doxysubsubsection{\texorpdfstring{isPopNetwork()}{isPopNetwork()}}
+{\footnotesize\ttfamily bool Pop\+Network\+::is\+Pop\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classNetwork}{Network}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Pop\+Network.\+h\item 
+engine/src/Pop\+Network.\+cc\end{DoxyCompactItemize}

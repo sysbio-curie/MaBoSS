@@ -1,0 +1,1891 @@
+\doxysection{Cumulator.\+h}
+\hypertarget{Cumulator_8h_source}{}\label{Cumulator_8h_source}\index{engine/src/Cumulator.h@{engine/src/Cumulator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ Cumulator.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_CUMULATOR\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_CUMULATOR\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <cfloat>}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}Python\_headers.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ "{}MPI\_headers.h"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ COMPUTE\_ERRORS\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}RunConfig.h"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}ProbaDist.h"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#include\ "{}RunConfig.h"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ "{}displayers/StatDistDisplayer.h"{}}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#include\ "{}displayers/ProbTrajDisplayer.h"{}}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetwork}{Network}};}
+\DoxyCodeLine{00076\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbTrajDisplayer}{ProbTrajDisplayer}};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCumulator}{Cumulator}}\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{struct\ }TickValue\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ TickValue()\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ tm\_slice\ =\ 0.;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ TH\ =\ 0.;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ tm\_slice\_square\ =\ 0.;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ TickValue(\textcolor{keywordtype}{double}\ tm\_slice,\ \textcolor{keywordtype}{double}\ TH)\ :\ tm\_slice(tm\_slice),\ TH(TH),\ tm\_slice\_square(0.0)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{struct\ }LastTickValue\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ LastTickValue()\ :\ tm\_slice(0.0),\ TH(0.0)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ LastTickValue(\textcolor{keywordtype}{double}\ tm\_slice,\ \textcolor{keywordtype}{double}\ TH)\ :\ tm\_slice(tm\_slice),\ TH(TH)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{class\ }CumulMap\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ STATE\_MAP<S,\ TickValue>\ mp;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mp.size();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ incr(\textcolor{keyword}{const}\ S\ \&state,\ \textcolor{keywordtype}{double}\ tm\_slice,\ \textcolor{keywordtype}{double}\ TH)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(state);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ state\_copy(state,\ 1);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[state\_copy]\ =\ TickValue(tm\_slice,\ tm\_slice\ *\ TH);}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[state]\ =\ TickValue(tm\_slice,\ tm\_slice\ *\ TH);}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*iter).second.tm\_slice\ +=\ tm\_slice;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*iter).second.TH\ +=\ tm\_slice\ *\ TH;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//incr}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ cumulTMSliceSquare(\textcolor{keyword}{const}\ S\ \&state,\ \textcolor{keywordtype}{double}\ tm\_slice)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(state);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ assert(iter\ !=\ mp.end());}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ (*iter).second.tm\_slice\_square\ +=\ tm\_slice\ *\ tm\_slice;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ S\ \&state,\ \textcolor{keyword}{const}\ TickValue\ \&tick\_value)\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(state);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ state\_copy(state,\ 1);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[state\_copy]\ =\ tick\_value;}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[state]\ =\ tick\_value;}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ \&to\_tick\_value\ =\ (*iter).second;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_tick\_value.tm\_slice\ +=\ tick\_value.tm\_slice;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_tick\_value.tm\_slice\_square\ +=\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_tick\_value.TH\ +=\ tick\_value.TH;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//add}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ my\_MPI\_Size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ res\ =\ \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&elem:\ mp)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\ +=\ elem.first.my\_MPI\_Pack\_Size()\ +\ 2\ *\ \textcolor{keyword}{sizeof}(double);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Pack(\textcolor{keywordtype}{void}\ *buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_pack,\ \textcolor{keywordtype}{int}\ *position)\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_cumulMap\ =\ size();}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&s\_cumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator}{CumulMap::Iterator}}\ t\_iterator\ =\ iterator();}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ t\_tick\_value;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_iterator.\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed}{hasNext}}())\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ t\_iterator.\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70}{next2}}(t\_tick\_value);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.my\_MPI\_Pack(buff,\ size\_pack,\ position);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&(t\_tick\_value.tm\_slice),\ 1,\ MPI\_DOUBLE,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&(t\_tick\_value.TH),\ 1,\ MPI\_DOUBLE,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Unpack(\textcolor{keywordtype}{void}\ *buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size,\ \textcolor{keywordtype}{int}\ *position)\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_cumulMap;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&s\_cumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ s\_cumulMap;\ j++)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ t\_state;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t\_state.my\_MPI\_Unpack(buff,\ buff\_size,\ position);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_tm\_slice;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&t\_tm\_slice,\ 1,\ MPI\_DOUBLE,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_TH;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&t\_TH,\ 1,\ MPI\_DOUBLE,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ t\_tick\_value(t\_tm\_slice,\ t\_TH);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(t\_state,\ t\_tick\_value);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Recv(\textcolor{keywordtype}{int}\ source)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_cumulMap;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&s\_cumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ s\_cumulMap;\ j++)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ t\_state;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t\_state.my\_MPI\_Recv(source);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_tm\_slice;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_TH;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_tm\_slice,\ 1,\ MPI\_DOUBLE,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_TH,\ 1,\ MPI\_DOUBLE,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ t\_tick\_value(t\_tm\_slice,\ t\_TH);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(t\_state,\ t\_tick\_value);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Send(\textcolor{keywordtype}{int}\ dest)\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_cumulMap\ =\ size();}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&s\_cumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator}{CumulMap::Iterator}}\ t\_iterator\ =\ iterator();}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ t\_tick\_value;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_iterator.\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed}{hasNext}}())\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ t\_iterator.\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70}{next2}}(t\_tick\_value);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.my\_MPI\_Send(dest);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&(t\_tick\_value.tm\_slice),\ 1,\ MPI\_DOUBLE,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&(t\_tick\_value.TH),\ 1,\ MPI\_DOUBLE,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator}{Iterator}}\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&cumul\_map;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ TickValue>::const\_iterator\ iter,\ end;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator}{Iterator}}(\textcolor{keyword}{const}\ CumulMap\ \&cumul\_map)\ :\ cumul\_map(cumul\_map)\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ cumul\_map.mp.begin();}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ end\ =\ cumul\_map.mp.end();}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ae0336ffdab7a2ad79855b1ddfca72a67}{rewind}}()\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ cumul\_map.mp.begin();}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_a93769eb4cd34d362966687b48f8520ed}{hasNext}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iter\ !=\ end;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_aebcd7d4aae041fa93f2e5fd1a15f80e4}{next}}(S\ \&state,\ TickValue\ \&tick\_value)\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ (*iter).first;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tick\_value\ =\ (*iter).second;}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&\mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ac983f4e1f7efead482e257149dc54e70}{next2}}(TickValue\ \&tick\_value)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tick\_value\ =\ (*iter).second;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter++).first;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1CumulMap_1_1Iterator_ae67c8b66029c79cda95ce5a80cc4fae1}{next}}(TickValue\ \&tick\_value)\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tick\_value\ =\ (*iter).second;}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ Iterator\ iterator()\ \{\ \textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ Iterator\ iterator()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \};}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{class\ }HDCumulMap\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ double>\ mp;}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mp.size();}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ incr(\textcolor{keyword}{const}\ S\ \&fullstate,\ \textcolor{keywordtype}{double}\ tm\_slice)\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(fullstate);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ fullstate\_copy(fullstate,\ 1);}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[fullstate\_copy]\ =\ tm\_slice;}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[fullstate]\ =\ tm\_slice;}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*iter).second\ +=\ tm\_slice;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//incr}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ S\ \&fullstate,\ \textcolor{keywordtype}{double}\ tm\_slice)\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(fullstate);}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ fullstate\_copy(fullstate,\ 1);}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[fullstate\_copy]\ =\ tm\_slice;}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp[fullstate]\ =\ tm\_slice;}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*iter).second\ +=\ tm\_slice;}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//add}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ my\_MPI\_Size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ res\ =\ \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&elem:\ mp)\ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\ +=\ elem.first.my\_MPI\_Pack\_Size()\ +\ \textcolor{keyword}{sizeof}(double);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Pack(\textcolor{keywordtype}{void}\ *buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_pack,\ \textcolor{keywordtype}{int}\ *position)\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_HDCumulMap\ =\ size();}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&s\_HDCumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ HDCumulMap::Iterator\ t\_hd\_iterator\ =\ iterator();}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_hd\_iterator.hasNext())\ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ t\_hd\_iterator.next2(tm\_slice);}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.my\_MPI\_Pack(buff,\ size\_pack,\ position);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&tm\_slice,\ 1,\ MPI\_DOUBLE,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Unpack(\textcolor{keywordtype}{void}\ *buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size,\ \textcolor{keywordtype}{int}\ *position)\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ need\ the\ size}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_HDCumulMap;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&s\_HDCumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ s\_HDCumulMap;\ j++)\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ t\_state;}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t\_state.my\_MPI\_Unpack(buff,\ buff\_size,\ position);}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_tm\_slice;}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&t\_tm\_slice,\ 1,\ MPI\_DOUBLE,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(t\_state,\ t\_tm\_slice);}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Recv(\textcolor{keywordtype}{int}\ source)\ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ need\ the\ size}}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_HDCumulMap;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&s\_HDCumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ 0;\ j\ <\ s\_HDCumulMap;\ j++)\ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ t\_state;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t\_state.my\_MPI\_Recv(source);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_tm\_slice;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_tm\_slice,\ 1,\ MPI\_DOUBLE,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(t\_state,\ t\_tm\_slice);}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Send(\textcolor{keywordtype}{int}\ dest)\ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ s\_HDCumulMap\ =\ size();}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&s\_HDCumulMap,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ HDCumulMap::Iterator\ t\_hd\_iterator\ =\ iterator();}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NetworkState\ t\_state;}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_hd\_iterator.hasNext())\ \{}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ t\_hd\_iterator.next2(tm\_slice);}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.my\_MPI\_Send(dest);}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&tm\_slice,\ 1,\ MPI\_DOUBLE,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator}{Iterator}}\ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HDCumulMap\ \&hd\_cumul\_map;}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ double>::const\_iterator\ iter,\ end;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a1acc5ca246865329a7a36ef21c4d5644}{Iterator}}(\textcolor{keyword}{const}\ HDCumulMap\ \&hd\_cumul\_map)\ :\ hd\_cumul\_map(hd\_cumul\_map)\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ hd\_cumul\_map.mp.begin();}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ end\ =\ hd\_cumul\_map.mp.end();}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a0c5ab418fd240badec73d38701845d24}{rewind}}()\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ hd\_cumul\_map.mp.begin();}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a8d302ac7e9d2a7ed6c9a76edd8a52c41}{hasNext}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iter\ !=\ end;}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a88f619813958e65a7553da8bdb207f3a}{next}}(S\ \&state,\ \textcolor{keywordtype}{double}\ \&tm\_slice)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\ =\ (*iter).first;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&\mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a919e866a1a76b7648c061004d1566dbb}{next2}}(\textcolor{keywordtype}{double}\ \&tm\_slice)\ \{}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter++).first;}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_1_1HDCumulMap_1_1Iterator_a027cb281da17e9f0c672ae5c0b6b6385}{next}}(\textcolor{keywordtype}{double}\ \&tm\_slice)\ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ Iterator\ iterator()\ \{\ \textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ Iterator\ iterator()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\ \}}
+\DoxyCodeLine{00476\ \ \ \ \ \};}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig;}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick;}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count;}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_num;}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordtype}{double}\ last\_tm;}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordtype}{int}\ tick\_index;}
+\DoxyCodeLine{00487\ \ \ \ \ std::vector<double>\ H\_v;}
+\DoxyCodeLine{00488\ \ \ \ \ std::vector<double>\ TH\_v;}
+\DoxyCodeLine{00489\ \ \ \ \ std::vector<MAP<unsigned\ int,\ double>\ >\ HD\_v;}
+\DoxyCodeLine{00490\ \ \ \ \ std::vector<double>\ TH\_square\_v;}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ maxcols;}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keywordtype}{bool}\ isPopCumulator;}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_simplecols;}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_size;}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_tick\_index;}
+\DoxyCodeLine{00496\ \ \ \ \ S\ output\_mask;}
+\DoxyCodeLine{00497\ \ \ \ \ std::vector<CumulMap>\ cumul\_map\_v;}
+\DoxyCodeLine{00498\ \ \ \ \ std::vector<HDCumulMap>\ hd\_cumul\_map\_v;}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_trajcount;}
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ refnode\_count;}
+\DoxyCodeLine{00501\ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ refnode\_mask;}
+\DoxyCodeLine{00502\ \ \ \ \ std::vector<ProbaDist<S>\ >\ proba\_dist\_v;}
+\DoxyCodeLine{00503\ \ \ \ \ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ curtraj\_proba\_dist;}
+\DoxyCodeLine{00504\ \ \ \ \ STATE\_MAP<S,\ LastTickValue>\ last\_tick\_map;}
+\DoxyCodeLine{00505\ \ \ \ \ std::map<unsigned\ int,\ unsigned\ int>\ output\_scale;}
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{keywordtype}{bool}\ tick\_completed;}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00509\ \ \ \ \ CumulMap\ \&get\_map()\ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ assert((\textcolor{keywordtype}{size\_t})\ tick\_index\ <\ cumul\_map\_v.size());}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cumul\_map\_v[tick\_index];}
+\DoxyCodeLine{00512\ \ \ \ \ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00515\ \ \ \ \ CumulMap\ \&get\_map(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn)\ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ assert(nn\ <\ cumul\_map\_v.size());}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cumul\_map\_v[nn];}
+\DoxyCodeLine{00518\ \ \ \ \ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00521\ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&get\_map(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ assert(nn\ <\ cumul\_map\_v.size());}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cumul\_map\_v[nn];}
+\DoxyCodeLine{00524\ \ \ \ \ \}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00527\ \ \ \ \ HDCumulMap\ \&get\_hd\_map()\ \{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ assert((\textcolor{keywordtype}{size\_t})\ tick\_index\ <\ hd\_cumul\_map\_v.size());}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hd\_cumul\_map\_v[tick\_index];}
+\DoxyCodeLine{00530\ \ \ \ \ \}}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00533\ \ \ \ \ HDCumulMap\ \&get\_hd\_map(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn)\ \{}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ assert(nn\ <\ hd\_cumul\_map\_v.size());}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hd\_cumul\_map\_v[nn];}
+\DoxyCodeLine{00536\ \ \ \ \ \}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keyword}{const}\ HDCumulMap\ \&get\_hd\_map(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ assert(nn\ <\ hd\_cumul\_map\_v.size());}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hd\_cumul\_map\_v[nn];}
+\DoxyCodeLine{00542\ \ \ \ \ \}}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{comment}{//\ \#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \ \ \textcolor{comment}{//\ static\ void\ MPI\_Send\_Cumulator(Cumulator*\ ret\_cumul,\ int\ dest);}}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{comment}{//\ static\ void\ MPI\_Recv\_Cumulator(Cumulator*\ mpi\_ret\_cumul,\ int\ origin);}}
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keywordtype}{double}\ cumultime(\textcolor{keywordtype}{int}\ at\_tick\_index\ =\ -\/1)\ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (at\_tick\_index\ <\ 0)\ \{}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ at\_tick\_index\ =\ tick\_index;}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ at\_tick\_index\ *\ time\_tick;}
+\DoxyCodeLine{00557\ \ \ \ \ \}}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keywordtype}{bool}\ incr(\textcolor{keyword}{const}\ S\ \&state,\ \textcolor{keywordtype}{double}\ tm\_slice,\ \textcolor{keywordtype}{double}\ TH,\ \textcolor{keyword}{const}\ S\ \&fullstate)\ \{}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tm\_slice\ ==\ 0.0)\ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sample\_num\ <\ statdist\_trajcount)\ \{}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ curtraj\_proba\_dist.incr(S(fullstate),\ tm\_slice);}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tick\_index\ >=\ max\_size)\ \{}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ tick\_completed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ CumulMap\ \&mp\ =\ get\_map();}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ mp.incr(state,\ tm\_slice,\ TH);}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ HDCumulMap\ \&hd\_mp\ =\ get\_hd\_map();}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ hd\_mp.incr(fullstate,\ tm\_slice);}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\_tick\_iter\ =\ last\_tick\_map.find(state);}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (last\_tick\_iter\ ==\ last\_tick\_map.end())\ \{}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ S\ t\_state(state,\ 1);}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ last\_tick\_map[t\_state]\ =\ LastTickValue(tm\_slice,\ tm\_slice\ *\ TH);}
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ last\_tick\_map[state]\ =\ LastTickValue(tm\_slice,\ tm\_slice\ *\ TH);}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ (*last\_tick\_iter).second.tm\_slice\ +=\ tm\_slice;}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ (*last\_tick\_iter).second.TH\ +=\ tm\_slice\ *\ TH;}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00598\ \ \ \ \ \}}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keywordtype}{void}\ check()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ that\ for\ each\ tick\ (except\ the\ last\ one),\ the\ sigma\ of\ each\ map\ ==\ 1.}}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ max\_tick\_index;\ ++nn)\ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\ =\ 0.;}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter.next(tick\_value);}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ tick\_value.tm\_slice;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ sum\ /=\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ assert(sum\ >=\ 1.\ -\/\ 0.0001\ \&\&\ sum\ <=\ 1.\ +\ 0.0001);}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00615\ \ \ \ \ \}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ where,\ \textcolor{keyword}{const}\ CumulMap\ \&add\_cumul\_map)\ \{}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ CumulMap\ \&to\_cumul\_map\ =\ get\_map(where);}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ add\_cumul\_map.iterator();}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ to\_cumul\_map.add(state,\ tick\_value);}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00628\ \ \ \ \ \}}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ where,\ \textcolor{keyword}{const}\ HDCumulMap\ \&add\_hd\_cumul\_map)\ \{}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ HDCumulMap\ \&to\_hd\_cumul\_map\ =\ get\_hd\_map(where);}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ add\_hd\_cumul\_map.iterator();}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tm\_slice);}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ \ \ to\_hd\_cumul\_map.add(state,\ tm\_slice);}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \}}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \ \ \ \ \textcolor{comment}{//constructor}}
+\DoxyCodeLine{00646\ \ \ \ \ \mbox{\hyperlink{classCumulator}{Cumulator}}(\mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig,\ \textcolor{keywordtype}{double}\ time\_tick,\ \textcolor{keywordtype}{double}\ max\_time,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count,}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_trajcount)\ :\ runconfig(runconfig),\ time\_tick(time\_tick),\ sample\_count(sample\_count),}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sample\_num(0),\ last\_tm(0.),\ tick\_index(0),}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ statdist\_trajcount(statdist\_trajcount)\ \{}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ output\_mask.set();}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ refnode\_mask.reset();}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ max\_size\ =\ (int)\ (max\_time\ /\ time\_tick);}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ max\_tick\_index\ =\ max\_size;}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ cumul\_map\_v.resize(max\_size);}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ hd\_cumul\_map\_v.resize(max\_size);}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ TH\_square\_v.resize(max\_size);}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ max\_size;\ ++nn)\ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TH\_square\_v[nn]\ =\ 0.;}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ proba\_dist\_v.resize(statdist\_trajcount);}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ tick\_completed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ isPopCumulator\ =\ S::isPopState();}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isPopCumulator)\ \{}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ std::vector<int>\ >\ scale\_values;}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ base\ =\ runconfig-\/>getPopBase();}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ 1024;\ i++)\ \{}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}base\ =\ "{}\ <<\ base\ <<\ std::endl;}}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ >\ 1.001)}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ level\ =\ (int)\ pow(base,\ (round(log(i)\ /\ log(base))));}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ level\ =\ i;}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int\ level\ =\ pow(2,\ (ceil(log2(i))));}}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_scale[i]\ =\ level;}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (scale\_values.find(level)\ ==\ scale\_values.end())\ \{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale\_values[level]\ =\ std::vector<int>();}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale\_values[level].push\_back(i);}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}output\_scale["{}\ <<\ i\ <<\ "{}]\ =\ "{}\ <<\ output\_scale[i]\ <<\ std::endl;}}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ unsigned\ int>\ replace;}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&scale\_value:\ scale\_values)\ \{}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mean\ =\ 0;}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}Values\ for\ "{}\ <<\ scale\_value.first\ <<\ "{}:\ "{}\ <<\ std::endl;}}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&value:\ scale\_value.second)\ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ value\ <<\ "{},\ "{};}}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mean\ +=\ value;}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imean\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ round(mean\ /\ scale\_value.second.size());}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}Mean:\ "{}\ <<\ imean\ <<\ std::endl;}}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ replace[scale\_value.first]\ =\ imean;}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&scale\_value:\ output\_scale)\ \{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}output\_scale["{}\ <<\ scale\_value.first\ <<\ "{}]\ =\ "{}\ <<\ scale\_value.second\ <<\ "{}\ =>\ "{}\ <<\ replace[scale\_value.second]\ <<\ std::endl;}}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_scale[scale\_value.first]\ =\ replace[scale\_value.second];}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00700\ \ \ \ \ \}}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00703\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a69c3d053b63e993590064b6f6a89bcfd}{rewind}}()\ \{}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ tick\_index\ =\ 0;}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ last\_tm\ =\ 0.;}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ last\_tick\_map.clear();}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ curtraj\_proba\_dist.clear();}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ tick\_completed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00709\ \ \ \ \ \}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00712\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}{next}}()\ \{}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tick\_index\ <\ max\_size)\ \{}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ CumulMap\ \&mp\ =\ get\_map();}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH\ =\ 0.0;}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&last\_tick:\ last\_tick\_map)\ \{}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ last\_tick.first;}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\ =\ last\_tick.second.tm\_slice;}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TH\ +=\ last\_tick.second.TH;}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mp.cumulTMSliceSquare(state,\ tm\_slice);}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TH\_square\_v[tick\_index]\ +=\ TH\ *\ TH;}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ ++tick\_index;}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ tick\_completed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ last\_tick\_map.clear();}
+\DoxyCodeLine{00731\ \ \ \ \ \}}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00734\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a12bada6d9d9d72043f1527670c2243b4}{cumulEmpty}}(\textcolor{keywordtype}{double}\ tm)\ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_1\ =\ cumultime(tick\_index\ +\ 1);}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tm\ <\ time\_1)\ \{}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!tick\_completed)\ \{}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}{next}}();}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ cumultime(tick\_index\ +\ 1)\ <=\ tm;\ \mbox{\hyperlink{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}{next}}())\ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00748\ \ \ \ \ \}}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00751\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a1a098794657fe9e7843323778ffd4de4}{cumul}}(\textcolor{keyword}{const}\ S\ \&network\_state,\ \textcolor{keywordtype}{double}\ tm,\ \textcolor{keywordtype}{double}\ TH)\ \{}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ S\ fullstate(network\_state\ \&\ refnode\_mask,\ 1);}}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#else}}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ S\ fullstate(network\_state\ \&\ refnode\_mask);}}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ S\ fullstate\ =\ network\_state\ \&\ refnode\_mask;}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ S\ state\ =\ network\_state.applyMask(output\_mask,\ output\_scale);}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_1\ =\ cumultime(tick\_index\ +\ 1);}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tm\ <\ time\_1)\ \{}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ incr(state,\ tm\ -\/\ last\_tm,\ TH,\ fullstate);}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!incr(state,\ time\_1\ -\/\ last\_tm,\ TH,\ fullstate))\ \{}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}{next}}();}
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ cumultime(tick\_index\ +\ 1)\ <=\ tm;\ \mbox{\hyperlink{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}{next}}())\ \{}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!incr(state,\ time\_tick,\ TH,\ fullstate))\ \{}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ incr(state,\ tm\ -\/\ cumultime(),\ TH,\ fullstate);}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ last\_tm\ =\ tm;}
+\DoxyCodeLine{00783\ \ \ \ \ \}}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00785\ \ \ \ \ \textcolor{keywordtype}{void}\ setOutputMask(\textcolor{keyword}{const}\ S\ \&\_output\_mask)\ \{}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ this-\/>output\_mask\ =\ \_output\_mask;}
+\DoxyCodeLine{00787\ \ \ \ \ \}}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00790\ \ \ \ \ S\ \mbox{\hyperlink{classCumulator_ae9010be7f0c53e2461ab42add8553473}{getOutputMask}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ output\_mask;}
+\DoxyCodeLine{00792\ \ \ \ \ \}}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a8731e1993cacd0ad92cd6b61d5dd2db8}{setRefnodeMask}}(\textcolor{keyword}{const}\ NetworkState\_Impl\ \&\_refnode\_mask)\ \{}
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ this-\/>refnode\_mask\ =\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\_refnode\_mask,\ 1);}
+\DoxyCodeLine{00798\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ this-\/>refnode\_mask\ =\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\_refnode\_mask);}
+\DoxyCodeLine{00800\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00801\ \ \ \ \ \}}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_ad13155f663487f4b32887e1b557a672f}{displayProbTraj}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_refnode\_count,\ \mbox{\hyperlink{classProbTrajDisplayer}{ProbTrajDisplayer<S>}}\ *displayer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ std::set<S>\ result\_states\ =\ \mbox{\hyperlink{classCumulator_a9577bd18858f971b830cce60e1359fc9}{getStates}}();}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ std::vector<S>\ list\_states(result\_states.begin(),\ result\_states.end());}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ result\_simple\_states\ =\ \mbox{\hyperlink{classCumulator_af0978c4ec78287f9785aafaca04d085f}{getSimpleStates}}();}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ std::vector<NetworkState\_Impl>\ list\_simple\_states(result\_simple\_states.begin(),\ result\_simple\_states.end());}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ displayer-\/>begin(COMPUTE\_ERRORS,\ max\_tick\_index,\ maxcols,\ max\_simplecols,\ \_refnode\_count,\ list\_states,}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ list\_simple\_states);}
+\DoxyCodeLine{00814\ }
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ max\_tick\_index;\ ++nn)\ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>beginTimeTick(nn\ *\ time\_tick);}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TH}}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>setTH(TH\_v[nn]);}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ErrorTH}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//assert((size\_t)nn\ <\ TH\_square\_v.size());}}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH\_square\ =\ TH\_square\_v[nn];}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH\ =\ TH\_v[nn];\ \textcolor{comment}{//\ ==\ TH}}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_TH\ =\ (TH\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TH\ *\ TH\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_TH;}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_TH\_sample\_count\ =\ variance\_TH\ /\ sample\_count;}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//assert(variance\_TH\ >\ 0.0);}}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_TH\_sample\_count\ >=\ 0.0)\ \{}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_TH\ =\ sqrt(variance\_TH\_sample\_count);}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_TH\ =\ 0.;}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>setErrorTH(err\_TH);}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ H}}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>setH(H\_v[nn]);}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ zero\_hexfloat\ =\ fmthexdouble(0.0);}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ HD}}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MAP<unsigned\ int,\ double>\ \&hd\_m\ =\ HD\_v[nn];}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hd\ =\ 0;\ hd\ <=\ \_refnode\_count;\ ++hd)\ \{}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hd\_m\_iter\ =\ hd\_m.find(hd);}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hd\_m\_iter\ !=\ hd\_m.end())\ \{}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>setHD(hd,\ hd\_m\_iter-\/>second);}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>setHD(hd,\ 0.);}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Proba,\ ErrorProba}}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ *\ proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>addProba(state,\ proba,\ err\_proba);}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>addProba(state,\ proba,\ 0.);}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>endTimeTick();}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ displayer-\/>end();}
+\DoxyCodeLine{00881\ \ \ \ \ \}}
+\DoxyCodeLine{00882\ }
+\DoxyCodeLine{00884\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a65ae3e76b12cbf2ae9df8ed535d1b5ad}{displayStatDist}}(StatDistDisplayer\ *displayer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ should\ not\ be\ in\ cumulator,\ but\ somehwere\ in\ ProbaDist*}}
+\DoxyCodeLine{00886\ }
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Probability\ distribution}}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_traj\_count\ =\ runconfig-\/>getStatDistTrajCount();}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (statdist\_traj\_count\ ==\ 0)\ \{}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ t\_max\_size\ =\ 0;}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cnt\ =\ 0;}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ proba\_dist\_size\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ proba\_dist\_v.size();}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ proba\_dist\_size;\ ++nn)\ \{}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ \&proba\_dist\ =\ proba\_dist\_v[nn];}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (proba\_dist.size()\ >\ t\_max\_size)\ \{}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t\_max\_size\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ proba\_dist.size();}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ \ cnt++;}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cnt\ >\ statdist\_traj\_count)\ \{}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ displayer-\/>begin(t\_max\_size,\ statdist\_traj\_count);}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ cnt\ =\ 0;}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ displayer-\/>beginStatDistDisplay();}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ proba\_dist\_size;\ ++nn)\ \{}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ \&proba\_dist\ =\ proba\_dist\_v[nn];}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>beginStateProba(cnt\ +\ 1);}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ cnt++;}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \ \ \ \ proba\_dist.display(displayer);}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \ \ \ \ displayer-\/>endStateProba();}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cnt\ >=\ statdist\_traj\_count)\ \{}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ displayer-\/>endStatDistDisplay();}
+\DoxyCodeLine{00922\ }
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ should\ not\ be\ called\ from\ here,\ but\ from\ MaBestEngine}}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}\ *clusterFactory\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}(proba\_dist\_v,\ statdist\_traj\_count);}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ clusterFactory-\/>makeClusters(runconfig);}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ clusterFactory-\/>display(displayer);}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ clusterFactory-\/>computeStationaryDistribution();}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ clusterFactory-\/>displayStationaryDistribution(displayer);}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ displayer-\/>end();}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ clusterFactory;}
+\DoxyCodeLine{00931\ \ \ \ \ \}}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00935\ \ \ \ \ std::map<std::string,\ std::vector<double>\ >\ \mbox{\hyperlink{classCumulator_a7ada8e9f076ed923453e7354e3d37b5e}{getVariablesTimecourse}}(}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ std::map<std::string,\ Expression\ *>\ variables)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ std::map<std::string,\ std::vector<double>\ >\ ret;}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&variable:\ variables)}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \ \ \ \ ret[variable.first]\ =\ std::vector<double>(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}(),\ 0.0);}
+\DoxyCodeLine{00940\ }
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{00946\ }
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{00951\ }
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&variable:\ variables)}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret[variable.first][nn]\ +=\ proba\ *\ variable.second-\/>eval(state,\ time\_tick\ *\ nn);}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00958\ \ \ \ \ \}}
+\DoxyCodeLine{00959\ }
+\DoxyCodeLine{00961\ \ \ \ \ std::set<S>\ \mbox{\hyperlink{classCumulator_a9577bd18858f971b830cce60e1359fc9}{getStates}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ std::set<S>\ result\_states;}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{00967\ }
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\_states.insert(state);}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result\_states;}
+\DoxyCodeLine{00976\ \ \ \ \ \}}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00979\ \ \ \ \ std::vector<S>\ \mbox{\hyperlink{classCumulator_af3a6167b41e8d8a67d8102764ae77b80}{getLastStates}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ std::vector<S>\ result\_states;}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \ \ \ \ result\_states.push\_back(state);}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00990\ }
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result\_states;}
+\DoxyCodeLine{00992\ \ \ \ \ \}}
+\DoxyCodeLine{00993\ }
+\DoxyCodeLine{00994\ }
+\DoxyCodeLine{00996\ \ \ \ \ std::set<NetworkState\_Impl>\ \mbox{\hyperlink{classCumulator_af0978c4ec78287f9785aafaca04d085f}{getSimpleStates}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ result\_states;}
+\DoxyCodeLine{00998\ }
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isPopCumulator)\ \{}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ *t\_network\_states\ =\ state.getNetworkStates();}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\_states.insert(t\_network\_states-\/>begin(),\ t\_network\_states-\/>end());}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ t\_network\_states;}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01013\ }
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result\_states;}
+\DoxyCodeLine{01015\ \ \ \ \ \}}
+\DoxyCodeLine{01016\ }
+\DoxyCodeLine{01018\ \ \ \ \ std::set<NetworkState\_Impl>\ \mbox{\hyperlink{classCumulator_a2e429d07a8f4dbac0ec3b4ca1149d08b}{getSimpleLastStates}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ result\_states;}
+\DoxyCodeLine{01020\ }
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isPopCumulator)\ \{}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01024\ }
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ *t\_network\_states\ =\ state.getNetworkStates();}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\_states.insert(t\_network\_states-\/>begin(),\ t\_network\_states-\/>end());}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ t\_network\_states;}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01033\ }
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result\_states;}
+\DoxyCodeLine{01035\ \ \ \ \ \}}
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \textcolor{preprocessor}{\#ifdef\ PYTHON\_API}}
+\DoxyCodeLine{01038\ }
+\DoxyCodeLine{01040\ \ \ \ \ PyObject\ *getNumpyStatesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ std::set<S>\ result\_states\ =\ \mbox{\hyperlink{classCumulator_a9577bd18858f971b830cce60e1359fc9}{getStates}}();}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}(),\ (npy\_intp)\ result\_states.size()\};}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01046\ }
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ std::vector<S>\ list\_states(result\_states.begin(),\ result\_states.end());}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ STATE\_MAP<S,\ unsigned\ int>\ pos\_states;}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_states[list\_states[i]]\ =\ i;}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01055\ }
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01059\ }
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ nn,\ pos\_states[state]);}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(proba)}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ *\ proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ nn,\ pos\_states[state]);}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(err\_proba)}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_state\ =\ PyList\_New(list\_states.size());}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ i,}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(list\_states[i].getName(network).c\_str())}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01098\ }
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}());}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ i++)\ \{}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(timepoints,\ i,\ PyFloat\_FromDouble(((\textcolor{keywordtype}{double})\ i)\ *\ time\_tick));}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_state,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01105\ \ \ \ \ \}}
+\DoxyCodeLine{01106\ }
+\DoxyCodeLine{01107\ }
+\DoxyCodeLine{01109\ \ \ \ \ PyObject\ *getNumpyLastStatesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ std::vector<S>\ result\_last\_states\ =\ \mbox{\hyperlink{classCumulator_af3a6167b41e8d8a67d8102764ae77b80}{getLastStates}}();}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ 1,\ (npy\_intp)\ result\_last\_states.size()\};}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01115\ }
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ STATE\_MAP<S,\ unsigned\ int>\ pos\_states;}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ result\_last\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_states[result\_last\_states[i]]\ =\ i;}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01123\ }
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01126\ }
+\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01131\ }
+\DoxyCodeLine{01132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ 0,\ pos\_states[state]);}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(proba)}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ *\ proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ 0,\ pos\_states[state]);}
+\DoxyCodeLine{01151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(err\_proba)}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01156\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01158\ }
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_state\ =\ PyList\_New(result\_last\_states.size());}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ result\_last\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ i,}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(result\_last\_states[i].getName(network).c\_str())}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01166\ }
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(1);}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ timepoints,\ 0,}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(}
+\DoxyCodeLine{01171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{01172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{double})\ (\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1)}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ *\ time\_tick}
+\DoxyCodeLine{01174\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01176\ }
+\DoxyCodeLine{01177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_state,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01178\ \ \ \ \ \}}
+\DoxyCodeLine{01179\ }
+\DoxyCodeLine{01181\ \ \ \ \ std::vector<Node\ *>\ getNodes(\mbox{\hyperlink{classNetwork}{Network}}\ *network)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ std::vector<Node\ *>\ result\_nodes;}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ network-\/>getNodes())\ \{}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!node-\/>isInternal())}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\_nodes.push\_back(node);}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result\_nodes;}
+\DoxyCodeLine{01189\ \ \ \ \ \}}
+\DoxyCodeLine{01190\ }
+\DoxyCodeLine{01192\ \ \ \ \ PyObject\ *getNumpyNodesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ std::vector<Node\ *>\ output\_nodes)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (output\_nodes.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \ \ \ \ output\_nodes\ =\ getNodes(network);}
+\DoxyCodeLine{01195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01196\ }
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}(),\ (npy\_intp)\ output\_nodes.size()\};}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01200\ }
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ STATE\_MAP<Node\ *,\ unsigned\ int>\ pos\_nodes;}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ output\_nodes.size();\ i++)\ \{}
+\DoxyCodeLine{01203\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_nodes[output\_nodes[i]]\ =\ i;}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01205\ }
+\DoxyCodeLine{01206\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01207\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01208\ }
+\DoxyCodeLine{01209\ \ \ \ \ \ \ \ \ std::map<Node\ *,\ double>\ node\_probas;}
+\DoxyCodeLine{01210\ \ \ \ \ \ \ \ \ std::map<Node\ *,\ double>\ node\_errors;}
+\DoxyCodeLine{01211\ }
+\DoxyCodeLine{01212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_probas[node]\ =\ 0;}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_errors[node]\ =\ 0;}
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01217\ }
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01225\ }
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((state).getNodeState(node))\ \{}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_probas[node]\ +=\ proba;}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ *\ proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01242\ }
+\DoxyCodeLine{01243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_errors[node]\ +=\ err\_proba;}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01248\ }
+\DoxyCodeLine{01249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\_val\ =\ PyArray\_GETPTR2(result,\ nn,\ pos\_nodes[node]);}
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr\_val,}
+\DoxyCodeLine{01254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(node\_probas[node])}
+\DoxyCodeLine{01255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01256\ }
+\DoxyCodeLine{01257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ nn,\ pos\_nodes[node]);}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(node\_errors[node])}
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_nodes\ =\ PyList\_New(output\_nodes.size());}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ output\_nodes.size();\ i++)\ \{}
+\DoxyCodeLine{01269\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_nodes,\ i,}
+\DoxyCodeLine{01271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(output\_nodes[i]-\/>getLabel().c\_str())}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01273\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01275\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}());}
+\DoxyCodeLine{01276\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ i++)\ \{}
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(timepoints,\ i,\ PyFloat\_FromDouble(((\textcolor{keywordtype}{double})\ i)\ *\ time\_tick));}
+\DoxyCodeLine{01278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01279\ }
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_nodes,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01281\ \ \ \ \ \}}
+\DoxyCodeLine{01282\ }
+\DoxyCodeLine{01284\ \ \ \ \ PyObject\ *getNumpyLastNodesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ std::vector<Node\ *>\ output\_nodes)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (output\_nodes.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{01286\ \ \ \ \ \ \ \ \ \ \ \ \ output\_nodes\ =\ getNodes(network);}
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01288\ }
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ 1,\ (npy\_intp)\ output\_nodes.size()\};}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01291\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01292\ }
+\DoxyCodeLine{01293\ \ \ \ \ \ \ \ \ STATE\_MAP<Node\ *,\ unsigned\ int>\ pos\_nodes;}
+\DoxyCodeLine{01294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ output\_nodes.size();\ i++)\ \{}
+\DoxyCodeLine{01295\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_nodes[output\_nodes[i]]\ =\ i;}
+\DoxyCodeLine{01296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01297\ }
+\DoxyCodeLine{01298\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01300\ }
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ std::map<Node\ *,\ double>\ node\_probas;}
+\DoxyCodeLine{01302\ \ \ \ \ \ \ \ \ std::map<Node\ *,\ double>\ node\_errors;}
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ \ \ \ \ node\_probas[node]\ =\ 0;}
+\DoxyCodeLine{01305\ \ \ \ \ \ \ \ \ \ \ \ \ node\_errors[node]\ =\ 0;}
+\DoxyCodeLine{01306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01307\ }
+\DoxyCodeLine{01308\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{01309\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01310\ }
+\DoxyCodeLine{01311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01315\ }
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((state).getNodeState(node))\ \{}
+\DoxyCodeLine{01318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_probas[node]\ +=\ proba;}
+\DoxyCodeLine{01319\ }
+\DoxyCodeLine{01320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ *\ proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01331\ }
+\DoxyCodeLine{01332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_errors[node]\ +=\ err\_proba;}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01335\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ node:\ output\_nodes)\ \{}
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\_val\ =\ PyArray\_GETPTR2(result,\ 0,\ pos\_nodes[node]);}
+\DoxyCodeLine{01340\ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr\_val,}
+\DoxyCodeLine{01343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(node\_probas[node])}
+\DoxyCodeLine{01344\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01345\ }
+\DoxyCodeLine{01346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ 0,\ pos\_nodes[node]);}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(node\_errors[node])}
+\DoxyCodeLine{01352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01353\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01354\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01355\ }
+\DoxyCodeLine{01356\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_nodes\ =\ PyList\_New(output\_nodes.size());}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ output\_nodes.size();\ i++)\ \{}
+\DoxyCodeLine{01358\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_nodes,\ i,}
+\DoxyCodeLine{01360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(output\_nodes[i]-\/>getLabel().c\_str())}
+\DoxyCodeLine{01361\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01362\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01363\ }
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(1);}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ PyList\_SetItem(timepoints,\ 0,\ PyFloat\_FromDouble(((\textcolor{keywordtype}{double})\ (\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1))\ *\ time\_tick));}
+\DoxyCodeLine{01366\ }
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_nodes,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01368\ \ \ \ \ \}}
+\DoxyCodeLine{01369\ }
+\DoxyCodeLine{01371\ \ \ \ \ PyObject\ *getNumpySimpleStatesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isPopCumulator)\ \{\ Py\_RETURN\_NONE;\ \}}
+\DoxyCodeLine{01373\ }
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ result\_states\ =\ \mbox{\hyperlink{classCumulator_af0978c4ec78287f9785aafaca04d085f}{getSimpleStates}}();}
+\DoxyCodeLine{01375\ }
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}(),\ (npy\_intp)(1\ +\ result\_states.size())\};}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01380\ \ \ \ \ \ \ \ \ std::vector<NetworkState\_Impl>\ list\_states(result\_states.begin(),\ result\_states.end());}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ STATE\_MAP<NetworkState\_Impl,\ unsigned\ int>\ pos\_states;}
+\DoxyCodeLine{01382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01383\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_states[list\_states[i]]\ =\ i\ +\ 1;}
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01386\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01387\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01388\ }
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ nn++)\ \{}
+\DoxyCodeLine{01390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{01391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01392\ }
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pop\ =\ 0;}
+\DoxyCodeLine{01394\ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>\ network\_state\_probas;}
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>\ network\_state\_errors;}
+\DoxyCodeLine{01396\ \ \ \ \ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ double>\ pop\_size\_distrib;}
+\DoxyCodeLine{01397\ }
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01402\ }
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pop\ +=\ proba\ *\ state.count(NULL);}
+\DoxyCodeLine{01404\ }
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ double>::iterator\ it\ =\ pop\_size\_distrib.find(state.count(NULL));}
+\DoxyCodeLine{01407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ pop\_size\_distrib.end())\ \{}
+\DoxyCodeLine{01408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ proba;}
+\DoxyCodeLine{01409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pop\_size\_distrib[state.count(NULL)]\ =\ proba;}
+\DoxyCodeLine{01411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01413\ }
+\DoxyCodeLine{01414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state:\ state.getMap())\ \{}
+\DoxyCodeLine{01415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>::iterator\ it\ =\ network\_state\_probas.find(network\_state.first);}
+\DoxyCodeLine{01416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ network\_state\_probas.end())\ \{}
+\DoxyCodeLine{01417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ proba\ *\ network\_state.second;}
+\DoxyCodeLine{01418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_probas[network\_state.first]\ =\ proba\ *\ network\_state.second;}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01421\ }
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ state\_proba\ =\ proba;\ \textcolor{comment}{//\ *\ network\_state.second;}}
+\DoxyCodeLine{01424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\_proba\ *\ state\_proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>::iterator\ it\ =\ network\_state\_errors.find(}
+\DoxyCodeLine{01436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state.first);}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ network\_state\_errors.end())\ \{}
+\DoxyCodeLine{01438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ err\_proba;}
+\DoxyCodeLine{01439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_errors[network\_state.first]\ =\ err\_proba;}
+\DoxyCodeLine{01441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01444\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01445\ }
+\DoxyCodeLine{01446\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ nn,\ 0);}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(pop)}
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ network\_state\_variance\ =\ -\/pop\ *\ pop;}
+\DoxyCodeLine{01455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ double\ network\_state\_entropy\ =\ 0;}}
+\DoxyCodeLine{01456\ }
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&size\_proba:\ pop\_size\_distrib)\ \{}
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_variance\ +=\ size\_proba.second\ *\ (size\_proba.first\ *\ size\_proba.first);}
+\DoxyCodeLine{01459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ network\_state\_entropy\ -\/=\ log2(size\_proba.second)*size\_proba.second;}}
+\DoxyCodeLine{01460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ nn,\ 0);}
+\DoxyCodeLine{01462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state\_variance)}
+\DoxyCodeLine{01466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01467\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01468\ }
+\DoxyCodeLine{01469\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state:\ network\_state\_probas)\ \{}
+\DoxyCodeLine{01470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ nn,\ pos\_states[network\_state.first]);}
+\DoxyCodeLine{01471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state.second\ /\ pop)}
+\DoxyCodeLine{01475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ nn,\ pos\_states[network\_state.first]);}
+\DoxyCodeLine{01479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state\_errors[network\_state.first])}
+\DoxyCodeLine{01483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01485\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01486\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01487\ }
+\DoxyCodeLine{01488\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_state\ =\ PyList\_New(list\_states.size()\ +\ 1);}
+\DoxyCodeLine{01489\ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01490\ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ 0,}
+\DoxyCodeLine{01491\ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(\textcolor{stringliteral}{"{}Population"{}})}
+\DoxyCodeLine{01492\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01493\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01494\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ i\ +\ 1,}
+\DoxyCodeLine{01496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(\mbox{\hyperlink{classNetworkState}{NetworkState}}(list\_states[i]).getName(network).c\_str())}
+\DoxyCodeLine{01497\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01498\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01499\ }
+\DoxyCodeLine{01500\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}());}
+\DoxyCodeLine{01501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}();\ i++)\ \{}
+\DoxyCodeLine{01502\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(timepoints,\ i,\ PyFloat\_FromDouble(((\textcolor{keywordtype}{double})\ i)\ *\ time\_tick));}
+\DoxyCodeLine{01503\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01504\ }
+\DoxyCodeLine{01505\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_state,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01506\ \ \ \ \ \}}
+\DoxyCodeLine{01507\ }
+\DoxyCodeLine{01509\ \ \ \ \ PyObject\ *getNumpySimpleLastStatesDists(\mbox{\hyperlink{classNetwork}{Network}}\ *network)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isPopCumulator)\ \{\ Py\_RETURN\_NONE;\ \}}
+\DoxyCodeLine{01511\ }
+\DoxyCodeLine{01512\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ result\_states\ =\ \mbox{\hyperlink{classCumulator_a2e429d07a8f4dbac0ec3b4ca1149d08b}{getSimpleLastStates}}();}
+\DoxyCodeLine{01513\ }
+\DoxyCodeLine{01514\ \ \ \ \ \ \ \ \ npy\_intp\ dims[2]\ =\ \{(npy\_intp)\ 1,\ (npy\_intp)(1\ +\ result\_states.size())\};}
+\DoxyCodeLine{01515\ \ \ \ \ \ \ \ \ PyArrayObject\ *result\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01516\ \ \ \ \ \ \ \ \ PyArrayObject\ *errors\ =\ (PyArrayObject\ *)\ PyArray\_ZEROS(2,\ dims,\ NPY\_DOUBLE,\ 0);}
+\DoxyCodeLine{01517\ }
+\DoxyCodeLine{01518\ \ \ \ \ \ \ \ \ std::vector<NetworkState\_Impl>\ list\_states(result\_states.begin(),\ result\_states.end());}
+\DoxyCodeLine{01519\ \ \ \ \ \ \ \ \ STATE\_MAP<NetworkState\_Impl,\ unsigned\ int>\ pos\_states;}
+\DoxyCodeLine{01520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01521\ \ \ \ \ \ \ \ \ \ \ \ \ pos\_states[list\_states[i]]\ =\ i\ +\ 1;}
+\DoxyCodeLine{01522\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01523\ }
+\DoxyCodeLine{01524\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01525\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick2\ =\ time\_tick\ *\ time\_tick;}
+\DoxyCodeLine{01526\ }
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01529\ }
+\DoxyCodeLine{01530\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pop\ =\ 0;}
+\DoxyCodeLine{01531\ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>\ network\_state\_probas;}
+\DoxyCodeLine{01532\ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>\ network\_state\_errors;}
+\DoxyCodeLine{01533\ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ double>\ pop\_size\_distrib;}
+\DoxyCodeLine{01534\ }
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01537\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01538\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tick\_value.tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01539\ }
+\DoxyCodeLine{01540\ \ \ \ \ \ \ \ \ \ \ \ \ pop\ +=\ proba\ *\ state.count(NULL);}
+\DoxyCodeLine{01541\ }
+\DoxyCodeLine{01542\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<unsigned\ int,\ double>::iterator\ it\ =\ pop\_size\_distrib.find(state.count(NULL));}
+\DoxyCodeLine{01544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ pop\_size\_distrib.end())\ \{}
+\DoxyCodeLine{01545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ proba;}
+\DoxyCodeLine{01546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pop\_size\_distrib[state.count(NULL)]\ =\ proba;}
+\DoxyCodeLine{01548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01549\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01550\ }
+\DoxyCodeLine{01551\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state:\ state.getMap())\ \{}
+\DoxyCodeLine{01552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>::iterator\ it\ =\ network\_state\_probas.find(network\_state.first);}
+\DoxyCodeLine{01553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ network\_state\_probas.end())\ \{}
+\DoxyCodeLine{01554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ proba\ *\ network\_state.second;}
+\DoxyCodeLine{01555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_probas[network\_state.first]\ =\ proba\ *\ network\_state.second;}
+\DoxyCodeLine{01557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01558\ }
+\DoxyCodeLine{01559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ state\_proba\ =\ proba;\ \textcolor{comment}{//\ *\ network\_state.second;}}
+\DoxyCodeLine{01561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\_square\ =\ tick\_value.tm\_slice\_square;}
+\DoxyCodeLine{01562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\ =\ (tm\_slice\_square\ /\ ((sample\_count\ -\/\ 1)\ *\ time\_tick2))\ -\/\ (}
+\DoxyCodeLine{01563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state\_proba\ *\ state\_proba\ *\ sample\_count\ /\ (sample\_count\ -\/\ 1));}
+\DoxyCodeLine{01564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ err\_proba;}
+\DoxyCodeLine{01565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variance\_proba\_sample\_count\ =\ variance\_proba\ /\ sample\_count;}
+\DoxyCodeLine{01566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (variance\_proba\_sample\_count\ >=\ DBL\_MIN)\ \{}
+\DoxyCodeLine{01567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ sqrt(variance\_proba\_sample\_count);}
+\DoxyCodeLine{01568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ err\_proba\ =\ 0.;}
+\DoxyCodeLine{01570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01571\ }
+\DoxyCodeLine{01572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<NetworkState\_Impl,\ double>::iterator\ it\ =\ network\_state\_errors.find(network\_state.first);}
+\DoxyCodeLine{01573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ network\_state\_errors.end())\ \{}
+\DoxyCodeLine{01574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second\ +=\ err\_proba;}
+\DoxyCodeLine{01575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_errors[network\_state.first]\ =\ err\_proba;}
+\DoxyCodeLine{01577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01579\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01580\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01581\ }
+\DoxyCodeLine{01582\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ 0,\ 0);}
+\DoxyCodeLine{01583\ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01584\ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01585\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01586\ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(pop)}
+\DoxyCodeLine{01587\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01588\ }
+\DoxyCodeLine{01589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01590\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ network\_state\_variance\ =\ -\/pop\ *\ pop;}
+\DoxyCodeLine{01591\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ double\ network\_state\_entropy\ =\ 0;}}
+\DoxyCodeLine{01592\ }
+\DoxyCodeLine{01593\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&size\_proba:\ pop\_size\_distrib)\ \{}
+\DoxyCodeLine{01594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_state\_variance\ +=\ size\_proba.second\ *\ (size\_proba.first\ *\ size\_proba.first);}
+\DoxyCodeLine{01595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ network\_state\_entropy\ -\/=\ log2(size\_proba.second)*size\_proba.second;}}
+\DoxyCodeLine{01596\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01597\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ 0,\ 0);}
+\DoxyCodeLine{01598\ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state\_variance)}
+\DoxyCodeLine{01602\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01603\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01604\ }
+\DoxyCodeLine{01605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state:\ network\_state\_probas)\ \{}
+\DoxyCodeLine{01606\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(result,\ 0,\ pos\_states[network\_state.first]);}
+\DoxyCodeLine{01607\ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result,}
+\DoxyCodeLine{01609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state.second\ /\ pop)}
+\DoxyCodeLine{01611\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01612\ }
+\DoxyCodeLine{01613\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (COMPUTE\_ERRORS)\ \{}
+\DoxyCodeLine{01614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ptr\ =\ PyArray\_GETPTR2(errors,\ 0,\ pos\_states[network\_state.first]);}
+\DoxyCodeLine{01615\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyArray\_SETITEM(}
+\DoxyCodeLine{01616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errors,}
+\DoxyCodeLine{01617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\ ptr,}
+\DoxyCodeLine{01618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyFloat\_FromDouble(network\_state\_errors[network\_state.first])}
+\DoxyCodeLine{01619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01620\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01621\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01622\ }
+\DoxyCodeLine{01623\ \ \ \ \ \ \ \ \ PyObject\ *pylist\_state\ =\ PyList\_New(list\_states.size()\ +\ 1);}
+\DoxyCodeLine{01624\ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01625\ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ 0,}
+\DoxyCodeLine{01626\ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(\textcolor{stringliteral}{"{}Population"{}})}
+\DoxyCodeLine{01627\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01628\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ list\_states.size();\ i++)\ \{}
+\DoxyCodeLine{01629\ \ \ \ \ \ \ \ \ \ \ \ \ PyList\_SetItem(}
+\DoxyCodeLine{01630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pylist\_state,\ i\ +\ 1,}
+\DoxyCodeLine{01631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyUnicode\_FromString(\mbox{\hyperlink{classNetworkState}{NetworkState}}(list\_states[i]).getName(network).c\_str())}
+\DoxyCodeLine{01632\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01633\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01634\ }
+\DoxyCodeLine{01635\ \ \ \ \ \ \ \ \ PyObject\ *timepoints\ =\ PyList\_New(1);}
+\DoxyCodeLine{01636\ \ \ \ \ \ \ \ \ PyList\_SetItem(timepoints,\ 0,\ PyFloat\_FromDouble(((\textcolor{keywordtype}{double})\ (\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1))\ *\ time\_tick));}
+\DoxyCodeLine{01637\ }
+\DoxyCodeLine{01638\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PyTuple\_Pack(4,\ PyArray\_Return(result),\ timepoints,\ pylist\_state,\ PyArray\_Return(errors));}
+\DoxyCodeLine{01639\ \ \ \ \ \}}
+\DoxyCodeLine{01640\ }
+\DoxyCodeLine{01641\ }
+\DoxyCodeLine{01642\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01643\ }
+\DoxyCodeLine{01645\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classCumulator_a75d4e07d4f20f4b7c59e794cdd65325d}{getFinalTime}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01646\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ time\_tick\ *\ (\mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\ -\/\ 1);}
+\DoxyCodeLine{01647\ \ \ \ \ \}}
+\DoxyCodeLine{01648\ }
+\DoxyCodeLine{01649\ }
+\DoxyCodeLine{01651\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{getMaxTickIndex}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ max\_tick\_index;\ \}}
+\DoxyCodeLine{01652\ }
+\DoxyCodeLine{01656\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_ab25dbc2cdfacc5a1e35f7d47585f226b}{epilogue}}(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ \&reference\_state)\ \{}
+\DoxyCodeLine{01657\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ H\ (Entropy),\ TH\ (Transition\ entropy)\ and\ HD\ (Hamming\ distance)}}
+\DoxyCodeLine{01658\ \ \ \ \ \ \ \ \ H\_v.resize(max\_tick\_index);}
+\DoxyCodeLine{01659\ \ \ \ \ \ \ \ \ TH\_v.resize(max\_tick\_index);}
+\DoxyCodeLine{01660\ }
+\DoxyCodeLine{01661\ \ \ \ \ \ \ \ \ maxcols\ =\ 0;}
+\DoxyCodeLine{01662\ \ \ \ \ \ \ \ \ max\_simplecols\ =\ 0;}
+\DoxyCodeLine{01663\ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ network\_states;}
+\DoxyCodeLine{01664\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ time\_tick\ *\ sample\_count;}
+\DoxyCodeLine{01665\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ max\_tick\_index;\ ++nn)\ \{}
+\DoxyCodeLine{01666\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ time\ tick}}
+\DoxyCodeLine{01667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CumulMap\ \&mp\ =\ get\_map(nn);}
+\DoxyCodeLine{01668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.iterator();}
+\DoxyCodeLine{01669\ \ \ \ \ \ \ \ \ \ \ \ \ H\_v[nn]\ =\ 0.;}
+\DoxyCodeLine{01670\ \ \ \ \ \ \ \ \ \ \ \ \ TH\_v[nn]\ =\ 0.;}
+\DoxyCodeLine{01671\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TickValue\ tick\_value;}
+\DoxyCodeLine{01673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tick\_value);}
+\DoxyCodeLine{01674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isPopCumulator)\ \{}
+\DoxyCodeLine{01675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::set<NetworkState\_Impl>\ *t\_network\_states\ =\ state.getNetworkStates();}
+\DoxyCodeLine{01676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_states.insert(t\_network\_states-\/>begin(),\ t\_network\_states-\/>end());}
+\DoxyCodeLine{01677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ t\_network\_states;}
+\DoxyCodeLine{01678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice\ =\ tick\_value.tm\_slice;}
+\DoxyCodeLine{01680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ TH\ =\ tick\_value.TH\ /\ sample\_count;}
+\DoxyCodeLine{01682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ H\_v[nn]\ +=\ -\/log2(proba)\ *\ proba;}
+\DoxyCodeLine{01683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TH\_v[nn]\ +=\ TH;}
+\DoxyCodeLine{01684\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01685\ \ \ \ \ \ \ \ \ \ \ \ \ TH\_v[nn]\ /=\ time\_tick;}
+\DoxyCodeLine{01686\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mp.size()\ >\ maxcols)\ \{}
+\DoxyCodeLine{01687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxcols\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ mp.size();}
+\DoxyCodeLine{01688\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01689\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (network\_states.size()\ >\ max\_simplecols)\ \{}
+\DoxyCodeLine{01690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_simplecols\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ network\_states.size();}
+\DoxyCodeLine{01691\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01692\ }
+\DoxyCodeLine{01693\ \ \ \ \ \ \ \ \ \ \ \ \ network\_states.clear();}
+\DoxyCodeLine{01694\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01695\ }
+\DoxyCodeLine{01696\ \ \ \ \ \ \ \ \ HD\_v.resize(max\_tick\_index);}
+\DoxyCodeLine{01697\ }
+\DoxyCodeLine{01698\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ max\_tick\_index;\ ++nn)\ \{}
+\DoxyCodeLine{01699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ time\ tick}}
+\DoxyCodeLine{01700\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ HDCumulMap\ \&hd\_mp\ =\ get\_hd\_map(nn);}
+\DoxyCodeLine{01701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ hd\_mp.iterator();}
+\DoxyCodeLine{01702\ \ \ \ \ \ \ \ \ \ \ \ \ MAP<unsigned\ int,\ double>\ \&hd\_m\ =\ HD\_v[nn];}
+\DoxyCodeLine{01703\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iter.hasNext())\ \{}
+\DoxyCodeLine{01704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{01705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\ \&state\ =\ iter.next2(tm\_slice);}
+\DoxyCodeLine{01706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ tm\_slice\ /\ ratio;}
+\DoxyCodeLine{01707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hd\ =\ state.hamming(network,\ reference\_state);}
+\DoxyCodeLine{01708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hd\_m.find(hd)\ ==\ hd\_m.end())\ \{}
+\DoxyCodeLine{01709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hd\_m[hd]\ =\ proba;}
+\DoxyCodeLine{01710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hd\_m[hd]\ +=\ proba;}
+\DoxyCodeLine{01712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01713\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01714\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01715\ \ \ \ \ \}}
+\DoxyCodeLine{01716\ }
+\DoxyCodeLine{01718\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_a30f5dd485321b7f89c35b470e024b731}{trajectoryEpilogue}}()\ \{}
+\DoxyCodeLine{01719\ \ \ \ \ \ \ \ \ assert(sample\_num\ <\ sample\_count);}
+\DoxyCodeLine{01720\ }
+\DoxyCodeLine{01721\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sample\_num\ <\ statdist\_trajcount)\ \{}
+\DoxyCodeLine{01722\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ curtraj\_proba\_dist\_iter\ =\ curtraj\_proba\_dist.iterator();}
+\DoxyCodeLine{01723\ }
+\DoxyCodeLine{01724\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\_max\_time\ =\ 0.;}
+\DoxyCodeLine{01725\ }
+\DoxyCodeLine{01726\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (curtraj\_proba\_dist\_iter.hasNext())\ \{}
+\DoxyCodeLine{01727\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{01728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curtraj\_proba\_dist\_iter.next(tm\_slice);}
+\DoxyCodeLine{01729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\_max\_time\ +=\ tm\_slice;}
+\DoxyCodeLine{01730\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01731\ }
+\DoxyCodeLine{01732\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}Trajepilogue\ \#"{}\ <<\ (sample\_num+1)\ <<\ "{}\ "{}\ <<\ proba\_max\_time\ <<\ '\(\backslash\)n';}}
+\DoxyCodeLine{01733\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{01734\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba\ =\ 0;}
+\DoxyCodeLine{01735\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01736\ \ \ \ \ \ \ \ \ \ \ \ \ curtraj\_proba\_dist\_iter.rewind();}
+\DoxyCodeLine{01737\ }
+\DoxyCodeLine{01738\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ \&proba\_dist\ =\ proba\_dist\_v[sample\_num++];}
+\DoxyCodeLine{01739\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (curtraj\_proba\_dist\_iter.hasNext())\ \{}
+\DoxyCodeLine{01740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S\ state;}
+\DoxyCodeLine{01741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm\_slice;}
+\DoxyCodeLine{01742\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curtraj\_proba\_dist\_iter.next(state,\ tm\_slice);}
+\DoxyCodeLine{01743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//assert(proba\_dist.find(state)\ ==\ proba\_dist.end());}}
+\DoxyCodeLine{01744\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ new\_tm\_slice\ =\ tm\_slice\ /\ proba\_max\_time;}
+\DoxyCodeLine{01745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\_dist.set(state,\ new\_tm\_slice);}
+\DoxyCodeLine{01746\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{01747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proba\ +=\ new\_tm\_slice;}
+\DoxyCodeLine{01748\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01749\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01750\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{01751\ \ \ \ \ \ \ \ \ \ \ \ \ assert(proba\ >=\ 0.9999\ \&\&\ proba\ <=\ 1.0001);}
+\DoxyCodeLine{01752\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01753\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01754\ \ \ \ \ \}}
+\DoxyCodeLine{01755\ }
+\DoxyCodeLine{01756\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getSampleCount()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ sample\_count;\ \}}
+\DoxyCodeLine{01757\ }
+\DoxyCodeLine{01761\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCumulator_adda557b104dbfb5de7e6dfe0fd3ff691}{mergePairOfCumulators}}(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *cumulator\_1,\ \mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *cumulator\_2)\ \{}
+\DoxyCodeLine{01762\ \ \ \ \ \ \ \ \ cumulator\_1-\/>sample\_count\ +=\ cumulator\_2-\/>sample\_count;}
+\DoxyCodeLine{01763\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rr\ =\ cumulator\_1-\/>proba\_dist\_v.size();}
+\DoxyCodeLine{01764\ \ \ \ \ \ \ \ \ cumulator\_1-\/>statdist\_trajcount\ +=\ cumulator\_2-\/>statdist\_trajcount;}
+\DoxyCodeLine{01765\ \ \ \ \ \ \ \ \ cumulator\_1-\/>proba\_dist\_v.resize(cumulator\_1-\/>statdist\_trajcount);}
+\DoxyCodeLine{01766\ }
+\DoxyCodeLine{01767\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cumulator\_2-\/>cumul\_map\_v.size()\ >\ cumulator\_1-\/>cumul\_map\_v.size())\ \{}
+\DoxyCodeLine{01768\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>cumul\_map\_v.resize(cumulator\_2-\/>cumul\_map\_v.size());}
+\DoxyCodeLine{01769\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>hd\_cumul\_map\_v.resize(cumulator\_2-\/>cumul\_map\_v.size());}
+\DoxyCodeLine{01770\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01771\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cumulator\_2-\/>max\_tick\_index\ >\ cumulator\_1-\/>max\_tick\_index)\ \{}
+\DoxyCodeLine{01772\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>max\_tick\_index\ =\ cumulator\_1-\/>tick\_index\ =\ cumulator\_2-\/>max\_tick\_index;}
+\DoxyCodeLine{01773\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01774\ }
+\DoxyCodeLine{01775\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size\ =\ cumulator\_2-\/>cumul\_map\_v.size();}
+\DoxyCodeLine{01776\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01777\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ index\ =\ t\_cumul\_size\ -\/\ nn\ -\/\ 1;}
+\DoxyCodeLine{01778\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>add((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ index,\ cumulator\_2-\/>cumul\_map\_v[index]);}
+\DoxyCodeLine{01779\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_2-\/>cumul\_map\_v.pop\_back();}
+\DoxyCodeLine{01780\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>add((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ index,\ cumulator\_2-\/>hd\_cumul\_map\_v[index]);}
+\DoxyCodeLine{01781\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_2-\/>hd\_cumul\_map\_v.pop\_back();}
+\DoxyCodeLine{01782\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>TH\_square\_v[index]\ +=\ cumulator\_2-\/>TH\_square\_v[index];}
+\DoxyCodeLine{01783\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_2-\/>TH\_square\_v.pop\_back();}
+\DoxyCodeLine{01784\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01785\ }
+\DoxyCodeLine{01786\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ proba\_dist\_size\ =\ cumulator\_2-\/>proba\_dist\_v.size();}
+\DoxyCodeLine{01787\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ proba\_dist\_size;\ ++ii)\ \{}
+\DoxyCodeLine{01788\ \ \ \ \ \ \ \ \ \ \ \ \ assert(cumulator\_1-\/>proba\_dist\_v.size()\ >\ rr);}
+\DoxyCodeLine{01789\ \ \ \ \ \ \ \ \ \ \ \ \ cumulator\_1-\/>proba\_dist\_v[rr++]\ =\ cumulator\_2-\/>proba\_dist\_v[ii];}
+\DoxyCodeLine{01790\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01791\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ cumulator\_2;}
+\DoxyCodeLine{01792\ \ \ \ \ \ \ \ \ cumulator\_2\ =\ NULL;}
+\DoxyCodeLine{01793\ \ \ \ \ \}}
+\DoxyCodeLine{01794\ }
+\DoxyCodeLine{01795\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{01798\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ MPI\_Size\_Cumulator(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *ret\_cumul)\ \{}
+\DoxyCodeLine{01799\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ total\_size\ =\ \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{01800\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>cumul\_map\_v.size()\ :\ 0;}
+\DoxyCodeLine{01801\ }
+\DoxyCodeLine{01802\ }
+\DoxyCodeLine{01803\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01804\ \ \ \ \ \ \ \ \ \ \ \ \ total\_size\ +=\ ret\_cumul-\/>get\_map(nn).my\_MPI\_Size();}
+\DoxyCodeLine{01805\ }
+\DoxyCodeLine{01806\ \ \ \ \ \ \ \ \ \ \ \ \ total\_size\ +=\ ret\_cumul-\/>get\_hd\_map(nn).my\_MPI\_Size();}
+\DoxyCodeLine{01807\ }
+\DoxyCodeLine{01808\ \ \ \ \ \ \ \ \ \ \ \ \ total\_size\ +=\ \textcolor{keyword}{sizeof}(double);}
+\DoxyCodeLine{01809\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01810\ }
+\DoxyCodeLine{01811\ \ \ \ \ \ \ \ \ total\_size\ +=\ \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{01812\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>proba\_dist\_v.size()\ :\ 0;}
+\DoxyCodeLine{01813\ }
+\DoxyCodeLine{01814\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ t\_proba\_dist\_size;\ ii++)\ \{}
+\DoxyCodeLine{01815\ \ \ \ \ \ \ \ \ \ \ \ \ total\_size\ +=\ ret\_cumul-\/>proba\_dist\_v[ii].my\_MPI\_Size();}
+\DoxyCodeLine{01816\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01817\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ total\_size;}
+\DoxyCodeLine{01818\ \ \ \ \ \}}
+\DoxyCodeLine{01819\ }
+\DoxyCodeLine{01821\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ *MPI\_Pack\_Cumulator(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *ret\_cumul,\ \textcolor{keywordtype}{int}\ dest,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *buff\_size)\ \{}
+\DoxyCodeLine{01822\ \ \ \ \ \ \ \ \ *buff\_size\ =\ MPI\_Size\_Cumulator(ret\_cumul);}
+\DoxyCodeLine{01823\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buff\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[*buff\_size];}
+\DoxyCodeLine{01824\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ position\ =\ 0;}
+\DoxyCodeLine{01825\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>cumul\_map\_v.size()\ :\ 0;}
+\DoxyCodeLine{01826\ \ \ \ \ \ \ \ \ MPI\_Pack(\&t\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ *buff\_size,\ \&position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01827\ }
+\DoxyCodeLine{01828\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01829\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>get\_map(nn).my\_MPI\_Pack(buff,\ *buff\_size,\ \&position);}
+\DoxyCodeLine{01830\ }
+\DoxyCodeLine{01831\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>get\_hd\_map(nn).my\_MPI\_Pack(buff,\ *buff\_size,\ \&position);}
+\DoxyCodeLine{01832\ }
+\DoxyCodeLine{01833\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_th\_square\ =\ ret\_cumul-\/>TH\_square\_v[nn];}
+\DoxyCodeLine{01834\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Pack(\&t\_th\_square,\ 1,\ MPI\_DOUBLE,\ buff,\ *buff\_size,\ \&position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01836\ }
+\DoxyCodeLine{01837\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>proba\_dist\_v.size()\ :\ 0;}
+\DoxyCodeLine{01838\ \ \ \ \ \ \ \ \ MPI\_Pack(\&t\_proba\_dist\_size,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ *buff\_size,\ \&position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01839\ }
+\DoxyCodeLine{01840\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ t\_proba\_dist\_size;\ ii++)\ \{}
+\DoxyCodeLine{01841\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>proba\_dist\_v[ii].my\_MPI\_Pack(buff,\ *buff\_size,\ \&position);}
+\DoxyCodeLine{01842\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01843\ }
+\DoxyCodeLine{01844\ }
+\DoxyCodeLine{01845\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buff;}
+\DoxyCodeLine{01846\ \ \ \ \ \}}
+\DoxyCodeLine{01847\ }
+\DoxyCodeLine{01849\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPI\_Unpack\_Cumulator(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *mpi\_ret\_cumul,\ \textcolor{keywordtype}{char}\ *buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size)\ \{}
+\DoxyCodeLine{01850\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size;}
+\DoxyCodeLine{01851\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ position\ =\ 0;}
+\DoxyCodeLine{01852\ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ \&position,\ \&t\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01853\ }
+\DoxyCodeLine{01854\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01855\ \ \ \ \ \ \ \ \ \ \ \ \ CumulMap\ t\_cumulMap;}
+\DoxyCodeLine{01856\ \ \ \ \ \ \ \ \ \ \ \ \ t\_cumulMap.my\_MPI\_Unpack(buff,\ buff\_size,\ \&position);}
+\DoxyCodeLine{01857\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>add(nn,\ t\_cumulMap);}
+\DoxyCodeLine{01858\ }
+\DoxyCodeLine{01859\ \ \ \ \ \ \ \ \ \ \ \ \ HDCumulMap\ t\_HDCumulMap;}
+\DoxyCodeLine{01860\ \ \ \ \ \ \ \ \ \ \ \ \ t\_HDCumulMap.my\_MPI\_Unpack(buff,\ buff\_size,\ \&position);}
+\DoxyCodeLine{01861\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>add(nn,\ t\_HDCumulMap);}
+\DoxyCodeLine{01862\ }
+\DoxyCodeLine{01863\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_th\_square;}
+\DoxyCodeLine{01864\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ \&position,\ \&t\_th\_square,\ 1,\ MPI\_DOUBLE,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01865\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>TH\_square\_v.push\_back(t\_th\_square);}
+\DoxyCodeLine{01866\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01867\ }
+\DoxyCodeLine{01868\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_size;}
+\DoxyCodeLine{01869\ \ \ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ \&position,\ \&t\_proba\_dist\_size,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01870\ }
+\DoxyCodeLine{01871\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ begin\ =\ mpi\_ret\_cumul-\/>statdist\_trajcount\ -\/\ t\_proba\_dist\_size;}
+\DoxyCodeLine{01872\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ t\_proba\_dist\_size;\ ii++)\ \{}
+\DoxyCodeLine{01873\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ t\_proba\_dist;}
+\DoxyCodeLine{01874\ \ \ \ \ \ \ \ \ \ \ \ \ t\_proba\_dist.my\_MPI\_Unpack(buff,\ buff\_size,\ \&position);}
+\DoxyCodeLine{01875\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>proba\_dist\_v[begin\ +\ ii]\ =\ t\_proba\_dist;}
+\DoxyCodeLine{01876\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01877\ \ \ \ \ \}}
+\DoxyCodeLine{01878\ }
+\DoxyCodeLine{01880\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPI\_Send\_Cumulator(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *ret\_cumul,\ \textcolor{keywordtype}{int}\ dest)\ \{}
+\DoxyCodeLine{01881\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>cumul\_map\_v.size()\ :\ 0;}
+\DoxyCodeLine{01882\ \ \ \ \ \ \ \ \ MPI\_Send(\&t\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01883\ }
+\DoxyCodeLine{01884\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01885\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>get\_map(nn).my\_MPI\_Send(dest);}
+\DoxyCodeLine{01886\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>get\_hd\_map(nn).my\_MPI\_Send(dest);}
+\DoxyCodeLine{01887\ }
+\DoxyCodeLine{01888\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_th\_square\ =\ ret\_cumul-\/>TH\_square\_v[nn];}
+\DoxyCodeLine{01889\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&t\_th\_square,\ 1,\ MPI\_DOUBLE,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01890\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01891\ }
+\DoxyCodeLine{01892\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>proba\_dist\_v.size()\ :\ 0;}
+\DoxyCodeLine{01893\ \ \ \ \ \ \ \ \ MPI\_Send(\&t\_proba\_dist\_size,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01894\ }
+\DoxyCodeLine{01895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ t\_proba\_dist\_size;\ ii++)\ \{}
+\DoxyCodeLine{01896\ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>proba\_dist\_v[ii].my\_MPI\_Send(dest);}
+\DoxyCodeLine{01897\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01898\ \ \ \ \ \}}
+\DoxyCodeLine{01899\ }
+\DoxyCodeLine{01901\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPI\_Recv\_Cumulator(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *mpi\_ret\_cumul,\ \textcolor{keywordtype}{int}\ origin)\ \{}
+\DoxyCodeLine{01902\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_cumul\_size;}
+\DoxyCodeLine{01903\ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01904\ }
+\DoxyCodeLine{01905\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ t\_cumul\_size;\ ++nn)\ \{}
+\DoxyCodeLine{01906\ \ \ \ \ \ \ \ \ \ \ \ \ CumulMap\ t\_cumulMap;}
+\DoxyCodeLine{01907\ \ \ \ \ \ \ \ \ \ \ \ \ t\_cumulMap.my\_MPI\_Recv(origin);}
+\DoxyCodeLine{01908\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>add(nn,\ t\_cumulMap);}
+\DoxyCodeLine{01909\ }
+\DoxyCodeLine{01910\ \ \ \ \ \ \ \ \ \ \ \ \ HDCumulMap\ t\_HDCumulMap;}
+\DoxyCodeLine{01911\ \ \ \ \ \ \ \ \ \ \ \ \ t\_HDCumulMap.my\_MPI\_Recv(origin);}
+\DoxyCodeLine{01912\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>add(nn,\ t\_HDCumulMap);}
+\DoxyCodeLine{01913\ }
+\DoxyCodeLine{01914\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\_th\_square;}
+\DoxyCodeLine{01915\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_th\_square,\ 1,\ MPI\_DOUBLE,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01916\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>TH\_square\_v.push\_back(t\_th\_square);}
+\DoxyCodeLine{01917\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01918\ }
+\DoxyCodeLine{01919\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_size;}
+\DoxyCodeLine{01920\ \ \ \ \ \ \ \ \ MPI\_Recv(\&t\_proba\_dist\_size,\ 1,\ my\_MPI\_SIZE\_T,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01921\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ begin\ =\ mpi\_ret\_cumul-\/>statdist\_trajcount\ -\/\ t\_proba\_dist\_size;}
+\DoxyCodeLine{01922\ }
+\DoxyCodeLine{01923\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ t\_proba\_dist\_size;\ ii++)\ \{}
+\DoxyCodeLine{01924\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Here\ we\ are\ receiving\ the\ proba\_dist,\ which\ is\ a\ map\ of\ <state,\ double>}}
+\DoxyCodeLine{01925\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProbaDist}{ProbaDist<S>}}\ t\_proba\_dist;}
+\DoxyCodeLine{01926\ \ \ \ \ \ \ \ \ \ \ \ \ t\_proba\_dist.my\_MPI\_Recv(origin);}
+\DoxyCodeLine{01927\ \ \ \ \ \ \ \ \ \ \ \ \ mpi\_ret\_cumul-\/>proba\_dist\_v[begin\ +\ ii]\ =\ t\_proba\_dist;}
+\DoxyCodeLine{01928\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01929\ \ \ \ \ \}}
+\DoxyCodeLine{01930\ }
+\DoxyCodeLine{01938\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ mergePairOfMPICumulators(\mbox{\hyperlink{classCumulator}{Cumulator<S>}}\ *ret\_cumul,\ \textcolor{keywordtype}{int}\ world\_rank,\ \textcolor{keywordtype}{int}\ dest,\ \textcolor{keywordtype}{int}\ origin,}
+\DoxyCodeLine{01939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig,\ \textcolor{keywordtype}{bool}\ pack)\ \{}
+\DoxyCodeLine{01940\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (world\_rank\ ==\ dest)\ \{}
+\DoxyCodeLine{01941\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ other\_cumulator\_size;}
+\DoxyCodeLine{01942\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&other\_cumulator\_size,\ 1,\ MPI\_UNSIGNED,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01943\ }
+\DoxyCodeLine{01944\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ other\_cumulator\_statdist;}
+\DoxyCodeLine{01945\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&other\_cumulator\_statdist,\ 1,\ MPI\_UNSIGNED,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01946\ }
+\DoxyCodeLine{01947\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\_cumul\ !=\ NULL)\ \{}
+\DoxyCodeLine{01948\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>sample\_count\ +=\ other\_cumulator\_size;}
+\DoxyCodeLine{01949\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>statdist\_trajcount\ +=\ other\_cumulator\_statdist;}
+\DoxyCodeLine{01950\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>proba\_dist\_v.resize(ret\_cumul-\/>statdist\_trajcount);}
+\DoxyCodeLine{01951\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01952\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classCumulator}{Cumulator<S>}}(runconfig,\ runconfig-\/>getTimeTick(),\ runconfig-\/>getMaxTime(),}
+\DoxyCodeLine{01953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other\_cumulator\_size,\ other\_cumulator\_statdist);}
+\DoxyCodeLine{01954\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01955\ }
+\DoxyCodeLine{01956\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ remote\_cumul\_size;}
+\DoxyCodeLine{01957\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&remote\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01958\ }
+\DoxyCodeLine{01959\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ remote\_max\_tick\_index;}
+\DoxyCodeLine{01960\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&remote\_max\_tick\_index,\ 1,\ MPI\_INT,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01961\ }
+\DoxyCodeLine{01962\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (remote\_cumul\_size\ >\ ret\_cumul-\/>cumul\_map\_v.size())\ \{}
+\DoxyCodeLine{01963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>cumul\_map\_v.resize(remote\_cumul\_size);}
+\DoxyCodeLine{01964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>hd\_cumul\_map\_v.resize(remote\_cumul\_size);}
+\DoxyCodeLine{01965\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01966\ }
+\DoxyCodeLine{01967\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (remote\_max\_tick\_index\ >\ ret\_cumul-\/>max\_tick\_index)\ \{}
+\DoxyCodeLine{01968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\_cumul-\/>max\_tick\_index\ =\ ret\_cumul-\/>tick\_index\ =\ remote\_max\_tick\_index;}
+\DoxyCodeLine{01969\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01970\ }
+\DoxyCodeLine{01971\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pack)\ \{}
+\DoxyCodeLine{01972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size;}
+\DoxyCodeLine{01973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(\&buff\_size,\ 1,\ MPI\_UNSIGNED,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buff\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[buff\_size];}
+\DoxyCodeLine{01975\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv(buff,\ buff\_size,\ MPI\_PACKED,\ origin,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{01976\ }
+\DoxyCodeLine{01977\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Unpack\_Cumulator(ret\_cumul,\ buff,\ buff\_size);}
+\DoxyCodeLine{01978\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ buff;}
+\DoxyCodeLine{01979\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01980\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Recv\_Cumulator(ret\_cumul,\ origin);}
+\DoxyCodeLine{01981\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01982\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (world\_rank\ ==\ origin)\ \{}
+\DoxyCodeLine{01983\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ local\_cumulator\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>sample\_count\ :\ 0;}
+\DoxyCodeLine{01984\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&local\_cumulator\_size,\ 1,\ MPI\_UNSIGNED,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01985\ }
+\DoxyCodeLine{01986\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ local\_statdist\_trajcount\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>statdist\_trajcount\ :\ 0;}
+\DoxyCodeLine{01987\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&local\_statdist\_trajcount,\ 1,\ MPI\_UNSIGNED,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01988\ }
+\DoxyCodeLine{01989\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ local\_cumul\_size\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>cumul\_map\_v.size()\ :\ 0;}
+\DoxyCodeLine{01990\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&local\_cumul\_size,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01991\ }
+\DoxyCodeLine{01992\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ local\_max\_tick\_index\ =\ ret\_cumul\ !=\ NULL\ ?\ ret\_cumul-\/>max\_tick\_index\ :\ 0;}
+\DoxyCodeLine{01993\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&local\_max\_tick\_index,\ 1,\ MPI\_INT,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01994\ }
+\DoxyCodeLine{01995\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pack)\ \{}
+\DoxyCodeLine{01996\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size;}
+\DoxyCodeLine{01997\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buff\ =\ MPI\_Pack\_Cumulator(ret\_cumul,\ 0,\ \&buff\_size);}
+\DoxyCodeLine{01998\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(\&buff\_size,\ 1,\ MPI\_UNSIGNED,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{01999\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(buff,\ buff\_size,\ MPI\_PACKED,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{02000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ buff;}
+\DoxyCodeLine{02001\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send\_Cumulator(ret\_cumul,\ dest);}
+\DoxyCodeLine{02003\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02004\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02005\ \ \ \ \ \}}
+\DoxyCodeLine{02006\ }
+\DoxyCodeLine{02007\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02008\ \};}
+\DoxyCodeLine{02009\ }
+\DoxyCodeLine{02010\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

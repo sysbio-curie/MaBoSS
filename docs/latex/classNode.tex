@@ -1,0 +1,629 @@
+\doxysection{Node Class Reference}
+\hypertarget{classNode}{}\label{classNode}\index{Node@{Node}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNode_ad0c1913bafafd927104b47845d28bb2f}\label{classNode_ad0c1913bafafd927104b47845d28bb2f} 
+{\bfseries Node} (const std\+::string \&label, const std\+::string \&description, Node\+Index index)
+\item 
+void \mbox{\hyperlink{classNode_ac288014a37efbdfcc14d1b00f91938d1}{set\+Index}} (Node\+Index new\+\_\+index)
+\item 
+const std\+::string \& \mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{get\+Label}} () const
+\item 
+void \mbox{\hyperlink{classNode_a15d9e56dd9e6c660023fc631e56620e5}{set\+Description}} (const std\+::string \&\+\_\+description)
+\item 
+const std\+::string \& \mbox{\hyperlink{classNode_a12d2432cd31bf3e1bcf19a115aae6f00}{get\+Description}} () const
+\item 
+void \mbox{\hyperlink{classNode_aa6b5119ce91958221a227b79a6e3d6c2}{set\+Logical\+Input\+Expression}} (const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}logical\+Input\+Expr)
+\item 
+void \mbox{\hyperlink{classNode_a015d577971dc289bbbb61f474c8693db}{set\+Rate\+Up\+Expression}} (const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+void \mbox{\hyperlink{classNode_a1911840cba020cbedb057951b29dcb9b}{set\+Rate\+Down\+Expression}} (const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNode_a56de714e1898e836adee40520c00a073}{get\+Logical\+Input\+Expression}} () const
+\item 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNode_a46bca2b6865f17e919a2f4b28dcccbe4}{get\+Rate\+Up\+Expression}} () const
+\item 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNode_afca7fe2bf375c8c4fbcdee1f51fb7ee1}{get\+Rate\+Down\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classNode_a8eb90878a90d1449f04c424d6b289c7d}{set\+Attribute\+Expression}} (const std\+::string \&attr\+\_\+name, const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+void \mbox{\hyperlink{classNode_a4b775cec6ab28431aae12eff2183683a}{mutate}} (double value)
+\item 
+void \mbox{\hyperlink{classNode_a90527d3f965db13100d7ea530739bce1}{make\+Mutable}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network)
+\item 
+\mbox{\hyperlink{classNodeState}{Node\+State}} \mbox{\hyperlink{classNode_af9c8c6e95b1d10bdbf5bddaf604986a6}{get\+IState}} (const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}randgen) const
+\item 
+\Hypertarget{classNode_a940321d40b933b7f513a6939ea8b0e89}\label{classNode_a940321d40b933b7f513a6939ea8b0e89} 
+void {\bfseries set\+IState} (\mbox{\hyperlink{classNodeState}{Node\+State}} \+\_\+istate)
+\item 
+bool \mbox{\hyperlink{classNode_a68db970c322244ada4df263242c12e0f}{istate\+Set\+Randomly}} () const
+\item 
+bool \mbox{\hyperlink{classNode_a8862ebf43de2a44ed87da949cd58847d}{is\+Internal}} () const
+\item 
+bool \mbox{\hyperlink{classNode_a3446bf1aa4d618108b5a27b3ed9a6b2e}{in\+Graph}} () const
+\item 
+void \mbox{\hyperlink{classNode_a8abe6f037ccdccf978c5adf49a964dac}{is\+Internal}} (bool \+\_\+is\+\_\+internal)
+\begin{DoxyCompactList}\small\item\em Set the {\itshape is\+\_\+internal} with the value of. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNode_a8fd440af3e400d0e00b60950c5bd7ff1}{in\+Graph}} (bool \+\_\+in\+\_\+graph)
+\begin{DoxyCompactList}\small\item\em Set the {\itshape in\+\_\+graph} with the value of. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNode_a50a427ddc08ba1c958621e1386d64529}{set\+Scheduled\+Flips}} (std\+::map$<$ double, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+schedule)
+\item 
+std\+::map$<$ double, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNode_a554e892fb60381d2e4c9dbfa519cec4e}{get\+Scheduled\+Flips}} () const
+\item 
+bool \mbox{\hyperlink{classNode_a961d21c7509355709d0ad199686ee4e7}{is\+Reference}} () const
+\item 
+void \mbox{\hyperlink{classNode_a1c1751fefa8d4359edb1cea00a35e442}{set\+Reference}} (bool \+\_\+is\+\_\+reference)
+\begin{DoxyCompactList}\small\item\em Set the {\itshape is\+\_\+reference} to the value of. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNodeState}{Node\+State}} \mbox{\hyperlink{classNode_ae89937260ac4f063c74e62639aec4c8f}{get\+Reference\+State}} () const
+\item 
+void \mbox{\hyperlink{classNode_a417ffb061d496c81e9a8a4ba1cd119e6}{set\+Reference\+State}} (\mbox{\hyperlink{classNodeState}{Node\+State}} \+\_\+reference\+State)
+\begin{DoxyCompactList}\small\item\em Set the reference state of the node to the value of. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNode_a9b1a8433c7daf0659daa202d7b0ef096}{get\+Attribute\+Expression}} (const std\+::string \&attr\+\_\+name) const
+\item 
+void \mbox{\hyperlink{classNode_af796369942d5d159fd5b09da0307619a}{set\+Attribute\+String}} (const std\+::string \&attr\+\_\+name, const std\+::string \&str)
+\item 
+std\+::string \mbox{\hyperlink{classNode_afb185975d759f8068a6590316e48a030}{get\+Attribute\+String}} (const std\+::string \&attr\+\_\+name) const
+\item 
+Node\+Index \mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{get\+Index}} () const
+\item 
+\Hypertarget{classNode_a1f379063a8cdac926fc86886cc9f659d}\label{classNode_a1f379063a8cdac926fc86886cc9f659d} 
+Network\+State\+\_\+\+Impl {\bfseries get\+Node\+Bit} () const
+\item 
+const MAP$<$ std\+::string, const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{classNode_a5402e3d711202446e72628e115eec3fd}{get\+Attribute\+Expression\+Map}} () const
+\item 
+const MAP$<$ std\+::string, std\+::string $>$ \& \mbox{\hyperlink{classNode_abf12725b41e1c9c88b617cb388fb5016}{get\+Attribute\+String\+Map}} () const
+\item 
+bool \mbox{\hyperlink{classNode_a932008c0286f2bf9aa9414ac226b299c}{is\+Input\+Node}} () const
+\item 
+double \mbox{\hyperlink{classNode_a51db067c190fca6ee96cf405e908262a}{get\+Rate\+Up}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe}{get\+Rate\+Down}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classNode_a2d3d5723ff294829dda4eb3a94361413}{get\+Rate\+Up}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+double \mbox{\hyperlink{classNode_af44ae6a52d30f1dd68c63e7bbe098a03}{get\+Rate\+Down}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+\mbox{\hyperlink{classNodeState}{Node\+State}} \mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{get\+Node\+State}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+void \mbox{\hyperlink{classNode_ad982f308a6e8c70c724bca2e3c5f2316}{set\+Node\+State}} (\mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, \mbox{\hyperlink{classNodeState}{Node\+State}} state)
+\item 
+bool \mbox{\hyperlink{classNode_a42e829e655de259777ef1e67fcbbd3d3}{compute\+Node\+State}} (\mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, \mbox{\hyperlink{classNodeState}{Node\+State}} \&node\+\_\+state) const
+\item 
+\Hypertarget{classNode_a3a5d17c95876fa6030ddabbdb1cb88d6}\label{classNode_a3a5d17c95876fa6030ddabbdb1cb88d6} 
+std\+::string {\bfseries to\+String} () const
+\item 
+\Hypertarget{classNode_a57dce28238eb3a876c9f99f09de27355}\label{classNode_a57dce28238eb3a876c9f99f09de27355} 
+void {\bfseries display} (std\+::ostream \&os) const
+\item 
+\Hypertarget{classNode_a978bf90de83388e1e98350c33218bb05}\label{classNode_a978bf90de83388e1e98350c33218bb05} 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries generate\+Raw\+Logical\+Expression} () const
+\item 
+\Hypertarget{classNode_ae89a4e391b7a00b1889a35f7764a1c20}\label{classNode_ae89a4e391b7a00b1889a35f7764a1c20} 
+void {\bfseries generate\+Logical\+Expression} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&gen) const
+\item 
+\Hypertarget{classNode_a7c565caad2fea0439f28d24887ac2498}\label{classNode_a7c565caad2fea0439f28d24887ac2498} 
+void {\bfseries reset} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classNode_aba26856e9ab7247cdc491bb63d20bbc0}{set\+Override}} (bool \+\_\+override)
+\item 
+static bool \mbox{\hyperlink{classNode_a2d9b79dc95d0d9965949219712b3a052}{is\+Override}} ()
+\item 
+static void \mbox{\hyperlink{classNode_acd226f7b2e4ea0ea8190027209271c3b}{set\+Augment}} (bool \+\_\+augment)
+\item 
+static bool \mbox{\hyperlink{classNode_a5fa67c65af1b02b5f7c5ac1127057feb}{is\+Augment}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classNode_a42e829e655de259777ef1e67fcbbd3d3}\label{classNode_a42e829e655de259777ef1e67fcbbd3d3} 
+\index{Node@{Node}!computeNodeState@{computeNodeState}}
+\index{computeNodeState@{computeNodeState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{computeNodeState()}{computeNodeState()}}
+{\footnotesize\ttfamily bool Node\+::compute\+Node\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{\mbox{\hyperlink{classNodeState}{Node\+State}} \&}]{node\+\_\+state }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+true if and only if there is a logical input expression that allows to compute state from input nodes 
+\end{DoxyReturn}
+\Hypertarget{classNode_a9b1a8433c7daf0659daa202d7b0ef096}\label{classNode_a9b1a8433c7daf0659daa202d7b0ef096} 
+\index{Node@{Node}!getAttributeExpression@{getAttributeExpression}}
+\index{getAttributeExpression@{getAttributeExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getAttributeExpression()}{getAttributeExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Node\+::get\+Attribute\+Expression (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{attr\+\_\+name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em attr\+\_\+name} & the name of the attribute\+:
+\begin{DoxyItemize}
+\item {\ttfamily ATTR\+\_\+\+RATE\+\_\+\+UP\+:} node goes from deactivated to activated
+\item {\ttfamily ATTR\+\_\+\+RATE\+\_\+\+DOWN\+:} node goes from activated to deactivated
+\item {\ttfamily ATTR\+\_\+\+LOGIC\+:} logical expression 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the expression of the attribute passed in parameter 
+\end{DoxyReturn}
+\Hypertarget{classNode_a5402e3d711202446e72628e115eec3fd}\label{classNode_a5402e3d711202446e72628e115eec3fd} 
+\index{Node@{Node}!getAttributeExpressionMap@{getAttributeExpressionMap}}
+\index{getAttributeExpressionMap@{getAttributeExpressionMap}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getAttributeExpressionMap()}{getAttributeExpressionMap()}}
+{\footnotesize\ttfamily const MAP$<$ std\+::string, const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \& Node\+::get\+Attribute\+Expression\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the map of attribute and expressions 
+\end{DoxyReturn}
+\Hypertarget{classNode_afb185975d759f8068a6590316e48a030}\label{classNode_afb185975d759f8068a6590316e48a030} 
+\index{Node@{Node}!getAttributeString@{getAttributeString}}
+\index{getAttributeString@{getAttributeString}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getAttributeString()}{getAttributeString()}}
+{\footnotesize\ttfamily std\+::string Node\+::get\+Attribute\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{attr\+\_\+name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em attr\+\_\+name} & the attribute to get the string associated with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the string associated with the attribute. If attr\+\_\+name does not exist, returns "{}"{} 
+\end{DoxyReturn}
+\Hypertarget{classNode_abf12725b41e1c9c88b617cb388fb5016}\label{classNode_abf12725b41e1c9c88b617cb388fb5016} 
+\index{Node@{Node}!getAttributeStringMap@{getAttributeStringMap}}
+\index{getAttributeStringMap@{getAttributeStringMap}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getAttributeStringMap()}{getAttributeStringMap()}}
+{\footnotesize\ttfamily const MAP$<$ std\+::string, std\+::string $>$ \& Node\+::get\+Attribute\+String\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the map of attribute and string 
+\end{DoxyReturn}
+\Hypertarget{classNode_a12d2432cd31bf3e1bcf19a115aae6f00}\label{classNode_a12d2432cd31bf3e1bcf19a115aae6f00} 
+\index{Node@{Node}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily const std\+::string \& Node\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the description of the node 
+\end{DoxyReturn}
+\Hypertarget{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}\label{classNode_a145445ad18fb6a3f86052a00a0ee0a5b} 
+\index{Node@{Node}!getIndex@{getIndex}}
+\index{getIndex@{getIndex}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getIndex()}{getIndex()}}
+{\footnotesize\ttfamily Node\+Index Node\+::get\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the index of the node 
+\end{DoxyReturn}
+\Hypertarget{classNode_af9c8c6e95b1d10bdbf5bddaf604986a6}\label{classNode_af9c8c6e95b1d10bdbf5bddaf604986a6} 
+\index{Node@{Node}!getIState@{getIState}}
+\index{getIState@{getIState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getIState()}{getIState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNodeState}{Node\+State}} Node\+::get\+IState (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}}]{network,  }\item[{\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}}]{randgen }\end{DoxyParamCaption}) const}
+
+If it is not fixed, the initial state is randomly chosen 
+\begin{DoxyParams}{Parameters}
+{\em network} & / not used \\
+\hline
+{\em randgen} & the random generator to compute the state of the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the initial state of the node 
+\end{DoxyReturn}
+\Hypertarget{classNode_a9b4baa287dcf24f161ce6ab52b011c60}\label{classNode_a9b4baa287dcf24f161ce6ab52b011c60} 
+\index{Node@{Node}!getLabel@{getLabel}}
+\index{getLabel@{getLabel}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLabel()}{getLabel()}}
+{\footnotesize\ttfamily const std\+::string \& Node\+::get\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the label of the node 
+\end{DoxyReturn}
+\Hypertarget{classNode_a56de714e1898e836adee40520c00a073}\label{classNode_a56de714e1898e836adee40520c00a073} 
+\index{Node@{Node}!getLogicalInputExpression@{getLogicalInputExpression}}
+\index{getLogicalInputExpression@{getLogicalInputExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLogicalInputExpression()}{getLogicalInputExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Node\+::get\+Logical\+Input\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the logical expression used to compute rateup and ratedown if they are null 
+\end{DoxyReturn}
+\Hypertarget{classNode_afbcfdb4d7942faba326d814bd898959b}\label{classNode_afbcfdb4d7942faba326d814bd898959b} 
+\index{Node@{Node}!getNodeState@{getNodeState}}
+\index{getNodeState@{getNodeState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getNodeState()}{getNodeState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNodeState}{Node\+State}} Node\+::get\+Node\+State (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const}
+
+Interrogates the global state 
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node state 
+\end{DoxyReturn}
+\Hypertarget{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe}\label{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe} 
+\index{Node@{Node}!getRateDown@{getRateDown}}
+\index{getRateDown@{getRateDown}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateDown()}{getRateDown()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Node\+::get\+Rate\+Down (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const}
+
+
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the transition rate of the node going from activated to deactivated 
+\end{DoxyReturn}
+\Hypertarget{classNode_af44ae6a52d30f1dd68c63e7bbe098a03}\label{classNode_af44ae6a52d30f1dd68c63e7bbe098a03} 
+\index{Node@{Node}!getRateDown@{getRateDown}}
+\index{getRateDown@{getRateDown}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateDown()}{getRateDown()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Node\+::get\+Rate\+Down (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const}
+
+Same principle as \doxylink{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe}{get\+Rate\+Down} but taking into account the population context 
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+{\em pop} & population context \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{classNode_afca7fe2bf375c8c4fbcdee1f51fb7ee1}\label{classNode_afca7fe2bf375c8c4fbcdee1f51fb7ee1} 
+\index{Node@{Node}!getRateDownExpression@{getRateDownExpression}}
+\index{getRateDownExpression@{getRateDownExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateDownExpression()}{getRateDownExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Node\+::get\+Rate\+Down\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the logical expression that conditions the node to go from activated to deactivated 
+\end{DoxyReturn}
+\Hypertarget{classNode_a51db067c190fca6ee96cf405e908262a}\label{classNode_a51db067c190fca6ee96cf405e908262a} 
+\index{Node@{Node}!getRateUp@{getRateUp}}
+\index{getRateUp@{getRateUp}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateUp()}{getRateUp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Node\+::get\+Rate\+Up (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const}
+
+
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the transition rate of the node going from deactivated to activated 
+\end{DoxyReturn}
+\Hypertarget{classNode_a2d3d5723ff294829dda4eb3a94361413}\label{classNode_a2d3d5723ff294829dda4eb3a94361413} 
+\index{Node@{Node}!getRateUp@{getRateUp}}
+\index{getRateUp@{getRateUp}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateUp()}{getRateUp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Node\+::get\+Rate\+Up (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const}
+
+Same principle as \doxylink{classNode_a51db067c190fca6ee96cf405e908262a}{get\+Rate\+Up} but taking into account the population context 
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+{\em pop} & population context \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{classNode_a46bca2b6865f17e919a2f4b28dcccbe4}\label{classNode_a46bca2b6865f17e919a2f4b28dcccbe4} 
+\index{Node@{Node}!getRateUpExpression@{getRateUpExpression}}
+\index{getRateUpExpression@{getRateUpExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getRateUpExpression()}{getRateUpExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Node\+::get\+Rate\+Up\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+logical expression that conditions the node to go from deactivated to activated 
+\end{DoxyReturn}
+\Hypertarget{classNode_ae89937260ac4f063c74e62639aec4c8f}\label{classNode_ae89937260ac4f063c74e62639aec4c8f} 
+\index{Node@{Node}!getReferenceState@{getReferenceState}}
+\index{getReferenceState@{getReferenceState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getReferenceState()}{getReferenceState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNodeState}{Node\+State}} Node\+::get\+Reference\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the reference state of the node 
+\end{DoxyReturn}
+\Hypertarget{classNode_a554e892fb60381d2e4c9dbfa519cec4e}\label{classNode_a554e892fb60381d2e4c9dbfa519cec4e} 
+\index{Node@{Node}!getScheduledFlips@{getScheduledFlips}}
+\index{getScheduledFlips@{getScheduledFlips}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getScheduledFlips()}{getScheduledFlips()}}
+{\footnotesize\ttfamily std\+::map$<$ double, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} Node\+::get\+Scheduled\+Flips (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the flip schedule of the node (when the state of the node changes) 
+\end{DoxyReturn}
+\Hypertarget{classNode_a3446bf1aa4d618108b5a27b3ed9a6b2e}\label{classNode_a3446bf1aa4d618108b5a27b3ed9a6b2e} 
+\index{Node@{Node}!inGraph@{inGraph}}
+\index{inGraph@{inGraph}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{inGraph()}{inGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Node\+::in\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+true if the node is in the graph else false 
+\end{DoxyReturn}
+\Hypertarget{classNode_a8fd440af3e400d0e00b60950c5bd7ff1}\label{classNode_a8fd440af3e400d0e00b60950c5bd7ff1} 
+\index{Node@{Node}!inGraph@{inGraph}}
+\index{inGraph@{inGraph}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{inGraph()}{inGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Node\+::in\+Graph (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+in\+\_\+graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the {\itshape in\+\_\+graph} with the value of. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+in\+\_\+graph} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a5fa67c65af1b02b5f7c5ac1127057feb}\label{classNode_a5fa67c65af1b02b5f7c5ac1127057feb} 
+\index{Node@{Node}!isAugment@{isAugment}}
+\index{isAugment@{isAugment}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isAugment()}{isAugment()}}
+{\footnotesize\ttfamily static bool Node\+::is\+Augment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+the value of {\itshape augment} 
+\end{DoxyReturn}
+\Hypertarget{classNode_a932008c0286f2bf9aa9414ac226b299c}\label{classNode_a932008c0286f2bf9aa9414ac226b299c} 
+\index{Node@{Node}!isInputNode@{isInputNode}}
+\index{isInputNode@{isInputNode}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isInputNode()}{isInputNode()}}
+{\footnotesize\ttfamily bool Node\+::is\+Input\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+true if node state does not depend on other node states 
+\end{DoxyReturn}
+\Hypertarget{classNode_a8862ebf43de2a44ed87da949cd58847d}\label{classNode_a8862ebf43de2a44ed87da949cd58847d} 
+\index{Node@{Node}!isInternal@{isInternal}}
+\index{isInternal@{isInternal}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isInternal()}{isInternal()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Node\+::is\+Internal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+An internal node is part of the compute but is not computed itself \begin{DoxyReturn}{Returns}
+true if the node is internal, else false 
+\end{DoxyReturn}
+\Hypertarget{classNode_a8abe6f037ccdccf978c5adf49a964dac}\label{classNode_a8abe6f037ccdccf978c5adf49a964dac} 
+\index{Node@{Node}!isInternal@{isInternal}}
+\index{isInternal@{isInternal}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isInternal()}{isInternal()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Node\+::is\+Internal (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+is\+\_\+internal }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the {\itshape is\+\_\+internal} with the value of. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+is\+\_\+internal} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a2d9b79dc95d0d9965949219712b3a052}\label{classNode_a2d9b79dc95d0d9965949219712b3a052} 
+\index{Node@{Node}!isOverride@{isOverride}}
+\index{isOverride@{isOverride}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isOverride()}{isOverride()}}
+{\footnotesize\ttfamily static bool Node\+::is\+Override (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+the value of {\itshape is\+Override} 
+\end{DoxyReturn}
+\Hypertarget{classNode_a961d21c7509355709d0ad199686ee4e7}\label{classNode_a961d21c7509355709d0ad199686ee4e7} 
+\index{Node@{Node}!isReference@{isReference}}
+\index{isReference@{isReference}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{isReference()}{isReference()}}
+{\footnotesize\ttfamily bool Node\+::is\+Reference (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+true if the node is marked as a reference node //todo precise ? 
+\end{DoxyReturn}
+\Hypertarget{classNode_a68db970c322244ada4df263242c12e0f}\label{classNode_a68db970c322244ada4df263242c12e0f} 
+\index{Node@{Node}!istateSetRandomly@{istateSetRandomly}}
+\index{istateSetRandomly@{istateSetRandomly}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{istateSetRandomly()}{istateSetRandomly()}}
+{\footnotesize\ttfamily bool Node\+::istate\+Set\+Randomly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the logical not of state\+\_\+set 
+\end{DoxyReturn}
+\Hypertarget{classNode_a90527d3f965db13100d7ea530739bce1}\label{classNode_a90527d3f965db13100d7ea530739bce1} 
+\index{Node@{Node}!makeMutable@{makeMutable}}
+\index{makeMutable@{makeMutable}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{makeMutable()}{makeMutable()}}
+{\footnotesize\ttfamily void Node\+::make\+Mutable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}}]{network }\end{DoxyParamCaption})}
+
+\doxylink{classFunction}{Function} that makes the node mutable and modify the network in consequence 
+\begin{DoxyParams}{Parameters}
+{\em network} & the network to prepare \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a4b775cec6ab28431aae12eff2183683a}\label{classNode_a4b775cec6ab28431aae12eff2183683a} 
+\index{Node@{Node}!mutate@{mutate}}
+\index{mutate@{mutate}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{mutate()}{mutate()}}
+{\footnotesize\ttfamily void Node\+::mutate (\begin{DoxyParamCaption}\item[{double}]{value }\end{DoxyParamCaption})}
+
+\doxylink{classFunction}{Function} that disables all the logical expression of the node, replacing the logical input by a constant that is represented by the
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+{\em value} & the constant to put for the node \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a8eb90878a90d1449f04c424d6b289c7d}\label{classNode_a8eb90878a90d1449f04c424d6b289c7d} 
+\index{Node@{Node}!setAttributeExpression@{setAttributeExpression}}
+\index{setAttributeExpression@{setAttributeExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setAttributeExpression()}{setAttributeExpression()}}
+{\footnotesize\ttfamily void Node\+::set\+Attribute\+Expression (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{attr\+\_\+name,  }\item[{const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em attr\+\_\+name} & Special values are ATTR\+\_\+\+RATE\+\_\+\+UP, ATTR\+\_\+\+RATE\+\_\+\+DOWN and ATTR\+\_\+\+LOGIC; other names are stored in the custom attribute map
+\begin{DoxyItemize}
+\item {\ttfamily ATTR\+\_\+\+RATE\+\_\+\+UP} \+: rate up expression (deactivated -\/\texorpdfstring{$>$}{>} activated)
+\item {\ttfamily ATTR\+\_\+\+RATE\+\_\+\+DOWN} \+: rate down expression (activated -\/\texorpdfstring{$>$}{>} deactivated)
+\item {\ttfamily ATTR\+\_\+\+LOGIC} \+: logical expression 
+\end{DoxyItemize}\\
+\hline
+{\em expr} & the expression to put \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_af796369942d5d159fd5b09da0307619a}\label{classNode_af796369942d5d159fd5b09da0307619a} 
+\index{Node@{Node}!setAttributeString@{setAttributeString}}
+\index{setAttributeString@{setAttributeString}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setAttributeString()}{setAttributeString()}}
+{\footnotesize\ttfamily void Node\+::set\+Attribute\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{attr\+\_\+name,  }\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets a string attribute. If attr\+\_\+name is ATTR\+\_\+\+DESCRIPTION, it updates the node description; otherwise it stores the value in the custom string attribute map 
+\begin{DoxyParams}{Parameters}
+{\em attr\+\_\+name} & the name of the attribute. \\
+\hline
+{\em str} & the string to associate with the attribute \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_acd226f7b2e4ea0ea8190027209271c3b}\label{classNode_acd226f7b2e4ea0ea8190027209271c3b} 
+\index{Node@{Node}!setAugment@{setAugment}}
+\index{setAugment@{setAugment}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setAugment()}{setAugment()}}
+{\footnotesize\ttfamily static void Node\+::set\+Augment (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+augment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+augment} & set this value of augment to the node \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a15d9e56dd9e6c660023fc631e56620e5}\label{classNode_a15d9e56dd9e6c660023fc631e56620e5} 
+\index{Node@{Node}!setDescription@{setDescription}}
+\index{setDescription@{setDescription}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
+{\footnotesize\ttfamily void Node\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+description} & the description of the node \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_ac288014a37efbdfcc14d1b00f91938d1}\label{classNode_ac288014a37efbdfcc14d1b00f91938d1} 
+\index{Node@{Node}!setIndex@{setIndex}}
+\index{setIndex@{setIndex}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setIndex()}{setIndex()}}
+{\footnotesize\ttfamily void Node\+::set\+Index (\begin{DoxyParamCaption}\item[{Node\+Index}]{new\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Change the index of the node 
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+index} & the index to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_aa6b5119ce91958221a227b79a6e3d6c2}\label{classNode_aa6b5119ce91958221a227b79a6e3d6c2} 
+\index{Node@{Node}!setLogicalInputExpression@{setLogicalInputExpression}}
+\index{setLogicalInputExpression@{setLogicalInputExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setLogicalInputExpression()}{setLogicalInputExpression()}}
+{\footnotesize\ttfamily void Node\+::set\+Logical\+Input\+Expression (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}}]{logical\+Input\+Expr }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em logical\+Input\+Expr} & the logical expression used to compute rateup and ratedown if they are null \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_ad982f308a6e8c70c724bca2e3c5f2316}\label{classNode_ad982f308a6e8c70c724bca2e3c5f2316} 
+\index{Node@{Node}!setNodeState@{setNodeState}}
+\index{setNodeState@{setNodeState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setNodeState()}{setNodeState()}}
+{\footnotesize\ttfamily void Node\+::set\+Node\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{\mbox{\hyperlink{classNodeState}{Node\+State}}}]{state }\end{DoxyParamCaption})}
+
+Force the state of the node in the context of the network\+\_\+state 
+\begin{DoxyParams}{Parameters}
+{\em network\+\_\+state} & \\
+\hline
+{\em state} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_aba26856e9ab7247cdc491bb63d20bbc0}\label{classNode_aba26856e9ab7247cdc491bb63d20bbc0} 
+\index{Node@{Node}!setOverride@{setOverride}}
+\index{setOverride@{setOverride}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setOverride()}{setOverride()}}
+{\footnotesize\ttfamily static void Node\+::set\+Override (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+override }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+override} & set this value of override to the node \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a1911840cba020cbedb057951b29dcb9b}\label{classNode_a1911840cba020cbedb057951b29dcb9b} 
+\index{Node@{Node}!setRateDownExpression@{setRateDownExpression}}
+\index{setRateDownExpression@{setRateDownExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setRateDownExpression()}{setRateDownExpression()}}
+{\footnotesize\ttfamily void Node\+::set\+Rate\+Down\+Expression (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em expr} & logical expression that conditions the node to go from activated to deactivated \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a015d577971dc289bbbb61f474c8693db}\label{classNode_a015d577971dc289bbbb61f474c8693db} 
+\index{Node@{Node}!setRateUpExpression@{setRateUpExpression}}
+\index{setRateUpExpression@{setRateUpExpression}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setRateUpExpression()}{setRateUpExpression()}}
+{\footnotesize\ttfamily void Node\+::set\+Rate\+Up\+Expression (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em expr} & logical expression that conditions the node to go from deactivated to activated \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a1c1751fefa8d4359edb1cea00a35e442}\label{classNode_a1c1751fefa8d4359edb1cea00a35e442} 
+\index{Node@{Node}!setReference@{setReference}}
+\index{setReference@{setReference}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setReference()}{setReference()}}
+{\footnotesize\ttfamily void Node\+::set\+Reference (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+is\+\_\+reference }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the {\itshape is\+\_\+reference} to the value of. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+is\+\_\+reference} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a417ffb061d496c81e9a8a4ba1cd119e6}\label{classNode_a417ffb061d496c81e9a8a4ba1cd119e6} 
+\index{Node@{Node}!setReferenceState@{setReferenceState}}
+\index{setReferenceState@{setReferenceState}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setReferenceState()}{setReferenceState()}}
+{\footnotesize\ttfamily void Node\+::set\+Reference\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNodeState}{Node\+State}}}]{\+\_\+reference\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the reference state of the node to the value of. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+reference\+State} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classNode_a50a427ddc08ba1c958621e1386d64529}\label{classNode_a50a427ddc08ba1c958621e1386d64529} 
+\index{Node@{Node}!setScheduledFlips@{setScheduledFlips}}
+\index{setScheduledFlips@{setScheduledFlips}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setScheduledFlips()}{setScheduledFlips()}}
+{\footnotesize\ttfamily void Node\+::set\+Scheduled\+Flips (\begin{DoxyParamCaption}\item[{std\+::map$<$ double, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{\+\_\+schedule }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the flip schedule (when the state of the node changes) to the node 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+schedule} & a map of speed and expression of how the node must flip state \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Node.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\item 
+engine/src/Node.\+cc\end{DoxyCompactItemize}

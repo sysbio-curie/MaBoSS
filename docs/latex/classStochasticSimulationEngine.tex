@@ -1,0 +1,50 @@
+\doxysection{Stochastic\+Simulation\+Engine Class Reference}
+\hypertarget{classStochasticSimulationEngine}{}\label{classStochasticSimulationEngine}\index{StochasticSimulationEngine@{StochasticSimulationEngine}}
+
+
+Collaboration diagram for Stochastic\+Simulation\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{classStochasticSimulationEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classStochasticSimulationEngine_aee1efc28bd070132f322fcc36e5b7027}\label{classStochasticSimulationEngine_aee1efc28bd070132f322fcc36e5b7027} 
+{\bfseries Stochastic\+Simulation\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig, int seed)
+\item 
+\Hypertarget{classStochasticSimulationEngine_a8e0f36397f171365262c74e78e8ed5e9}\label{classStochasticSimulationEngine_a8e0f36397f171365262c74e78e8ed5e9} 
+void {\bfseries set\+Seed} (int \+\_\+seed)
+\item 
+\Hypertarget{classStochasticSimulationEngine_abe30ca98569316ea5b977d47257c03c5}\label{classStochasticSimulationEngine_abe30ca98569316ea5b977d47257c03c5} 
+void {\bfseries set\+Max\+Time} (double \+\_\+max\+\_\+time)
+\item 
+\Hypertarget{classStochasticSimulationEngine_a7b0d9afc05fe337811acbe865b140417}\label{classStochasticSimulationEngine_a7b0d9afc05fe337811acbe865b140417} 
+void {\bfseries set\+Discrete\+Time} (bool \+\_\+discrete\+\_\+time)
+\item 
+\Hypertarget{classStochasticSimulationEngine_a17abae5d9c6372a8e21569af0bb1e36e}\label{classStochasticSimulationEngine_a17abae5d9c6372a8e21569af0bb1e36e} 
+void {\bfseries set\+Time\+Tick} (double \+\_\+time\+\_\+tick)
+\item 
+\Hypertarget{classStochasticSimulationEngine_ab90683404ec07bcab355e676680581c2}\label{classStochasticSimulationEngine_ab90683404ec07bcab355e676680581c2} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries run} (\mbox{\hyperlink{classNetworkState}{Network\+State}} \&initial\+\_\+state, std\+::ostream \texorpdfstring{$\ast$}{*}output\+\_\+traj=NULL)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classStochasticSimulationEngine_a622454574d13902d275cc1f90ef96cba}\label{classStochasticSimulationEngine_a622454574d13902d275cc1f90ef96cba} 
+\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*} {\bfseries random\+\_\+generator}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classStochasticSimulationEngine_af53c6c9116a52a3db25cac1c72395892}\label{classStochasticSimulationEngine_af53c6c9116a52a3db25cac1c72395892} 
+static const std\+::string {\bfseries VERSION} = "{}1.\+0.\+0"{}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/engines/Stochastic\+Simulation\+Engine.\+h\item 
+engine/src/engines/Stochastic\+Simulation\+Engine.\+cc\end{DoxyCompactItemize}

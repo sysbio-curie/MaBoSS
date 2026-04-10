@@ -1,0 +1,74 @@
+\doxysection{Expression Class Reference}
+\hypertarget{classExpression}{}\label{classExpression}\index{Expression@{Expression}}
+
+
+Inheritance diagram for Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExpression__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classExpression_a90fe26b494bac443aee301d79905a58e}\label{classExpression_a90fe26b494bac443aee301d79905a58e} 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const =0
+\item 
+\Hypertarget{classExpression_aadc4180d96059aa6c91d8b4cda0230b2}\label{classExpression_aadc4180d96059aa6c91d8b4cda0230b2} 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop\+\_\+state) const =0
+\item 
+\Hypertarget{classExpression_ac2449c432abeff908e4fbc0ad6d8591e}\label{classExpression_ac2449c432abeff908e4fbc0ad6d8591e} 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+\Hypertarget{classExpression_afe81bee1460e881d41b4978b549666b4}\label{classExpression_afe81bee1460e881d41b4978b549666b4} 
+virtual bool {\bfseries has\+Cycle} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const =0
+\item 
+\Hypertarget{classExpression_a450f0f0d7056515bc02ff49136ce8ae7}\label{classExpression_a450f0f0d7056515bc02ff49136ce8ae7} 
+std\+::string {\bfseries to\+String} () const
+\item 
+\Hypertarget{classExpression_aa50068089db71d3f5166ca05dae3fec9}\label{classExpression_aa50068089db71d3f5166ca05dae3fec9} 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone} () const =0
+\item 
+\Hypertarget{classExpression_a563b56710fdb237fa32ffee0afa8af10}\label{classExpression_a563b56710fdb237fa32ffee0afa8af10} 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink} (bool \&) const
+\item 
+\Hypertarget{classExpression_ab18023a17ff5e480544118fa4648356d}\label{classExpression_ab18023a17ff5e480544118fa4648356d} 
+virtual void {\bfseries display} (std\+::ostream \&os) const =0
+\item 
+\Hypertarget{classExpression_a8e3ec3135f923a8f7399f6b150efadef}\label{classExpression_a8e3ec3135f923a8f7399f6b150efadef} 
+virtual bool {\bfseries is\+Constant\+Expression} () const
+\item 
+\Hypertarget{classExpression_a4f2195174d3c3ff47b38591f60975188}\label{classExpression_a4f2195174d3c3ff47b38591f60975188} 
+virtual bool {\bfseries is\+Logical\+Expression} () const
+\item 
+\Hypertarget{classExpression_ad944b8a8ce57d23a05bc70641e871d89}\label{classExpression_ad944b8a8ce57d23a05bc70641e871d89} 
+virtual std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries get\+Nodes} () const
+\item 
+\Hypertarget{classExpression_ada160c3592422d1c1a13fe8474b39cec}\label{classExpression_ada160c3592422d1c1a13fe8474b39cec} 
+virtual void {\bfseries generate\+Logical\+Expression} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const =0
+\item 
+\Hypertarget{classExpression_a380d5490f98e1d1986cc84eefe9708e2}\label{classExpression_a380d5490f98e1d1986cc84eefe9708e2} 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+\Hypertarget{classExpression_a5389c7e5dedffafc1da28654be1792e1}\label{classExpression_a5389c7e5dedffafc1da28654be1792e1} 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+\Hypertarget{classExpression_a26af08b3bb34886aca8b827a5de12884}\label{classExpression_a26af08b3bb34886aca8b827a5de12884} 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+\Hypertarget{classExpression_ae51e5bf96851fc1b6f29ba5d9b0ee823}\label{classExpression_ae51e5bf96851fc1b6f29ba5d9b0ee823} 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classExpression_a5facc888c326fbff2d45e30f4c2f0bf6}\label{classExpression_a5facc888c326fbff2d45e30f4c2f0bf6} 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

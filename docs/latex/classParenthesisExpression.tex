@@ -1,0 +1,196 @@
+\doxysection{Parenthesis\+Expression Class Reference}
+\hypertarget{classParenthesisExpression}{}\label{classParenthesisExpression}\index{ParenthesisExpression@{ParenthesisExpression}}
+
+
+Inheritance diagram for Parenthesis\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{classParenthesisExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Parenthesis\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{classParenthesisExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classParenthesisExpression_aa504dd00a6aab2d9ea8352272125597f}\label{classParenthesisExpression_aa504dd00a6aab2d9ea8352272125597f} 
+{\bfseries Parenthesis\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classParenthesisExpression_a46b23d63c1c82c730937cbcaf268a3f9}{clone}} () const
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classParenthesisExpression_a828ba3956500ad9a692eeb18c308faf7}{clone\+And\+Shrink}} (bool \&shrinked) const
+\item 
+bool \mbox{\hyperlink{classParenthesisExpression_ac4a73a529efb09625ce90b1e1702855a}{generation\+Will\+Add\+Parenthesis}} () const
+\item 
+double \mbox{\hyperlink{classParenthesisExpression_ad1b1758c722363bd775de4934aabd7af}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classParenthesisExpression_acd5c113d51ee2a09529c9cc8969923ba}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classParenthesisExpression_ab90df9a57db5e00c3cc281e0d5ef48fd}{as\+Not\+Logical\+Expression}} () const
+\item 
+bool \mbox{\hyperlink{classParenthesisExpression_a6570b0bbf97fea8531b7c81cad5f2439}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+void \mbox{\hyperlink{classParenthesisExpression_af6823f10c027f6f7cfc2fc9ce5b43e65}{display}} (std\+::ostream \&os) const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classParenthesisExpression_a5f46ddbb507cd112bfb14156d4cabd77}{get\+Nodes}} () const
+\item 
+bool \mbox{\hyperlink{classParenthesisExpression_a9dc0752d63bb080016abf56351c2ed13}{is\+Constant\+Expression}} () const
+\item 
+bool \mbox{\hyperlink{classParenthesisExpression_a4db60fbfa25678d60a07b3e5dd5ef14c}{is\+Logical\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classParenthesisExpression_aadbae14fe82e56e97e1d966b102e0188}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classParenthesisExpression_ab90df9a57db5e00c3cc281e0d5ef48fd}\label{classParenthesisExpression_ab90df9a57db5e00c3cc281e0d5ef48fd} 
+\index{ParenthesisExpression@{ParenthesisExpression}!asNotLogicalExpression@{asNotLogicalExpression}}
+\index{asNotLogicalExpression@{asNotLogicalExpression}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{asNotLogicalExpression()}{asNotLogicalExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} Parenthesis\+Expression\+::as\+Not\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a46b23d63c1c82c730937cbcaf268a3f9}\label{classParenthesisExpression_a46b23d63c1c82c730937cbcaf268a3f9} 
+\index{ParenthesisExpression@{ParenthesisExpression}!clone@{clone}}
+\index{clone@{clone}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Parenthesis\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a828ba3956500ad9a692eeb18c308faf7}\label{classParenthesisExpression_a828ba3956500ad9a692eeb18c308faf7} 
+\index{ParenthesisExpression@{ParenthesisExpression}!cloneAndShrink@{cloneAndShrink}}
+\index{cloneAndShrink@{cloneAndShrink}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{cloneAndShrink()}{cloneAndShrink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Parenthesis\+Expression\+::clone\+And\+Shrink (\begin{DoxyParamCaption}\item[{bool \&}]{shrinked }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_af6823f10c027f6f7cfc2fc9ce5b43e65}\label{classParenthesisExpression_af6823f10c027f6f7cfc2fc9ce5b43e65} 
+\index{ParenthesisExpression@{ParenthesisExpression}!display@{display}}
+\index{display@{display}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Parenthesis\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_ad1b1758c722363bd775de4934aabd7af}\label{classParenthesisExpression_ad1b1758c722363bd775de4934aabd7af} 
+\index{ParenthesisExpression@{ParenthesisExpression}!eval@{eval}}
+\index{eval@{eval}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Parenthesis\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_acd5c113d51ee2a09529c9cc8969923ba}\label{classParenthesisExpression_acd5c113d51ee2a09529c9cc8969923ba} 
+\index{ParenthesisExpression@{ParenthesisExpression}!eval@{eval}}
+\index{eval@{eval}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Parenthesis\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_aadbae14fe82e56e97e1d966b102e0188}\label{classParenthesisExpression_aadbae14fe82e56e97e1d966b102e0188} 
+\index{ParenthesisExpression@{ParenthesisExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Parenthesis\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_ac4a73a529efb09625ce90b1e1702855a}\label{classParenthesisExpression_ac4a73a529efb09625ce90b1e1702855a} 
+\index{ParenthesisExpression@{ParenthesisExpression}!generationWillAddParenthesis@{generationWillAddParenthesis}}
+\index{generationWillAddParenthesis@{generationWillAddParenthesis}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{generationWillAddParenthesis()}{generationWillAddParenthesis()}}
+{\footnotesize\ttfamily bool Parenthesis\+Expression\+::generation\+Will\+Add\+Parenthesis (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a5f46ddbb507cd112bfb14156d4cabd77}\label{classParenthesisExpression_a5f46ddbb507cd112bfb14156d4cabd77} 
+\index{ParenthesisExpression@{ParenthesisExpression}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ Parenthesis\+Expression\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a6570b0bbf97fea8531b7c81cad5f2439}\label{classParenthesisExpression_a6570b0bbf97fea8531b7c81cad5f2439} 
+\index{ParenthesisExpression@{ParenthesisExpression}!hasCycle@{hasCycle}}
+\index{hasCycle@{hasCycle}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{hasCycle()}{hasCycle()}}
+{\footnotesize\ttfamily bool Parenthesis\+Expression\+::has\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{node }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a9dc0752d63bb080016abf56351c2ed13}\label{classParenthesisExpression_a9dc0752d63bb080016abf56351c2ed13} 
+\index{ParenthesisExpression@{ParenthesisExpression}!isConstantExpression@{isConstantExpression}}
+\index{isConstantExpression@{isConstantExpression}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{isConstantExpression()}{isConstantExpression()}}
+{\footnotesize\ttfamily bool Parenthesis\+Expression\+::is\+Constant\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classParenthesisExpression_a4db60fbfa25678d60a07b3e5dd5ef14c}\label{classParenthesisExpression_a4db60fbfa25678d60a07b3e5dd5ef14c} 
+\index{ParenthesisExpression@{ParenthesisExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!ParenthesisExpression@{ParenthesisExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily bool Parenthesis\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

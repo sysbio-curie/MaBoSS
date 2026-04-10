@@ -1,0 +1,831 @@
+\doxysection{Network\+State.\+h}
+\hypertarget{NetworkState_8h_source}{}\label{NetworkState_8h_source}\index{engine/src/NetworkState.h@{engine/src/NetworkState.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ BooleanNetwork.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_NETWORKSTATE\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_NETWORKSTATE\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}NetworkState\_Impl.h"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}Node.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}MPI\_headers.h"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ global\ state\ of\ the\ boolean\ network}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetworkState}{NetworkState}}\ \{}
+\DoxyCodeLine{00065\ \ \ NetworkState\_Impl\ state;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ !defined(USE\_STATIC\_BITSET)\ \&\&\ !defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{static}\ NetworkState\_Impl\ nodeBit(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ node-\/>getNodeBit();}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{static}\ NetworkState\_Impl\ nodeBit(NodeIndex\ node\_index)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ (1ULL\ <<\ node\_index);}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00079\ \ \ }
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\textcolor{keyword}{const}\ NetworkState\_Impl\&\ \_state)\ :\ state(\_state)\ \{\ \}}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ \_state)\ :\ state(\_state.getState())\ \{\}}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ \_state)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ state\ =\ \_state.getState();}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\textcolor{keyword}{const}\ NetworkState\_Impl\&\ \_state,\ \textcolor{keywordtype}{int}\ copy)\ \{\ state\ =\ NetworkState\_Impl(\_state,\ copy);\ \}}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ \_state,\ \textcolor{keywordtype}{int}\ copy)\ :\ state(\_state.getState(copy))\ \{\}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ operator\&(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ mask)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(state\ \&\ mask.getState(),\ 1);}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(state\ \&\ mask.getState());}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ \ \ }
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ applyMask(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ mask,\ std::map<unsigned\ int,\ unsigned\ int>\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(state\ \&\ mask.getState(),\ 1);}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}(state\ \&\ mask.getState());}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}()\ \{\ \}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ EV:\ 2020-\/10-\/23}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//NetworkState()\ :\ state(MAXNODES)\ \{\ \}}}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}()\ :\ state(Network::getMaxNodeSize())\ \{\ \}}
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{//\ EV:\ 2020-\/12-\/01\ would\ be\ better\ to\ create\ a\ 0-\/size\ state\ and\ then\ call\ resize\ dynamically}}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//NetworkState()\ :\ state(0)\ \{\ \}}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}()\ :\ state(0ULL)\ \{\ \}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ set()\ \{}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00121\ \ \ \ \ state.set();}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ EV:\ 2020-\/10-\/23}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//output\_mask.resize(MAXNODES);}}
+\DoxyCodeLine{00125\ \ \ \ \ state.resize(Network::getMaxNodeSize());}
+\DoxyCodeLine{00126\ \ \ \ \ state.set();}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00128\ \ \ \ \ state\ =\ \string~0ULL;}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00134\ \ \ \ \ state.reset();}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ EV:\ 2020-\/10-\/23}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//output\_mask.resize(MAXNODES);}}
+\DoxyCodeLine{00138\ \ \ \ \ state.resize(Network::getMaxNodeSize());}
+\DoxyCodeLine{00139\ \ \ \ \ state.reset();}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00141\ \ \ \ \ state\ =\ 0ULL;}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{classNodeState}{NodeState}}\ getNodeState(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#if\ defined(USE\_STATIC\_BITSET)\ ||\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{return}\ state.test(node-\/>\mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}());}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{return}\ state\ \&\ nodeBit(node);}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00151\ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ setNodeState(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node,\ \mbox{\hyperlink{classNodeState}{NodeState}}\ node\_state)\ \{}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#if\ defined(USE\_STATIC\_BITSET)\ ||\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00155\ \ \ \ \ state.set(node-\/>\mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}(),\ node\_state);}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (node\_state)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ state\ |=\ nodeBit(node);}
+\DoxyCodeLine{00159\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ state\ \&=\ \string~nodeBit(node);}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{void}\ flipState(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node)\ \{}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#if\ defined(USE\_STATIC\_BITSET)\ ||\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{//state.set(node-\/>getIndex(),\ !state.test(node-\/>getIndex()));}}
+\DoxyCodeLine{00168\ \ \ \ \ state.flip(node-\/>\mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}());}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00170\ \ \ \ \ state\ \string^=\ nodeBit(node);}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{comment}{//\ returns\ true\ if\ and\ only\ if\ there\ is\ a\ logical\ input\ expression\ that\ allows\ to\ compute\ state\ from\ input\ nodes}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{bool}\ computeNodeState(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node,\ \mbox{\hyperlink{classNodeState}{NodeState}}\&\ node\_state);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isPopState()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00178\ \ \ std::set<NetworkState\_Impl>*\ getNetworkStates()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ std::set<NetworkState\_Impl>(\{state\});}
+\DoxyCodeLine{00180\ \ \ \}}
+\DoxyCodeLine{00181\ \ \ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00183\ \ \ NetworkState\_Impl\ getState(\textcolor{keywordtype}{int}\ copy)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ NetworkState\_Impl(state,\ copy);\}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00185\ \ \ NetworkState\_Impl\ getState()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ state;\}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ std::string\ getName(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep=\textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00191\ \ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{void}\ displayOneLine(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ displayJSON(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#ifndef\ USE\_UNORDERED\_MAP}}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{return}\ state\ <\ network\_state.state;}
+\DoxyCodeLine{00198\ \ \ \}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hamming(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ NetworkState\_Impl\&\ state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hamming(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{size\_t}\ my\_MPI\_Pack\_Size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{return}\ (MAXNODES/64\ +\ (MAXNODES\%64\ >\ 0\ ?\ 1\ :\ 0))\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00211\ \ \ \ \ }
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long);}
+\DoxyCodeLine{00214\ \ \ \ \ }
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00216\ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Pack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_pack,\ \textcolor{keywordtype}{int}*\ position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00221\ \ \ \ \ }
+\DoxyCodeLine{00222\ \ \ \ \ std::vector<unsigned\ long\ long>\ arr\ =\ to\_ullongs(state);}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_ullongs\ =\ arr.size();}
+\DoxyCodeLine{00224\ \ \ \ \ MPI\_Pack(\&nb\_ullongs,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00225\ \ \ \ \ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ arr.size();\ i++)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ MPI\_Pack(\&(arr[i]),\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00231\ \ \ \ \ }
+\DoxyCodeLine{00232\ \ \ \ \ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00234\ \ \ \ \ MPI\_Pack(\&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00235\ \ \ \ \ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00237\ \ \ \}}
+\DoxyCodeLine{00238\ \ \ }
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Unpack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size,\ \textcolor{keywordtype}{int}*\ position)\ \{}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00241\ \ \ \ \ std::vector<unsigned\ long\ long>\ v;}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_ullongs;}
+\DoxyCodeLine{00243\ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&nb\_ullongs,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00244\ \ \ \ \ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ nb\_ullongs;\ i++)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ t\_ullong;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&t\_ullong,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ v.push\_back(t\_ullong);}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ }
+\DoxyCodeLine{00251\ \ \ \ \ state\ =\ to\_bitset(v);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00254\ \ \ \ \ }
+\DoxyCodeLine{00255\ \ \ \ \ }
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00257\ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00258\ \ \ \ \ }
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00260\ \ \ \ \ }
+\DoxyCodeLine{00261\ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Recv(\textcolor{keywordtype}{int}\ source)\ }
+\DoxyCodeLine{00263\ \ \ \{}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00265\ \ \ \ \ std::vector<unsigned\ long\ long>\ v;}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_ullongs;}
+\DoxyCodeLine{00267\ \ \ \ \ MPI\_Recv(\&nb\_ullongs,\ 1,\ my\_MPI\_SIZE\_T,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00268\ \ \ \ \ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ nb\_ullongs;\ i++)\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ t\_ullong;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ MPI\_Recv(\&t\_ullong,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ v.push\_back(t\_ullong);}
+\DoxyCodeLine{00273\ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ }
+\DoxyCodeLine{00275\ \ \ \ \ state\ =\ to\_bitset(v);}
+\DoxyCodeLine{00276\ \ \ \ \ }
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00278\ \ \ \ \ }
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00280\ \ \ \ \ MPI\_Recv(\&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00282\ \ \ \}}
+\DoxyCodeLine{00283\ \ \ }
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Send(\textcolor{keywordtype}{int}\ dest)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00285\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00287\ \ \ \ \ std::vector<unsigned\ long\ long>\ arr\ =\ to\_ullongs(state);}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_ullongs\ =\ arr.size();}
+\DoxyCodeLine{00289\ \ \ \ \ MPI\_Send(\&nb\_ullongs,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00290\ \ \ \ \ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ arr.size();\ i++)\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ MPI\_Send(\&(arr[i]),\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ }
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00298\ \ \ \ \ MPI\_Send(\&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00301\ \ \ \}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classNodeState}{NodeState}}\ getState(\mbox{\hyperlink{classNode}{Node}}*\ node,\ \textcolor{keyword}{const}\ NetworkState\_Impl\ \&state)\ \{}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#if\ defined(USE\_STATIC\_BITSET)\ ||\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{return}\ state.test(node-\/>\mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}());}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{return}\ state\ \&\ nodeBit(node);}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00310\ \ \ \}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00313\ \ \ }
+\DoxyCodeLine{00314\ \ \ \textcolor{keyword}{static}\ std::vector<unsigned\ long\ long>\ to\_ullongs(std::bitset<MAXNODES>\ bs)\ \{}
+\DoxyCodeLine{00315\ \ \ \ \ std::vector<unsigned\ long\ long>\ ret;}
+\DoxyCodeLine{00316\ \ \ \ \ ret.clear();}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nb\_arrays\ =\ MAXNODES/64\ +\ (MAXNODES\%64\ >\ 0\ ?\ 1\ :\ 0);}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ nb\_arrays;\ i++)\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ ret.push\_back(((bs<<(i*64))>>(MAXNODES-\/64)).to\_ullong());\ \ \ }
+\DoxyCodeLine{00321\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ \ \ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00324\ \ \ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \textcolor{keyword}{static}\ std::bitset<MAXNODES>\ to\_bitset(std::vector<unsigned\ long\ long>\ arr)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ std::bitset<MAXNODES>\ ret;}
+\DoxyCodeLine{00328\ \ \ \ \ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ (arr.size()-\/1);\ i++)\ }
+\DoxyCodeLine{00330\ \ \ \ \ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ ret\ |=\ arr[i];}
+\DoxyCodeLine{00332\ \ \ \ \ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ (arr.size()-\/2))\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ ret\ <<\ 64;}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ ret\ <<\ (MAXNODES-\/((i+1)*64));\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ |=\ (arr[i+1]\ >>\ (MAXNODES-\/((i+1)*64)));}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00339\ \ \ \ \ \}\ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00341\ \ \ \}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \};}
+\DoxyCodeLine{00345\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00346\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{classNetworkState}{NetworkState}}>}
+\DoxyCodeLine{00347\ \ \ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<NetworkState\_Impl>\{\}(val.getState(1));}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<NetworkState\_Impl>\{\}(val.getState());}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00354\ \ \ \ \ \}}
+\DoxyCodeLine{00355\ \ \ \};}
+\DoxyCodeLine{00356\ \ \ }
+\DoxyCodeLine{00357\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }equal\_to<\mbox{\hyperlink{classNetworkState}{NetworkState}}>}
+\DoxyCodeLine{00358\ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ NetworkState\_Impl\ state\_1(val1.getState(1));}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ NetworkState\_Impl\ state\_2(val2.getState(1));}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::equal\_to<NetworkState\_Impl>\{\}(state\_1,\ state\_2);}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::equal\_to<NetworkState\_Impl>\{\}(val1.getState(),\ val2.getState());}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00367\ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \};}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \textcolor{comment}{//\ Added\ less\ operator,\ necessary\ for\ maps,\ sets.\ Code\ from\ https://stackoverflow.com/a/21245301/11713763}}
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }less<\mbox{\hyperlink{classNetworkState}{NetworkState}}>}
+\DoxyCodeLine{00372\ \ \ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \textcolor{keyword}{const}\ NetworkState\_Impl\&\ state\_1\ =\ val1.getState(1);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \textcolor{keyword}{const}\ NetworkState\_Impl\&\ state\_2\ =\ val2.getState(1);}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::less<NetworkState\_Impl>\{\}(state\_1,\ state\_2);}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::less<NetworkState\_Impl>\{\}(val1.getState(),\ val2.getState());}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00381\ \ \ \ \ \}}
+\DoxyCodeLine{00382\ \ \ \};}
+\DoxyCodeLine{00383\ \}}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \textcolor{comment}{//\ global\ state\ of\ the\ population\ boolean\ network}}
+\DoxyCodeLine{00386\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ \{}
+\DoxyCodeLine{00387\ \ \ }
+\DoxyCodeLine{00388\ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>\ mp;}
+\DoxyCodeLine{00389\ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{size\_t}\ hash;}
+\DoxyCodeLine{00390\ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{bool}\ hash\_init;}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \textcolor{keyword}{const}\ std::map<NetworkState\_Impl,\ unsigned\ int>\&\ getMap()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{return}\ mp;}
+\DoxyCodeLine{00396\ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{size\_t}\ getHash()\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{comment}{//\ EV\ 2021-\/08-\/23:\ invalid\ comparison\ as\ hash\ ==\ 0\ can\ be\ a\ valid\ computed\ hash;\ replaced\ by\ hash\_init}}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{//if\ (hash\ ==\ 0)\ \{}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{if}\ (!hash\_init)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ hash\ =\ compute\_hash();}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00404\ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{return}\ hash;\ }
+\DoxyCodeLine{00406\ \ \ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}()\ :\ mp(std::map<NetworkState\_Impl,\ unsigned\ int>()),\ hash(0)\ ,\ hash\_init(\textcolor{keyword}{false})\ \{\ \}}
+\DoxyCodeLine{00409\ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ \&p\ )\ :\ hash(0),\ hash\_init(\textcolor{keyword}{false})\ \{\ *\textcolor{keyword}{this}\ =\ p;\ \}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00411\ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ \&p\ ,\ \textcolor{keywordtype}{int}\ copy)\ :\ hash(0),\ hash\_init(\textcolor{keyword}{false})\ }
+\DoxyCodeLine{00412\ \ \{\ }
+\DoxyCodeLine{00413\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ item\ :\ p.getMap())}
+\DoxyCodeLine{00415\ \ \ \ \ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ NetworkState\_Impl\ state(item.first,\ copy);}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ mp[state]\ =\ item.second;}
+\DoxyCodeLine{00418\ \ \ \ \ \}\ }
+\DoxyCodeLine{00419\ \ \ \}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00421\ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(std::map<NetworkState\_Impl,\ unsigned\ int>\ mp\ )\ :\ mp(mp),\ hash(0),\ hash\_init(\textcolor{keyword}{false})\ \{\ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(NetworkState\_Impl\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ value)\ :\ mp(std::map<NetworkState\_Impl,\ unsigned\ int>()),\ hash(0)\ ,\ hash\_init(\textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00425\ \ \ mp[NetworkState\_Impl(state,\ 1)]\ =\ value;}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00427\ \ \ mp[state]\ =\ value;}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00429\ \ \ \}}
+\DoxyCodeLine{00430\ \ \ }
+\DoxyCodeLine{00431\ \ \ \textcolor{keywordtype}{void}\ set()\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00433\ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00434\ \ \ \ \ hash\ =\ 0;}
+\DoxyCodeLine{00435\ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ new\_state;}
+\DoxyCodeLine{00436\ \ \ \ \ new\_state.set();}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00438\ \ \ \ \ mp[new\_state.getState(1)]\ =\ 1;}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00440\ \ \ \ \ mp[new\_state.getState()]\ =\ 1;}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00442\ \ \ \}}
+\DoxyCodeLine{00443\ \ \ }
+\DoxyCodeLine{00444\ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ \&p\ )\ }
+\DoxyCodeLine{00445\ \ \ \{\ \ \ \ \ }
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00447\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ item\ :\ p.getMap())}
+\DoxyCodeLine{00449\ \ \ \ \ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ NetworkState\_Impl\ state(item.first,\ 1);}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ mp[state]\ =\ item.second;}
+\DoxyCodeLine{00452\ \ \ \ \ \}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00454\ \ \ \ \ mp\ =\ std::map<NetworkState\_Impl,\ unsigned\ int>(p.getMap());}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ }
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{comment}{//\ EV\ 2021-\/10-\/28}}
+\DoxyCodeLine{00459\ \ \ \ \ hash\ =\ 0;}
+\DoxyCodeLine{00460\ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00462\ \ \ \}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ applyMask(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ mask,\ std::map<unsigned\ int,\ unsigned\ int>\&\ scale)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00465\ \ \ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>\ new\_map;}
+\DoxyCodeLine{00466\ \ \ \ \ }
+\DoxyCodeLine{00467\ \ \ \ \ NetworkState\_Impl\ networkstate\_mask\ =\ mask.getMap().begin()-\/>first;}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\ elem:\ mp)\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ NetworkState\_Impl\ new\_state\ =\ elem.first\ \&\ networkstate\_mask;}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ new\_map[NetworkState\_Impl(new\_state,\ 1)]\ =\ scale[elem.second];}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ new\_map[new\_state]\ =\ scale[elem.second];}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(new\_map);}
+\DoxyCodeLine{00478\ \ \ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \textcolor{keywordtype}{void}\ addStatePop(\textcolor{keyword}{const}\ NetworkState\_Impl\&\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop)\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(state);}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ mp[NetworkState\_Impl(state,1)]\ =\ pop;}
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ mp[state]\ =\ pop;}
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00488\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ iter-\/>second\ +=\ pop;}
+\DoxyCodeLine{00490\ \ \ \ \ \}}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{comment}{//\ EV\ 2021-\/10:\ the\ following\ code\ was\ missing}}
+\DoxyCodeLine{00492\ \ \ \ \ hash\ =\ 0;}
+\DoxyCodeLine{00493\ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00494\ \ \ \}}
+\DoxyCodeLine{00495\ \ \ }
+\DoxyCodeLine{00496\ \ \ \textcolor{comment}{//\ \&\ operator\ for\ applying\ the\ mask}}
+\DoxyCodeLine{00497\ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ operator\&(\textcolor{keyword}{const}\ NetworkState\_Impl\&\ mask)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00498\ \ \ \ \ }
+\DoxyCodeLine{00499\ \ \ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ masked\_pop\_state;}
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state\_pop\ :\ mp)\ \{}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ NetworkState\_Impl\ masked\_network\_state(network\_state\_pop.first\ \&\ mask,\ 1);}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ NetworkState\_Impl\ masked\_network\_state(network\_state\_pop.first\ \&\ mask);}
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ masked\_pop\_state.addStatePop(masked\_network\_state,\ network\_state\_pop.second);}
+\DoxyCodeLine{00507\ \ \ \ \ \}}
+\DoxyCodeLine{00508\ \ \ \ \ }
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(masked\_pop\_state,\ 1);\ }
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(masked\_pop\_state);\ }
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00514\ \ \ \}}
+\DoxyCodeLine{00515\ \ \ }
+\DoxyCodeLine{00516\ \ \ \textcolor{comment}{//\ \&\ operator\ for\ applying\ the\ mask}}
+\DoxyCodeLine{00517\ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ operator\&(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ mask)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00518\ \ \ \ \ }
+\DoxyCodeLine{00519\ \ \ \ \ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ masked\_pop\_state;}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state\_pop\ :\ mp)\ \{}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ NetworkState\_Impl\ masked\_network\_state(network\_state\_pop.first\ \&\ mask.getState(),\ 1);}
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00524\ NetworkState\_Impl\ masked\_network\_state(network\_state\_pop.first\ \&\ mask.getState());}
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ masked\_pop\_state.addStatePop(masked\_network\_state,\ network\_state\_pop.second);}
+\DoxyCodeLine{00527\ \ \ \ \ \}}
+\DoxyCodeLine{00528\ \ \ \ \ }
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(masked\_pop\_state,\ 1);\ }
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}(masked\_pop\_state);\ }
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{00534\ \ \ \}}
+\DoxyCodeLine{00535\ \ \ }
+\DoxyCodeLine{00536\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{comment}{//\ So\ when\ are\ two\ PopNetworkState\ inequals\ ?}}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{comment}{//\ First,\ if\ they\ don't\ have\ the\ same\ length\ of\ states\ in\ the\ population}}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keyword}{const}\ std::map<NetworkState\_Impl,\ unsigned\ int>\&\ other\_mp\ =\ pop\_state.getMap();}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordflow}{if}\ (mp.size()\ !=\ other\_mp.size())\ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00544\ \ \ \ \ \}}
+\DoxyCodeLine{00545\ \ \ \ \ }
+\DoxyCodeLine{00546\ \ \ \ \textcolor{comment}{//\ EV\ 2021-\/10-\/28:\ std::map\ are\ ordered,\ so\ it\ is\ just\ necessary\ to\ compare}}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{comment}{//\ return\ std::equal(mp.begin(),\ mp.end(),\ other\_mp.begin());}}
+\DoxyCodeLine{00548\ \ \ \ \ }
+\DoxyCodeLine{00549\ \ \ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>::const\_iterator\ iter\ =\ mp.begin();}
+\DoxyCodeLine{00550\ \ \ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>::const\_iterator\ other\_iter\ =\ other\_mp.begin();}
+\DoxyCodeLine{00551\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ ;\ iter\ !=\ mp.end();\ ++iter,\ ++other\_iter)\ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((iter-\/>first\ !=\ other\_iter-\/>first)\ ||\ (iter-\/>second\ !=\ other\_iter-\/>second))\ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00555\ \ \ \ \ \}}
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00557\ \ \ \}}
+\DoxyCodeLine{00558\ \ \ }
+\DoxyCodeLine{00559\ \ \ \textcolor{comment}{//\ Increases\ the\ population\ of\ the\ state}}
+\DoxyCodeLine{00560\ \ \ \textcolor{keywordtype}{void}\ incr(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ net\_state)\ \{}
+\DoxyCodeLine{00561\ \ \ \ \ }
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(net\_state.getState());}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ mp[net\_state.getState(1)]\ =\ 1;}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ mp[net\_state.getState()]\ =\ 1;}
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00569\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ iter-\/>second++;}
+\DoxyCodeLine{00571\ \ \ \ \ \}}
+\DoxyCodeLine{00572\ \ \ \ \ hash\ =\ 0;}
+\DoxyCodeLine{00573\ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00574\ \ \ \}}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \textcolor{comment}{//\ Decreases\ the\ population\ of\ the\ state}}
+\DoxyCodeLine{00577\ \ \ \textcolor{keywordtype}{void}\ decr(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ net\_state)\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ NetworkState\_Impl\ t\_state\ =\ net\_state.getState();}
+\DoxyCodeLine{00579\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ mp.find(t\_state);}
+\DoxyCodeLine{00580\ \ \ \ \ assert(iter\ !=\ mp.end());}
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter-\/>second\ >\ 1)\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ iter-\/>second-\/-\/;}
+\DoxyCodeLine{00583\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ mp.erase(t\_state);}
+\DoxyCodeLine{00585\ \ \ \ \ \}}
+\DoxyCodeLine{00586\ \ \ \ \ hash\ =\ 0;}
+\DoxyCodeLine{00587\ \ \ \ \ hash\_init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00588\ \ \ \}}
+\DoxyCodeLine{00589\ \ \ }
+\DoxyCodeLine{00590\ \ \ \textcolor{comment}{//\ Returns\ if\ the\ state\ exists}}
+\DoxyCodeLine{00591\ \ \ \textcolor{keywordtype}{bool}\ exists(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ net\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keywordflow}{return}\ mp.find(net\_state.getState())\ !=\ mp.end();}
+\DoxyCodeLine{00593\ \ \ \}}
+\DoxyCodeLine{00594\ \ \ }
+\DoxyCodeLine{00595\ \ \ \textcolor{comment}{//\ EV\ 2021-\/10-\/28:\ useful\ in\ case\ of\ using\ std::map<PopNetworkState,\ ...>}}
+\DoxyCodeLine{00596\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \textcolor{keyword}{const}\ std::map<NetworkState\_Impl,\ unsigned\ int>\&\ other\_mp\ =\ pop\_state.getMap();}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \ \ \textcolor{keywordflow}{if}\ (mp.size()\ !=\ other\_mp.size())\ \{}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mp.size()\ <\ other\_mp.size();}
+\DoxyCodeLine{00602\ \ \ \ \ \}}
+\DoxyCodeLine{00603\ \ \ \ \ }
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{comment}{//\ EV\ 2021-\/10-\/28:\ std::map\ are\ ordered\ =>\ this\ code\ is\ ok}}
+\DoxyCodeLine{00605\ \ \ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>::const\_iterator\ iter\ =\ mp.begin();}
+\DoxyCodeLine{00606\ \ \ \ \ std::map<NetworkState\_Impl,\ unsigned\ int>::const\_iterator\ other\_iter\ =\ other\_mp.begin();}
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ ;\ iter\ !=\ mp.end();\ ++iter,\ ++other\_iter)\ \{}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter-\/>first\ !=\ other\_iter-\/>first)\ \{}
+\DoxyCodeLine{00609\ \ \ \ \ \textcolor{keywordflow}{return}\ std::less<NetworkState\_Impl>\{\}(iter-\/>first,\ other\_iter-\/>first);}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (iter-\/>second\ !=\ other\_iter-\/>second)\ \{}
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keywordflow}{return}\ iter-\/>second\ <\ other\_iter-\/>second;}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00613\ \ \ \ \ \}}
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00615\ \ \ \}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \textcolor{keywordtype}{size\_t}\ compute\_hash()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00620\ \ \ \ \ }
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\ =\ 1;}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&network\_state\_pop:\ mp)\ \{}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ result\ +=\ std::hash<NetworkState\_Impl>\{\}(network\_state\_pop.first);}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ result\ +=\ std::hash<unsigned\ int>\{\}(network\_state\_pop.second);}
+\DoxyCodeLine{00625\ \ \ \ \ \}}
+\DoxyCodeLine{00626\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00627\ \textcolor{preprocessor}{\#else\ \ \ \ }}
+\DoxyCodeLine{00628\ \ \ \ \ \textcolor{comment}{//\ New\ one\ :\ for\ all\ state:pop,\ compute\ sum\_i\ =\ state\_i\ *\ pop\_i;}}
+\DoxyCodeLine{00629\ \ \ \ \ \textcolor{comment}{//\ Expensive,\ but\ should\ be\ a\ good\ one\ ?}}
+\DoxyCodeLine{00630\ \ \ \ \ }
+\DoxyCodeLine{00631\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\ =\ 1;}
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&network\_state\_pop:\ mp)\ \{}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ NetworkState\_Impl\ t\_state\ =\ network\_state\_pop.first;}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ p\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\&t\_state;}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ nn\ =\ 0;\ nn\ <\ \textcolor{keyword}{sizeof}(t\_state);\ nn++)\ \{}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ val\ =\ *p++;}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (val)\ \{}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \ \ result\ *=\ val;}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ result\ \string^=\ result\ >>\ 8;}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ p\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\&network\_state\_pop.second;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*p)\ \{}
+\DoxyCodeLine{00644\ \ \ \ \ result\ *=\ *p;}
+\DoxyCodeLine{00645\ \ \ \ \ result\ \string^=\ result\ >>\ 8;}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00647\ \ \ \ \ \}}
+\DoxyCodeLine{00648\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00649\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00650\ \ \ \ \ \textcolor{comment}{//\ EV:\ 2021-\/11-\/24\ note:\ returning\ another\ hash\ code\ changes\ the\ results,\ for\ instance:}}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{comment}{//\ return\ (size\_t)(result*1.1);}}
+\DoxyCodeLine{00652\ \ \ \}}
+\DoxyCodeLine{00653\ \ \ }
+\DoxyCodeLine{00654\ \ \ \textcolor{comment}{//\ Count\ the\ population\ satisfying\ an\ expression}}
+\DoxyCodeLine{00655\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count(\mbox{\hyperlink{classExpression}{Expression}}\ *\ expr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00656\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{\ mp.clear();\ hash\_init\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00657\ \ \ std::string\ getName(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}\ *\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep=\textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00658\ \ \ \textcolor{keywordtype}{void}\ displayOneLine(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00659\ \ \ \textcolor{keywordtype}{void}\ displayJSON(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ hamming(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00662\ \ \ }
+\DoxyCodeLine{00663\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isPopState()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00664\ \ \ std::set<NetworkState\_Impl>*\ getNetworkStates()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00665\ \ \ \ \ std::set<NetworkState\_Impl>*\ result\ =\ \textcolor{keyword}{new}\ std::set<NetworkState\_Impl>();}
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ network\_state\_pop\ :\ mp)\ \{}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ result-\/>insert(network\_state\_pop.first);}
+\DoxyCodeLine{00668\ \ \ \ \ \}}
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00670\ \ \ \}}
+\DoxyCodeLine{00671\ \ \ }
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00673\ \ \ \textcolor{keywordtype}{size\_t}\ my\_MPI\_Pack\_Size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(size\_t)\ +\ mp.size()\ *\ (\textcolor{keyword}{sizeof}(NetworkState\_Impl)\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00675\ \ \ \}}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00677\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Pack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_pack,\ \textcolor{keywordtype}{int}*\ position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00679\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_populations\ =\ mp.size();}
+\DoxyCodeLine{00680\ \ \ \ \ MPI\_Pack(\&nb\_populations,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00681\ \ \ \ \ }
+\DoxyCodeLine{00682\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&network\_state\_pop\ :\ mp)\ \{}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ s(network\_state\_pop.first);\ }
+\DoxyCodeLine{00684\ \ \ \ \ \ \ s.my\_MPI\_Pack(buff,\ size\_pack,\ position);}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ MPI\_Pack(\&(network\_state\_pop.second),\ 1,\ MPI\_UNSIGNED,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00686\ \ \ \ \ \}}
+\DoxyCodeLine{00687\ \ \ \}}
+\DoxyCodeLine{00688\ \ \ }
+\DoxyCodeLine{00689\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Unpack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size,\ \textcolor{keywordtype}{int}*\ position)\ \{}
+\DoxyCodeLine{00690\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_populations;}
+\DoxyCodeLine{00692\ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&nb\_populations,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00693\ \ \ \ \ }
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ nb\_populations;\ i++)\ \{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ t\_state;}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ t\_state.my\_MPI\_Unpack(buff,\ buff\_size,\ position);}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop;}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&pop,\ 1,\ MPI\_UNSIGNED,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ mp[t\_state.getState()]\ =\ pop;}
+\DoxyCodeLine{00700\ \ \ \ \ \}}
+\DoxyCodeLine{00701\ \ \ \}}
+\DoxyCodeLine{00702\ \ \ }
+\DoxyCodeLine{00703\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Recv(\textcolor{keywordtype}{int}\ source)\ }
+\DoxyCodeLine{00704\ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00706\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_populations;}
+\DoxyCodeLine{00707\ \ \ \ \ MPI\_Recv(\&nb\_populations,\ 1,\ my\_MPI\_SIZE\_T,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00708\ \ \ \ \ }
+\DoxyCodeLine{00709\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ nb\_populations;\ i++)\ \{}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ t\_state;}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ t\_state.my\_MPI\_Recv(source);}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pop;}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ MPI\_Recv(\&pop,\ 1,\ MPI\_UNSIGNED,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ mp[t\_state.getState()]\ =\ pop;}
+\DoxyCodeLine{00715\ \ \ \ \ \}}
+\DoxyCodeLine{00716\ \ \ \}}
+\DoxyCodeLine{00717\ \ \ }
+\DoxyCodeLine{00718\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Send(\textcolor{keywordtype}{int}\ dest)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00719\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nb\_populations\ =\ mp.size();}
+\DoxyCodeLine{00721\ \ \ \ \ MPI\_Send(\&nb\_populations,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00722\ \ \ \ \ }
+\DoxyCodeLine{00723\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&network\_state\_pop\ :\ mp)\ \{}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ s(network\_state\_pop.first);}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ s.my\_MPI\_Send(dest);}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ MPI\_Send(\&(network\_state\_pop.second),\ 1,\ MPI\_UNSIGNED,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00727\ \ \ \ \ \}}
+\DoxyCodeLine{00728\ \ \ \}}
+\DoxyCodeLine{00729\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{00730\ \};}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00733\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}>}
+\DoxyCodeLine{00734\ \ \ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ \&\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00736\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x.getHash();}
+\DoxyCodeLine{00738\ \ \ \ \ \}}
+\DoxyCodeLine{00739\ \ \ \};}
+\DoxyCodeLine{00740\ \ \ }
+\DoxyCodeLine{00741\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }equal\_to<\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ >}
+\DoxyCodeLine{00742\ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val1\ ==\ val2;}
+\DoxyCodeLine{00745\ \ \ \ \ \}}
+\DoxyCodeLine{00746\ \ \ \};}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }not\_equal\_to<\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\ >}
+\DoxyCodeLine{00749\ \ \ \{}
+\DoxyCodeLine{00750\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(val1\ ==\ val2);}
+\DoxyCodeLine{00752\ \ \ \ \ \}}
+\DoxyCodeLine{00753\ \ \ \};}
+\DoxyCodeLine{00754\ \ \ }
+\DoxyCodeLine{00755\ \ \ \textcolor{comment}{//\ Added\ less\ operator,\ necessary\ for\ maps,\ sets.\ Code\ from\ https://stackoverflow.com/a/21245301/11713763}}
+\DoxyCodeLine{00756\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }less<\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}>}
+\DoxyCodeLine{00757\ \ \ \{}
+\DoxyCodeLine{00758\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val1\ <\ val2;}
+\DoxyCodeLine{00760\ \ \ \ \ \}}
+\DoxyCodeLine{00761\ \ \ \};}
+\DoxyCodeLine{00762\ \}}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopSize}{PopSize}}\ \{}
+\DoxyCodeLine{00765\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00766\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00767\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_size)\ :\ size(\_size)\ \{\ \}}
+\DoxyCodeLine{00768\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}()\ :\ size(0)\ \{\ \}}
+\DoxyCodeLine{00769\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopSize}{PopSize}}\&\ p,\ \textcolor{keywordtype}{int})\ \{}
+\DoxyCodeLine{00770\ \ \ \ \ this-\/>size\ =\ p.getSize();}
+\DoxyCodeLine{00771\ \ \ \}}
+\DoxyCodeLine{00772\ \ \ \textcolor{keywordtype}{void}\ set()\ \{size\ =\ 0;\}}
+\DoxyCodeLine{00773\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getSize()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ size;\}}
+\DoxyCodeLine{00774\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isPopState()\ \{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00775\ \ \ }
+\DoxyCodeLine{00776\ \ \ \textcolor{comment}{//\ \&\ operator\ for\ applying\ the\ mask}}
+\DoxyCodeLine{00777\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}\ operator\&(\textcolor{keyword}{const}\ NetworkState\_Impl\&)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00778\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopSize}{PopSize}}(size);\ }
+\DoxyCodeLine{00779\ \ \ \}}
+\DoxyCodeLine{00780\ \ \ }
+\DoxyCodeLine{00781\ \ \ \textcolor{comment}{//\ \&\ operator\ for\ applying\ the\ mask}}
+\DoxyCodeLine{00782\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}\ operator\&(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopSize}{PopSize}}(size);}
+\DoxyCodeLine{00784\ \ \ \}}
+\DoxyCodeLine{00785\ \ \ }
+\DoxyCodeLine{00786\ \ \ \mbox{\hyperlink{classPopSize}{PopSize}}\ applyMask(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopSize}{PopSize}}\&,\ std::map<unsigned\ int,\ unsigned\ int>\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classPopSize}{PopSize}}(size);}
+\DoxyCodeLine{00788\ \ \ \}}
+\DoxyCodeLine{00789\ \ \ }
+\DoxyCodeLine{00790\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopSize}{PopSize}}\&\ pop\_size)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00791\ \ \ \ \ \textcolor{keywordflow}{return}\ pop\_size.getSize()\ ==\ size;}
+\DoxyCodeLine{00792\ \ \ \}}
+\DoxyCodeLine{00793\ \ \ }
+\DoxyCodeLine{00794\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopSize}{PopSize}}\&\ pop\_size)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keywordflow}{return}\ size\ <\ pop\_size.getSize();}
+\DoxyCodeLine{00796\ \ \ \}}
+\DoxyCodeLine{00797\ \ \ }
+\DoxyCodeLine{00798\ \ \ \textcolor{keywordtype}{int}\ hamming(\mbox{\hyperlink{classNetwork}{Network}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00800\ \ \ \}}
+\DoxyCodeLine{00801\ \ \ std::set<NetworkState\_Impl>*\ getNetworkStates()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00802\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ std::set<NetworkState\_Impl>();}
+\DoxyCodeLine{00803\ \ \ \}}
+\DoxyCodeLine{00804\ \ \ }
+\DoxyCodeLine{00805\ \ \ std::string\ getName(\mbox{\hyperlink{classNetwork}{Network}}\ *,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00806\ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(size);}
+\DoxyCodeLine{00807\ \ \ \}}
+\DoxyCodeLine{00808\ \ \ }
+\DoxyCodeLine{00809\ \ \ \textcolor{keywordtype}{void}\ displayOneLine(std::ostream\&\ os,\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ std::string\&\ sep\ =\ \textcolor{stringliteral}{"{}\ -\/-\/\ "{}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00810\ \ \ \ \ os\ <<\ getName(network,\ sep);}
+\DoxyCodeLine{00811\ \ \ \}}
+\DoxyCodeLine{00812\ \ \ }
+\DoxyCodeLine{00813\ \ \ }
+\DoxyCodeLine{00814\ \};}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00817\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{classPopSize}{PopSize}}>}
+\DoxyCodeLine{00818\ \ \ \{}
+\DoxyCodeLine{00819\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classPopSize}{PopSize}}\ \&\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00820\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x.getSize();}
+\DoxyCodeLine{00822\ \ \ \ \ \}}
+\DoxyCodeLine{00823\ \ \ \};}
+\DoxyCodeLine{00824\ \}}
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

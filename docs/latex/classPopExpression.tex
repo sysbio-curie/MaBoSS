@@ -1,0 +1,156 @@
+\doxysection{Pop\+Expression Class Reference}
+\hypertarget{classPopExpression}{}\label{classPopExpression}\index{PopExpression@{PopExpression}}
+
+
+Inheritance diagram for Pop\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=168pt]{classPopExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pop\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=168pt]{classPopExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classPopExpression_a19b54f848a4858ebe333eee3a20833e5}\label{classPopExpression_a19b54f848a4858ebe333eee3a20833e5} 
+{\bfseries Pop\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classPopExpression_ae573e976e878fc186662e2efb6663f3c}{clone}} () const
+\item 
+double \mbox{\hyperlink{classPopExpression_a6f278014b458aa4ed78299d8f5989c8d}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&) const
+\item 
+double \mbox{\hyperlink{classPopExpression_a59f383264ca35e2e433dcf0676a88d82}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop\+\_\+state) const
+\item 
+bool \mbox{\hyperlink{classPopExpression_a34beefc0e85deb5f53faa7beb6559df1}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}) const
+\item 
+void \mbox{\hyperlink{classPopExpression_a3e9a4bf30163348663199fef9329ba95}{display}} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classPopExpression_a4ac0a9635e8ba6a69a1c0e83b4d385bd}{is\+Logical\+Expression}} () const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classPopExpression_afa288d6ff0e1c890d45310b2830fe2ed}{get\+Nodes}} () const
+\item 
+void \mbox{\hyperlink{classPopExpression_a6917313ac72edbd60ff3287749f20cd0}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink} (bool \&) const
+\item 
+virtual bool {\bfseries is\+Constant\+Expression} () const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classPopExpression_ae573e976e878fc186662e2efb6663f3c}\label{classPopExpression_ae573e976e878fc186662e2efb6663f3c} 
+\index{PopExpression@{PopExpression}!clone@{clone}}
+\index{clone@{clone}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Pop\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a3e9a4bf30163348663199fef9329ba95}\label{classPopExpression_a3e9a4bf30163348663199fef9329ba95} 
+\index{PopExpression@{PopExpression}!display@{display}}
+\index{display@{display}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Pop\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a6f278014b458aa4ed78299d8f5989c8d}\label{classPopExpression_a6f278014b458aa4ed78299d8f5989c8d} 
+\index{PopExpression@{PopExpression}!eval@{eval}}
+\index{eval@{eval}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Pop\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a59f383264ca35e2e433dcf0676a88d82}\label{classPopExpression_a59f383264ca35e2e433dcf0676a88d82} 
+\index{PopExpression@{PopExpression}!eval@{eval}}
+\index{eval@{eval}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Pop\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a6917313ac72edbd60ff3287749f20cd0}\label{classPopExpression_a6917313ac72edbd60ff3287749f20cd0} 
+\index{PopExpression@{PopExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Pop\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_afa288d6ff0e1c890d45310b2830fe2ed}\label{classPopExpression_afa288d6ff0e1c890d45310b2830fe2ed} 
+\index{PopExpression@{PopExpression}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ Pop\+Expression\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a34beefc0e85deb5f53faa7beb6559df1}\label{classPopExpression_a34beefc0e85deb5f53faa7beb6559df1} 
+\index{PopExpression@{PopExpression}!hasCycle@{hasCycle}}
+\index{hasCycle@{hasCycle}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{hasCycle()}{hasCycle()}}
+{\footnotesize\ttfamily bool Pop\+Expression\+::has\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classPopExpression_a4ac0a9635e8ba6a69a1c0e83b4d385bd}\label{classPopExpression_a4ac0a9635e8ba6a69a1c0e83b4d385bd} 
+\index{PopExpression@{PopExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!PopExpression@{PopExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily bool Pop\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

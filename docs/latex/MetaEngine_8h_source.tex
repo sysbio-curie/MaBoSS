@@ -1,0 +1,206 @@
+\doxysection{Meta\+Engine.\+h}
+\hypertarget{MetaEngine_8h_source}{}\label{MetaEngine_8h_source}\index{engine/src/engines/MetaEngine.h@{engine/src/engines/MetaEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ MetaEngine.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noel\ <contact@vincent-\/noel.fr>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ March\ 2019}}
+\DoxyCodeLine{00046\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ \_METAENGINE\_H\_}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ \_METAENGINE\_H\_}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}../Network.h"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}../NetworkState.h"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}../RandomGenerator.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}../RunConfig.h"{}}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ STD\_THREAD}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structEnsembleArgWrapper}{EnsembleArgWrapper}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMetaEngine}{MetaEngine}}\ \{}
+\DoxyCodeLine{00072\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classNetwork}{Network}}\ *network;}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ processes}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ world\_size;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ Rank\ of\ the\ process}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ world\_rank;}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{double}\ time\_tick;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ max\_time;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_trajcount;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ discrete\_time;}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ thread\_count;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ reference\_state;}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ refnode\_count;}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ refnode\_mask;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ elapsed\_core\_runtime,\ user\_core\_runtime,\ elapsed\_statdist\_runtime,\ user\_statdist\_runtime,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ elapsed\_epilogue\_runtime,\ user\_epilogue\_runtime;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//\ Global\ sample\ count}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ global\_sample\_count;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ global\_statdist\_trajcount;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ std::vector<long\ long>\ elapsed\_core\_runtimes;}
+\DoxyCodeLine{00106\ \ \ \ \ std::vector<long\ long>\ user\_core\_runtimes;}
+\DoxyCodeLine{00107\ \ \ \ \ std::vector<long\ long>\ elapsed\_epilogue\_runtimes;}
+\DoxyCodeLine{00108\ \ \ \ \ std::vector<long\ long>\ user\_epilogue\_runtimes;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ std::vector<std::vector<long\ long\ int>\ >\ thread\_elapsed\_runtimes;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ std::vector<long\ long\ int>\ thread\_elapsed\_runtimes;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{classMetaEngine}{MetaEngine}}(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig,\ \textcolor{keywordtype}{int}\ world\_size,\ \textcolor{keywordtype}{int}\ world\_rank)\ :\ network(network),}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ runconfig(runconfig),}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ world\_size(world\_size),\ world\_rank(world\_rank),}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ time\_tick(runconfig-\/>getTimeTick()),}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ max\_time(runconfig-\/>getMaxTime()),}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ sample\_count(runconfig-\/>getSampleCount()),}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ statdist\_trajcount(runconfig-\/>getStatDistTrajCount()),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ discrete\_time(runconfig-\/>isDiscreteTime()),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ thread\_count(runconfig-\/>getThreadCount())\ \{}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{classMetaEngine}{MetaEngine}}(\mbox{\hyperlink{classNetwork}{Network}}\ *network,\ \mbox{\hyperlink{classRunConfig}{RunConfig}}\ *runconfig)\ :\ network(network),\ runconfig(runconfig),}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ time\_tick(runconfig-\/>getTimeTick()),}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_time(runconfig-\/>getMaxTime()),}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sample\_count(runconfig-\/>getSampleCount()),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ statdist\_trajcount(runconfig-\/>getStatDistTrajCount()),}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ discrete\_time(runconfig-\/>isDiscreteTime()),}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread\_count(runconfig-\/>getThreadCount())\ \{}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ elapsed\_core\_runtime\ =\ user\_core\_runtime\ =}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elapsed\_statdist\_runtime\ =}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ user\_statdist\_runtime\ =\ elapsed\_epilogue\_runtime\ =\ user\_epilogue\_runtime\ =\ 0;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ global\_sample\_count\ =\ sample\_count;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ global\_statdist\_trajcount\ =\ statdist\_trajcount;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (world\_rank\ ==\ 0)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ sample\_count\ =\ (sample\_count\ /\ world\_size)\ +\ (sample\_count\ \%\ world\_size);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ statdist\_trajcount\ =\ (statdist\_trajcount\ /\ world\_size)\ +\ (statdist\_trajcount\ \%\ world\_size);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ sample\_count\ =\ sample\_count\ /\ world\_size;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ statdist\_trajcount\ =\ statdist\_trajcount\ /\ world\_size;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ thread\_elapsed\_runtimes.resize(world\_size);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ name\ of\ the\ processor}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ processor\_name[MPI\_MAX\_PROCESSOR\_NAME];}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ name\_len;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ MPI\_Get\_processor\_name(processor\_name,\ \&name\_len);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Hello\ world\ from\ processor\ "{}}\ <<\ processor\_name}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ rank\ "{}}\ <<\ world\_rank\ <<\ \textcolor{stringliteral}{"{}\ out\ of\ "{}}\ <<\ world\_size\ <<\ \textcolor{stringliteral}{"{}\ processors.\ "{}}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}I\ will\ simulate\ "{}}\ <<\ sample\_count\ <<\ \textcolor{stringliteral}{"{}\ out\ of\ "{}}\ <<\ global\_sample\_count\ <<\ \textcolor{stringliteral}{"{}\ simulations"{}}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{classMetaEngine}{\string~MetaEngine}}()\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}{init}}();}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMetaEngine_a9f0ccccf817aab346070fd52a3ff240a}{loadUserFuncs}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *module);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00184\ \ \ \ \ NodeIndex\ \mbox{\hyperlink{classMetaEngine_ae95edf198133820b127e4e71e6517949}{getTargetNode}}(\mbox{\hyperlink{classNetwork}{Network}}\ *\_network,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}\ *random\_generator,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\ \&nodeTransitionRates,\ \textcolor{keywordtype}{double}\ total\_rate)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}{computeTH}}(\mbox{\hyperlink{classNetwork}{Network}}\ *\_network,\ \textcolor{keyword}{const}\ std::vector<double>\ \&nodeTransitionRates,\ \textcolor{keywordtype}{double}\ total\_rate)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{getElapsedCoreRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ elapsed\_core\_runtime;\ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}{getUserCoreRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ user\_core\_runtime;\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}{getElapsedEpilogueRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ elapsed\_epilogue\_runtime;\ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}{getUserEpilogueRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ user\_epilogue\_runtime;\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}{getElapsedStatDistRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ elapsed\_statdist\_runtime;\ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}{getUserStatDistRunTime}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ user\_statdist\_runtime;\ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{int}\ getWorldRank()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ world\_rank;\ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{int}\ getWorldSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ world\_size;\ \}}
+\DoxyCodeLine{00225\ \ \ \ \ std::vector<long\ long>\ getUserCoreRuntimes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ user\_core\_runtimes;\ \}}
+\DoxyCodeLine{00228\ \ \ \ \ std::vector<long\ long>\ getElapsedCoreRuntimes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ elapsed\_core\_runtimes;\ \}}
+\DoxyCodeLine{00231\ \ \ \ \ std::vector<long\ long>\ getUserEpilogueRuntimes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ user\_epilogue\_runtimes;\ \}}
+\DoxyCodeLine{00234\ \ \ \ \ std::vector<long\ long>\ getElapsedEpilogueRuntimes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ elapsed\_epilogue\_runtimes;\ \}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00236\ \};}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,176 @@
+\doxysection{Not\+Logical\+Expression Class Reference}
+\hypertarget{classNotLogicalExpression}{}\label{classNotLogicalExpression}\index{NotLogicalExpression@{NotLogicalExpression}}
+
+
+Inheritance diagram for Not\+Logical\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classNotLogicalExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Not\+Logical\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classNotLogicalExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNotLogicalExpression_a2f7412fe08dd9279749ea7c295fd9ec8}\label{classNotLogicalExpression_a2f7412fe08dd9279749ea7c295fd9ec8} 
+{\bfseries Not\+Logical\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNotLogicalExpression_a3082de312805e6e713da0603fbc036d8}{clone}} () const
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNotLogicalExpression_a6ec419b3b43133dc738f380b801160ae}{clone\+And\+Shrink}} (bool \&shrinked) const
+\item 
+double \mbox{\hyperlink{classNotLogicalExpression_a8c4b92c6c5c388ef2c5fe53ab9305b2d}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classNotLogicalExpression_a154dc79ce7a13668cf4b2d13933ea848}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+double \mbox{\hyperlink{classNotLogicalExpression_aabfd973e2fa01fde2dcc46c229be12d4}{eval}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, double time)
+\item 
+bool \mbox{\hyperlink{classNotLogicalExpression_ae7a1f04f05c9f0abeed303e59b35fea0}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classNotLogicalExpression_a6de3a9adb2913a57c0b4f0d3f535dd91}{as\+Not\+Logical\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classNotLogicalExpression_a3bf3e558d796bba06dcdc65027e2c39b}{display}} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classNotLogicalExpression_a028a6b2e175d62759461303c6fd16285}{is\+Logical\+Expression}} () const
+\item 
+void \mbox{\hyperlink{classNotLogicalExpression_ae76a0e3a9b7867cf8267c575c43dd9ec}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual bool {\bfseries is\+Constant\+Expression} () const
+\item 
+virtual std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries get\+Nodes} () const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classNotLogicalExpression_a6de3a9adb2913a57c0b4f0d3f535dd91}\label{classNotLogicalExpression_a6de3a9adb2913a57c0b4f0d3f535dd91} 
+\index{NotLogicalExpression@{NotLogicalExpression}!asNotLogicalExpression@{asNotLogicalExpression}}
+\index{asNotLogicalExpression@{asNotLogicalExpression}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{asNotLogicalExpression()}{asNotLogicalExpression()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} Not\+Logical\+Expression\+::as\+Not\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a3082de312805e6e713da0603fbc036d8}\label{classNotLogicalExpression_a3082de312805e6e713da0603fbc036d8} 
+\index{NotLogicalExpression@{NotLogicalExpression}!clone@{clone}}
+\index{clone@{clone}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Not\+Logical\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a6ec419b3b43133dc738f380b801160ae}\label{classNotLogicalExpression_a6ec419b3b43133dc738f380b801160ae} 
+\index{NotLogicalExpression@{NotLogicalExpression}!cloneAndShrink@{cloneAndShrink}}
+\index{cloneAndShrink@{cloneAndShrink}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{cloneAndShrink()}{cloneAndShrink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Not\+Logical\+Expression\+::clone\+And\+Shrink (\begin{DoxyParamCaption}\item[{bool \&}]{shrinked }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a3bf3e558d796bba06dcdc65027e2c39b}\label{classNotLogicalExpression_a3bf3e558d796bba06dcdc65027e2c39b} 
+\index{NotLogicalExpression@{NotLogicalExpression}!display@{display}}
+\index{display@{display}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Not\+Logical\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_aabfd973e2fa01fde2dcc46c229be12d4}\label{classNotLogicalExpression_aabfd973e2fa01fde2dcc46c229be12d4} 
+\index{NotLogicalExpression@{NotLogicalExpression}!eval@{eval}}
+\index{eval@{eval}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily double Not\+Logical\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a8c4b92c6c5c388ef2c5fe53ab9305b2d}\label{classNotLogicalExpression_a8c4b92c6c5c388ef2c5fe53ab9305b2d} 
+\index{NotLogicalExpression@{NotLogicalExpression}!eval@{eval}}
+\index{eval@{eval}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily double Not\+Logical\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a154dc79ce7a13668cf4b2d13933ea848}\label{classNotLogicalExpression_a154dc79ce7a13668cf4b2d13933ea848} 
+\index{NotLogicalExpression@{NotLogicalExpression}!eval@{eval}}
+\index{eval@{eval}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily double Not\+Logical\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_ae76a0e3a9b7867cf8267c575c43dd9ec}\label{classNotLogicalExpression_ae76a0e3a9b7867cf8267c575c43dd9ec} 
+\index{NotLogicalExpression@{NotLogicalExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Not\+Logical\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_ae7a1f04f05c9f0abeed303e59b35fea0}\label{classNotLogicalExpression_ae7a1f04f05c9f0abeed303e59b35fea0} 
+\index{NotLogicalExpression@{NotLogicalExpression}!hasCycle@{hasCycle}}
+\index{hasCycle@{hasCycle}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{hasCycle()}{hasCycle()}}
+{\footnotesize\ttfamily bool Not\+Logical\+Expression\+::has\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{node }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classNotLogicalExpression_a028a6b2e175d62759461303c6fd16285}\label{classNotLogicalExpression_a028a6b2e175d62759461303c6fd16285} 
+\index{NotLogicalExpression@{NotLogicalExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!NotLogicalExpression@{NotLogicalExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily bool Not\+Logical\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,350 @@
+\doxysection{Proba\+Dist.\+h}
+\hypertarget{ProbaDist_8h_source}{}\label{ProbaDist_8h_source}\index{engine/src/ProbaDist.h@{engine/src/ProbaDist.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ ProbaDist.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_PROBADIST\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_PROBADIST\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}MPI\_headers.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}NetworkState.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}Utils.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}RunConfig.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}displayers/StatDistDisplayer.h"{}}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ CLUSTER\_OPTIM}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbaDist}{ProbaDist}}\ \{}
+\DoxyCodeLine{00075\ \ \ STATE\_MAP<S,\ double>\ mp;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ mp.size();}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ incr(\textcolor{keyword}{const}\ S\&\ state,\ \textcolor{keywordtype}{double}\ tm\_slice)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ double>::iterator\ proba\_iter\ =\ mp.find(state);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ (proba\_iter\ ==\ mp.end())\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ mp[state]\ =\ tm\_slice;}
+\DoxyCodeLine{00086\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ (*proba\_iter).second\ +=\ tm\_slice;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ mp.clear();}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ set(\textcolor{keyword}{const}\ S\&\ state,\ \textcolor{keywordtype}{double}\ tm\_slice)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ mp[state]\ =\ tm\_slice;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ hasState(\textcolor{keyword}{const}\ S\&\ state,\ \textcolor{keywordtype}{double}\&\ tm\_slice)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ double>::const\_iterator\ iter\ =\ mp.find(state);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ mp.end())\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifdef\ MPI\_COMPAT}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{size\_t}\ my\_MPI\_Size()\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ res\ =\ \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ elem:\ mp)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ res\ +=\ elem.first.my\_MPI\_Pack\_Size()\ +\ \textcolor{keyword}{sizeof}(double);}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Pack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_pack,\ \textcolor{keywordtype}{int}*\ position)\ }
+\DoxyCodeLine{00118\ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_map\_size\ =\ size();}
+\DoxyCodeLine{00120\ \ \ \ \ MPI\_Pack(\&t\_proba\_dist\_map\_size,\ 1,\ my\_MPI\_SIZE\_T,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{classProbaDist_1_1Iterator}{ProbaDist::Iterator}}\ t\_proba\_dist1\_iter\ =\ iterator();}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_proba\_dist1\_iter.hasNext())\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\&\ state\ =\ t\_proba\_dist1\_iter.next2(proba);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ state.my\_MPI\_Pack(buff,\ size\_pack,\ position);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ MPI\_Pack(\&proba,\ 1,\ MPI\_DOUBLE,\ buff,\ size\_pack,\ position,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00128\ \ \ \ \ \}\ }
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ \ \ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Unpack(\textcolor{keywordtype}{void}*\ buff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buff\_size,\ \textcolor{keywordtype}{int}*\ position)\ }
+\DoxyCodeLine{00132\ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_map\_size;}
+\DoxyCodeLine{00134\ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&t\_proba\_dist\_map\_size,\ 1,\ my\_MPI\_SIZE\_T,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iii\ =\ 0;\ iii\ <\ t\_proba\_dist\_map\_size;\ iii++)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ S\ state;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ value\ =\ 0;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ state.my\_MPI\_Unpack(buff,\ buff\_size,\ position);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ MPI\_Unpack(buff,\ buff\_size,\ position,\ \&value,\ 1,\ MPI\_DOUBLE,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ set(state,\ value);\ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Recv(\textcolor{keywordtype}{int}\ source)}
+\DoxyCodeLine{00148\ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_map\_size;}
+\DoxyCodeLine{00150\ \ \ \ \ MPI\_Recv(\&t\_proba\_dist\_map\_size,\ 1,\ my\_MPI\_SIZE\_T,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ iii\ =\ 0;\ iii\ <\ t\_proba\_dist\_map\_size;\ iii++)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ S\ state;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \textcolor{comment}{//\ MPI\_Recv(\&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ state.my\_MPI\_Recv(source);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ MPI\_Recv(\&value,\ 1,\ MPI\_DOUBLE,\ source,\ 0,\ MPI\_COMM\_WORLD,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ set(state,\ value);\ \ \ \ \ \ }
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ my\_MPI\_Send(\textcolor{keywordtype}{int}\ dest)\ }
+\DoxyCodeLine{00165\ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ t\_proba\_dist\_map\_size\ =\ size();}
+\DoxyCodeLine{00167\ \ \ \ \ MPI\_Send(\&t\_proba\_dist\_map\_size,\ 1,\ my\_MPI\_SIZE\_T,\ dest,\ 0,\ MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{classProbaDist_1_1Iterator}{ProbaDist::Iterator}}\ t\_proba\_dist1\_iter\ =\ iterator();}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{while}\ (t\_proba\_dist1\_iter.hasNext())\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keyword}{const}\ S\&\ state\ =\ t\_proba\_dist1\_iter.next2(proba);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ state.my\_MPI\_Send(dest);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \textcolor{comment}{//\ MPI\_Send(\&state,\ 1,\ MPI\_UNSIGNED\_LONG\_LONG,\ dest,\ 0,\ MPI\_COMM\_WORLD);}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ MPI\_Send(\&proba,\ 1,\ MPI\_DOUBLE,\ dest,\ 0,\ MPI\_COMM\_WORLD);\ \ }
+\DoxyCodeLine{00176\ \ \ \ \ \}\ }
+\DoxyCodeLine{00177\ \ \ \}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbaDist_1_1Iterator}{Iterator}}\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist}}\&\ proba\_dist\_map;}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{typename}\ STATE\_MAP<S,\ double>::const\_iterator\ iter,\ end;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00185\ \ \ \mbox{\hyperlink{classProbaDist_1_1Iterator}{Iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist}}\&\ proba\_dist\_map)\ :\ proba\_dist\_map(proba\_dist\_map)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ iter\ =\ proba\_dist\_map.mp.begin();}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ end\ =\ proba\_dist\_map.mp.end();}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{void}\ rewind()\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ iter\ =\ proba\_dist\_map.mp.begin();}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasNext()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iter\ !=\ end;}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{void}\ next(S\&\ state,\ \textcolor{keywordtype}{double}\&\ tm\_slice)\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ state\ =\ (*iter).first;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00202\ \ \ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{void}\ next(S\&\ state)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ state\ =\ (*iter).first;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00207\ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{const}\ S\&\ next2(\textcolor{keywordtype}{double}\&\ tm\_slice)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter++).first;}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{const}\ S\&\ next2()\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter++).first;}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{void}\ next(\textcolor{keywordtype}{double}\&\ tm\_slice)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ tm\_slice\ =\ (*iter).second;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{00221\ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \};\ \ \ \ }
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{void}\ display(StatDistDisplayer*\ displayer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00225\ \ \ \ \ \mbox{\hyperlink{classProbaDist_1_1Iterator}{ProbaDist<S>::Iterator}}\ proba\_dist\_iter\ =\ iterator();}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{while}\ (proba\_dist\_iter.hasNext())\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ state;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ proba;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ proba\_dist\_iter.next(state,\ proba);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ displayer-\/>addStateProba(state.getState(),\ proba);}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ Iterator\ iterator()\ \{\textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\}}
+\DoxyCodeLine{00235\ \ \ Iterator\ iterator()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ Iterator(*\textcolor{keyword}{this});\}}
+\DoxyCodeLine{00236\ \};}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbaDistCluster}{ProbaDistCluster}}\ \{}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ MAP<unsigned\ int,\ ProbaDist<NetworkState>\ >\ proba\_dist\_map;}
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}*\ factory;}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{struct\ }Proba\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{double}\ proba;}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordtype}{double}\ probaSquare;}
+\DoxyCodeLine{00247\ \ \ \ \ Proba()\ :\ proba(0.),\ probaSquare(0.)\ \{\ \}}
+\DoxyCodeLine{00248\ \ \ \ \ Proba(\textcolor{keywordtype}{double}\ proba,\ \textcolor{keywordtype}{double}\ probaSquare)\ :\ proba(proba),\ probaSquare(probaSquare)\ \{\ \}}
+\DoxyCodeLine{00249\ \ \ \};}
+\DoxyCodeLine{00250\ \ \ \textcolor{comment}{//\ state\ -\/>\ Proba}}
+\DoxyCodeLine{00251\ \ \ STATE\_MAP<NetworkState,\ Proba>\ stat\_dist\_map;}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00254\ \ \ \mbox{\hyperlink{classProbaDistCluster}{ProbaDistCluster}}(\mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}*\ factory)\ :\ factory(factory)\ \{\ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<NetworkState>}}\&\ proba\_dist);}
+\DoxyCodeLine{00257\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ similarity(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<NetworkState>}}\&\ proba\_dist1,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<NetworkState>}}\&\ proba\_dist2,\ \textcolor{keywordtype}{double}**\ similarity\_cache);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ proba\_dist\_map.size();\}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \textcolor{keywordtype}{void}\ complete(\textcolor{keywordtype}{double}\ threshold,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_traj\_count);}
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{void}\ computeStationaryDistribution();}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{void}\ display(StatDistDisplayer*\ displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{void}\ displayStationaryDistribution(StatDistDisplayer*\ displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00266\ \};}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}\ \{}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ std::vector<ProbaDistCluster*>\ proba\_dist\_cluster\_v;}
+\DoxyCodeLine{00271\ \ \ MAP<unsigned\ int,\ bool>\ proba\_dist\_clusterized;}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#ifdef\ CLUSTER\_OPTIM}}
+\DoxyCodeLine{00273\ \ \ MAP<unsigned\ int,\ bool>\ proba\_dist\_not\_clusterized;}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00275\ \ \ \textcolor{keyword}{const}\ std::vector<ProbaDist<NetworkState>\ >\ proba\_dist\_v;}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_traj\_count;}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordtype}{double}**\ similarity\_cache;}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00280\ \ \ \mbox{\hyperlink{classProbaDistClusterFactory}{ProbaDistClusterFactory}}(\textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{classProbaDist}{ProbaDist<NetworkState>}}\ >\&\ proba\_dist\_v,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_traj\_count)\ :\ proba\_dist\_v(proba\_dist\_v),\ statdist\_traj\_count(statdist\_traj\_count),\ similarity\_cache(NULL)\ \{}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#ifdef\ CLUSTER\_OPTIM}}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn\ =\ 0;\ nn\ <\ statdist\_traj\_count;\ ++nn)\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ proba\_dist\_not\_clusterized[nn]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}SIZE:\ "{}\ <<\ proba\_dist\_not\_clusterized.size()\ <<\ '\(\backslash\)n';}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00287\ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \mbox{\hyperlink{classProbaDistCluster}{ProbaDistCluster}}*\ newCluster()\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \mbox{\hyperlink{classProbaDistCluster}{ProbaDistCluster}}*\ proba\_dist\_cluster\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classProbaDistCluster}{ProbaDistCluster}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{00291\ \ \ \ \ proba\_dist\_cluster\_v.push\_back(proba\_dist\_cluster);}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{return}\ proba\_dist\_cluster;}
+\DoxyCodeLine{00293\ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordtype}{void}\ setClusterized(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ proba\_dist\_clusterized[index]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#ifdef\ CLUSTER\_OPTIM}}
+\DoxyCodeLine{00298\ \ \ \ \ MAP<unsigned\ int,\ bool>::iterator\ iter\ =\ proba\_dist\_not\_clusterized.find(index);}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ proba\_dist\_not\_clusterized.end())\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ proba\_dist\_not\_clusterized.erase(iter);}
+\DoxyCodeLine{00301\ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00303\ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \textcolor{keywordtype}{double}**\ getSimilarityCache()\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{return}\ similarity\_cache;}
+\DoxyCodeLine{00307\ \ \ \}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#ifdef\ CLUSTER\_OPTIM}}
+\DoxyCodeLine{00310\ \ \ \textcolor{keyword}{const}\ MAP<unsigned\ int,\ bool>\&\ getNotClusterizedMap()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{return}\ proba\_dist\_not\_clusterized;}
+\DoxyCodeLine{00312\ \ \ \}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \textcolor{keywordtype}{bool}\ isClusterized(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{return}\ proba\_dist\_clusterized.find(index)\ !=\ proba\_dist\_clusterized.end();}
+\DoxyCodeLine{00317\ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classProbaDist}{ProbaDist<NetworkState>}}\&\ getProbaDist(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{//assert(index\ <\ proba\_dist\_v.size());}}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{return}\ proba\_dist\_v[index];}
+\DoxyCodeLine{00322\ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \textcolor{keywordtype}{void}\ cacheSimilarities();}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordtype}{void}\ makeClusters(\mbox{\hyperlink{classRunConfig}{RunConfig}}*\ runconfig);}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{void}\ computeStationaryDistribution();}
+\DoxyCodeLine{00328\ \ \ }
+\DoxyCodeLine{00329\ \ \ \textcolor{keywordtype}{void}\ displayStationaryDistribution(StatDistDisplayer*\ displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordtype}{void}\ display(StatDistDisplayer*\ displayer)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \mbox{\hyperlink{classProbaDistClusterFactory}{\string~ProbaDistClusterFactory}}()\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ }
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nn1\ =\ 0;\ nn1\ <\ statdist\_traj\_count;\ ++nn1)\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ similarity\_cache[nn1];}
+\DoxyCodeLine{00336\ \ \ \ \ \}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{delete}\ []\ similarity\_cache;}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ proba\_dist\_cluster:\ proba\_dist\_cluster\_v)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ proba\_dist\_cluster;}
+\DoxyCodeLine{00340\ \ \ \ \ \}}
+\DoxyCodeLine{00341\ \ \ \}}
+\DoxyCodeLine{00342\ \};}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

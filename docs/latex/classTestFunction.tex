@@ -1,0 +1,99 @@
+\doxysection{Test\+Function Class Reference}
+\hypertarget{classTestFunction}{}\label{classTestFunction}\index{TestFunction@{TestFunction}}
+
+
+Inheritance diagram for Test\+Function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classTestFunction__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Test\+Function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classTestFunction__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classTestFunction_a77a3225ad8f0031c0564756779472d11}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\item 
+double \mbox{\hyperlink{classTestFunction_a16fa03e71e47ef97781373e43ae6b6e3}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\item 
+std\+::string \mbox{\hyperlink{classTestFunction_ac70298905324ad83b7b159a77e3efb52}{get\+Description}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \& {\bfseries get\+Fun\+Name} () const
+\item 
+unsigned int {\bfseries get\+Min\+Args} () const
+\item 
+unsigned int {\bfseries get\+Max\+Args} () const
+\item 
+virtual bool {\bfseries is\+Deterministic} () const
+\item 
+void {\bfseries check} (\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Function} (const std\+::string \&funname)
+\item 
+static void {\bfseries display\+Function\+Descriptions} (std\+::ostream \&os)
+\item 
+static std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Func\+Map} ()
+\item 
+static void {\bfseries set\+Func\+Map} (std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+func\+\_\+map)
+\item 
+static void {\bfseries destroy\+Func\+Map} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Function} (const std\+::string \&funname, unsigned int min\+\_\+args, unsigned int max\+\_\+args=\texorpdfstring{$\sim$}{\string~}0U)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTestFunction_a77a3225ad8f0031c0564756779472d11}\label{classTestFunction_a77a3225ad8f0031c0564756779472d11} 
+\index{TestFunction@{TestFunction}!eval@{eval}}
+\index{eval@{eval}!TestFunction@{TestFunction}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Test\+Function\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}}]{arg\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+\Hypertarget{classTestFunction_a16fa03e71e47ef97781373e43ae6b6e3}\label{classTestFunction_a16fa03e71e47ef97781373e43ae6b6e3} 
+\index{TestFunction@{TestFunction}!eval@{eval}}
+\index{eval@{eval}!TestFunction@{TestFunction}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Test\+Function\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop,  }\item[{\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}}]{arg\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+\Hypertarget{classTestFunction_ac70298905324ad83b7b159a77e3efb52}\label{classTestFunction_ac70298905324ad83b7b159a77e3efb52} 
+\index{TestFunction@{TestFunction}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!TestFunction@{TestFunction}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily std\+::string Test\+Function\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/user\+\_\+func.\+cc\end{DoxyCompactItemize}

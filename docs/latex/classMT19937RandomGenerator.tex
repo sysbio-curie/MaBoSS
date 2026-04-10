@@ -1,0 +1,107 @@
+\doxysection{MT19937\+Random\+Generator Class Reference}
+\hypertarget{classMT19937RandomGenerator}{}\label{classMT19937RandomGenerator}\index{MT19937RandomGenerator@{MT19937RandomGenerator}}
+
+
+Inheritance diagram for MT19937\+Random\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classMT19937RandomGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for MT19937\+Random\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classMT19937RandomGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMT19937RandomGenerator_a91912360aac3402f17e14cfd8ff29dcd}\label{classMT19937RandomGenerator_a91912360aac3402f17e14cfd8ff29dcd} 
+{\bfseries MT19937\+Random\+Generator} (int \+\_\+seed)
+\item 
+bool \mbox{\hyperlink{classMT19937RandomGenerator_ae77a969871283be9755bf2e955c8c098}{is\+Pseudo\+Random}} () const
+\item 
+std\+::string \mbox{\hyperlink{classMT19937RandomGenerator_a701750b71ecd3c8ff540d430869f3042}{get\+Name}} () const
+\item 
+unsigned int \mbox{\hyperlink{classMT19937RandomGenerator_abdc20b266e54fa433e9348cb2a6a3012}{generate\+UInt32}} ()
+\item 
+virtual double \mbox{\hyperlink{classMT19937RandomGenerator_acdc90cf7ca4184cea244945e728130c3}{generate}} ()
+\item 
+virtual void \mbox{\hyperlink{classMT19937RandomGenerator_a614193bd5d7254c200eca97552ecd46f}{set\+Seed}} (int \+\_\+seed)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries reset\+Generated\+Number\+Count} ()
+\item 
+static size\+\_\+t {\bfseries get\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries incr\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMT19937RandomGenerator_acdc90cf7ca4184cea244945e728130c3}\label{classMT19937RandomGenerator_acdc90cf7ca4184cea244945e728130c3} 
+\index{MT19937RandomGenerator@{MT19937RandomGenerator}!generate@{generate}}
+\index{generate@{generate}!MT19937RandomGenerator@{MT19937RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily virtual double MT19937\+Random\+Generator\+::generate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classMT19937RandomGenerator_abdc20b266e54fa433e9348cb2a6a3012}\label{classMT19937RandomGenerator_abdc20b266e54fa433e9348cb2a6a3012} 
+\index{MT19937RandomGenerator@{MT19937RandomGenerator}!generateUInt32@{generateUInt32}}
+\index{generateUInt32@{generateUInt32}!MT19937RandomGenerator@{MT19937RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generateUInt32()}{generateUInt32()}}
+{\footnotesize\ttfamily unsigned int MT19937\+Random\+Generator\+::generate\+UInt32 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classMT19937RandomGenerator_a701750b71ecd3c8ff540d430869f3042}\label{classMT19937RandomGenerator_a701750b71ecd3c8ff540d430869f3042} 
+\index{MT19937RandomGenerator@{MT19937RandomGenerator}!getName@{getName}}
+\index{getName@{getName}!MT19937RandomGenerator@{MT19937RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string MT19937\+Random\+Generator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classMT19937RandomGenerator_ae77a969871283be9755bf2e955c8c098}\label{classMT19937RandomGenerator_ae77a969871283be9755bf2e955c8c098} 
+\index{MT19937RandomGenerator@{MT19937RandomGenerator}!isPseudoRandom@{isPseudoRandom}}
+\index{isPseudoRandom@{isPseudoRandom}!MT19937RandomGenerator@{MT19937RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{isPseudoRandom()}{isPseudoRandom()}}
+{\footnotesize\ttfamily bool MT19937\+Random\+Generator\+::is\+Pseudo\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classMT19937RandomGenerator_a614193bd5d7254c200eca97552ecd46f}\label{classMT19937RandomGenerator_a614193bd5d7254c200eca97552ecd46f} 
+\index{MT19937RandomGenerator@{MT19937RandomGenerator}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!MT19937RandomGenerator@{MT19937RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
+{\footnotesize\ttfamily virtual void MT19937\+Random\+Generator\+::set\+Seed (\begin{DoxyParamCaption}\item[{int}]{\+\_\+seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Random\+Generator.\+h\end{DoxyCompactItemize}

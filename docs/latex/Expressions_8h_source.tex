@@ -1,0 +1,1179 @@
+\doxysection{Expressions.\+h}
+\hypertarget{Expressions_8h_source}{}\label{Expressions_8h_source}\index{engine/src/Expressions.h@{engine/src/Expressions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ Expressions.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_EXPRESSIONS\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_EXPRESSIONS\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <sbml/SBMLTypes.h>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}sbml/packages/qual/common/QualExtensionTypes.h"{}}\ }
+\DoxyCodeLine{00062\ LIBSBML\_CPP\_NAMESPACE\_USE}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}Node.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}Symbols.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}Function.h"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}NetworkState.h"{}}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\ \{}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node;}
+\DoxyCodeLine{00077\ \ \ std::ostream\&\ os;}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ node,\ std::ostream\&\ os)\ :\ network(network),\ node(node),\ os(os),\ level(0)\ \{\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ getNetwork()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ network;\}}
+\DoxyCodeLine{00084\ \ \ std::ostream\&\ getOStream()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ os;\}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ getNode()\ \{\textcolor{keywordflow}{return}\ node;\}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getLevel()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ level;\}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ incrLevel()\ \{level++;\}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ decrLevel()\ \{level-\/-\/;\}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLogicalExprGenContext_1_1LevelManager}{LevelManager}}\ \{}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classLogicalExprGenContext_1_1LevelManager}{LevelManager}}(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ :\ genctx(genctx)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ level\ =\ genctx.getLevel();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ genctx.incrLevel();}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getLevel()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ level;\}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{classLogicalExprGenContext_1_1LevelManager}{\string~LevelManager}}()\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ genctx.decrLevel();}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \};}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ abstract\ base\ class\ used\ for\ expression\ evaluation}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop\_state)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keywordtype}{double})\{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ std::string\ toString()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ std::ostringstream\ ostr;}
+\DoxyCodeLine{00125\ \ \ \ \ display(ostr);}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ ostr.str();}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\ \textcolor{keyword}{const}\ =\ 0;\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ clone();}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{virtual}\ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{\textcolor{keywordflow}{return}\ std::vector<Node*>();\ \}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{virtual}\ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ASTNode(AST\_CONSTANT\_TRUE);\ \}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ generationWillAddParenthesis()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{bool}\ evalIfConstant(\textcolor{keywordtype}{double}\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{bool}\ evalIfConstant(\textcolor{keywordtype}{bool}\&\ value)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrinkRecursive(\mbox{\hyperlink{classExpression}{Expression}}*\ expr);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}*\ asNotLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ NULL;\}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classExpression}{\string~Expression}}()\ \{}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTimeExpression}{TimeExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00160\ \ \ \mbox{\hyperlink{classTimeExpression}{TimeExpression}}()\ \{\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classTimeExpression}{TimeExpression}}();\}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ \ \ }
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keywordtype}{double}\ time)}
+\DoxyCodeLine{00173\ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{return}\ time;}
+\DoxyCodeLine{00175\ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00179\ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\#time"{}};}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00186\ \ \ }
+\DoxyCodeLine{00187\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00188\ \ \ \ \ std::vector<Node*>\ vec;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{00190\ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00193\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00194\ \ \ \ \ ASTNode*\ time\_node\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_NAME\_TIME);}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{return}\ time\_node;}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&)\textcolor{keyword}{\ const\ }\{\}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \mbox{\hyperlink{classTimeExpression}{\string~TimeExpression}}()\ \{}
+\DoxyCodeLine{00201\ \ \ \}}
+\DoxyCodeLine{00202\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNodeExpression}{NodeExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00205\ \ \ \mbox{\hyperlink{classNode}{Node}}*\ node;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00208\ \ \ \mbox{\hyperlink{classNodeExpression}{NodeExpression}}(\mbox{\hyperlink{classNode}{Node}}*\ node)\ :\ node(node)\ \{\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classNodeExpression}{NodeExpression}}(node);\}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})node-\/>\mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{getNodeState}}(network\_state);}
+\DoxyCodeLine{00214\ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})node-\/>\mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{getNodeState}}(network\_state);}
+\DoxyCodeLine{00218\ \ \ \}}
+\DoxyCodeLine{00219\ \ \ }
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keywordtype}{double})}
+\DoxyCodeLine{00221\ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})node-\/>\mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{getNodeState}}(network\_state);}
+\DoxyCodeLine{00223\ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ \_node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>node\ ==\ \_node;}
+\DoxyCodeLine{00227\ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00230\ \ \ \ \ os\ <<\ node-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}();}
+\DoxyCodeLine{00231\ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00234\ \ \ }
+\DoxyCodeLine{00235\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00236\ \ \ \ \ std::vector<Node*>\ vec;}
+\DoxyCodeLine{00237\ \ \ \ \ vec.push\_back(node);}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{00239\ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00242\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00243\ \ \ \ \ ASTNode*\ equ\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_RELATIONAL\_EQ);}
+\DoxyCodeLine{00244\ \ \ \ \ ASTNode*\ a\_node\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_NAME);}
+\DoxyCodeLine{00245\ \ \ \ \ a\_node-\/>setId(node-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}());}
+\DoxyCodeLine{00246\ \ \ \ \ a\_node-\/>setName(node-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}().c\_str());}
+\DoxyCodeLine{00247\ \ \ \ \ ASTNode*\ one\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_INTEGER);}
+\DoxyCodeLine{00248\ \ \ \ \ one-\/>setValue(1);}
+\DoxyCodeLine{00249\ \ \ \ \ }
+\DoxyCodeLine{00250\ \ \ \ \ equ-\/>addChild(a\_node);}
+\DoxyCodeLine{00251\ \ \ \ \ equ-\/>addChild(one);}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{return}\ equ;}
+\DoxyCodeLine{00253\ \ \ \}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \mbox{\hyperlink{classNodeExpression}{\string~NodeExpression}}()\ \{\}}
+\DoxyCodeLine{00258\ \};}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classStateExpression}{StateExpression}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00262\ \ \ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ state;}
+\DoxyCodeLine{00263\ \ \ \mbox{\hyperlink{classNetwork}{Network}}*\ network;}
+\DoxyCodeLine{00264\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00266\ \ \ \mbox{\hyperlink{classStateExpression}{StateExpression}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ state,\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ :\ state(\mbox{\hyperlink{classNetworkState}{NetworkState}}(state,\ 1)),\ network(network)\ \{\ \}}
+\DoxyCodeLine{00267\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classStateExpression}{StateExpression}}(\mbox{\hyperlink{classNetworkState}{NetworkState}}(state,\ 1),\ network);\}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00269\ \ \ \mbox{\hyperlink{classStateExpression}{StateExpression}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\ state,\ \mbox{\hyperlink{classNetwork}{Network}}*\ network)\ :\ state(state),\ network(network)\ \{\ \}}
+\DoxyCodeLine{00270\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classStateExpression}{StateExpression}}(\mbox{\hyperlink{classNetworkState}{NetworkState}}(state),\ network);\}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00272\ \ \ }
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{return}\ state.getState()\ ==\ network\_state.getState()\ ?\ 1.0\ :\ 0.0;}
+\DoxyCodeLine{00276\ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordflow}{return}\ state.getState()\ ==\ network\_state.getState()\ ?\ 1.0\ :\ 0.0;}
+\DoxyCodeLine{00280\ \ \ \}}
+\DoxyCodeLine{00281\ \ \ }
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keywordtype}{double})}
+\DoxyCodeLine{00283\ \ \ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{return}\ state.getState()\ ==\ network\_state.getState()\ ?\ 1.0\ :\ 0.0;}
+\DoxyCodeLine{00285\ \ \ \}}
+\DoxyCodeLine{00286\ \ \ }
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00289\ \ \ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00292\ \ \ \ \ state.displayOneLine(os,\ network);}
+\DoxyCodeLine{00293\ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00296\ \ \ }
+\DoxyCodeLine{00297\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00298\ \ \ \ \ std::vector<Node*>\ vec;}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}*\ node:\ network-\/>getNodes())}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state.getNodeState(node))}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ vec.push\_back(node);}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{00303\ \ \ \}}
+\DoxyCodeLine{00304\ \ \ }
+\DoxyCodeLine{00305\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&)\textcolor{keyword}{\ const\ }\{\}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \mbox{\hyperlink{classStateExpression}{\string~StateExpression}}()\ \{}
+\DoxyCodeLine{00308\ \ \ \}}
+\DoxyCodeLine{00309\ \};}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopExpression}{PopExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00312\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ expr;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00315\ \ \ \mbox{\hyperlink{classPopExpression}{PopExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ :\ expr(expr)\ \{\ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classPopExpression}{PopExpression}}(expr-\/>clone());\}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.;}
+\DoxyCodeLine{00321\ \ \ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})\ pop\_state.count(expr);}
+\DoxyCodeLine{00325\ \ \ \}}
+\DoxyCodeLine{00326\ \ \ }
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00329\ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00332\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\#cell("{}};}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{if}\ (expr\ !=\ NULL)\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ expr-\/>display(os);}
+\DoxyCodeLine{00335\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}1"{}};}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00339\ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00342\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>getNodes();}
+\DoxyCodeLine{00344\ \ \ \}}
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \mbox{\hyperlink{classPopExpression}{\string~PopExpression}}()\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keyword}{delete}\ expr;}
+\DoxyCodeLine{00349\ \ \ \}}
+\DoxyCodeLine{00350\ \};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{comment}{//\ concrete\ classes\ used\ for\ expression\ evaluation}}
+\DoxyCodeLine{00353\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00356\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ left;}
+\DoxyCodeLine{00357\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ right;}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00360\ \ \ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ left(left),\ right(right)\ \{\ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>hasCycle(node)\ ||\ right-\/>hasCycle(node);}
+\DoxyCodeLine{00364\ \ \ \}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>isConstantExpression()\ \&\&\ right-\/>isConstantExpression();}
+\DoxyCodeLine{00368\ \ \ \}}
+\DoxyCodeLine{00369\ \ }
+\DoxyCodeLine{00370\ \ \ \textcolor{keyword}{virtual}\ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00371\ \ \ \ \ std::vector<Node*>\ vec1\ =\ left-\/>getNodes();}
+\DoxyCodeLine{00372\ \ \ \ \ std::vector<Node*>\ vec2\ =\ right-\/>getNodes();}
+\DoxyCodeLine{00373\ \ \ \ \ std::vector<Node*>\ vec(vec1.begin(),\ vec1.end());}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}*\ node\ :\ vec2)\ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::find(vec.begin(),\ vec.end(),\ node)\ ==\ vec.end())\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ vec.push\_back(node);}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00378\ \ \ \ \ \}}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{00380\ \ \ \}}
+\DoxyCodeLine{00381\ \ \ }
+\DoxyCodeLine{00382\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classBinaryExpression}{\string~BinaryExpression}}()\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keyword}{delete}\ left;}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{delete}\ right;}
+\DoxyCodeLine{00385\ \ \ \}}
+\DoxyCodeLine{00386\ \};}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMulExpression}{MulExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00391\ \ \ \mbox{\hyperlink{classMulExpression}{MulExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classMulExpression}{MulExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00394\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00395\ \ \ }
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ *\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00398\ \ \ \}}
+\DoxyCodeLine{00399\ \ \ }
+\DoxyCodeLine{00400\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ *\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00402\ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00405\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00406\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00407\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ *\ "{}};}
+\DoxyCodeLine{00408\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00409\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00410\ \ \ \}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00413\ \};}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDivExpression}{DivExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00418\ \ \ \mbox{\hyperlink{classDivExpression}{DivExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classDivExpression}{DivExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ /\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00424\ \ \ \}}
+\DoxyCodeLine{00425\ \ \ }
+\DoxyCodeLine{00426\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00427\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ /\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00428\ \ \ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00431\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00432\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00433\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ /\ "{}};}
+\DoxyCodeLine{00434\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00435\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00436\ \ \ \}}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00439\ \};}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAddExpression}{AddExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00444\ \ \ \mbox{\hyperlink{classAddExpression}{AddExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classAddExpression}{AddExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00447\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00450\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ +\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00451\ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ +\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00455\ \ \ \}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00458\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00459\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00460\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ +\ "{}};}
+\DoxyCodeLine{00461\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00462\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00463\ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00466\ \};}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSubExpression}{SubExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00471\ \ \ \mbox{\hyperlink{classSubExpression}{SubExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classSubExpression}{SubExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ -\/\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00477\ \ \ \}}
+\DoxyCodeLine{00478\ \ \ }
+\DoxyCodeLine{00479\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ -\/\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00481\ \ \ \}}
+\DoxyCodeLine{00482\ \ \ }
+\DoxyCodeLine{00483\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00484\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00485\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00486\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ -\/\ "{}};}
+\DoxyCodeLine{00487\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00488\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00489\ \ \ \}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00492\ \};}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classEqualExpression}{EqualExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00497\ \ \ \mbox{\hyperlink{classEqualExpression}{EqualExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classEqualExpression}{EqualExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ ==\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00503\ \ \ \}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ ==\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00507\ \ \ \}}
+\DoxyCodeLine{00508\ \ \ }
+\DoxyCodeLine{00509\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00510\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00511\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00512\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ ==\ "{}};}
+\DoxyCodeLine{00513\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00514\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00515\ \ \ \}}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00520\ \};}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNotEqualExpression}{NotEqualExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00525\ \ \ \mbox{\hyperlink{classNotEqualExpression}{NotEqualExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classNotEqualExpression}{NotEqualExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ !=\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00531\ \ \ \}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ !=\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00535\ \ \ \}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00538\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00539\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00540\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ !=\ "{}};}
+\DoxyCodeLine{00541\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00542\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00543\ \ \ \}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00548\ \};}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLetterExpression}{LetterExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00553\ \ \ \mbox{\hyperlink{classLetterExpression}{LetterExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classLetterExpression}{LetterExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ <\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00559\ \ \ \}}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ <\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00563\ \ \ \}}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00566\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00567\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00568\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ <\ "{}};}
+\DoxyCodeLine{00569\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00570\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00571\ \ \ \}}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00576\ \};}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLetterOrEqualExpression}{LetterOrEqualExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00581\ \ \ \mbox{\hyperlink{classLetterOrEqualExpression}{LetterOrEqualExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classLetterOrEqualExpression}{LetterOrEqualExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ <=\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00587\ \ \ \}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ <=\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00591\ \ \ \}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00594\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00595\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00596\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ <=\ "{}};}
+\DoxyCodeLine{00597\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00598\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00599\ \ \ \}}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00604\ \};}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00606\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classGreaterExpression}{GreaterExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00609\ \ \ \mbox{\hyperlink{classGreaterExpression}{GreaterExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classGreaterExpression}{GreaterExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ >\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00615\ \ \ \}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ >\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00619\ \ \ \}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00622\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00623\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00624\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ >\ "{}};}
+\DoxyCodeLine{00625\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00626\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00627\ \ \ \}}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00632\ \};}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classGreaterOrEqualExpression}{GreaterOrEqualExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00637\ \ \ \mbox{\hyperlink{classGreaterOrEqualExpression}{GreaterOrEqualExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00639\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classGreaterOrEqualExpression}{GreaterOrEqualExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state)\ >=\ right-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00643\ \ \ \}}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00646\ \ \ \ \ \textcolor{keywordflow}{return}\ left-\/>eval(this\_node,\ network\_state,\ pop)\ >=\ right-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00647\ \ \ \}}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00650\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00651\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00652\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ >=\ "{}};}
+\DoxyCodeLine{00653\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00654\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00655\ \ \ \}}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00660\ \};}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCondExpression}{CondExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cond\_expr;}
+\DoxyCodeLine{00665\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ true\_expr;}
+\DoxyCodeLine{00666\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ false\_expr;}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00669\ \ \ \mbox{\hyperlink{classCondExpression}{CondExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ cond\_expr,\ \mbox{\hyperlink{classExpression}{Expression}}*\ true\_expr,\ \mbox{\hyperlink{classExpression}{Expression}}*\ false\_expr)\ :\ cond\_expr(cond\_expr),\ true\_expr(true\_expr),\ false\_expr(false\_expr)\ \{\ \}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classCondExpression}{CondExpression}}(cond\_expr-\/>clone(),\ true\_expr-\/>clone(),\ false\_expr-\/>clone());\}}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00673\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00674\ \ \ \textcolor{comment}{//\ \ Expression*\ cloneAndShrink(bool\&\ shrinked)\ const\ \{return\ new\ CondExpression(cond\_expr-\/>cloneAndShrink(shrinked),\ true\_expr-\/>cloneAndShrink(shrinked),\ false\_expr-\/>cloneAndShrink(shrinked));\}}}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{keywordflow}{if}\ (0.\ !=\ cond\_expr-\/>eval(this\_node,\ network\_state))\ \{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ true\_expr-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00679\ \ \ \ \ \}}
+\DoxyCodeLine{00680\ \ \ \ \ \textcolor{keywordflow}{return}\ false\_expr-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00681\ \ \ \}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keywordflow}{if}\ (0.\ !=\ cond\_expr-\/>eval(this\_node,\ network\_state,\ pop))\ \{}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ true\_expr-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00686\ \ \ \ \ \}}
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{keywordflow}{return}\ false\_expr-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00688\ \ \ \}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{keywordflow}{return}\ cond\_expr-\/>hasCycle(node)\ ||\ true\_expr-\/>hasCycle(node)\ ||\ false\_expr-\/>hasCycle(node);}
+\DoxyCodeLine{00692\ \ \ \}}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00695\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00696\ \ \ \ \ cond\_expr-\/>display(os);}
+\DoxyCodeLine{00697\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ ?\ "{}};}
+\DoxyCodeLine{00698\ \ \ \ \ true\_expr-\/>display(os);}
+\DoxyCodeLine{00699\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ :\ "{}};}
+\DoxyCodeLine{00700\ \ \ \ \ false\_expr-\/>display(os);}
+\DoxyCodeLine{00701\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00702\ \ \ \}}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \ \ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00705\ \ \ \ \ \textcolor{keywordflow}{return}\ cond\_expr-\/>isConstantExpression()\ \&\&\ true\_expr-\/>isConstantExpression()\ \&\&\ false\_expr-\/>isConstantExpression();}
+\DoxyCodeLine{00706\ \ \ \}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00709\ \ \ \ \ \textcolor{keywordflow}{return}\ true\_expr-\/>isLogicalExpression()\ \&\&\ false\_expr-\/>isLogicalExpression();}
+\DoxyCodeLine{00710\ \ \ \}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00713\ \ \ \ \ std::vector<Node*>\ vec1\ =\ cond\_expr-\/>getNodes();}
+\DoxyCodeLine{00714\ \ \ \ \ std::vector<Node*>\ vec2\ =\ true\_expr-\/>getNodes();}
+\DoxyCodeLine{00715\ \ \ \ \ std::vector<Node*>\ vec3\ =\ false\_expr-\/>getNodes();}
+\DoxyCodeLine{00716\ \ \ \ \ std::vector<Node*>\ vec(vec1.begin(),\ vec1.end());}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}*\ node\ :\ vec2)\ \{}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::find(vec.begin(),\ vec.end(),\ node)\ ==\ vec.end())\ \{}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ vec.push\_back(node);}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00721\ \ \ \ \ \}}
+\DoxyCodeLine{00722\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}*\ node\ :\ vec3)\ \{}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::find(vec.begin(),\ vec.end(),\ node)\ ==\ vec.end())\ \{}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ vec.push\_back(node);}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00726\ \ \ \ \ \}}
+\DoxyCodeLine{00727\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{00728\ \ \ \}}
+\DoxyCodeLine{00729\ \ \ }
+\DoxyCodeLine{00730\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classCondExpression}{\string~CondExpression}}()\ \{}
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keyword}{delete}\ cond\_expr;}
+\DoxyCodeLine{00734\ \ \ \ \ \textcolor{keyword}{delete}\ true\_expr;}
+\DoxyCodeLine{00735\ \ \ \ \ \textcolor{keyword}{delete}\ false\_expr;}
+\DoxyCodeLine{00736\ \ \ \}}
+\DoxyCodeLine{00737\ \};}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classConstantExpression}{ConstantExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00744\ \ \ \mbox{\hyperlink{classConstantExpression}{ConstantExpression}}(\textcolor{keywordtype}{double}\ value)\ :\ value(value)\ \{\ \}}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classConstantExpression}{ConstantExpression}}(value);\}}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00749\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00750\ \ \ \}}
+\DoxyCodeLine{00751\ \ \ }
+\DoxyCodeLine{00752\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00753\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00754\ \ \ \}}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00756\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00757\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00758\ \ \ \}}
+\DoxyCodeLine{00759\ }
+\DoxyCodeLine{00760\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00761\ \ \ \ \ os\ <<\ value;}
+\DoxyCodeLine{00762\ \ \ \}}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \ \ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ value\ ==\ 0\ ||\ value\ ==\ 1;\}}
+\DoxyCodeLine{00767\ \ \ }
+\DoxyCodeLine{00768\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00769\ \ \ \ \ \textcolor{keywordflow}{return}\ std::vector<Node*>();}
+\DoxyCodeLine{00770\ \ \ \}}
+\DoxyCodeLine{00771\ \ \ }
+\DoxyCodeLine{00772\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \};}
+\DoxyCodeLine{00775\ }
+\DoxyCodeLine{00776\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSymbolExpression}{SymbolExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00778\ \ \ \mbox{\hyperlink{classSymbolTable}{SymbolTable}}*\ symbol\_table;}
+\DoxyCodeLine{00779\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSymbol}{Symbol}}*\ symbol;}
+\DoxyCodeLine{00780\ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{bool}\ value\_set;}
+\DoxyCodeLine{00781\ \ \ \textcolor{keyword}{mutable}\ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00782\ }
+\DoxyCodeLine{00783\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00784\ \ \ \mbox{\hyperlink{classSymbolExpression}{SymbolExpression}}(\mbox{\hyperlink{classSymbolTable}{SymbolTable}}*\ symbol\_table,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classSymbol}{Symbol}}*\ symbol)\ :\ symbol\_table(symbol\_table),\ symbol(symbol),\ value\_set(\textcolor{keyword}{false})\ \{\ }
+\DoxyCodeLine{00785\ \ \ \ \ symbol\_table-\/>addSymbolExpression(\textcolor{keyword}{this});}
+\DoxyCodeLine{00786\ \ \ \}}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00788\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classSymbolExpression}{SymbolExpression}}(symbol\_table,\ symbol);\}}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00791\ \ \ \ \ \textcolor{keywordflow}{if}\ (!value\_set)\ \{}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ value\ =\ symbol\_table-\/>getSymbolValue(symbol);}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ value\_set\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00794\ \ \ \ \ \}}
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00796\ \ \ \}}
+\DoxyCodeLine{00797\ \ \ }
+\DoxyCodeLine{00798\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keywordflow}{if}\ (!value\_set)\ \{}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ value\ =\ symbol\_table-\/>getSymbolValue(symbol);}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ value\_set\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00802\ \ \ \ \ \}}
+\DoxyCodeLine{00803\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00804\ \ \ \}}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00806\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00807\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00808\ \ \ \}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00811\ \ \ \ \ os\ <<\ symbol-\/>getName();}
+\DoxyCodeLine{00812\ \ \ \}}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00814\ \ \ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00815\ \ \ }
+\DoxyCodeLine{00816\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00817\ \ \ \ \ \textcolor{keywordflow}{return}\ std::vector<Node*>();}
+\DoxyCodeLine{00818\ \ \ \}}
+\DoxyCodeLine{00819\ \ \ }
+\DoxyCodeLine{00820\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00822\ \ \ \textcolor{keywordtype}{void}\ unset()\ \{\ value\_set\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00823\ \};}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAliasExpression}{AliasExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{00826\ \ \ std::string\ identifier;}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ getAliasExpression(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00829\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this\_node-\/>\mbox{\hyperlink{classNode_a9b1a8433c7daf0659daa202d7b0ef096}{getAttributeExpression}}(identifier);}
+\DoxyCodeLine{00831\ \ \ \ \ \}}
+\DoxyCodeLine{00832\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00833\ \ \ \}}
+\DoxyCodeLine{00834\ }
+\DoxyCodeLine{00835\ \ \ \textcolor{keyword}{mutable}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ alias\_expr;}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00838\ \ \ \mbox{\hyperlink{classAliasExpression}{AliasExpression}}(\textcolor{keyword}{const}\ std::string\&\ identifier)\ :\ identifier(identifier),\ alias\_expr(NULL)\ \{\ \}}
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00840\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classAliasExpression}{AliasExpression}}(identifier);\}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00843\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ ==\ alias\_expr)\ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ alias\_expr\ =\ getAliasExpression(this\_node);}
+\DoxyCodeLine{00845\ \ \ \ \ \}}
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ alias\_expr)\ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ alias\_expr-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{00848\ \ \ \ \ \}}
+\DoxyCodeLine{00849\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}invalid\ use\ of\ alias\ attribute\ @"{}}\ +\ identifier\ +\ \textcolor{stringliteral}{"{}\ in\ node\ "{}}\ +\ this\_node-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}());}
+\DoxyCodeLine{00851\ \ \ \ \ \}}
+\DoxyCodeLine{00852\ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}invalid\ use\ of\ alias\ attribute\ @"{}}\ +\ identifier\ +\ \textcolor{stringliteral}{"{}\ in\ unknown\ node"{}});}
+\DoxyCodeLine{00853\ \ \ \}}
+\DoxyCodeLine{00854\ \ \ }
+\DoxyCodeLine{00855\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00856\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ ==\ alias\_expr)\ \{}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ alias\_expr\ =\ getAliasExpression(this\_node);}
+\DoxyCodeLine{00858\ \ \ \ \ \}}
+\DoxyCodeLine{00859\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ alias\_expr)\ \{}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ alias\_expr-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{00861\ \ \ \ \ \}}
+\DoxyCodeLine{00862\ \ \ \ \ }
+\DoxyCodeLine{00863\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}invalid\ use\ of\ alias\ attribute\ @"{}}\ +\ identifier\ +\ \textcolor{stringliteral}{"{}\ in\ node\ "{}}\ +\ this\_node-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}());}
+\DoxyCodeLine{00865\ \ \ \ \ \}}
+\DoxyCodeLine{00866\ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}invalid\ use\ of\ alias\ attribute\ @"{}}\ +\ identifier\ +\ \textcolor{stringliteral}{"{}\ in\ unknown\ node"{}});}
+\DoxyCodeLine{00867\ \ \ \}}
+\DoxyCodeLine{00868\ }
+\DoxyCodeLine{00869\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00870\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00871\ \ \ \}}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00874\ \ \ \ \ os\ <<\ \textcolor{charliteral}{'@'}\ <<\ identifier;}
+\DoxyCodeLine{00875\ \ \ \}}
+\DoxyCodeLine{00876\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00877\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00878\ \ \ \ \ alias\_expr\ =\ getAliasExpression(genctx.getNode());}
+\DoxyCodeLine{00879\ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ alias\_expr)\ \{}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ alias\_expr-\/>writeSBML(genctx);}
+\DoxyCodeLine{00881\ \ \ \ \ \}}
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ ASTNode(AST\_CONSTANT\_FALSE);}
+\DoxyCodeLine{00883\ \ \ \}}
+\DoxyCodeLine{00884\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00885\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00886\ \};}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classOrLogicalExpression}{OrLogicalExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00889\ }
+\DoxyCodeLine{00890\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00891\ \ \ \mbox{\hyperlink{classOrLogicalExpression}{OrLogicalExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00892\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00894\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classOrLogicalExpression}{OrLogicalExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00896\ \ \ \textcolor{keywordtype}{bool}\ generationWillAddParenthesis()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00899\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state)\ ||\ (bool)right-\/>eval(this\_node,\ network\_state));}
+\DoxyCodeLine{00900\ \ \ \}}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00903\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state,\ pop)\ ||\ (bool)right-\/>eval(this\_node,\ network\_state,\ pop));}
+\DoxyCodeLine{00904\ \ \ \}}
+\DoxyCodeLine{00905\ \ \ }
+\DoxyCodeLine{00906\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00907\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00908\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00909\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ OR\ "{}};}
+\DoxyCodeLine{00910\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00911\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00912\ \ \ \}}
+\DoxyCodeLine{00913\ }
+\DoxyCodeLine{00914\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00915\ }
+\DoxyCodeLine{00916\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00917\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00918\ \ \ \ \ ASTNode*\ op\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_LOGICAL\_OR);}
+\DoxyCodeLine{00919\ \ \ \ \ }
+\DoxyCodeLine{00920\ \ \ \ \ op-\/>addChild(left-\/>writeSBML(genctx));}
+\DoxyCodeLine{00921\ \ \ \ \ op-\/>addChild(right-\/>writeSBML(genctx));}
+\DoxyCodeLine{00922\ \ \ \ \ \textcolor{keywordflow}{return}\ op;}
+\DoxyCodeLine{00923\ \ \ \}}
+\DoxyCodeLine{00924\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00925\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00926\ \};}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAndLogicalExpression}{AndLogicalExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00929\ }
+\DoxyCodeLine{00930\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00931\ \ \ \mbox{\hyperlink{classAndLogicalExpression}{AndLogicalExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classAndLogicalExpression}{AndLogicalExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00934\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00937\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state)\ \&\&\ (bool)right-\/>eval(this\_node,\ network\_state));}
+\DoxyCodeLine{00938\ \ \ \}}
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00940\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00941\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state,\ pop)\ \&\&\ (bool)right-\/>eval(this\_node,\ network\_state,\ pop));}
+\DoxyCodeLine{00942\ \ \ \}}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keywordtype}{double}\ time)}
+\DoxyCodeLine{00945\ \ \ \{}
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(network\_state,\ time\ )\ \&\&\ (bool)right-\/>eval(network\_state,\ time));}
+\DoxyCodeLine{00947\ \ \ \}}
+\DoxyCodeLine{00948\ \ \ }
+\DoxyCodeLine{00949\ \ \ \textcolor{keywordtype}{bool}\ generationWillAddParenthesis()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00950\ }
+\DoxyCodeLine{00951\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00952\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00953\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00954\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ AND\ "{}};}
+\DoxyCodeLine{00955\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00956\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00957\ \ \ \}}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00960\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00961\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00962\ \ \ \ \ ASTNode*\ op\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_LOGICAL\_AND);}
+\DoxyCodeLine{00963\ \ \ \ \ }
+\DoxyCodeLine{00964\ \ \ \ \ op-\/>addChild(left-\/>writeSBML(genctx));}
+\DoxyCodeLine{00965\ \ \ \ \ op-\/>addChild(right-\/>writeSBML(genctx));}
+\DoxyCodeLine{00966\ \ \ \ \ \textcolor{keywordflow}{return}\ op;}
+\DoxyCodeLine{00967\ \ \ \}}
+\DoxyCodeLine{00968\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00969\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00970\ \};}
+\DoxyCodeLine{00971\ }
+\DoxyCodeLine{00972\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classXorLogicalExpression}{XorLogicalExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}\ \{}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00975\ \ \ \mbox{\hyperlink{classXorLogicalExpression}{XorLogicalExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ left,\ \mbox{\hyperlink{classExpression}{Expression}}*\ right)\ :\ \mbox{\hyperlink{classBinaryExpression}{BinaryExpression}}(left,\ right)\ \{\ \}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classXorLogicalExpression}{XorLogicalExpression}}(left-\/>clone(),\ right-\/>clone());\}}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00980\ }
+\DoxyCodeLine{00981\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00982\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state)\ \string^\ (bool)right-\/>eval(this\_node,\ network\_state));}
+\DoxyCodeLine{00983\ \ \ \}}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00985\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00986\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})((bool)left-\/>eval(this\_node,\ network\_state,\ pop)\ \string^\ (bool)right-\/>eval(this\_node,\ network\_state,\ pop));}
+\DoxyCodeLine{00987\ \ \ \}}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00990\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00991\ \ \ \ \ left-\/>display(os);}
+\DoxyCodeLine{00992\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}\ XOR\ "{}};}
+\DoxyCodeLine{00993\ \ \ \ \ right-\/>display(os);}
+\DoxyCodeLine{00994\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00995\ \ \ \}}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{00997\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00998\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00999\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01000\ \ \ \ \ ASTNode*\ op\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_LOGICAL\_XOR);}
+\DoxyCodeLine{01001\ \ \ \ \ }
+\DoxyCodeLine{01002\ \ \ \ \ op-\/>addChild(left-\/>writeSBML(genctx));}
+\DoxyCodeLine{01003\ \ \ \ \ op-\/>addChild(right-\/>writeSBML(genctx));}
+\DoxyCodeLine{01004\ \ \ \ \ \textcolor{keywordflow}{return}\ op;}
+\DoxyCodeLine{01005\ \ \ \}}
+\DoxyCodeLine{01006\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01007\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01008\ \};}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{01011\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ expr;}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01014\ \ \ \mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ :\ expr(expr)\ \{\ \}}
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01016\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}(expr-\/>clone());\}}
+\DoxyCodeLine{01017\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01018\ }
+\DoxyCodeLine{01019\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01020\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})(!((bool)expr-\/>eval(this\_node,\ network\_state)));}
+\DoxyCodeLine{01021\ \ \ \}}
+\DoxyCodeLine{01022\ }
+\DoxyCodeLine{01023\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01024\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})(!((bool)expr-\/>eval(this\_node,\ network\_state,\ pop)));}
+\DoxyCodeLine{01025\ \ \ \}}
+\DoxyCodeLine{01026\ \ \ }
+\DoxyCodeLine{01027\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keywordtype}{double}\ time)\ \{}
+\DoxyCodeLine{01028\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})(!((bool)expr-\/>eval(network\_state,\ time)));}
+\DoxyCodeLine{01029\ \ \ \}}
+\DoxyCodeLine{01030\ \ \ }
+\DoxyCodeLine{01031\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01032\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>hasCycle(node);}
+\DoxyCodeLine{01033\ \ \ \}}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01035\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}*\ asNotLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{this};\}}
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01038\ \ \ \ \ os\ <<\ \ \textcolor{stringliteral}{"{}NOT\ "{}};}
+\DoxyCodeLine{01039\ \ \ \ \ expr-\/>display(os);}
+\DoxyCodeLine{01040\ \ \ \}}
+\DoxyCodeLine{01041\ }
+\DoxyCodeLine{01042\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{01043\ }
+\DoxyCodeLine{01044\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01045\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{01046\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01047\ \ \ \ \ ASTNode*\ op\ =\ \textcolor{keyword}{new}\ ASTNode(AST\_LOGICAL\_NOT);}
+\DoxyCodeLine{01048\ \ \ \ \ }
+\DoxyCodeLine{01049\ \ \ \ \ op-\/>addChild(expr-\/>writeSBML(genctx));}
+\DoxyCodeLine{01050\ \ \ \ \ \textcolor{keywordflow}{return}\ op;}
+\DoxyCodeLine{01051\ \ \ \}}
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01053\ \ \ \mbox{\hyperlink{classNotLogicalExpression}{\string~NotLogicalExpression}}()\ \{}
+\DoxyCodeLine{01054\ \ \ \ \ \textcolor{keyword}{delete}\ expr;}
+\DoxyCodeLine{01055\ \ \ \}}
+\DoxyCodeLine{01056\ \};}
+\DoxyCodeLine{01057\ }
+\DoxyCodeLine{01058\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classParenthesisExpression}{ParenthesisExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{01059\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ expr;}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01062\ \ \ \mbox{\hyperlink{classParenthesisExpression}{ParenthesisExpression}}(\mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ :\ expr(expr)\ \{\ \}}
+\DoxyCodeLine{01063\ }
+\DoxyCodeLine{01064\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classParenthesisExpression}{ParenthesisExpression}}(expr-\/>clone());\}}
+\DoxyCodeLine{01065\ }
+\DoxyCodeLine{01066\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ cloneAndShrink(\textcolor{keywordtype}{bool}\&\ shrinked)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01067\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classParenthesisExpression}{ParenthesisExpression}}(expr-\/>cloneAndShrink(shrinked));}
+\DoxyCodeLine{01068\ \ \ \}}
+\DoxyCodeLine{01069\ }
+\DoxyCodeLine{01070\ \ \ \textcolor{keywordtype}{bool}\ generationWillAddParenthesis()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{01071\ }
+\DoxyCodeLine{01072\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01073\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>eval(this\_node,\ network\_state);}
+\DoxyCodeLine{01074\ \ \ \}}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01076\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01077\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>eval(this\_node,\ network\_state,\ pop);}
+\DoxyCodeLine{01078\ \ \ \}}
+\DoxyCodeLine{01079\ }
+\DoxyCodeLine{01080\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNotLogicalExpression}{NotLogicalExpression}}*\ asNotLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ expr-\/>asNotLogicalExpression();\}}
+\DoxyCodeLine{01081\ }
+\DoxyCodeLine{01082\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01083\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>hasCycle(node);}
+\DoxyCodeLine{01084\ \ \ \}}
+\DoxyCodeLine{01085\ }
+\DoxyCodeLine{01086\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01087\ \ \ \ \ os\ <<\ \ \textcolor{charliteral}{'('};}
+\DoxyCodeLine{01088\ \ \ \ \ expr-\/>display(os);}
+\DoxyCodeLine{01089\ \ \ \ \ os\ <<\ \ \textcolor{charliteral}{')'};}
+\DoxyCodeLine{01090\ \ \ \}}
+\DoxyCodeLine{01091\ }
+\DoxyCodeLine{01092\ \ \ std::vector<Node*>\ getNodes()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{01093\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>getNodes();}
+\DoxyCodeLine{01094\ \ \ \}}
+\DoxyCodeLine{01095\ \ \ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ expr-\/>isConstantExpression();\}}
+\DoxyCodeLine{01096\ \ \ \textcolor{keywordtype}{bool}\ isLogicalExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ expr-\/>isLogicalExpression();\}}
+\DoxyCodeLine{01097\ }
+\DoxyCodeLine{01098\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01099\ }
+\DoxyCodeLine{01100\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{01101\ \ \ ASTNode*\ writeSBML(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01102\ }
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keywordflow}{return}\ expr-\/>writeSBML(genctx);}
+\DoxyCodeLine{01104\ \ \ \}}
+\DoxyCodeLine{01105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01106\ }
+\DoxyCodeLine{01107\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classParenthesisExpression}{\string~ParenthesisExpression}}()\ \{}
+\DoxyCodeLine{01108\ \ \ \ \ \textcolor{keyword}{delete}\ expr;}
+\DoxyCodeLine{01109\ \ \ \}}
+\DoxyCodeLine{01110\ \};}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFuncCallExpression}{FuncCallExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classExpression}{Expression}}\ \{}
+\DoxyCodeLine{01113\ \ \ std::string\ funname;}
+\DoxyCodeLine{01114\ \ \ \mbox{\hyperlink{classArgumentList}{ArgumentList}}*\ arg\_list;}
+\DoxyCodeLine{01115\ \ \ \mbox{\hyperlink{classFunction}{Function}}*\ function;}
+\DoxyCodeLine{01116\ \ \ \textcolor{keywordtype}{bool}\ is\_const\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01117\ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{01118\ }
+\DoxyCodeLine{01119\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01120\ \ \ \mbox{\hyperlink{classFuncCallExpression}{FuncCallExpression}}(\textcolor{keyword}{const}\ std::string\&\ funname,\ \mbox{\hyperlink{classArgumentList}{ArgumentList}}*\ arg\_list)\ :\ funname(funname),\ arg\_list(arg\_list),\ function(NULL),\ value(0.)\ \{}
+\DoxyCodeLine{01121\ \ \ \ \ function\ =\ Function::getFunction(funname);}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ \ \ \ \ \textcolor{keywordflow}{if}\ (function\ ==\ NULL)\ \{}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(\textcolor{stringliteral}{"{}unknown\ function\ "{}}\ +\ funname);}
+\DoxyCodeLine{01125\ \ \ \ \ \}}
+\DoxyCodeLine{01126\ \ \ \ \ function-\/>check(arg\_list);}
+\DoxyCodeLine{01127\ \ \ \ \ }
+\DoxyCodeLine{01128\ \ \ \ \ \textcolor{comment}{//\ This\ part\ is\ evaluating\ the\ formula,\ but\ if\ there\ is\ a\ parameter\ its\ value}}
+\DoxyCodeLine{01129\ \ \ \ \ \textcolor{comment}{//\ has\ not\ been\ parsed\ yet.\ So\ this\ will\ fail.\ }}
+\DoxyCodeLine{01130\ \ \ \ \ \textcolor{comment}{//\ is\_const\ =\ function-\/>isDeterministic()\ \&\&\ isConstantExpression();}}
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{comment}{//\ if\ (is\_const)\ \{}}
+\DoxyCodeLine{01132\ \ \ \ \ \textcolor{comment}{//\ \ \ NetworkState\ network\_state;}}
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{comment}{//\ \ \ value\ =\ function-\/>eval(NULL,\ network\_state,\ arg\_list);}}
+\DoxyCodeLine{01134\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{01135\ \ \}}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01137\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ clone()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classFuncCallExpression}{FuncCallExpression}}(funname,\ arg\_list-\/>clone());\}}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01140\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_const)\ \{}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{01142\ \ \ \ \ \}}
+\DoxyCodeLine{01143\ \ \ \ \ \textcolor{keywordflow}{return}\ function-\/>eval(this\_node,\ network\_state,\ arg\_list);}
+\DoxyCodeLine{01144\ \ \ \}}
+\DoxyCodeLine{01145\ }
+\DoxyCodeLine{01146\ \ \ \textcolor{keywordtype}{double}\ eval(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNode}{Node}}*\ this\_node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01147\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_const)\ \{}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{01149\ \ \ \ \ \}}
+\DoxyCodeLine{01150\ \ \ \ \ \textcolor{keywordflow}{return}\ function-\/>eval(this\_node,\ network\_state,\ pop,\ arg\_list);}
+\DoxyCodeLine{01151\ \ \ \}}
+\DoxyCodeLine{01152\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01153\ \ \ \ \ os\ <<\ \ funname\ <<\ \textcolor{charliteral}{'('};}
+\DoxyCodeLine{01154\ \ \ \ \ arg\_list-\/>display(os);}
+\DoxyCodeLine{01155\ \ \ \ \ os\ <<\ \ \textcolor{charliteral}{')'};}
+\DoxyCodeLine{01156\ \ \ \}}
+\DoxyCodeLine{01157\ }
+\DoxyCodeLine{01158\ \ \ \textcolor{keywordtype}{bool}\ hasCycle(\mbox{\hyperlink{classNode}{Node}}*\ node)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01159\ \ \ \ \ \textcolor{keywordflow}{return}\ arg\_list-\/>hasCycle(node);}
+\DoxyCodeLine{01160\ \ \ \}}
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01162\ \ \ \textcolor{keywordtype}{bool}\ isConstantExpression()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ arg\_list-\/>isConstantExpression();\}}
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01164\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ genctx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01165\ }
+\DoxyCodeLine{01166\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classFuncCallExpression}{\string~FuncCallExpression}}()\ \{}
+\DoxyCodeLine{01167\ \ \ \ \ \textcolor{keyword}{delete}\ arg\_list;}
+\DoxyCodeLine{01168\ \ \ \}}
+\DoxyCodeLine{01169\ \};}
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01171\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ dont\_shrink\_logical\_expressions;}
+\DoxyCodeLine{01172\ }
+\DoxyCodeLine{01173\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

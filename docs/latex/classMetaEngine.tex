@@ -1,0 +1,209 @@
+\doxysection{Meta\+Engine Class Reference}
+\hypertarget{classMetaEngine}{}\label{classMetaEngine}\index{MetaEngine@{MetaEngine}}
+
+
+Inheritance diagram for Meta\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMetaEngine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Meta\+Engine\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classMetaEngine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMetaEngine_ab04a7b1370406bd92d790d510f4a6696}\label{classMetaEngine_ab04a7b1370406bd92d790d510f4a6696} 
+{\bfseries Meta\+Engine} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, \mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig)
+\item 
+Node\+Index \mbox{\hyperlink{classMetaEngine_ae95edf198133820b127e4e71e6517949}{get\+Target\+Node}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}random\+\_\+generator, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+double \mbox{\hyperlink{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}{compute\+TH}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}\+\_\+network, const std\+::vector$<$ double $>$ \&node\+Transition\+Rates, double total\+\_\+rate) const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{get\+Elapsed\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}{get\+User\+Core\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}{get\+Elapsed\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}{get\+User\+Epilogue\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}{get\+Elapsed\+Stat\+Dist\+Run\+Time}} () const
+\item 
+long long \mbox{\hyperlink{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}{get\+User\+Stat\+Dist\+Run\+Time}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}\label{classMetaEngine_a280676892bb3bbfe0f51fa7692705589} 
+static void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Initializes the engine. \end{DoxyCompactList}\item 
+\Hypertarget{classMetaEngine_a9f0ccccf817aab346070fd52a3ff240a}\label{classMetaEngine_a9f0ccccf817aab346070fd52a3ff240a} 
+static void {\bfseries load\+User\+Funcs} (const char \texorpdfstring{$\ast$}{*}module)
+\begin{DoxyCompactList}\small\item\em Calls \doxylink{classMetaEngine_a280676892bb3bbfe0f51fa7692705589}{init}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMetaEngine_aaa35fb2b5246a5c5a94e64015ec7469e}\label{classMetaEngine_aaa35fb2b5246a5c5a94e64015ec7469e} 
+\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*} {\bfseries network}
+\item 
+\Hypertarget{classMetaEngine_ae078360ac7b8e102a60912a6a211450c}\label{classMetaEngine_ae078360ac7b8e102a60912a6a211450c} 
+\mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*} {\bfseries runconfig}
+\item 
+\Hypertarget{classMetaEngine_a06f2f7bfd963056247224ebfddee9253}\label{classMetaEngine_a06f2f7bfd963056247224ebfddee9253} 
+double {\bfseries time\+\_\+tick}
+\item 
+\Hypertarget{classMetaEngine_a2de48816570c0fa2a90046613e8fcaff}\label{classMetaEngine_a2de48816570c0fa2a90046613e8fcaff} 
+double {\bfseries max\+\_\+time}
+\item 
+\Hypertarget{classMetaEngine_afb8b6a2fb057d9e4eb489fb81239ddd7}\label{classMetaEngine_afb8b6a2fb057d9e4eb489fb81239ddd7} 
+unsigned int {\bfseries sample\+\_\+count}
+\item 
+\Hypertarget{classMetaEngine_a306f1bc120eda7b421d94a8f39f0cd6d}\label{classMetaEngine_a306f1bc120eda7b421d94a8f39f0cd6d} 
+unsigned int {\bfseries statdist\+\_\+trajcount}
+\item 
+\Hypertarget{classMetaEngine_a5c8c3c76aededa1ff9e0057cbba3ac16}\label{classMetaEngine_a5c8c3c76aededa1ff9e0057cbba3ac16} 
+bool {\bfseries discrete\+\_\+time}
+\item 
+\Hypertarget{classMetaEngine_acbf4d05bd7221c4e29be43426f1b6fcd}\label{classMetaEngine_acbf4d05bd7221c4e29be43426f1b6fcd} 
+unsigned int {\bfseries thread\+\_\+count}
+\item 
+\Hypertarget{classMetaEngine_acb57e08b913c9c5c23d24f112322d075}\label{classMetaEngine_acb57e08b913c9c5c23d24f112322d075} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries reference\+\_\+state}
+\item 
+\Hypertarget{classMetaEngine_ae874d3661818885f52d17f69d81367d5}\label{classMetaEngine_ae874d3661818885f52d17f69d81367d5} 
+unsigned int {\bfseries refnode\+\_\+count}
+\item 
+\Hypertarget{classMetaEngine_a71e9677b21c4874133e4e397c2363793}\label{classMetaEngine_a71e9677b21c4874133e4e397c2363793} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries refnode\+\_\+mask}
+\item 
+\Hypertarget{classMetaEngine_afa4f793140849d3c2fc0f4a95877b646}\label{classMetaEngine_afa4f793140849d3c2fc0f4a95877b646} 
+long long {\bfseries elapsed\+\_\+core\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_a4220bee7cea1e6aff323893054f4f366}\label{classMetaEngine_a4220bee7cea1e6aff323893054f4f366} 
+long long {\bfseries user\+\_\+core\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_a2304a8c46e8ad180f95744812b11dd43}\label{classMetaEngine_a2304a8c46e8ad180f95744812b11dd43} 
+long long {\bfseries elapsed\+\_\+statdist\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_aa9ab79c7fda13844095c2b76548a42e6}\label{classMetaEngine_aa9ab79c7fda13844095c2b76548a42e6} 
+long long {\bfseries user\+\_\+statdist\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_a4cfbf390e495ae02e6fd62b8725a177e}\label{classMetaEngine_a4cfbf390e495ae02e6fd62b8725a177e} 
+long long {\bfseries elapsed\+\_\+epilogue\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_a48108993ce499978ce35f4279fa020fb}\label{classMetaEngine_a48108993ce499978ce35f4279fa020fb} 
+long long {\bfseries user\+\_\+epilogue\+\_\+runtime}
+\item 
+\Hypertarget{classMetaEngine_ac53d722da6ba680217a2a70c68d860db}\label{classMetaEngine_ac53d722da6ba680217a2a70c68d860db} 
+std\+::vector$<$ long long int $>$ {\bfseries thread\+\_\+elapsed\+\_\+runtimes}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc}\label{classMetaEngine_ac38a0f845d59bcb7381e44a131a8edbc} 
+\index{MetaEngine@{MetaEngine}!computeTH@{computeTH}}
+\index{computeTH@{computeTH}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{computeTH()}{computeTH()}}
+{\footnotesize\ttfamily double Meta\+Engine\+::compute\+TH (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}}]{\+\_\+network,  }\item[{const std\+::vector$<$ double $>$ \&}]{node\+Transition\+Rates,  }\item[{double}]{total\+\_\+rate }\end{DoxyParamCaption}) const}
+
+Computes the entropy of the possible transitions from the current network state 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+network} & a pointer to the network currently worked on \\
+\hline
+{\em node\+Transition\+Rates} & a reference to the vector containing the nodes\textquotesingle{} transition rates \\
+\hline
+{\em total\+\_\+rate} & the sum of the transition rates \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a double representing local transition entropy 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}\label{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141} 
+\index{MetaEngine@{MetaEngine}!getElapsedCoreRunTime@{getElapsedCoreRunTime}}
+\index{getElapsedCoreRunTime@{getElapsedCoreRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getElapsedCoreRunTime()}{getElapsedCoreRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+Elapsed\+Core\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the real time elapsed between the beginning and the end of the execution of the simulation\textquotesingle{}s core 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2}\label{classMetaEngine_a3cae7bfc541477b4a2a3e76022cbfec2} 
+\index{MetaEngine@{MetaEngine}!getElapsedEpilogueRunTime@{getElapsedEpilogueRunTime}}
+\index{getElapsedEpilogueRunTime@{getElapsedEpilogueRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getElapsedEpilogueRunTime()}{getElapsedEpilogueRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+Elapsed\+Epilogue\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the real time elapsed for the resolution of the simulation 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f}\label{classMetaEngine_a2d9a4a0ab21a24b3cc7054ddff0d956f} 
+\index{MetaEngine@{MetaEngine}!getElapsedStatDistRunTime@{getElapsedStatDistRunTime}}
+\index{getElapsedStatDistRunTime@{getElapsedStatDistRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getElapsedStatDistRunTime()}{getElapsedStatDistRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+Elapsed\+Stat\+Dist\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the real time elapsed for the statdist computation 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_ae95edf198133820b127e4e71e6517949}\label{classMetaEngine_ae95edf198133820b127e4e71e6517949} 
+\index{MetaEngine@{MetaEngine}!getTargetNode@{getTargetNode}}
+\index{getTargetNode@{getTargetNode}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getTargetNode()}{getTargetNode()}}
+{\footnotesize\ttfamily Node\+Index Meta\+Engine\+::get\+Target\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}}]{\+\_\+network,  }\item[{\mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}}]{random\+\_\+generator,  }\item[{const std\+::vector$<$ double $>$ \&}]{node\+Transition\+Rates,  }\item[{double}]{total\+\_\+rate }\end{DoxyParamCaption}) const}
+
+Determines the target node by random selection, weighted by the transition rate 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+network} & a pointer to the network currently worked on \\
+\hline
+{\em random\+\_\+generator} & a pointer to the RG used \\
+\hline
+{\em node\+Transition\+Rates} & the reference of the vector containing the nodes\textquotesingle{} transition rates \\
+\hline
+{\em total\+\_\+rate} & the sum of all the transtion rates \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the destination node 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8}\label{classMetaEngine_a107931e4dcc8de5eb26233a40fd755f8} 
+\index{MetaEngine@{MetaEngine}!getUserCoreRunTime@{getUserCoreRunTime}}
+\index{getUserCoreRunTime@{getUserCoreRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getUserCoreRunTime()}{getUserCoreRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+User\+Core\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the CPU\textquotesingle{}s time used by the program can be greater than \doxylink{classMetaEngine_a8c4d925ec1fd453899143d03a49a4141}{get\+Elapsed\+Core\+Run\+Time} because CPU time is accumulated across thread 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8}\label{classMetaEngine_ad3fd193a4d3de08cc7af06b244109fe8} 
+\index{MetaEngine@{MetaEngine}!getUserEpilogueRunTime@{getUserEpilogueRunTime}}
+\index{getUserEpilogueRunTime@{getUserEpilogueRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getUserEpilogueRunTime()}{getUserEpilogueRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+User\+Epilogue\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the CPU\textquotesingle{}s time used by the program to compute the epilogue of a simulation 
+\end{DoxyReturn}
+\Hypertarget{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907}\label{classMetaEngine_aab95194a0ff5ce0599bae6cd52a57907} 
+\index{MetaEngine@{MetaEngine}!getUserStatDistRunTime@{getUserStatDistRunTime}}
+\index{getUserStatDistRunTime@{getUserStatDistRunTime}!MetaEngine@{MetaEngine}}
+\doxysubsubsection{\texorpdfstring{getUserStatDistRunTime()}{getUserStatDistRunTime()}}
+{\footnotesize\ttfamily long long Meta\+Engine\+::get\+User\+Stat\+Dist\+Run\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the CPU time used for the statdist (statistical distribution) computation 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/engines/Meta\+Engine.\+h\item 
+engine/src/engines/Meta\+Engine.\+cc\end{DoxyCompactItemize}

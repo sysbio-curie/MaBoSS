@@ -1,0 +1,149 @@
+\doxysection{Network\+State\+\_\+\+Impl.\+h}
+\hypertarget{NetworkState__Impl_8h_source}{}\label{NetworkState__Impl_8h_source}\index{engine/src/NetworkState\_Impl.h@{engine/src/NetworkState\_Impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ BooleanNetwork.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_NETWORKSTATE\_IMPL\_H}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_NETWORKSTATE\_IMPL\_H}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#ifdef\ USE\_DYNAMIC\_BITSET}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \#undef\ MAXNODES}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \#define\ MAXNODES\ 0xFFFFFFF}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#elif\ MAXNODES>64}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \#define\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ USE\_STATIC\_BITSET}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <bitset>}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ std::bitset<MAXNODES>\ NetworkState\_Impl;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \#ifdef\ USE\_UNORDERED\_MAP}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \ \ template\ <>\ struct\ HASH\_STRUCT<bitset<MAXNODES>\ >}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \ \ \{}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ \ \ \ size\_t\ operator()(const\ bitset<MAXNODES>\&\ val)\ const\ \{}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \#ifdef\ COMPARE\_BITSET\_AND\_ULONG}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ \ \ return\ val.to\_ulong();}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \#else}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ \ static\ const\ bitset<MAXNODES>\ MASK(0xFFFFFFFFUL);}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ \ \ \ return\ (val\ \&\ MASK).to\_ulong();}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ \};}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ \ template\ <>\ struct\ equal\_to<bitset<MAXNODES>\ >}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \{}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ size\_t\ operator()(const\ bitset<MAXNODES>\&\ val1,\ const\ bitset<MAXNODES>\&\ val2)\ const\ \{}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ \ \ \ return\ val1\ ==\ val2;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ \ \};}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Added\ less\ operator,\ necessary\ for\ maps,\ sets.\ Code\ from\ https://stackoverflow.com/a/21245301/11713763}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }less<bitset<MAXNODES>\ >}
+\DoxyCodeLine{00092\ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ bitset<MAXNODES>\&\ val1,\ \textcolor{keyword}{const}\ bitset<MAXNODES>\&\ val2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ MAXNODES-\/1;\ i\ >=\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (val1[i]\ \string^\ val2[i])\ \textcolor{keywordflow}{return}\ val2[i];}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \};}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ \#else}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ template\ <int\ N>\ class\ sbitset\ :\ public\ std::bitset<N>\ \{}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ public:}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ \ \ sbitset()\ :\ std::bitset<N>()\ \{\ \}}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ \ \ sbitset(const\ sbitset<N>\&\ sbitset)\ :\ std::bitset<N>(sbitset)\ \{\ \}}}
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ \ \ sbitset(const\ std::bitset<N>\&\ bitset)\ :\ std::bitset<N>(bitset)\ \{\ \}}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ \ \ int\ operator<(const\ sbitset<N>\&\ bitset1)\ const\ \{}}
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ \#ifdef\ COMPARE\_BITSET\_AND\_ULONG}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ \ \ \ \ return\ this-\/>to\_ulong()\ <\ bitset1.to\_ulong();}}
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ \#else}}
+\DoxyCodeLine{00116\ \textcolor{comment}{//\ \ \ \ \ for\ (int\ nn\ =\ N-\/1;\ nn\ >=\ 0;\ -\/-\/nn)\ \{}}
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ \ \ \ \ \ \ int\ delta\ =\ this-\/>test(nn)\ -\/\ bitset1.test(nn);}}
+\DoxyCodeLine{00118\ \textcolor{comment}{//\ \ \ \ \ \ \ if\ (delta\ <\ 0)\ \{}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ \ return\ 1;}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ \ \ \ \ \ \ if\ (delta\ >\ 0)\ \{}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ \ return\ 0;}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ \ \ return\ 0;}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ typedef\ sbitset<MAXNODES>\ NetworkState\_Impl;}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#elif\ defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#include\ "{}MBDynBitset.h"{}}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classMBDynBitset}{MBDynBitset}}\ NetworkState\_Impl;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ NetworkState\_Impl;}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

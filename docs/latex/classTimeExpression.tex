@@ -1,0 +1,162 @@
+\doxysection{Time\+Expression Class Reference}
+\hypertarget{classTimeExpression}{}\label{classTimeExpression}\index{TimeExpression@{TimeExpression}}
+
+
+Inheritance diagram for Time\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classTimeExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Time\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classTimeExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classTimeExpression_aef0691efd6f3b285fb477fbaa27be855}{clone}} () const
+\item 
+double \mbox{\hyperlink{classTimeExpression_a9f8aaec308b50e24b790d3e8320d299d}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&) const
+\item 
+double \mbox{\hyperlink{classTimeExpression_ada161ff7dac8300efaed7517332fb077}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&) const
+\item 
+double \mbox{\hyperlink{classTimeExpression_a038fbb17cf33bf1c3aeb998d05ab8892}{eval}} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double time)
+\item 
+bool \mbox{\hyperlink{classTimeExpression_a29ce30cddbfe330b6f6d68080046d094}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}) const
+\item 
+void \mbox{\hyperlink{classTimeExpression_ae93abd11901cf7f402640bc8edfa2e25}{display}} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classTimeExpression_a27ac0e3b28c089a8aec8f64554a5a2e3}{is\+Logical\+Expression}} () const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classTimeExpression_a55f80fee46efecc22f8cf0f4ee5226cc}{get\+Nodes}} () const
+\item 
+void \mbox{\hyperlink{classTimeExpression_a53432c9757e1988c5dddb7a000fe90bb}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink} (bool \&) const
+\item 
+virtual bool {\bfseries is\+Constant\+Expression} () const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTimeExpression_aef0691efd6f3b285fb477fbaa27be855}\label{classTimeExpression_aef0691efd6f3b285fb477fbaa27be855} 
+\index{TimeExpression@{TimeExpression}!clone@{clone}}
+\index{clone@{clone}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Time\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_ae93abd11901cf7f402640bc8edfa2e25}\label{classTimeExpression_ae93abd11901cf7f402640bc8edfa2e25} 
+\index{TimeExpression@{TimeExpression}!display@{display}}
+\index{display@{display}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Time\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a038fbb17cf33bf1c3aeb998d05ab8892}\label{classTimeExpression_a038fbb17cf33bf1c3aeb998d05ab8892} 
+\index{TimeExpression@{TimeExpression}!eval@{eval}}
+\index{eval@{eval}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily double Time\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{,  }\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a9f8aaec308b50e24b790d3e8320d299d}\label{classTimeExpression_a9f8aaec308b50e24b790d3e8320d299d} 
+\index{TimeExpression@{TimeExpression}!eval@{eval}}
+\index{eval@{eval}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily double Time\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_ada161ff7dac8300efaed7517332fb077}\label{classTimeExpression_ada161ff7dac8300efaed7517332fb077} 
+\index{TimeExpression@{TimeExpression}!eval@{eval}}
+\index{eval@{eval}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily double Time\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a53432c9757e1988c5dddb7a000fe90bb}\label{classTimeExpression_a53432c9757e1988c5dddb7a000fe90bb} 
+\index{TimeExpression@{TimeExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Time\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a55f80fee46efecc22f8cf0f4ee5226cc}\label{classTimeExpression_a55f80fee46efecc22f8cf0f4ee5226cc} 
+\index{TimeExpression@{TimeExpression}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ Time\+Expression\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a29ce30cddbfe330b6f6d68080046d094}\label{classTimeExpression_a29ce30cddbfe330b6f6d68080046d094} 
+\index{TimeExpression@{TimeExpression}!hasCycle@{hasCycle}}
+\index{hasCycle@{hasCycle}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{hasCycle()}{hasCycle()}}
+{\footnotesize\ttfamily bool Time\+Expression\+::has\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classTimeExpression_a27ac0e3b28c089a8aec8f64554a5a2e3}\label{classTimeExpression_a27ac0e3b28c089a8aec8f64554a5a2e3} 
+\index{TimeExpression@{TimeExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!TimeExpression@{TimeExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily bool Time\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\end{DoxyCompactItemize}

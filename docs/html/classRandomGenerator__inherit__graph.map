@@ -1,0 +1,11 @@
+<map id="RandomGenerator" name="RandomGenerator">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,147,105"/>
+<area shape="rect" id="Node000002" href="$classGLibCRandomGenerator.html" title=" " alt="" coords="206,5,385,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,72,194,39,233,28,235,33,196,45,117,77"/>
+<area shape="rect" id="Node000003" href="$classMT19937RandomGenerator.html" title=" " alt="" coords="195,55,396,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,80,194,76,195,82,161,86"/>
+<area shape="rect" id="Node000004" href="$classPhysicalRandomGenerator.html" title=" " alt="" coords="198,104,393,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,99,198,103,198,109,160,105"/>
+<area shape="rect" id="Node000005" href="$classRand48RandomGenerator.html" title=" " alt="" coords="200,153,391,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="119,108,196,138,239,151,238,156,194,143,117,113"/>
+</map>

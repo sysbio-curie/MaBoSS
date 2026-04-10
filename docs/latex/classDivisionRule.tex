@@ -1,0 +1,59 @@
+\doxysection{Division\+Rule Class Reference}
+\hypertarget{classDivisionRule}{}\label{classDivisionRule}\index{DivisionRule@{DivisionRule}}
+
+
+Collaboration diagram for Division\+Rule\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{classDivisionRule__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classDivisionRule_a0336ead3ef2ce0ac93978254cb1d5522}\label{classDivisionRule_a0336ead3ef2ce0ac93978254cb1d5522} 
+void {\bfseries set\+Rate} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}rate)
+\item 
+\Hypertarget{classDivisionRule_a5cbfc397f97d8dd6f06d1437c8218928}\label{classDivisionRule_a5cbfc397f97d8dd6f06d1437c8218928} 
+double {\bfseries get\+Rate} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop)
+\item 
+\Hypertarget{classDivisionRule_ac2e719ff17ad3e7fa225547937123307}\label{classDivisionRule_ac2e719ff17ad3e7fa225547937123307} 
+void {\bfseries add\+Daughter\+Node} (int daughter, \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expression)
+\item 
+\Hypertarget{classDivisionRule_ab254a60b0010c4c7a29f90e947306d73}\label{classDivisionRule_ab254a60b0010c4c7a29f90e947306d73} 
+\mbox{\hyperlink{classNetworkState}{Network\+State}} {\bfseries apply\+Rules} (int daughter, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop)
+\item 
+\Hypertarget{classDivisionRule_a832046d777a82fb5ab345e211b7536a3}\label{classDivisionRule_a832046d777a82fb5ab345e211b7536a3} 
+void {\bfseries display} (std\+::ostream \&os) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classDivisionRule_a3a6305406d26225c6c624c6aea0cfe48}\label{classDivisionRule_a3a6305406d26225c6c624c6aea0cfe48} 
+std\+::map$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries daughter1}
+\item 
+\Hypertarget{classDivisionRule_ad1e7a128e56748d3064900db567ba240}\label{classDivisionRule_ad1e7a128e56748d3064900db567ba240} 
+std\+::map$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries daughter2}
+\item 
+\Hypertarget{classDivisionRule_a922bb406a5995a6522bdf4c448e412fb}\label{classDivisionRule_a922bb406a5995a6522bdf4c448e412fb} 
+std\+::map$<$ int, std\+::map$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ $>$ {\bfseries daughters} = \{\{DAUGHTER\+\_\+1, daughter1\}, \{DAUGHTER\+\_\+2, daughter2\}\}
+\item 
+\Hypertarget{classDivisionRule_aac96f49677bfa8729f355d3b9e48825d}\label{classDivisionRule_aac96f49677bfa8729f355d3b9e48825d} 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries rate}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classDivisionRule_aeea233a43c3cd5f5b01592794f57b425}\label{classDivisionRule_aeea233a43c3cd5f5b01592794f57b425} 
+static const int {\bfseries DAUGHTER\+\_\+1} = 1
+\item 
+\Hypertarget{classDivisionRule_a1d157fb9b2db30c9e8e3cebfd553d18b}\label{classDivisionRule_a1d157fb9b2db30c9e8e3cebfd553d18b} 
+static const int {\bfseries DAUGHTER\+\_\+2} = 2
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Pop\+Network.\+h\item 
+engine/src/Pop\+Network.\+cc\end{DoxyCompactItemize}

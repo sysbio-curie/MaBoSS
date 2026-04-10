@@ -1,0 +1,50 @@
+\doxysection{Random\+Generator Class Reference}
+\hypertarget{classRandomGenerator}{}\label{classRandomGenerator}\index{RandomGenerator@{RandomGenerator}}
+
+
+Inheritance diagram for Random\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRandomGenerator__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRandomGenerator_ac8fe8c04d21c1d46690ddd82f197ad69}\label{classRandomGenerator_ac8fe8c04d21c1d46690ddd82f197ad69} 
+virtual std\+::string {\bfseries get\+Name} () const =0
+\item 
+\Hypertarget{classRandomGenerator_aa28ac4362cf7d81bdf116813042c2864}\label{classRandomGenerator_aa28ac4362cf7d81bdf116813042c2864} 
+virtual bool {\bfseries is\+Pseudo\+Random} () const =0
+\item 
+\Hypertarget{classRandomGenerator_a7d9693cb6479baa4fc98352f34394cbb}\label{classRandomGenerator_a7d9693cb6479baa4fc98352f34394cbb} 
+virtual unsigned int {\bfseries generate\+UInt32} ()=0
+\item 
+\Hypertarget{classRandomGenerator_a05505522bb8652775c801ad3097e2be8}\label{classRandomGenerator_a05505522bb8652775c801ad3097e2be8} 
+virtual double {\bfseries generate} ()=0
+\item 
+\Hypertarget{classRandomGenerator_a325348f2ba74429b69aafcf4c92f60d6}\label{classRandomGenerator_a325348f2ba74429b69aafcf4c92f60d6} 
+virtual void {\bfseries set\+Seed} (int seed)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRandomGenerator_abbf5a1e2c81c3a5c13bd4084fcf70bf1}\label{classRandomGenerator_abbf5a1e2c81c3a5c13bd4084fcf70bf1} 
+static void {\bfseries reset\+Generated\+Number\+Count} ()
+\item 
+\Hypertarget{classRandomGenerator_af655b7265c264f0fe2187dab1352791f}\label{classRandomGenerator_af655b7265c264f0fe2187dab1352791f} 
+static size\+\_\+t {\bfseries get\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRandomGenerator_a9c02058e9d545c1b6aeb193bc5768c2d}\label{classRandomGenerator_a9c02058e9d545c1b6aeb193bc5768c2d} 
+static void {\bfseries incr\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Random\+Generator.\+h\item 
+engine/src/Random\+Generator.\+cc\end{DoxyCompactItemize}

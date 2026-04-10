@@ -1,0 +1,99 @@
+\doxysection{Log\+Function Class Reference}
+\hypertarget{classLogFunction}{}\label{classLogFunction}\index{LogFunction@{LogFunction}}
+
+
+Inheritance diagram for Log\+Function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{classLogFunction__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Log\+Function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{classLogFunction__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classLogFunction_a87fd8e9a253d7ffd2fafe2b06abcf938}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\item 
+double \mbox{\hyperlink{classLogFunction_a56e01ad6bbe4274fe855974ef77d5289}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop, \mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\item 
+std\+::string \mbox{\hyperlink{classLogFunction_a1fe861297e4bb0ae1fa2cf4150fa55f1}{get\+Description}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \& {\bfseries get\+Fun\+Name} () const
+\item 
+unsigned int {\bfseries get\+Min\+Args} () const
+\item 
+unsigned int {\bfseries get\+Max\+Args} () const
+\item 
+virtual bool {\bfseries is\+Deterministic} () const
+\item 
+void {\bfseries check} (\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}arg\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Function} (const std\+::string \&funname)
+\item 
+static void {\bfseries display\+Function\+Descriptions} (std\+::ostream \&os)
+\item 
+static std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Func\+Map} ()
+\item 
+static void {\bfseries set\+Func\+Map} (std\+::map$<$ std\+::string, \mbox{\hyperlink{classFunction}{Function}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+func\+\_\+map)
+\item 
+static void {\bfseries destroy\+Func\+Map} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classFunction}{Function}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Function} (const std\+::string \&funname, unsigned int min\+\_\+args, unsigned int max\+\_\+args=\texorpdfstring{$\sim$}{\string~}0U)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classLogFunction_a87fd8e9a253d7ffd2fafe2b06abcf938}\label{classLogFunction_a87fd8e9a253d7ffd2fafe2b06abcf938} 
+\index{LogFunction@{LogFunction}!eval@{eval}}
+\index{eval@{eval}!LogFunction@{LogFunction}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Log\+Function\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}}]{arg\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+\Hypertarget{classLogFunction_a56e01ad6bbe4274fe855974ef77d5289}\label{classLogFunction_a56e01ad6bbe4274fe855974ef77d5289} 
+\index{LogFunction@{LogFunction}!eval@{eval}}
+\index{eval@{eval}!LogFunction@{LogFunction}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Log\+Function\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop,  }\item[{\mbox{\hyperlink{classArgumentList}{Argument\+List}} \texorpdfstring{$\ast$}{*}}]{arg\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+\Hypertarget{classLogFunction_a1fe861297e4bb0ae1fa2cf4150fa55f1}\label{classLogFunction_a1fe861297e4bb0ae1fa2cf4150fa55f1} 
+\index{LogFunction@{LogFunction}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!LogFunction@{LogFunction}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily std\+::string Log\+Function\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFunction}{Function}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Builtin\+Functions.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,108 @@
+\doxysection{Network Class Reference}
+\hypertarget{classNetwork}{}\label{classNetwork}\index{Network@{Network}}
+
+
+Inheritance diagram for Network\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=156pt]{classNetwork__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNetwork_aed5c0e4fc53bfbb4f4f0b80e95006527}\label{classNetwork_aed5c0e4fc53bfbb4f4f0b80e95006527} 
+{\bfseries Network} (const \mbox{\hyperlink{classNetwork}{Network}} \&network)
+\item 
+\Hypertarget{classNetwork_abbe065cd3f8617dc3353bfa1c827c77a}\label{classNetwork_abbe065cd3f8617dc3353bfa1c827c77a} 
+\mbox{\hyperlink{classNetwork}{Network}} \& {\bfseries operator=} (const \mbox{\hyperlink{classNetwork}{Network}} \&network)
+\item 
+\Hypertarget{classNetwork_ac2fc20bc6f39cf8b4a84550bdebc253b}\label{classNetwork_ac2fc20bc6f39cf8b4a84550bdebc253b} 
+int {\bfseries parse} (const char \texorpdfstring{$\ast$}{*}file=NULL, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL, bool is\+\_\+temp\+\_\+file=false, bool use\+SBMLNames=false)
+\item 
+\Hypertarget{classNetwork_a7be1dc38665923ecb60a9b48e7039bb8}\label{classNetwork_a7be1dc38665923ecb60a9b48e7039bb8} 
+int {\bfseries parse\+Expression} (const char \texorpdfstring{$\ast$}{*}content=NULL, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\Hypertarget{classNetwork_a385710dda6d9c6f0121dbea375dcad86}\label{classNetwork_a385710dda6d9c6f0121dbea375dcad86} 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries parse\+Single\+Expression} (const char \texorpdfstring{$\ast$}{*}content, std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\Hypertarget{classNetwork_ae52ca96a52e1b6c7e622f5dce6bfa0b7}\label{classNetwork_ae52ca96a52e1b6c7e622f5dce6bfa0b7} 
+std\+::vector$<$ \mbox{\hyperlink{classIStateGroup}{IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+IState\+Group} ()
+\item 
+\Hypertarget{classNetwork_aafdd52284bb3ba40e012c1525251f769}\label{classNetwork_aafdd52284bb3ba40e012c1525251f769} 
+void {\bfseries clone\+IState\+Group} (std\+::vector$<$ \mbox{\hyperlink{classIStateGroup}{IState\+Group}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\+\_\+istate\+\_\+group\+\_\+list)
+\item 
+\Hypertarget{classNetwork_a6a9af51648c28a2bbde93b6b10de2a22}\label{classNetwork_a6a9af51648c28a2bbde93b6b10de2a22} 
+\mbox{\hyperlink{classSymbolTable}{Symbol\+Table}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Symbol\+Table} ()
+\item 
+\Hypertarget{classNetwork_aa62ebda30cf08cdda7345d5109387a28}\label{classNetwork_aa62ebda30cf08cdda7345d5109387a28} 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries define\+Node} (const std\+::string \&label, const std\+::string \&description="{}"{})
+\item 
+\Hypertarget{classNetwork_a04f5163b24d2d97da562974cab615ca2}\label{classNetwork_a04f5163b24d2d97da562974cab615ca2} 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Node} (const std\+::string \&label)
+\item 
+\Hypertarget{classNetwork_ac3dfba4bfa5817d5bdcab1218b733381}\label{classNetwork_ac3dfba4bfa5817d5bdcab1218b733381} 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Node} (Node\+Index node\+\_\+idx)
+\item 
+\Hypertarget{classNetwork_ab4c0c0e301a9f7cfeb2611c703cc2010}\label{classNetwork_ab4c0c0e301a9f7cfeb2611c703cc2010} 
+\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Or\+Make\+Node} (const std\+::string \&label)
+\item 
+\Hypertarget{classNetwork_ab4ac4e24785dac55f0f2f4ed2c6ae4c8}\label{classNetwork_ab4ac4e24785dac55f0f2f4ed2c6ae4c8} 
+size\+\_\+t {\bfseries get\+Node\+Count} () const
+\item 
+\Hypertarget{classNetwork_a5d5c54bbe6bc3837427b7ccb9b9bc761}\label{classNetwork_a5d5c54bbe6bc3837427b7ccb9b9bc761} 
+void {\bfseries compile} (std\+::map$<$ std\+::string, Node\+Index $>$ \texorpdfstring{$\ast$}{*}nodes\+\_\+indexes=NULL)
+\item 
+\Hypertarget{classNetwork_a76a2d269248c02090f186d562bb08397}\label{classNetwork_a76a2d269248c02090f186d562bb08397} 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Input\+Nodes} () const
+\item 
+\Hypertarget{classNetwork_af18ec8d430af825788683fb694df14da}\label{classNetwork_af18ec8d430af825788683fb694df14da} 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Non\+Input\+Nodes} () const
+\item 
+\Hypertarget{classNetwork_a65e79f7f7a2a1d75f51f1b6379e7afeb}\label{classNetwork_a65e79f7f7a2a1d75f51f1b6379e7afeb} 
+const std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \& {\bfseries get\+Nodes} () const
+\item 
+\Hypertarget{classNetwork_a0073c80974e06f3e1c1a8f01c9f1b9e5}\label{classNetwork_a0073c80974e06f3e1c1a8f01c9f1b9e5} 
+std\+::string {\bfseries to\+String} () const
+\item 
+\Hypertarget{classNetwork_ac2f3cbcac663ac4dc755c699d1196c3e}\label{classNetwork_ac2f3cbcac663ac4dc755c699d1196c3e} 
+void {\bfseries init\+States} (\mbox{\hyperlink{classNetworkState}{Network\+State}} \&initial\+\_\+state, \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}randgen)
+\item 
+\Hypertarget{classNetwork_af4181018b28c31099e718c67f4af5da0}\label{classNetwork_af4181018b28c31099e718c67f4af5da0} 
+void {\bfseries display\+Header} (std\+::ostream \&os) const
+\item 
+\Hypertarget{classNetwork_a1cd5bed5f6ef42890739dcfeccb6b935}\label{classNetwork_a1cd5bed5f6ef42890739dcfeccb6b935} 
+virtual void {\bfseries display} (std\+::ostream \&os) const
+\item 
+\Hypertarget{classNetwork_ac93db06b99dcc00d9aeb1437fc843c8b}\label{classNetwork_ac93db06b99dcc00d9aeb1437fc843c8b} 
+void {\bfseries generate\+Logical\+Expressions} (std\+::ostream \&os) const
+\item 
+\Hypertarget{classNetwork_ac868128a180f05b527518d26c9fc281e}\label{classNetwork_ac868128a180f05b527518d26c9fc281e} 
+bool {\bfseries is\+Node\+Defined} (const std\+::string \&identifier)
+\item 
+\Hypertarget{classNetwork_a421e0440ff9f1d702c0508e9c3efe704}\label{classNetwork_a421e0440ff9f1d702c0508e9c3efe704} 
+void {\bfseries set\+Node\+As\+Defined} (const std\+::string \&identifier)
+\item 
+\Hypertarget{classNetwork_aee77f1dbc3cb851529d45ef6b9fc46c3}\label{classNetwork_aee77f1dbc3cb851529d45ef6b9fc46c3} 
+void {\bfseries reset\+Node\+Definition} ()
+\item 
+\Hypertarget{classNetwork_ab0354e90624073539d80edcea970c7bc}\label{classNetwork_ab0354e90624073539d80edcea970c7bc} 
+void {\bfseries remove\+Last\+Node} (const std\+::string \&identifier)
+\item 
+\Hypertarget{classNetwork_afcadcdcb0cb6f45ec802937944128124}\label{classNetwork_afcadcdcb0cb6f45ec802937944128124} 
+virtual bool {\bfseries is\+Pop\+Network} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classNetwork_a60866b433430cecbea4b2186bd934fa2}\label{classNetwork_a60866b433430cecbea4b2186bd934fa2} 
+static size\+\_\+t {\bfseries get\+Max\+Node\+Size} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Network.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\item 
+engine/src/Network.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,110 @@
+\doxysection{Rand48\+Random\+Generator Class Reference}
+\hypertarget{classRand48RandomGenerator}{}\label{classRand48RandomGenerator}\index{Rand48RandomGenerator@{Rand48RandomGenerator}}
+
+
+Inheritance diagram for Rand48\+Random\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classRand48RandomGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rand48\+Random\+Generator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classRand48RandomGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRand48RandomGenerator_a17b7c30f2fd0bc0f2070d3997be11a3f}\label{classRand48RandomGenerator_a17b7c30f2fd0bc0f2070d3997be11a3f} 
+{\bfseries Rand48\+Random\+Generator} (int \+\_\+seed)
+\item 
+bool \mbox{\hyperlink{classRand48RandomGenerator_a0ab1af04433f25810718b97d82905fea}{is\+Pseudo\+Random}} () const
+\item 
+std\+::string \mbox{\hyperlink{classRand48RandomGenerator_a6191ff8c99259a6bacef4e6c297126d8}{get\+Name}} () const
+\item 
+\Hypertarget{classRand48RandomGenerator_ab33530fc13bd3d8c7e0915436986e9fa}\label{classRand48RandomGenerator_ab33530fc13bd3d8c7e0915436986e9fa} 
+void {\bfseries next} ()
+\item 
+unsigned int \mbox{\hyperlink{classRand48RandomGenerator_a472352977148f76749112548cb610de5}{generate\+UInt32}} ()
+\item 
+virtual double \mbox{\hyperlink{classRand48RandomGenerator_aeb1645da90747d28768cea8178f1acde}{generate}} ()
+\item 
+virtual void \mbox{\hyperlink{classRand48RandomGenerator_a8e3cb235ca1210b5da98c5e906022929}{set\+Seed}} (int \+\_\+seed)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries reset\+Generated\+Number\+Count} ()
+\item 
+static size\+\_\+t {\bfseries get\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries incr\+Generated\+Number\+Count} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classRand48RandomGenerator_aeb1645da90747d28768cea8178f1acde}\label{classRand48RandomGenerator_aeb1645da90747d28768cea8178f1acde} 
+\index{Rand48RandomGenerator@{Rand48RandomGenerator}!generate@{generate}}
+\index{generate@{generate}!Rand48RandomGenerator@{Rand48RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily virtual double Rand48\+Random\+Generator\+::generate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classRand48RandomGenerator_a472352977148f76749112548cb610de5}\label{classRand48RandomGenerator_a472352977148f76749112548cb610de5} 
+\index{Rand48RandomGenerator@{Rand48RandomGenerator}!generateUInt32@{generateUInt32}}
+\index{generateUInt32@{generateUInt32}!Rand48RandomGenerator@{Rand48RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{generateUInt32()}{generateUInt32()}}
+{\footnotesize\ttfamily unsigned int Rand48\+Random\+Generator\+::generate\+UInt32 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classRand48RandomGenerator_a6191ff8c99259a6bacef4e6c297126d8}\label{classRand48RandomGenerator_a6191ff8c99259a6bacef4e6c297126d8} 
+\index{Rand48RandomGenerator@{Rand48RandomGenerator}!getName@{getName}}
+\index{getName@{getName}!Rand48RandomGenerator@{Rand48RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string Rand48\+Random\+Generator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classRand48RandomGenerator_a0ab1af04433f25810718b97d82905fea}\label{classRand48RandomGenerator_a0ab1af04433f25810718b97d82905fea} 
+\index{Rand48RandomGenerator@{Rand48RandomGenerator}!isPseudoRandom@{isPseudoRandom}}
+\index{isPseudoRandom@{isPseudoRandom}!Rand48RandomGenerator@{Rand48RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{isPseudoRandom()}{isPseudoRandom()}}
+{\footnotesize\ttfamily bool Rand48\+Random\+Generator\+::is\+Pseudo\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+\Hypertarget{classRand48RandomGenerator_a8e3cb235ca1210b5da98c5e906022929}\label{classRand48RandomGenerator_a8e3cb235ca1210b5da98c5e906022929} 
+\index{Rand48RandomGenerator@{Rand48RandomGenerator}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!Rand48RandomGenerator@{Rand48RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
+{\footnotesize\ttfamily virtual void Rand48\+Random\+Generator\+::set\+Seed (\begin{DoxyParamCaption}\item[{int}]{\+\_\+seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classRandomGenerator}{Random\+Generator}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Random\+Generator.\+h\end{DoxyCompactItemize}

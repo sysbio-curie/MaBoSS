@@ -1,0 +1,219 @@
+\doxysection{Network.\+h}
+\hypertarget{Network_8h_source}{}\label{Network_8h_source}\index{engine/src/Network.h@{engine/src/Network.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ BooleanNetwork.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_NETWORK\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_NETWORK\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}Node.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \#include\ "{}IStates.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}Symbols.h"{}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ MaBoSS\_quiet;}
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classIStateGroup}{IStateGroup}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ the\ boolean\ network\ (also\ used\ as\ a\ Node\ factory)}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetwork}{Network}}\ \{}
+\DoxyCodeLine{00065\ \ \ MAP<std::string,\ Node*>\ node\_map;}
+\DoxyCodeLine{00066\ \ \ NodeIndex\ last\_index;}
+\DoxyCodeLine{00067\ \ \ std::vector<Node*>\ input\_nodes;}
+\DoxyCodeLine{00068\ \ \ std::vector<Node*>\ non\_input\_nodes;}
+\DoxyCodeLine{00069\ \ \ std::vector<Node*>\ nodes;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ MAP<std::string,\ bool>\ node\_def\_map;}
+\DoxyCodeLine{00072\ \ \ std::vector<IStateGroup*>*\ istate\_group\_list;}
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{classSymbolTable}{SymbolTable}}*\ symbol\_table;}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ MAX\_NODE\_SIZE;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ must\ be\ call\ before\ creating\ a\ new\ node}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{void}\ checkNewNode()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\ =\ node\_map.size();}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ >=\ MAXNODES)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ std::ostringstream\ ostr;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ ostr\ <<\ \textcolor{stringliteral}{"{}maximum\ node\ count\ exceeded:\ maximum\ allowed\ is\ "{}}\ <<\ MAXNODES;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBNException}{BNException}}(ostr.str());}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ >=\ MAX\_NODE\_SIZE)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ MAX\_NODE\_SIZE\ =\ size+1;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{classNetwork}{Network}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{classNetwork}{Network}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}\&\ network);}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{classNetwork}{Network}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}\&\ network);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{int}\ parse(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file\ =\ NULL,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL,\ \textcolor{keywordtype}{bool}\ is\_temp\_file\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ useSBMLNames\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{int}\ parseExpression(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ content\ =\ NULL,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL);}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ parseSingleExpression(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ content,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL);}
+\DoxyCodeLine{00099\ \ \ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{int}\ parseSBML(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL,\ \textcolor{keywordtype}{bool}\ useSBMLNames\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00103\ \ \ }
+\DoxyCodeLine{00104\ \ \ std::vector<IStateGroup*>*\ getIStateGroup()\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ istate\_group\_list;}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}\ cloneIStateGroup(std::vector<IStateGroup*>*\ \_istate\_group\_list);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{classSymbolTable}{SymbolTable}}*\ getSymbolTable()\ \{\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{return}\ symbol\_table;}
+\DoxyCodeLine{00112\ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{classNode}{Node}}*\ defineNode(\textcolor{keyword}{const}\ std::string\&\ label,\ \textcolor{keyword}{const}\ std::string\&\ description\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{classNode}{Node}}*\ getNode(\textcolor{keyword}{const}\ std::string\&\ label);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{classNode}{Node}}*\ getNode(NodeIndex\ node\_idx)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ assert(node\_idx\ <\ getNodeCount());}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{return}\ nodes[node\_idx];}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{classNode}{Node}}*\ getOrMakeNode(\textcolor{keyword}{const}\ std::string\&\ label)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (node\_map.find(label)\ !=\ node\_map.end())\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ node\_map[label];}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ checkNewNode();}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}*\ node\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classNode}{Node}}(label,\ \textcolor{stringliteral}{"{}"{}},\ last\_index++);\ \textcolor{comment}{//\ node\ factory}}
+\DoxyCodeLine{00129\ \ \ \ \ node\_map[label]\ =\ node;}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ node;}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{size\_t}\ getNodeCount()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ node\_map.size();\}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ getMaxNodeSize()\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//MAX\_NODE\_SIZE\ =\ 508;\ //\ for\ testing}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//static\ bool\ msg\_displayed\ =\ false;}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ msg\_displayed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (!msg\_displayed)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!MaBoSS\_quiet)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nMaBoSS\ notice:\(\backslash\)n"{}};}
+\DoxyCodeLine{00142\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ \ Using\ dynamic\ bitset\ implementation\ (any\ number\ of\ nodes):\ this\ version\ is\ not\ fully\ optimized\ and\ may\ use\ a\ large\ amount\ of\ memory\(\backslash\)n"{}};}
+\DoxyCodeLine{00143\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ \ For\ this\ "{}}\ <<\ MAX\_NODE\_SIZE\ <<\ \textcolor{stringliteral}{"{}\ node\ network,\ preferably\ used\ "{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{if}\ (MAX\_NODE\_SIZE\ <=\ 64)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}the\ standard\ 'MaBoSS'\ program\(\backslash\)n"{}};}
+\DoxyCodeLine{00146\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}the\ static\ bitset\ implementation\ program\ 'MaBoSS\_"{}}\ <<\ MAX\_NODE\_SIZE\ <<\ \textcolor{stringliteral}{"{}n'\ built\ using:\ make\ MAXNODES="{}}\ <<\ MAX\_NODE\_SIZE\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ msg\_displayed\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ MAX\_NODE\_SIZE;}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{void}\ compile(std::map<std::string,\ NodeIndex>*\ nodes\_indexes\ =\ NULL);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{comment}{//\ vector\ of\ nodes\ which\ do\ not\ depend\ on\ other\ nodes}}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{const}\ std::vector<Node*>\&\ getInputNodes()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ input\_nodes;\}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//\ vector\ of\ the\ other\ nodes}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{const}\ std::vector<Node*>\&\ getNonInputNodes()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ non\_input\_nodes;\}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//\ vector\ of\ all\ nodes}}
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{const}\ std::vector<Node*>\&\ getNodes()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ nodes;\}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ std::string\ toString()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ std::ostringstream\ ostr;}
+\DoxyCodeLine{00168\ \ \ \ \ display(ostr);}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ ostr.str();}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ \ \ }
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{void}\ initStates(\mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ initial\_state,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ randgen);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{void}\ displayHeader(std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpressions(std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{bool}\ isNodeDefined(\textcolor{keyword}{const}\ std::string\&\ identifier)\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ node\_def\_map.find(identifier)\ !=\ node\_def\_map.end();}
+\DoxyCodeLine{00182\ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordtype}{void}\ setNodeAsDefined(\textcolor{keyword}{const}\ std::string\&\ identifier)\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ node\_def\_map[identifier]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00186\ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{void}\ resetNodeDefinition()\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ node\_def\_map.clear();}
+\DoxyCodeLine{00190\ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{void}\ removeLastNode(\textcolor{keyword}{const}\ std::string\&\ identifier)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{/*\ This\ function\ was\ created\ to\ remove\ the\ last\ node\ which\ was\ just\ created.\ }}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ \ \ \ \ \ \ It\ is\ only\ used\ when\ parsing\ a\ bnet\ file,\ to\ remove\ the\ "{}target,\ factors"{}\ which\ is\ part\ of\ the\ header}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ \ \ \ \ \ \ Chances\ are\ that\ you\ should\ NEVER\ use\ it\ for\ another\ purpose.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{if}\ (node\_map.find(identifier)\ !=\ node\_map.end())\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \mbox{\hyperlink{classNode}{Node}}*\ to\_delete\ =\ node\_map[identifier];}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ node\_map.erase(identifier);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (to\_delete-\/>\mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}()\ ==\ (last\_index-\/1))\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ last\_index-\/-\/;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ to\_delete;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ MAX\_NODE\_SIZE-\/-\/;}
+\DoxyCodeLine{00205\ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ isPopNetwork()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classNetwork}{\string~Network}}();}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,183 @@
+\doxysection{Cumulator\texorpdfstring{$<$}{<} S \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classCumulator}{}\label{classCumulator}\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classCumulator_a83e43855aa460239b9be00849d318405}\label{classCumulator_a83e43855aa460239b9be00849d318405} 
+{\bfseries Cumulator} (\mbox{\hyperlink{classRunConfig}{Run\+Config}} \texorpdfstring{$\ast$}{*}runconfig, double time\+\_\+tick, double max\+\_\+time, unsigned int sample\+\_\+count, unsigned int statdist\+\_\+trajcount)
+\item 
+\Hypertarget{classCumulator_a69c3d053b63e993590064b6f6a89bcfd}\label{classCumulator_a69c3d053b63e993590064b6f6a89bcfd} 
+void {\bfseries rewind} ()
+\begin{DoxyCompactList}\small\item\em Reset the simulation as if it were rewound and start over. \end{DoxyCompactList}\item 
+\Hypertarget{classCumulator_a131d14e821bfa4c5c35e25c744c70b96}\label{classCumulator_a131d14e821bfa4c5c35e25c744c70b96} 
+void {\bfseries next} ()
+\begin{DoxyCompactList}\small\item\em moves onto the next tick of the map and resolves the last tick \end{DoxyCompactList}\item 
+\Hypertarget{classCumulator_a12bada6d9d9d72043f1527670c2243b4}\label{classCumulator_a12bada6d9d9d72043f1527670c2243b4} 
+void {\bfseries cumul\+Empty} (double tm)
+\begin{DoxyCompactList}\small\item\em Increases the time without adding contribution to the state. \end{DoxyCompactList}\item 
+\Hypertarget{classCumulator_a1a098794657fe9e7843323778ffd4de4}\label{classCumulator_a1a098794657fe9e7843323778ffd4de4} 
+void {\bfseries cumul} (const S \&network\+\_\+state, double tm, double TH)
+\begin{DoxyCompactList}\small\item\em Updates the map for the current tick. \end{DoxyCompactList}\item 
+\Hypertarget{classCumulator_ab61e31f4fcc79f35945e77f16e45e753}\label{classCumulator_ab61e31f4fcc79f35945e77f16e45e753} 
+void {\bfseries set\+Output\+Mask} (const S \&\+\_\+output\+\_\+mask)
+\item 
+S \mbox{\hyperlink{classCumulator_ae9010be7f0c53e2461ab42add8553473}{get\+Output\+Mask}} () const
+\item 
+\Hypertarget{classCumulator_a8731e1993cacd0ad92cd6b61d5dd2db8}\label{classCumulator_a8731e1993cacd0ad92cd6b61d5dd2db8} 
+void {\bfseries set\+Refnode\+Mask} (const Network\+State\+\_\+\+Impl \&\+\_\+refnode\+\_\+mask)
+\begin{DoxyCompactList}\small\item\em set the state of the refnode \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCumulator_ad13155f663487f4b32887e1b557a672f}{display\+Prob\+Traj}} (unsigned int \+\_\+refnode\+\_\+count, \mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ S $>$ \texorpdfstring{$\ast$}{*}displayer) const
+\item 
+\Hypertarget{classCumulator_a65ae3e76b12cbf2ae9df8ed535d1b5ad}\label{classCumulator_a65ae3e76b12cbf2ae9df8ed535d1b5ad} 
+void {\bfseries display\+Stat\+Dist} (Stat\+Dist\+Displayer \texorpdfstring{$\ast$}{*}displayer) const
+\begin{DoxyCompactList}\small\item\em Displays a global statistical distribution of the trajectories. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{classCumulator_a7ada8e9f076ed923453e7354e3d37b5e}{get\+Variables\+Timecourse}} (std\+::map$<$ std\+::string, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$ variables) const
+\item 
+std\+::set$<$ S $>$ \mbox{\hyperlink{classCumulator_a9577bd18858f971b830cce60e1359fc9}{get\+States}} () const
+\item 
+std\+::vector$<$ S $>$ \mbox{\hyperlink{classCumulator_af3a6167b41e8d8a67d8102764ae77b80}{get\+Last\+States}} () const
+\item 
+std\+::set$<$ Network\+State\+\_\+\+Impl $>$ \mbox{\hyperlink{classCumulator_af0978c4ec78287f9785aafaca04d085f}{get\+Simple\+States}} () const
+\item 
+std\+::set$<$ Network\+State\+\_\+\+Impl $>$ \mbox{\hyperlink{classCumulator_a2e429d07a8f4dbac0ec3b4ca1149d08b}{get\+Simple\+Last\+States}} () const
+\item 
+double \mbox{\hyperlink{classCumulator_a75d4e07d4f20f4b7c59e794cdd65325d}{get\+Final\+Time}} () const
+\item 
+int \mbox{\hyperlink{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}{get\+Max\+Tick\+Index}} () const
+\item 
+void \mbox{\hyperlink{classCumulator_ab25dbc2cdfacc5a1e35f7d47585f226b}{epilogue}} (\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}network, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&reference\+\_\+state)
+\item 
+\Hypertarget{classCumulator_a30f5dd485321b7f89c35b470e024b731}\label{classCumulator_a30f5dd485321b7f89c35b470e024b731} 
+void {\bfseries trajectory\+Epilogue} ()
+\begin{DoxyCompactList}\small\item\em establish a track record of the trajectory \end{DoxyCompactList}\item 
+\Hypertarget{classCumulator_ab39f1ed4b642d637af7497c3a99c5dac}\label{classCumulator_ab39f1ed4b642d637af7497c3a99c5dac} 
+unsigned int {\bfseries get\+Sample\+Count} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classCumulator_adda557b104dbfb5de7e6dfe0fd3ff691}{merge\+Pair\+Of\+Cumulators}} (\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$ \texorpdfstring{$\ast$}{*}cumulator\+\_\+1, \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$ \texorpdfstring{$\ast$}{*}cumulator\+\_\+2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCumulator_ad13155f663487f4b32887e1b557a672f}\label{classCumulator_ad13155f663487f4b32887e1b557a672f} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!displayProbTraj@{displayProbTraj}}
+\index{displayProbTraj@{displayProbTraj}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{displayProbTraj()}{displayProbTraj()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::display\+Prob\+Traj (\begin{DoxyParamCaption}\item[{unsigned int}]{\+\_\+refnode\+\_\+count,  }\item[{\mbox{\hyperlink{classProbTrajDisplayer}{Prob\+Traj\+Displayer}}$<$ S $>$ \texorpdfstring{$\ast$}{*}}]{displayer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Prepare and transmits the probability distribution for the trajectories It displays a state probability depending on the time \Hypertarget{classCumulator_ab25dbc2cdfacc5a1e35f7d47585f226b}\label{classCumulator_ab25dbc2cdfacc5a1e35f7d47585f226b} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!epilogue@{epilogue}}
+\index{epilogue@{epilogue}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{epilogue()}{epilogue()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::epilogue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetwork}{Network}} \texorpdfstring{$\ast$}{*}}]{network,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{reference\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Merges all the results and compute the final stats 
+\begin{DoxyParams}{Parameters}
+{\em network} & the network to work on \\
+\hline
+{\em reference\+\_\+state} & reference state of the network before the computing \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCumulator_a75d4e07d4f20f4b7c59e794cdd65325d}\label{classCumulator_a75d4e07d4f20f4b7c59e794cdd65325d} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getFinalTime@{getFinalTime}}
+\index{getFinalTime@{getFinalTime}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getFinalTime()}{getFinalTime()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+double \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Final\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the time of the final tick 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_af3a6167b41e8d8a67d8102764ae77b80}\label{classCumulator_af3a6167b41e8d8a67d8102764ae77b80} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getLastStates@{getLastStates}}
+\index{getLastStates@{getLastStates}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getLastStates()}{getLastStates()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+std\+::vector$<$ S $>$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Last\+States (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a vector of state of the last states 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae}\label{classCumulator_aa2194e8a06b6ef62367773f17fe5e8ae} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getMaxTickIndex@{getMaxTickIndex}}
+\index{getMaxTickIndex@{getMaxTickIndex}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getMaxTickIndex()}{getMaxTickIndex()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+int \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Max\+Tick\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the index of the last tick 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_ae9010be7f0c53e2461ab42add8553473}\label{classCumulator_ae9010be7f0c53e2461ab42add8553473} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getOutputMask@{getOutputMask}}
+\index{getOutputMask@{getOutputMask}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getOutputMask()}{getOutputMask()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+S \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Output\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+the state of the output\+\_\+mask 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_a2e429d07a8f4dbac0ec3b4ca1149d08b}\label{classCumulator_a2e429d07a8f4dbac0ec3b4ca1149d08b} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getSimpleLastStates@{getSimpleLastStates}}
+\index{getSimpleLastStates@{getSimpleLastStates}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getSimpleLastStates()}{getSimpleLastStates()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+std\+::set$<$ Network\+State\+\_\+\+Impl $>$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Simple\+Last\+States (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a set for the last simple states 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_af0978c4ec78287f9785aafaca04d085f}\label{classCumulator_af0978c4ec78287f9785aafaca04d085f} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getSimpleStates@{getSimpleStates}}
+\index{getSimpleStates@{getSimpleStates}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getSimpleStates()}{getSimpleStates()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+std\+::set$<$ Network\+State\+\_\+\+Impl $>$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Simple\+States (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+all the simple state of the computing as a set 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_a9577bd18858f971b830cce60e1359fc9}\label{classCumulator_a9577bd18858f971b830cce60e1359fc9} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getStates@{getStates}}
+\index{getStates@{getStates}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getStates()}{getStates()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+std\+::set$<$ S $>$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+States (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a map of state of the results 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_a7ada8e9f076ed923453e7354e3d37b5e}\label{classCumulator_a7ada8e9f076ed923453e7354e3d37b5e} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!getVariablesTimecourse@{getVariablesTimecourse}}
+\index{getVariablesTimecourse@{getVariablesTimecourse}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{getVariablesTimecourse()}{getVariablesTimecourse()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+std\+::map$<$ std\+::string, std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::get\+Variables\+Timecourse (\begin{DoxyParamCaption}\item[{std\+::map$<$ std\+::string, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} $>$}]{variables }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a map with the expression and its timecourse 
+\end{DoxyReturn}
+\Hypertarget{classCumulator_adda557b104dbfb5de7e6dfe0fd3ff691}\label{classCumulator_adda557b104dbfb5de7e6dfe0fd3ff691} 
+\index{Cumulator$<$ S $>$@{Cumulator$<$ S $>$}!mergePairOfCumulators@{mergePairOfCumulators}}
+\index{mergePairOfCumulators@{mergePairOfCumulators}!Cumulator$<$ S $>$@{Cumulator$<$ S $>$}}
+\doxysubsubsection{\texorpdfstring{mergePairOfCumulators()}{mergePairOfCumulators()}}
+{\footnotesize\ttfamily template$<$typename S $>$ \\
+static void \mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$\+::merge\+Pair\+Of\+Cumulators (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$ \texorpdfstring{$\ast$}{*}}]{cumulator\+\_\+1,  }\item[{\mbox{\hyperlink{classCumulator}{Cumulator}}$<$ S $>$ \texorpdfstring{$\ast$}{*}}]{cumulator\+\_\+2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+merges the results of two cumulators 
+\begin{DoxyParams}{Parameters}
+{\em cumulator\+\_\+1} & the cumulator that will receive \\
+\hline
+{\em cumulator\+\_\+2} & the cumulator to add to cumulator\+\_\+1 \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Cumulator.\+h\end{DoxyCompactItemize}

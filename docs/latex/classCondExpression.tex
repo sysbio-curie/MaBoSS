@@ -1,0 +1,176 @@
+\doxysection{Cond\+Expression Class Reference}
+\hypertarget{classCondExpression}{}\label{classCondExpression}\index{CondExpression@{CondExpression}}
+
+
+Inheritance diagram for Cond\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classCondExpression__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Cond\+Expression\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classCondExpression__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classCondExpression_a43bd11a5c16df69c739be284c9f3d50c}\label{classCondExpression_a43bd11a5c16df69c739be284c9f3d50c} 
+{\bfseries Cond\+Expression} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}cond\+\_\+expr, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}true\+\_\+expr, \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}false\+\_\+expr)
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCondExpression_adb4d53ffdf4ceddfa6396c83d01abc5c}{clone}} () const
+\item 
+\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCondExpression_aa7f1f1f1dbc98db785f88249dbb11fd2}{clone\+And\+Shrink}} (bool \&shrinked) const
+\item 
+double \mbox{\hyperlink{classCondExpression_a48c6167ae0f26f162d9826be4e475b80}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state) const
+\item 
+double \mbox{\hyperlink{classCondExpression_af30cb673fe035a0c22700c0a1be2d7b3}{eval}} (const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}this\+\_\+node, const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&network\+\_\+state, const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&pop) const
+\item 
+bool \mbox{\hyperlink{classCondExpression_a8dd1d39badf139bcc4c3fed8fb2367d6}{has\+Cycle}} (\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}node) const
+\item 
+void \mbox{\hyperlink{classCondExpression_af32fcfc2be1f25d5e80a9bb75fb28196}{display}} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classCondExpression_a0709be5004c318e4d6fe9b0c81cb9bc9}{is\+Constant\+Expression}} () const
+\item 
+bool \mbox{\hyperlink{classCondExpression_a82aa030b64e0fb7d5c76db30cebfb2b9}{is\+Logical\+Expression}} () const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classCondExpression_a8886829595a22d76c36c082e3b6d4e37}{get\+Nodes}} () const
+\item 
+void \mbox{\hyperlink{classCondExpression_a59baba1f2a4b015aba1940827291fd28}{generate\+Logical\+Expression}} (\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&genctx) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual double {\bfseries eval} (const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&, double)
+\item 
+std\+::string {\bfseries to\+String} () const
+\item 
+virtual bool {\bfseries generation\+Will\+Add\+Parenthesis} () const
+\item 
+bool {\bfseries eval\+If\+Constant} (double \&value) const
+\item 
+bool {\bfseries eval\+If\+Constant} (bool \&value) const
+\item 
+virtual const \mbox{\hyperlink{classNotLogicalExpression}{Not\+Logical\+Expression}} \texorpdfstring{$\ast$}{*} {\bfseries as\+Not\+Logical\+Expression} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classExpression}{Expression}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} {\bfseries clone\+And\+Shrink\+Recursive} (\mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCondExpression_adb4d53ffdf4ceddfa6396c83d01abc5c}\label{classCondExpression_adb4d53ffdf4ceddfa6396c83d01abc5c} 
+\index{CondExpression@{CondExpression}!clone@{clone}}
+\index{clone@{clone}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Cond\+Expression\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_aa7f1f1f1dbc98db785f88249dbb11fd2}\label{classCondExpression_aa7f1f1f1dbc98db785f88249dbb11fd2} 
+\index{CondExpression@{CondExpression}!cloneAndShrink@{cloneAndShrink}}
+\index{cloneAndShrink@{cloneAndShrink}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{cloneAndShrink()}{cloneAndShrink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExpression}{Expression}} \texorpdfstring{$\ast$}{*} Cond\+Expression\+::clone\+And\+Shrink (\begin{DoxyParamCaption}\item[{bool \&}]{shrinked }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_af32fcfc2be1f25d5e80a9bb75fb28196}\label{classCondExpression_af32fcfc2be1f25d5e80a9bb75fb28196} 
+\index{CondExpression@{CondExpression}!display@{display}}
+\index{display@{display}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Cond\+Expression\+::display (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a48c6167ae0f26f162d9826be4e475b80}\label{classCondExpression_a48c6167ae0f26f162d9826be4e475b80} 
+\index{CondExpression@{CondExpression}!eval@{eval}}
+\index{eval@{eval}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Cond\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_af30cb673fe035a0c22700c0a1be2d7b3}\label{classCondExpression_af30cb673fe035a0c22700c0a1be2d7b3} 
+\index{CondExpression@{CondExpression}!eval@{eval}}
+\index{eval@{eval}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Cond\+Expression\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{this\+\_\+node,  }\item[{const \mbox{\hyperlink{classNetworkState}{Network\+State}} \&}]{network\+\_\+state,  }\item[{const \mbox{\hyperlink{classPopNetworkState}{Pop\+Network\+State}} \&}]{pop }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a59baba1f2a4b015aba1940827291fd28}\label{classCondExpression_a59baba1f2a4b015aba1940827291fd28} 
+\index{CondExpression@{CondExpression}!generateLogicalExpression@{generateLogicalExpression}}
+\index{generateLogicalExpression@{generateLogicalExpression}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{generateLogicalExpression()}{generateLogicalExpression()}}
+{\footnotesize\ttfamily void Cond\+Expression\+::generate\+Logical\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLogicalExprGenContext}{Logical\+Expr\+Gen\+Context}} \&}]{genctx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a8886829595a22d76c36c082e3b6d4e37}\label{classCondExpression_a8886829595a22d76c36c082e3b6d4e37} 
+\index{CondExpression@{CondExpression}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*} $>$ Cond\+Expression\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a8dd1d39badf139bcc4c3fed8fb2367d6}\label{classCondExpression_a8dd1d39badf139bcc4c3fed8fb2367d6} 
+\index{CondExpression@{CondExpression}!hasCycle@{hasCycle}}
+\index{hasCycle@{hasCycle}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{hasCycle()}{hasCycle()}}
+{\footnotesize\ttfamily bool Cond\+Expression\+::has\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} \texorpdfstring{$\ast$}{*}}]{node }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a0709be5004c318e4d6fe9b0c81cb9bc9}\label{classCondExpression_a0709be5004c318e4d6fe9b0c81cb9bc9} 
+\index{CondExpression@{CondExpression}!isConstantExpression@{isConstantExpression}}
+\index{isConstantExpression@{isConstantExpression}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{isConstantExpression()}{isConstantExpression()}}
+{\footnotesize\ttfamily bool Cond\+Expression\+::is\+Constant\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+\Hypertarget{classCondExpression_a82aa030b64e0fb7d5c76db30cebfb2b9}\label{classCondExpression_a82aa030b64e0fb7d5c76db30cebfb2b9} 
+\index{CondExpression@{CondExpression}!isLogicalExpression@{isLogicalExpression}}
+\index{isLogicalExpression@{isLogicalExpression}!CondExpression@{CondExpression}}
+\doxysubsubsection{\texorpdfstring{isLogicalExpression()}{isLogicalExpression()}}
+{\footnotesize\ttfamily bool Cond\+Expression\+::is\+Logical\+Expression (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classExpression}{Expression}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+engine/src/Expressions.\+h\item 
+engine/src/Logical\+Expr\+Gen.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,333 @@
+\doxysection{Node.\+h}
+\hypertarget{Node_8h_source}{}\label{Node_8h_source}\index{engine/src/Node.h@{engine/src/Node.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ Node.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_NODE\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_NODE\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <sbml/SBMLTypes.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}sbml/packages/qual/common/QualExtensionTypes.h"{}}}
+\DoxyCodeLine{00061\ \ }
+\DoxyCodeLine{00062\ LIBSBML\_CPP\_NAMESPACE\_USE}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}NetworkState\_Impl.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}RandomGenerator.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}maps\_header.h"{}}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NodeIndex;}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNodeState}{NodeState}};\ \textcolor{comment}{//\ for\ now...\ could\ be\ a\ class}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ ATTR\_RATE\_UP\ =\ \textcolor{stringliteral}{"{}rate\_up"{}};}
+\DoxyCodeLine{00074\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ ATTR\_RATE\_DOWN\ =\ \textcolor{stringliteral}{"{}rate\_down"{}};}
+\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ ATTR\_LOGIC\ =\ \textcolor{stringliteral}{"{}logic"{}};}
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ ATTR\_DESCRIPTION\ =\ \textcolor{stringliteral}{"{}description"{}};}
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ NodeIndex\ INVALID\_NODE\_INDEX\ =\ (NodeIndex)\string~0U;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classExpression}{Expression}};}
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetwork}{Network}};}
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNetworkState}{NetworkState}};}
+\DoxyCodeLine{00082\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopNetworkState}{PopNetworkState}};}
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}};}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ extern\ std::ostream\&\ operator<<(std::ostream\&\ os,\ const\ BNException\&\ e);}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNode}{Node}}\ \{}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ augment;}
+\DoxyCodeLine{00089\ \ \ std::string\ label;}
+\DoxyCodeLine{00090\ \ \ std::string\ description;}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{bool}\ istate\_set;}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{bool}\ is\_internal;}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ is\_reference;}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ in\_graph;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{bool}\ is\_mutable;}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{classNodeState}{NodeState}}\ referenceState;}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ logicalInputExpr;}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ rateUpExpr;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ rateDownExpr;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{mutable}\ \mbox{\hyperlink{classNodeState}{NodeState}}\ istate;}
+\DoxyCodeLine{00101\ \ \ NodeIndex\ index;}
+\DoxyCodeLine{00102\ \ \ }
+\DoxyCodeLine{00103\ \ \ MAP<std::string,\ const\ Expression*>\ attr\_expr\_map;}
+\DoxyCodeLine{00104\ \ \ MAP<std::string,\ std::string>\ attr\_str\_map;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ rewriteLogicalExpression(\mbox{\hyperlink{classExpression}{Expression}}*\ rateUpExpr,\ \mbox{\hyperlink{classExpression}{Expression}}*\ rateDownExpr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00111\ \ \ NetworkState\_Impl\ node\_bit;}
+\DoxyCodeLine{00112\ \ \ std::map<double,\ Expression*>*\ schedule;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{classNode}{Node}}(\textcolor{keyword}{const}\ std::string\&\ label,\ \textcolor{keyword}{const}\ std::string\&\ description,\ NodeIndex\ index);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_ac288014a37efbdfcc14d1b00f91938d1}{setIndex}}(NodeIndex\ new\_index)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ index\ =\ new\_index;}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#if\ !defined(USE\_STATIC\_BITSET)\ \&\&\ !defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00122\ \ \ \ \ node\_bit\ =\ 1ULL\ <<\ new\_index;}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00124\ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ label;}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a15d9e56dd9e6c660023fc631e56620e5}{setDescription}}(\textcolor{keyword}{const}\ std::string\&\ \_description)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ this-\/>description\ =\ \_description;}
+\DoxyCodeLine{00136\ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{classNode_a12d2432cd31bf3e1bcf19a115aae6f00}{getDescription}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ description;}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_aa6b5119ce91958221a227b79a6e3d6c2}{setLogicalInputExpression}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ logicalInputExpr);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a015d577971dc289bbbb61f474c8693db}{setRateUpExpression}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ expr);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a1911840cba020cbedb057951b29dcb9b}{setRateDownExpression}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ expr);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ \mbox{\hyperlink{classNode_a56de714e1898e836adee40520c00a073}{getLogicalInputExpression}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ logicalInputExpr;}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ \mbox{\hyperlink{classNode_a46bca2b6865f17e919a2f4b28dcccbe4}{getRateUpExpression}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ rateUpExpr;}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ \mbox{\hyperlink{classNode_afca7fe2bf375c8c4fbcdee1f51fb7ee1}{getRateDownExpression}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{return}\ rateDownExpr;}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a8eb90878a90d1449f04c424d6b289c7d}{setAttributeExpression}}(\textcolor{keyword}{const}\ std::string\&\ attr\_name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_RATE\_UP)\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \mbox{\hyperlink{classNode_a015d577971dc289bbbb61f474c8693db}{setRateUpExpression}}(expr);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_RATE\_DOWN)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \mbox{\hyperlink{classNode_a1911840cba020cbedb057951b29dcb9b}{setRateDownExpression}}(expr);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_LOGIC)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \mbox{\hyperlink{classNode_aa6b5119ce91958221a227b79a6e3d6c2}{setLogicalInputExpression}}(expr);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \ \ attr\_expr\_map[attr\_name]\ =\ expr;}
+\DoxyCodeLine{00195\ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a4b775cec6ab28431aae12eff2183683a}{mutate}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a90527d3f965db13100d7ea530739bce1}{makeMutable}}(\mbox{\hyperlink{classNetwork}{Network}}*\ network);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{classNodeState}{NodeState}}\ \mbox{\hyperlink{classNode_af9c8c6e95b1d10bdbf5bddaf604986a6}{getIState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \mbox{\hyperlink{classRandomGenerator}{RandomGenerator}}*\ randgen)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{void}\ setIState(\mbox{\hyperlink{classNodeState}{NodeState}}\ \_istate)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ istate\_set\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00216\ \ \ \ \ this-\/>istate\ =\ \_istate;}
+\DoxyCodeLine{00217\ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a68db970c322244ada4df263242c12e0f}{istateSetRandomly}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{return}\ !istate\_set;}
+\DoxyCodeLine{00223\ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a8862ebf43de2a44ed87da949cd58847d}{isInternal}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_internal;}
+\DoxyCodeLine{00229\ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a3446bf1aa4d618108b5a27b3ed9a6b2e}{inGraph}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{return}\ in\_graph;}
+\DoxyCodeLine{00235\ \ \ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a8abe6f037ccdccf978c5adf49a964dac}{isInternal}}(\textcolor{keywordtype}{bool}\ \_is\_internal)\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ this-\/>is\_internal\ =\ \_is\_internal;}
+\DoxyCodeLine{00240\ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a8fd440af3e400d0e00b60950c5bd7ff1}{inGraph}}(\textcolor{keywordtype}{bool}\ \_in\_graph)\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ this-\/>in\_graph\ =\ \_in\_graph;}
+\DoxyCodeLine{00244\ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a50a427ddc08ba1c958621e1386d64529}{setScheduledFlips}}(std::map<double,\ Expression*>*\ \_schedule)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ schedule\ =\ \_schedule;}
+\DoxyCodeLine{00250\ \ \ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00254\ \ \ std::map<double,\ Expression*>*\ \mbox{\hyperlink{classNode_a554e892fb60381d2e4c9dbfa519cec4e}{getScheduledFlips}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{return}\ schedule;}
+\DoxyCodeLine{00256\ \ \ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a961d21c7509355709d0ad199686ee4e7}{isReference}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_reference;}
+\DoxyCodeLine{00262\ \ \ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a1c1751fefa8d4359edb1cea00a35e442}{setReference}}(\textcolor{keywordtype}{bool}\ \_is\_reference)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ this-\/>is\_reference\ =\ \_is\_reference;}
+\DoxyCodeLine{00267\ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00271\ \ \ \mbox{\hyperlink{classNodeState}{NodeState}}\ \mbox{\hyperlink{classNode_ae89937260ac4f063c74e62639aec4c8f}{getReferenceState}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{return}\ referenceState;}
+\DoxyCodeLine{00273\ \ \ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_a417ffb061d496c81e9a8a4ba1cd119e6}{setReferenceState}}(\mbox{\hyperlink{classNodeState}{NodeState}}\ \_referenceState)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ this-\/>is\_reference\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00278\ \ \ \ \ this-\/>referenceState\ =\ \_referenceState;}
+\DoxyCodeLine{00279\ \ \ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00287\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ \mbox{\hyperlink{classNode_a9b1a8433c7daf0659daa202d7b0ef096}{getAttributeExpression}}(\textcolor{keyword}{const}\ std::string\&\ attr\_name)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00288\ \ \ \ \ MAP<std::string,\ const\ Expression*>::const\_iterator\ iter\ =\ attr\_expr\_map.find(attr\_name);}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ attr\_expr\_map.end())\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_RATE\_UP)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNode_a46bca2b6865f17e919a2f4b28dcccbe4}{getRateUpExpression}}();}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_RATE\_DOWN)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNode_afca7fe2bf375c8c4fbcdee1f51fb7ee1}{getRateDownExpression}}();}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_LOGIC)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNode_a56de714e1898e836adee40520c00a073}{getLogicalInputExpression}}();}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00300\ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter).second;}
+\DoxyCodeLine{00302\ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_af796369942d5d159fd5b09da0307619a}{setAttributeString}}(\textcolor{keyword}{const}\ std::string\&\ attr\_name,\ \textcolor{keyword}{const}\ std::string\&\ str)\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_DESCRIPTION)\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \mbox{\hyperlink{classNode_a15d9e56dd9e6c660023fc631e56620e5}{setDescription}}(str);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00312\ \ \ \ \ \}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ attr\_str\_map[attr\_name]\ =\ str;}
+\DoxyCodeLine{00315\ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00320\ \ \ std::string\ \mbox{\hyperlink{classNode_afb185975d759f8068a6590316e48a030}{getAttributeString}}(\textcolor{keyword}{const}\ std::string\&\ attr\_name)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00321\ \ \ \ \ MAP<std::string,\ std::string>::const\_iterator\ iter\ =\ attr\_str\_map.find(attr\_name);}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ attr\_str\_map.end())\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (attr\_name\ ==\ ATTR\_DESCRIPTION)\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classNode_a12d2432cd31bf3e1bcf19a115aae6f00}{getDescription}}();}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter).second;}
+\DoxyCodeLine{00329\ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00333\ \ \ NodeIndex\ \mbox{\hyperlink{classNode_a145445ad18fb6a3f86052a00a0ee0a5b}{getIndex}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ index;\}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#if\ !defined(USE\_STATIC\_BITSET)\ \&\&\ !defined(USE\_DYNAMIC\_BITSET)}}
+\DoxyCodeLine{00336\ \ \ NetworkState\_Impl\ getNodeBit()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ node\_bit;\}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00341\ \ \ \textcolor{keyword}{const}\ MAP<std::string,\ const\ Expression*>\&\ \mbox{\hyperlink{classNode_a5402e3d711202446e72628e115eec3fd}{getAttributeExpressionMap}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{return}\ attr\_expr\_map;}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00347\ \ \ \textcolor{keyword}{const}\ MAP<std::string,\ std::string>\&\ \mbox{\hyperlink{classNode_abf12725b41e1c9c88b617cb388fb5016}{getAttributeStringMap}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordflow}{return}\ attr\_str\_map;}
+\DoxyCodeLine{00349\ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a932008c0286f2bf9aa9414ac226b299c}{isInputNode}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00358\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNode_a51db067c190fca6ee96cf405e908262a}{getRateUp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00363\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe}{getRateDown}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00369\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNode_a51db067c190fca6ee96cf405e908262a}{getRateUp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00375\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classNode_af3d4daa4d91d4a5a7e3b1b3b8f160ebe}{getRateDown}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classPopNetworkState}{PopNetworkState}}\&\ pop)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00380\ \ \ \mbox{\hyperlink{classNodeState}{NodeState}}\ \mbox{\hyperlink{classNode_afbcfdb4d7942faba326d814bd898959b}{getNodeState}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00385\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_ad982f308a6e8c70c724bca2e3c5f2316}{setNodeState}}(\mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \mbox{\hyperlink{classNodeState}{NodeState}}\ state);}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a42e829e655de259777ef1e67fcbbd3d3}{computeNodeState}}(\mbox{\hyperlink{classNetworkState}{NetworkState}}\&\ network\_state,\ \mbox{\hyperlink{classNodeState}{NodeState}}\&\ node\_state)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ std::string\ toString()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00392\ \ \ \ \ std::ostringstream\ ostr;}
+\DoxyCodeLine{00393\ \ \ \ \ display(ostr);}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordflow}{return}\ ostr.str();}
+\DoxyCodeLine{00395\ \ \ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordtype}{void}\ display(std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00398\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ generateRawLogicalExpression()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00399\ \ \ \textcolor{keywordtype}{void}\ generateLogicalExpression(\mbox{\hyperlink{classLogicalExprGenContext}{LogicalExprGenContext}}\&\ gen)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00403\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_aba26856e9ab7247cdc491bb63d20bbc0}{setOverride}}(\textcolor{keywordtype}{bool}\ \_override)\ \{}
+\DoxyCodeLine{00404\ \ \ \ \ Node::override\ =\ \_override;}
+\DoxyCodeLine{00405\ \ \ \}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00409\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a2d9b79dc95d0d9965949219712b3a052}{isOverride}}()\ \{\textcolor{keywordflow}{return}\ \textcolor{keyword}{override};\}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00413\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNode_acd226f7b2e4ea0ea8190027209271c3b}{setAugment}}(\textcolor{keywordtype}{bool}\ \_augment)\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ Node::augment\ =\ \_augment;}
+\DoxyCodeLine{00415\ \ \ \}}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00419\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classNode_a5fa67c65af1b02b5f7c5ac1127057feb}{isAugment}}()\ \{\textcolor{keywordflow}{return}\ augment;\}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#ifdef\ SBML\_COMPAT}}
+\DoxyCodeLine{00422\ \ \ \textcolor{keywordtype}{void}\ writeSBML(QualitativeSpecies*\ qs)\ }
+\DoxyCodeLine{00423\ \ \ \{}
+\DoxyCodeLine{00424\ \ \ \ \ qs-\/>setId(this-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}());}
+\DoxyCodeLine{00425\ \ \ \ \ qs-\/>setCompartment(\textcolor{stringliteral}{"{}c"{}});}
+\DoxyCodeLine{00426\ \ \ \ \ qs-\/>setConstant(\textcolor{keyword}{false});}
+\DoxyCodeLine{00427\ \ \ \ \ qs-\/>setInitialLevel(1);}
+\DoxyCodeLine{00428\ \ \ \ \ qs-\/>setMaxLevel(1);}
+\DoxyCodeLine{00429\ \ \ \ \ qs-\/>setName(this-\/>\mbox{\hyperlink{classNode_a9b4baa287dcf24f161ce6ab52b011c60}{getLabel}}());}
+\DoxyCodeLine{00430\ \ \ \}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordtype}{void}\ reset();}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \mbox{\hyperlink{classNode}{\string~Node}}();}
+\DoxyCodeLine{00436\ \};}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,140 @@
+\doxysection{Run\+Config.\+h}
+\hypertarget{RunConfig_8h_source}{}\label{RunConfig_8h_source}\index{engine/src/RunConfig.h@{engine/src/RunConfig.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ BSD\ 3-\/Clause\ License\ (see\ https://opensource.org/licenses/BSD-\/3-\/Clause)\ \ \ \#}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ Copyright\ (c)\ 2011-\/2020\ Institut\ Curie,\ 26\ rue\ d'Ulm,\ Paris,\ France\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ All\ rights\ reserved.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ \ \ \ \#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ met:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ \#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ \#}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#\ software\ without\ specific\ prior\ written\ permission.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ \#}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ \#}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ \ \#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ \ \ \ \#}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ \ \ \ \ \ \#}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{00037\ \textcolor{comment}{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ Module:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ RunConfig.h}}
+\DoxyCodeLine{00040\ \textcolor{comment}{}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ Authors:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Eric\ Viara\ <viara@sysra.com>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Gautier\ Stoll\ <gautier.stoll@curie.fr>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Vincent\ Noël\ <vincent.noel@curie.fr>}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ Date:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ January-\/March\ 2011}}
+\DoxyCodeLine{00048\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ \_RUNCONFIG\_H\_}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ \_RUNCONFIG\_H\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}RandomGenerator.h"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}PopNetwork.h"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}Expressions.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}IStates.h"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMaBEstEngine}{MaBEstEngine}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPopMaBEstEngine}{PopMaBEstEngine}};}
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFinalStateSimulationEngine}{FinalStateSimulationEngine}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRunConfig}{RunConfig}}\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{mutable}\ \mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}*\ randgen\_factory;}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{double}\ time\_tick;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{double}\ max\_time;}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sample\_count;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ discrete\_time;}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ use\_physrandgen;}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ use\_glibcrandgen;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ use\_mtrandgen;}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{int}\ seed\_pseudorand;}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{bool}\ display\_traj;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ thread\_count;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_traj\_count;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{double}\ statdist\_cluster\_threshold;}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ statdist\_similarity\_cache\_max\_size;}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ dump\_perform(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ std::ostream\&\ os,\ \textcolor{keywordtype}{bool}\ is\_template,\ std::string\ version,\ \textcolor{keywordtype}{bool}\ header=\textcolor{keyword}{true})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ init\_pop;}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{double}\ pop\_base;}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{classExpression}{Expression}}*\ custom\_pop\_output\_expression;}
+\DoxyCodeLine{00083\ \ \ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ verbose;}
+\DoxyCodeLine{00085\ \ \ }
+\DoxyCodeLine{00086\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{classRunConfig}{RunConfig}}();}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{classRunConfig}{\string~RunConfig}}();}
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{classRunConfig}{RunConfig}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRunConfig}{RunConfig}}\&\ other);}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{int}\ parse(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file\ =\ NULL);}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{int}\ parseExpression(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ expr);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ setParameter(\textcolor{keyword}{const}\ std::string\&\ param,\ \textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ setCustomPopOutputExpression(\mbox{\hyperlink{classExpression}{Expression}}*\ expr)\ \{\ custom\_pop\_output\_expression\ =\ expr;\ \}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ hasCustomPopOutput()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ custom\_pop\_output\_expression\ !=\ NULL;\ \}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classExpression}{Expression}}*\ getCustomPopOutputExpression()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ custom\_pop\_output\_expression;\ \}}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{classRandomGeneratorFactory}{RandomGeneratorFactory}}*\ getRandomGeneratorFactory()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getInitPop()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ init\_pop;\}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{double}\ getPopBase()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ pop\_base;\}}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{double}\ getTimeTick()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ time\_tick;\}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{double}\ getMaxTime()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ max\_time;\}}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getSampleCount()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ sample\_count;\}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{bool}\ isDiscreteTime()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ discrete\_time;\}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ usePhysRandGen()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ use\_physrandgen;\}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ useGlibcRandGen()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ use\_glibcrandgen;\}}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ useMTRandGen()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ use\_mtrandgen;\}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{bool}\ getDisplayTrajectories()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ display\_traj;\}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ getSeedPseudoRandom()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ seed\_pseudorand;\}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}\ setSeedPseudoRandom(\textcolor{keywordtype}{int}\ seed)\ \{\ seed\_pseudorand\ =\ seed;\}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ display(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ time\_t\ start\_time,\ time\_t\ end\_time,\ std::ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ void\ display(Network*\ network,\ time\_t\ start\_time,\ time\_t\ end\_time,\ PopMaBEstEngine\&\ mabest,\ std::ostream\&\ os)\ const;}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ void\ display(Network*\ network,\ time\_t\ start\_time,\ time\_t\ end\_time,\ FinalStateSimulationEngine\&\ engine,\ std::ostream\&\ os)\ const;}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{bool}\ displayTrajectories()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ display\_traj;\}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getThreadCount()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ thread\_count;\}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getStatDistTrajCount()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ statdist\_traj\_count\ <=\ sample\_count\ ?\ statdist\_traj\_count\ :\ sample\_count;\}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{double}\ getStatdistClusterThreshold()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ statdist\_cluster\_threshold;\}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getStatDistSimilarityCacheMaxSize()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ statdist\_similarity\_cache\_max\_size;\}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{void}\ generateTemplate(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ std::ostream\&\ os,\ std::string\ version)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ dump(\mbox{\hyperlink{classNetwork}{Network}}*\ network,\ std::ostream\&\ os,\ std::string\ version,\ \textcolor{keywordtype}{bool}\ header=\textcolor{keyword}{true})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00120\ \ \ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setVerbose(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level)\ \{verbose\ =\ level;\}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getVerbose()\ \{\ \textcolor{keywordflow}{return}\ verbose;\ \}}
+\DoxyCodeLine{00123\ \};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{extern}\ FILE*\ rcin;}
+\DoxyCodeLine{00126\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ rcparse();}
+\DoxyCodeLine{00127\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rc\_scan\_expression(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ runconfig\_setNetwork(\mbox{\hyperlink{classNetwork}{Network}}*\ network);}
+\DoxyCodeLine{00130\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ runconfig\_setConfig(\mbox{\hyperlink{classRunConfig}{RunConfig}}*\ config);}
+\DoxyCodeLine{00131\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rc\_set\_file(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file);}
+\DoxyCodeLine{00132\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ rc\_set\_expr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ expr);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
