@@ -62,26 +62,59 @@
 struct ArgWrapper;
 
 class MaBEstEngine : public ProbTrajEngine {
+    std::vector<ArgWrapper *> arg_wrapper_v;
 
-  std::vector<ArgWrapper*> arg_wrapper_v;
-  static void* threadWrapper(void *arg);
+    /// Starts \link runThread \endlink in a thread, catches exceptions
+    /// @param arg pointer to the data required in the thread
+    static void *threadWrapper(void *arg);
 
-  void epilogue();
-  void runThread(Cumulator<NetworkState>* cumulator, unsigned int start_count_thread, unsigned int sample_count_thread, RandomGeneratorFactory* randgen_factory, long long int* elapsed_time, int seed, FixedPoints* fixpoint_map, ObservedGraph* observed_map, std::ostream* output_traj);
-  
+    /// Finalizes the computation by merging all the results
+    void epilogue();
+
+    /// Runs the simulation in a thread started by \link run \endlink. It simulates the evolution across time, computes
+    /// possible transitions, updates statistics, and optionally saves trajectories and builds the graph of
+    /// observed states
+    /// @param cumulator where to put the results. Will be used to compute the final results.
+    /// @param start_count_thread Starting index of the trajectories/simulations of the thread.
+    /// @param sample_count_thread number of trajectories to evaluate
+    /// @param randgen_factory the factory to "create" the random aspect
+    /// @param elapsed_time pointer to the time took by the thread (ms)
+    /// @param seed Seed used by the random generator. Useful for reproducibility
+    /// @param fixpoint_map Structure used to count fixed points (states where no transition is possible anymore)
+    /// @param observed_map Pointer to the graph of observed states and transitions
+    /// @param output_traj optional output stream that prints trajectory information
+    /// (trajectory number, initial state, successive states, times, and transition-related value)
+    void runThread(Cumulator<NetworkState> *cumulator, unsigned int start_count_thread,
+                   unsigned int sample_count_thread, RandomGeneratorFactory *randgen_factory,
+                   long long int *elapsed_time, int seed, FixedPoints *fixpoint_map, ObservedGraph *observed_map,
+                   std::ostream *output_traj);
+
 public:
-  static const std::string VERSION;
+    static const std::string VERSION;
 
 #ifdef MPI_COMPAT
-  MaBEstEngine(Network* network, RunConfig* runconfig, int world_size, int world_rank);
+    MaBEstEngine(Network *network, RunConfig *runconfig, int world_size, int world_rank);
 #else
-  MaBEstEngine(Network* network, RunConfig* runconfig);
+    MaBEstEngine(Network *network, RunConfig *runconfig);
 #endif
 
-  void run(std::ostream* output_traj = NULL);
-  void displayRunStats(std::ostream& os, time_t start_time, time_t end_time) const;
-  
-  ~MaBEstEngine();
+    /// Main function that launches the whole execution of the simulation. It distributes the trajectories between the
+    /// threads and executes the final phase while recording execution times.
+    /// @param output_traj (optional) prints info about trajectories (see \link runThread \endlink )
+    void run(std::ostream *output_traj = NULL);
+
+    /// Displays various info about the simulation
+    /// @param os reference to the output stream
+    /// @param start_time start time of the simulation
+    /// @param end_time end time of the simulation
+    void displayRunStats(std::ostream &os, time_t start_time, time_t end_time) const;
+
+    ~MaBEstEngine();
 };
+
+/**
+ * @class MaBEstEngine
+ *
+ */
 
 #endif

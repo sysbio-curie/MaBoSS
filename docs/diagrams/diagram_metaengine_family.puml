@@ -1,0 +1,132 @@
+@startuml
+class "NetworkState" as C_0005946925854321740463
+class C_0005946925854321740463 {
++NetworkState(const NetworkState_Impl & _state) : void
++NetworkState(const NetworkState & _state) : void
++NetworkState() : void
+..
++operator=(const NetworkState & _state) : NetworkState &
+..
++operator&(const NetworkState & mask) const : NetworkState
+..
++applyMask(const NetworkState & mask, std::map<unsigned int,unsigned int> &) const : NetworkState
++computeNodeState(const Node * node, NodeState & node_state) : bool
++display(std::ostream & os, const Network * network) const : void
++displayJSON(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++displayOneLine(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++flipState(const Node * node) : void
++getName(const Network * network, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++getNodeState(const Node * node) const : NodeState
++getState() const : NetworkState_Impl
+{static} +getState(Node * node, const NetworkState_Impl & state) : NodeState
++hamming(Network * network, const NetworkState_Impl & state) const : unsigned int
++hamming(Network * network, const NetworkState & state) const : unsigned int
+{static} +isPopState() : bool
+{static} +nodeBit(NodeIndex node_index) : NetworkState_Impl
++reset() : void
++set() : void
++setNodeState(const Node * node, NodeState node_state) : void
+__
+}
+class "MetaEngine" as C_0007414202677506663061
+class C_0007414202677506663061 {
++MetaEngine(Network * network, RunConfig * runconfig) : void
++~MetaEngine() : void
+..
++computeTH(Network * _network, const std::vector<double> & nodeTransitionRates, double total_rate) const : double
++getElapsedCoreRunTime() const : long long
++getElapsedEpilogueRunTime() const : long long
++getElapsedStatDistRunTime() const : long long
++getTargetNode(Network * _network, RandomGenerator * random_generator, const std::vector<double> & nodeTransitionRates, double total_rate) const : NodeIndex
++getUserCoreRunTime() const : long long
++getUserEpilogueRunTime() const : long long
++getUserStatDistRunTime() const : long long
+{static} +init() : void
+{static} +loadUserFuncs(const char * module) : void
+__
+#discrete_time : bool
+#elapsed_core_runtime : long long
+#elapsed_epilogue_runtime : long long
+#elapsed_statdist_runtime : long long
+#max_time : double
+#network : Network *
+#reference_state : NetworkState
+#refnode_count : unsigned int
+#refnode_mask : NetworkState
+#runconfig : RunConfig *
+#sample_count : unsigned int
+#statdist_trajcount : unsigned int
+#thread_count : unsigned int
+#thread_elapsed_runtimes : std::vector<long long>
+#time_tick : double
+#user_core_runtime : long long
+#user_epilogue_runtime : long long
+#user_statdist_runtime : long long
+}
+class "FixedPointEngine" as C_0004797468029317504143
+class C_0004797468029317504143 {
++FixedPointEngine(Network * network, RunConfig * runconfig) : void
+..
++converges() const : bool
++displayFixpoints(FixedPointDisplayer * displayer) const : void
++getFixPointsDists() const : const std::map<unsigned int,std::pair<NetworkState,double>>
++getFixpoints() const : const FixedPoints *
+{static} #mergePairOfFixpoints(FixedPoints * fixpoints_1, FixedPoints * fixpoints_2) : void
+__
+#fixpoint_map_v : std::vector<FixedPoints *>
+#fixpoints : FixedPoints *
+}
+class "FinalStateSimulationEngine" as C_0005542738902560728554
+class C_0005542738902560728554 {
++FinalStateSimulationEngine(Network * network, RunConfig * runconfig) : void
++~FinalStateSimulationEngine() : void
+..
++displayFinal(FinalStateDisplayer * displayer) const : void
++displayRunStats(std::ostream & os, time_t start_time, time_t end_time) const : void
++getFinalNodes() const : const std::unordered_map<Node *,double>
++getFinalTime() const : double
++run(std::ostream * output_traj) : void
+__
+{static} +VERSION : const std::string
+}
+class "PopMaBEstEngine" as C_0015050520083965057635
+class C_0015050520083965057635 {
++PopMaBEstEngine(PopNetwork * pop_network, RunConfig * runconfig) : void
++~PopMaBEstEngine() : void
+..
++computeTH(const std::map<NodeIndex,double> & nodeTransitionRates, double total_rate) const : double
++converges() const : bool
++display(ProbTrajDisplayer<PopNetworkState> * pop_probtraj_displayer, FixedPointDisplayer * fp_displayer) const : void
++displayCustomPopProbTraj(ProbTrajDisplayer<PopSize> * displayer) const : void
++displayFixpoints(FixedPointDisplayer * displayer) const : void
++displayPopProbTraj(ProbTrajDisplayer<PopNetworkState> * displayer) const : void
++displayRunStats(std::ostream & os, time_t start_time, time_t end_time) const : void
++epilogue() : void
++getCustomPopCumulator() : Cumulator<PopSize> *
++getFixPointsDists() const : const std::map<unsigned int,std::pair<NetworkState,double>>
++getFixpoints() const : const FixedPoints *
++getMergedCumulator() : Cumulator<PopNetworkState> *
++getTargetNode(RandomGenerator * random_generator, const PopNetworkStateMap & popNodeTransitionRates, double total_rate) const : PopNetworkState
+{static} +mergePairOfFixpoints(FixedPoints * fixpoints_1, FixedPoints * fixpoints_2) : void
++mergeResults() : void
++run(std::ostream * output_traj) : void
++runThread(Cumulator<PopNetworkState> * cumulator, Cumulator<PopSize> * custom_cumulator, unsigned int start_count_thread, unsigned int sample_count_thread, RandomGeneratorFactory * randgen_factory, int seed, FixedPoints * fixpoint_map, std::ostream * output_traj) : void
+{static} +threadMergeWrapper(void * arg) : void *
+{static} +threadWrapper(void * arg) : void *
+__
+{static} +VERSION : const std::string
++arg_wrapper_v : std::vector<ArgWrapper *>
+}
+C_0007414202677506663061 o-- C_0005946925854321740463 : #reference_state
+C_0007414202677506663061 o-- C_0005946925854321740463 : #refnode_mask
+C_0004797468029317504143 ..> C_0005946925854321740463
+C_0007414202677506663061 <|-- C_0004797468029317504143
+C_0005542738902560728554 o-- C_0005946925854321740463 : -internal_state
+C_0007414202677506663061 <|-- C_0005542738902560728554
+C_0015050520083965057635 ..> C_0005946925854321740463
+C_0007414202677506663061 <|-- C_0015050520083965057635
+
+'Generated with clang-uml, version 0.6.2-27-g4e76f03
+'LLVM version Ubuntu clang version 18.1.3 (1ubuntu1)
+@enduml

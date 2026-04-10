@@ -69,130 +69,170 @@
 struct EnsembleArgWrapper;
 
 class MetaEngine {
-
 protected:
+    Network *network;
+    RunConfig *runconfig;
 
-  Network* network;
-  RunConfig* runconfig;
 
- 
 #ifdef MPI_COMPAT
-  // Number of processes
-  int world_size;
-  
-  // Rank of the process
-  int world_rank;
+    // Number of processes
+    int world_size;
+
+    // Rank of the process
+    int world_rank;
 #endif
 
 
-  double time_tick;
-  double max_time;
-  unsigned int sample_count;
-  unsigned int statdist_trajcount;
-  bool discrete_time;
-  unsigned int thread_count;
-  
-  NetworkState reference_state;
-  unsigned int refnode_count;
-  NetworkState refnode_mask;
-  mutable long long elapsed_core_runtime, user_core_runtime, elapsed_statdist_runtime, user_statdist_runtime, elapsed_epilogue_runtime, user_epilogue_runtime;
-  
- 
-#ifdef MPI_COMPAT
-  // Global sample count          
-  unsigned int global_sample_count;
-  unsigned int global_statdist_trajcount;
+    double time_tick;
+    double max_time;
+    unsigned int sample_count;
+    unsigned int statdist_trajcount;
+    bool discrete_time;
+    unsigned int thread_count;
 
-  std::vector<long long> elapsed_core_runtimes;
-  std::vector<long long> user_core_runtimes;
-  std::vector<long long> elapsed_epilogue_runtimes;
-  std::vector<long long> user_epilogue_runtimes; 
-  
-  std::vector<std::vector<long long int> > thread_elapsed_runtimes;
-  
+    NetworkState reference_state;
+    unsigned int refnode_count;
+    NetworkState refnode_mask;
+    mutable long long elapsed_core_runtime, user_core_runtime, elapsed_statdist_runtime, user_statdist_runtime,
+            elapsed_epilogue_runtime, user_epilogue_runtime;
+
+
+#ifdef MPI_COMPAT
+    // Global sample count
+    unsigned int global_sample_count;
+    unsigned int global_statdist_trajcount;
+
+    std::vector<long long> elapsed_core_runtimes;
+    std::vector<long long> user_core_runtimes;
+    std::vector<long long> elapsed_epilogue_runtimes;
+    std::vector<long long> user_epilogue_runtimes;
+
+    std::vector<std::vector<long long int> > thread_elapsed_runtimes;
+
 #else
 
-  std::vector<long long int> thread_elapsed_runtimes;
-  
+    std::vector<long long int> thread_elapsed_runtimes;
+
 #endif
 
 public:
-
 #ifdef MPI_COMPAT
-  MetaEngine(Network* network, RunConfig* runconfig, int world_size, int world_rank) : 
-    network(network), runconfig(runconfig),
-    world_size(world_size), world_rank(world_rank),
-    time_tick(runconfig->getTimeTick()), 
-    max_time(runconfig->getMaxTime()), 
-    sample_count(runconfig->getSampleCount()), 
-    statdist_trajcount(runconfig->getStatDistTrajCount()),
-    discrete_time(runconfig->isDiscreteTime()), 
-    thread_count(runconfig->getThreadCount()) {
+    MetaEngine(Network *network, RunConfig *runconfig, int world_size, int world_rank) : network(network),
+        runconfig(runconfig),
+        world_size(world_size), world_rank(world_rank),
+        time_tick(runconfig->getTimeTick()),
+        max_time(runconfig->getMaxTime()),
+        sample_count(runconfig->getSampleCount()),
+        statdist_trajcount(runconfig->getStatDistTrajCount()),
+        discrete_time(runconfig->isDiscreteTime()),
+        thread_count(runconfig->getThreadCount()) {
+
 #else
-  MetaEngine(Network* network, RunConfig* runconfig) : 
-    network(network), runconfig(runconfig),
-    time_tick(runconfig->getTimeTick()), 
-    max_time(runconfig->getMaxTime()), 
-    sample_count(runconfig->getSampleCount()), 
-    statdist_trajcount(runconfig->getStatDistTrajCount()),
-    discrete_time(runconfig->isDiscreteTime()), 
-    thread_count(runconfig->getThreadCount()) {
-#endif 
-  elapsed_core_runtime = user_core_runtime = elapsed_statdist_runtime = user_statdist_runtime = elapsed_epilogue_runtime = user_epilogue_runtime = 0;
-    
-#ifdef MPI_COMPAT
-  global_sample_count = sample_count;
-  global_statdist_trajcount = statdist_trajcount;
-  
-  if (world_rank == 0) {
-    sample_count = (sample_count / world_size) + (sample_count % world_size);
-    statdist_trajcount = (statdist_trajcount / world_size) + (statdist_trajcount % world_size);
-  } else {
-    sample_count = sample_count / world_size;
-    statdist_trajcount = statdist_trajcount / world_size;
-  }
-  
-  thread_elapsed_runtimes.resize(world_size);
-  
-  // Get the name of the processor
-  char processor_name[MPI_MAX_PROCESSOR_NAME];
-  int name_len;
-  MPI_Get_processor_name(processor_name, &name_len);
-
-  std::cout << "Hello world from processor " << processor_name 
-            << ", rank " << world_rank << " out of " << world_size << " processors. "
-            << "I will simulate " << sample_count << " out of " << global_sample_count << " simulations"
-            << std::endl;
+    MetaEngine(Network *network, RunConfig *runconfig) : network(network), runconfig(runconfig),
+                                                         time_tick(runconfig->getTimeTick()),
+                                                         max_time(runconfig->getMaxTime()),
+                                                         sample_count(runconfig->getSampleCount()),
+                                                         statdist_trajcount(runconfig->getStatDistTrajCount()),
+                                                         discrete_time(runconfig->isDiscreteTime()),
+                                                         thread_count(runconfig->getThreadCount()) {
 #endif
-      
-    }
-  ~MetaEngine() {
-  
-  }
-  static void init();
-  static void loadUserFuncs(const char* module);
-
-  NodeIndex getTargetNode(Network* _network, RandomGenerator* random_generator, const std::vector<double>& nodeTransitionRates, double total_rate) const;
-  double computeTH(Network* _network, const std::vector<double>& nodeTransitionRates, double total_rate) const;
-
-  long long getElapsedCoreRunTime() const {return elapsed_core_runtime;}
-  long long getUserCoreRunTime() const {return user_core_runtime;}
-
-  long long getElapsedEpilogueRunTime() const {return elapsed_epilogue_runtime;}
-  long long getUserEpilogueRunTime() const {return user_epilogue_runtime;}
-
-  long long getElapsedStatDistRunTime() const {return elapsed_statdist_runtime;}
-  long long getUserStatDistRunTime() const {return user_statdist_runtime;}
+        elapsed_core_runtime = user_core_runtime =
+                               elapsed_statdist_runtime =
+                               user_statdist_runtime = elapsed_epilogue_runtime = user_epilogue_runtime = 0;
 
 #ifdef MPI_COMPAT
-  int getWorldRank() const { return world_rank; }
-  int getWorldSize() const { return world_size; }
-  std::vector<long long> getUserCoreRuntimes() const { return user_core_runtimes; }
-  std::vector<long long> getElapsedCoreRuntimes() const { return elapsed_core_runtimes; }
-  std::vector<long long> getUserEpilogueRuntimes() const { return user_epilogue_runtimes; }
-  std::vector<long long> getElapsedEpilogueRuntimes() const { return elapsed_epilogue_runtimes; }
-  #endif
-  
+        global_sample_count = sample_count;
+        global_statdist_trajcount = statdist_trajcount;
+
+        if (world_rank == 0) {
+            sample_count = (sample_count / world_size) + (sample_count % world_size);
+            statdist_trajcount = (statdist_trajcount / world_size) + (statdist_trajcount % world_size);
+        } else {
+            sample_count = sample_count / world_size;
+            statdist_trajcount = statdist_trajcount / world_size;
+        }
+
+        thread_elapsed_runtimes.resize(world_size);
+
+        // Get the name of the processor
+        char processor_name[MPI_MAX_PROCESSOR_NAME];
+        int name_len;
+        MPI_Get_processor_name(processor_name, &name_len);
+
+        std::cout << "Hello world from processor " << processor_name
+                << ", rank " << world_rank << " out of " << world_size << " processors. "
+                << "I will simulate " << sample_count << " out of " << global_sample_count << " simulations"
+                << std::endl;
+#endif
+    }
+
+    ~MetaEngine() {
+    }
+
+    /// Initializes the engine
+    static void init();
+
+    /// Calls \link init \endlink
+    static void loadUserFuncs(const char *module);
+
+    /// Determines the target node by random selection, weighted by the transition rate
+    /// @param _network a pointer to the network currently worked on
+    /// @param random_generator a pointer to the RG used
+    /// @param nodeTransitionRates the reference of the vector containing the nodes' transition rates
+    /// @param total_rate the sum of all the transtion rates
+    /// @returns the index of the destination node
+    NodeIndex getTargetNode(Network *_network, RandomGenerator *random_generator,
+                            const std::vector<double> &nodeTransitionRates, double total_rate) const;
+
+    /// Computes the entropy of the possible transitions from the current network state
+    /// @param _network a pointer to the network currently worked on
+    /// @param nodeTransitionRates a reference to the vector containing the nodes' transition rates
+    /// @param total_rate the sum of the transition rates
+    /// @returns a double representing local transition entropy
+    double computeTH(Network *_network, const std::vector<double> &nodeTransitionRates, double total_rate) const;
+
+    ///
+    /// @return the real time elapsed between the beginning and the end of the execution of the simulation's core
+    long long getElapsedCoreRunTime() const { return elapsed_core_runtime; }
+    ///
+    /// @return the CPU's time used by the program can be greater than \link getElapsedCoreRunTime \endlink because
+    /// CPU time is accumulated across thread
+    long long getUserCoreRunTime() const { return user_core_runtime; }
+
+    ///
+    /// @return the real time elapsed for the resolution of the simulation
+    long long getElapsedEpilogueRunTime() const { return elapsed_epilogue_runtime; }
+    ///
+    /// @return the CPU's time used by the program to compute the epilogue of a simulation
+    long long getUserEpilogueRunTime() const { return user_epilogue_runtime; }
+
+    ///
+    /// @return the real time elapsed for the statdist computation
+    long long getElapsedStatDistRunTime() const { return elapsed_statdist_runtime; }
+    ///
+    /// @return the CPU time used for the statdist (statistical distribution) computation
+    long long getUserStatDistRunTime() const { return user_statdist_runtime; }
+
+#ifdef MPI_COMPAT
+    ///
+    /// @return the ID of the processus MPI
+    int getWorldRank() const { return world_rank; }
+    ///
+    /// @return the total number of MPI processes currently running
+    int getWorldSize() const { return world_size; }
+    ///
+    /// @return CPU time used by the main computing phase for each MPI process
+    std::vector<long long> getUserCoreRuntimes() const { return user_core_runtimes; }
+    ///
+    /// @return real time elapsed for the main computing phase for each MPI processes
+    std::vector<long long> getElapsedCoreRuntimes() const { return elapsed_core_runtimes; }
+    ///
+    /// @return CPU time used for the final phase
+    std::vector<long long> getUserEpilogueRuntimes() const { return user_epilogue_runtimes; }
+    ///
+    /// @return real time elapsed for the final phase
+    std::vector<long long> getElapsedEpilogueRuntimes() const { return elapsed_epilogue_runtimes; }
+#endif
 };
 
 #endif

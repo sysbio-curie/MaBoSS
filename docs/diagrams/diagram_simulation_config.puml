@@ -1,0 +1,80 @@
+@startuml
+abstract "RandomGenerator" as C_0005626131955381280210
+abstract C_0005626131955381280210 {
++~RandomGenerator() : void
+..
+{abstract} +generate() = 0 : double
+{abstract} +generateUInt32() = 0 : unsigned int
+{static} +getGeneratedNumberCount() : size_t
+{abstract} +getName() const = 0 : std::string
+{static} #incrGeneratedNumberCount() : void
+{abstract} +isPseudoRandom() const = 0 : bool
+{static} +resetGeneratedNumberCount() : void
+{abstract} +setSeed(int seed) = 0 : void
+__
+}
+class "IStateGroup" as C_0002117097699807050349
+class C_0002117097699807050349 {
++IStateGroup(Network * network, std::vector<const Node *> * nodes, std::vector<ProbaIState *> * proba_istates) : void
++IStateGroup(Network * network, const Node * node) : void
++IStateGroup(Network * network, const Node * node, Expression * expr) : void
++IStateGroup(IStateGroup * obj, Network * network) : void
++~IStateGroup() : void
+..
+{static} +checkAndComplete(Network * network) : void
+{static} +display(Network * network, std::ostream & os) : void
++getNodes() : std::vector<const Node *> *
++getProbaIStates() : std::vector<ProbaIState *> *
++getProbaSum() const : double
++hasNode(const Node * node) : bool
+{static} +initStates(Network * network, NetworkState & initial_state, RandomGenerator * randgen) : void
++isRandom() const : bool
+{static} +removeNode(Network * network, const Node * node) : void
+{static} +reset(Network * network) : void
+{static} +setInitialState(Network * network, NetworkState * state) : void
+{static} +setNodeProba(Network * network, Node * node, double value) : void
+{static} +setStatesProbas(Network * network, std::vector<const Node *> * nodes, std::map<std::vector<bool>,double> & probas) : void
+__
+}
+class "RunConfig" as C_0005075511378526221526
+class C_0005075511378526221526 {
++RunConfig() : void
++RunConfig(const RunConfig & other) : void
++~RunConfig() : void
+..
++display(Network * network, time_t start_time, time_t end_time, std::ostream & os) const : void
++displayTrajectories() const : bool
++dump(Network * network, std::ostream & os, std::string version, bool header = true) const : void
++generateTemplate(Network * network, std::ostream & os, std::string version) const : void
++getCustomPopOutputExpression() const : const Expression *
++getDisplayTrajectories() const : bool
++getInitPop() const : unsigned int
++getMaxTime() const : double
++getPopBase() const : double
++getRandomGeneratorFactory() const : RandomGeneratorFactory *
++getSampleCount() const : unsigned int
++getSeedPseudoRandom() const : int
++getStatDistSimilarityCacheMaxSize() const : unsigned int
++getStatDistTrajCount() const : unsigned int
++getStatdistClusterThreshold() const : double
++getThreadCount() const : unsigned int
++getTimeTick() const : double
+{static} +getVerbose() : unsigned int
++hasCustomPopOutput() const : bool
++isDiscreteTime() const : bool
++parse(Network * network, const char * file = __null) : int
++parseExpression(Network * network, const char * expr) : int
++setCustomPopOutputExpression(Expression * expr) : void
++setParameter(const std::string & param, double value) : void
++setSeedPseudoRandom(int seed) : void
+{static} +setVerbose(unsigned int level) : void
++useGlibcRandGen() const : bool
++useMTRandGen() const : bool
++usePhysRandGen() const : bool
+__
+}
+C_0002117097699807050349 ..> C_0005626131955381280210
+
+'Generated with clang-uml, version 0.6.2-27-g4e76f03
+'LLVM version Ubuntu clang version 18.1.3 (1ubuntu1)
+@enduml

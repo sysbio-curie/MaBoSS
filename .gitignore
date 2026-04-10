@@ -11,3 +11,8 @@ engine/src/MaBoSS-server
 __pycache__
 *.pyc
 *~
+# adding after tests and documentation thing to not clutter
+*.csv
+engine/src/compile_commands.json
+# configuration file for the diagrams
+.clang-uml

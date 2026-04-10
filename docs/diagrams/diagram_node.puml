@@ -1,0 +1,771 @@
+@startuml
+abstract "RandomGenerator" as C_0005626131955381280210
+abstract C_0005626131955381280210 {
++~RandomGenerator() : void
+..
+{abstract} +generate() = 0 : double
+{abstract} +generateUInt32() = 0 : unsigned int
+{static} +getGeneratedNumberCount() : size_t
+{abstract} +getName() const = 0 : std::string
+{static} #incrGeneratedNumberCount() : void
+{abstract} +isPseudoRandom() const = 0 : bool
+{static} +resetGeneratedNumberCount() : void
+{abstract} +setSeed(int seed) = 0 : void
+__
+}
+class "Node" as C_0001746392397735786431
+class C_0001746392397735786431 {
++Node(const std::string & label, const std::string & description, NodeIndex index) : void
++~Node() : void
+..
++computeNodeState(NetworkState & network_state, NodeState & node_state) const : bool
++display(std::ostream & os) const : void
++generateLogicalExpression(LogicalExprGenContext & gen) const : void
++generateRawLogicalExpression() const : Expression *
++getAttributeExpression(const std::string & attr_name) const : const Expression *
++getAttributeExpressionMap() const : const std::map<std::string,const Expression *> &
++getAttributeString(const std::string & attr_name) const : std::string
++getAttributeStringMap() const : const std::map<std::string,std::string> &
++getDescription() const : const std::string &
++getIState(const Network * network, RandomGenerator * randgen) const : NodeState
++getIndex() const : NodeIndex
++getLabel() const : const std::string &
++getLogicalInputExpression() const : const Expression *
++getNodeBit() const : NetworkState_Impl
++getNodeState(const NetworkState & network_state) const : NodeState
++getRateDown(const NetworkState & network_state) const : double
++getRateDown(const NetworkState & network_state, const PopNetworkState & pop) const : double
++getRateDownExpression() const : const Expression *
++getRateUp(const NetworkState & network_state) const : double
++getRateUp(const NetworkState & network_state, const PopNetworkState & pop) const : double
++getRateUpExpression() const : const Expression *
++getReferenceState() const : NodeState
++getScheduledFlips() const : std::map<double,Expression *> *
++inGraph(bool _in_graph) : void
++inGraph() const : bool
+{static} +isAugment() : bool
++isInputNode() const : bool
++isInternal(bool _is_internal) : void
++isInternal() const : bool
+{static} +isOverride() : bool
++isReference() const : bool
++istateSetRandomly() const : bool
++makeMutable(Network * network) : void
++mutate(double value) : void
++reset() : void
++setAttributeExpression(const std::string & attr_name, const Expression * expr) : void
++setAttributeString(const std::string & attr_name, const std::string & str) : void
+{static} +setAugment(bool _augment) : void
++setDescription(const std::string & _description) : void
++setIState(NodeState _istate) : void
++setIndex(NodeIndex new_index) : void
++setLogicalInputExpression(const Expression * logicalInputExpr) : void
++setNodeState(NetworkState & network_state, NodeState state) : void
+{static} +setOverride(bool _override) : void
++setRateDownExpression(const Expression * expr) : void
++setRateUpExpression(const Expression * expr) : void
++setReference(bool _is_reference) : void
++setReferenceState(NodeState _referenceState) : void
++setScheduledFlips(std::map<double,Expression *> * _schedule) : void
++toString() const : std::string
+__
+}
+class "Network" as C_0000440164721711273067
+class C_0000440164721711273067 {
++Network() : void
++Network(const Network & network) : void
++~Network() : void
+..
++operator=(const Network & network) : Network &
+..
++cloneIStateGroup(std::vector<IStateGroup *> * _istate_group_list) : void
++compile(std::map<std::string,NodeIndex> * nodes_indexes = __null) : void
++defineNode(const std::string & label, const std::string & description = "") : Node *
++display(std::ostream & os) const : void
++displayHeader(std::ostream & os) const : void
++generateLogicalExpressions(std::ostream & os) const : void
++getIStateGroup() : std::vector<IStateGroup *> *
++getInputNodes() const : const std::vector<Node *> &
+{static} +getMaxNodeSize() : size_t
++getNode(const std::string & label) : Node *
++getNode(NodeIndex node_idx) : Node *
++getNodeCount() const : size_t
++getNodes() const : const std::vector<Node *> &
++getNonInputNodes() const : const std::vector<Node *> &
++getOrMakeNode(const std::string & label) : Node *
++getSymbolTable() : SymbolTable *
++initStates(NetworkState & initial_state, RandomGenerator * randgen) : void
++isNodeDefined(const std::string & identifier) : bool
++isPopNetwork() : bool
++parse(const char * file = __null, std::map<std::string,NodeIndex> * nodes_indexes = __null, bool is_temp_file = false, bool useSBMLNames = false) : int
++parseExpression(const char * content = __null, std::map<std::string,NodeIndex> * nodes_indexes = __null) : int
++parseSingleExpression(const char * content, std::map<std::string,NodeIndex> * nodes_indexes = __null) : Expression *
++removeLastNode(const std::string & identifier) : void
++resetNodeDefinition() : void
++setNodeAsDefined(const std::string & identifier) : void
++toString() const : std::string
+__
+}
+class "NetworkState" as C_0005946925854321740463
+class C_0005946925854321740463 {
++NetworkState(const NetworkState_Impl & _state) : void
++NetworkState(const NetworkState & _state) : void
++NetworkState() : void
+..
++operator=(const NetworkState & _state) : NetworkState &
+..
++operator&(const NetworkState & mask) const : NetworkState
+..
++applyMask(const NetworkState & mask, std::map<unsigned int,unsigned int> &) const : NetworkState
++computeNodeState(const Node * node, NodeState & node_state) : bool
++display(std::ostream & os, const Network * network) const : void
++displayJSON(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++displayOneLine(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++flipState(const Node * node) : void
++getName(const Network * network, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++getNodeState(const Node * node) const : NodeState
++getState() const : NetworkState_Impl
+{static} +getState(Node * node, const NetworkState_Impl & state) : NodeState
++hamming(Network * network, const NetworkState_Impl & state) const : unsigned int
++hamming(Network * network, const NetworkState & state) const : unsigned int
+{static} +isPopState() : bool
+{static} +nodeBit(NodeIndex node_index) : NetworkState_Impl
++reset() : void
++set() : void
++setNodeState(const Node * node, NodeState node_state) : void
+__
+}
+class "PopNetworkState" as C_0010329906065646037531
+class C_0010329906065646037531 {
++PopNetworkState() : void
++PopNetworkState(const PopNetworkState & p) : void
++PopNetworkState(std::map<NetworkState_Impl,unsigned int> mp) : void
++PopNetworkState(NetworkState_Impl state, unsigned int value) : void
+..
++operator=(const PopNetworkState & p) : PopNetworkState &
+..
++operator&(const NetworkState_Impl & mask) const : PopNetworkState
++operator&(const NetworkState & mask) const : PopNetworkState
++operator<(const PopNetworkState & pop_state) const : bool
++operator==(const PopNetworkState & pop_state) const : bool
+..
++addStatePop(const NetworkState_Impl & state, unsigned int pop) : void
++applyMask(const PopNetworkState & mask, std::map<unsigned int,unsigned int> & scale) const : PopNetworkState
++clear() : void
++compute_hash() const : size_t
++count(Expression * expr) const : unsigned int
++decr(const NetworkState & net_state) : void
++displayJSON(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++displayOneLine(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++exists(const NetworkState & net_state) const : bool
++getHash() const : size_t
++getMap() const : const std::map<NetworkState_Impl,unsigned int> &
++getName(const Network * network, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++hamming(Network * network, const NetworkState & state) const : unsigned int
++incr(const NetworkState & net_state) : void
+{static} +isPopState() : bool
++set() : void
+__
+}
+class "ArgumentList" as C_0000873079093453539291
+class C_0000873079093453539291 {
++ArgumentList() : void
++~ArgumentList() : void
+..
++clone() const : ArgumentList *
++display(std::ostream & os) const : void
++getExpressionList() const : const std::vector<Expression *> &
++getExpressionListCount() const : size_t
++hasCycle(Node * node) const : bool
++isConstantExpression() const : bool
++push_back(Expression * expr) : void
+__
+}
+abstract "Function" as C_0000450244609230966954
+abstract C_0000450244609230966954 {
+#Function(const std::string & funname, unsigned int min_args, unsigned int max_args = ~0U) : void
++~Function() : void
+..
++check(ArgumentList * arg_list) : void
+{static} +destroyFuncMap() : void
+{static} +displayFunctionDescriptions(std::ostream & os) : void
+{abstract} +eval(const Node * this_node, const NetworkState & network_state, ArgumentList * arg_list) = 0 : double
+{abstract} +eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop, ArgumentList * arg_list) = 0 : double
+{abstract} +getDescription() const = 0 : std::string
++getFunName() const : const std::string &
+{static} +getFuncMap() : std::map<std::string,Function *> *
+{static} +getFunction(const std::string & funname) : Function *
++getMaxArgs() const : unsigned int
++getMinArgs() const : unsigned int
++isDeterministic() const : bool
+{static} +setFuncMap(std::map<std::string,Function *> * _func_map) : void
+__
+}
+class "LogicalExprGenContext" as C_0003960784007904338001
+class C_0003960784007904338001 {
++LogicalExprGenContext(const Network * network, const Node * node, std::ostream & os) : void
+..
++decrLevel() : void
++getLevel() const : unsigned int
++getNetwork() const : const Network *
++getNode() : const Node *
++getOStream() const : std::ostream &
++incrLevel() : void
+__
+}
+abstract "Expression" as C_0003405348299019970051
+abstract C_0003405348299019970051 {
++~Expression() : void
+..
++asNotLogicalExpression() const : const NotLogicalExpression *
+{abstract} +clone() const = 0 : Expression *
++cloneAndShrink(bool &) const : Expression *
+{static} +cloneAndShrinkRecursive(Expression * expr) : Expression *
+{abstract} +display(std::ostream & os) const = 0 : void
+{abstract} +eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop_state) const = 0 : double
++eval(const NetworkState &, double) : double
+{abstract} +eval(const Node * this_node, const NetworkState & network_state) const = 0 : double
++evalIfConstant(double & value) const : bool
++evalIfConstant(bool & value) const : bool
+{abstract} +generateLogicalExpression(LogicalExprGenContext & genctx) const = 0 : void
++generationWillAddParenthesis() const : bool
++getNodes() const : std::vector<Node *>
+{abstract} +hasCycle(Node * node) const = 0 : bool
++isConstantExpression() const : bool
++isLogicalExpression() const : bool
++toString() const : std::string
+__
+}
+class "TimeExpression" as C_0001500605682630053629
+class C_0001500605682630053629 {
++TimeExpression() : void
++~TimeExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState &) const : double
++eval(const Node *, const NetworkState &, const PopNetworkState &) const : double
++eval(const NetworkState &, double time) : double
++generateLogicalExpression(LogicalExprGenContext &) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "NodeExpression" as C_0015869515423628989900
+class C_0015869515423628989900 {
++NodeExpression(Node * node) : void
++~NodeExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState & network_state) const : double
++eval(const Node *, const NetworkState & network_state, const PopNetworkState &) const : double
++eval(const NetworkState & network_state, double) : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node * _node) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "StateExpression" as C_0015816652914663082089
+class C_0015816652914663082089 {
++StateExpression(const NetworkState state, Network * network) : void
++~StateExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState & network_state) const : double
++eval(const Node *, const NetworkState & network_state, const PopNetworkState &) const : double
++eval(const NetworkState & network_state, double) : double
++generateLogicalExpression(LogicalExprGenContext &) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "PopExpression" as C_0003626126841400859894
+class C_0003626126841400859894 {
++PopExpression(Expression * expr) : void
++~PopExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState &) const : double
++eval(const Node *, const NetworkState &, const PopNetworkState & pop_state) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "BinaryExpression" as C_0015488780215229289052
+class C_0015488780215229289052 {
++BinaryExpression(Expression * left, Expression * right) : void
++~BinaryExpression() : void
+..
++getNodes() const : std::vector<Node *>
++hasCycle(Node * node) const : bool
++isConstantExpression() const : bool
+__
+#left : Expression *
+#right : Expression *
+}
+class "MulExpression" as C_0010550103828625666104
+class C_0010550103828625666104 {
++MulExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
+__
+}
+class "DivExpression" as C_0006089264005728021275
+class C_0006089264005728021275 {
++DivExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
+__
+}
+class "AddExpression" as C_0009077951382849931136
+class C_0009077951382849931136 {
++AddExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
+__
+}
+class "SubExpression" as C_0012745690858256117011
+class C_0012745690858256117011 {
++SubExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
+__
+}
+class "EqualExpression" as C_0001353485101224665557
+class C_0001353485101224665557 {
++EqualExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "NotEqualExpression" as C_0004209239346404215467
+class C_0004209239346404215467 {
++NotEqualExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "LetterExpression" as C_0012757212243241397651
+class C_0012757212243241397651 {
++LetterExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "LetterOrEqualExpression" as C_0002155901702529550669
+class C_0002155901702529550669 {
++LetterOrEqualExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "GreaterExpression" as C_0006692276226415338167
+class C_0006692276226415338167 {
++GreaterExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "GreaterOrEqualExpression" as C_0001067068669464657506
+class C_0001067068669464657506 {
++GreaterOrEqualExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "CondExpression" as C_0007627525687761873824
+class C_0007627525687761873824 {
++CondExpression(Expression * cond_expr, Expression * true_expr, Expression * false_expr) : void
++~CondExpression() : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node * node) const : bool
++isConstantExpression() const : bool
++isLogicalExpression() const : bool
+__
+}
+class "ConstantExpression" as C_0007401813206660133334
+class C_0007401813206660133334 {
++ConstantExpression(double value) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState &) const : double
++eval(const Node *, const NetworkState &, const PopNetworkState &) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isConstantExpression() const : bool
++isLogicalExpression() const : bool
+__
+}
+class "SymbolExpression" as C_0009340387114483944533
+class C_0009340387114483944533 {
++SymbolExpression(SymbolTable * symbol_table, const Symbol * symbol) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState &) const : double
++eval(const Node *, const NetworkState &, const PopNetworkState &) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isConstantExpression() const : bool
++unset() : void
+__
+}
+class "AliasExpression" as C_0003269693706308946122
+class C_0003269693706308946122 {
++AliasExpression(const std::string & identifier) : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++hasCycle(Node *) const : bool
+__
+}
+class "OrLogicalExpression" as C_0003703136304236631362
+class C_0003703136304236631362 {
++OrLogicalExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++generationWillAddParenthesis() const : bool
++isLogicalExpression() const : bool
+__
+}
+class "AndLogicalExpression" as C_0011609969941426383556
+class C_0011609969941426383556 {
++AndLogicalExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++eval(const NetworkState & network_state, double time) : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++generationWillAddParenthesis() const : bool
++isLogicalExpression() const : bool
+__
+}
+class "XorLogicalExpression" as C_0016162985089999402963
+class C_0016162985089999402963 {
++XorLogicalExpression(Expression * left, Expression * right) : void
+..
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++isLogicalExpression() const : bool
+__
+}
+class "NotLogicalExpression" as C_0004238914052871496727
+class C_0004238914052871496727 {
++NotLogicalExpression(Expression * expr) : void
++~NotLogicalExpression() : void
+..
++asNotLogicalExpression() const : const NotLogicalExpression *
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++eval(const NetworkState & network_state, double time) : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++hasCycle(Node * node) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "ParenthesisExpression" as C_0000306452789979709646
+class C_0000306452789979709646 {
++ParenthesisExpression(Expression * expr) : void
++~ParenthesisExpression() : void
+..
++asNotLogicalExpression() const : const NotLogicalExpression *
++clone() const : Expression *
++cloneAndShrink(bool & shrinked) const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++generationWillAddParenthesis() const : bool
++getNodes() const : std::vector<Node *>
++hasCycle(Node * node) const : bool
++isConstantExpression() const : bool
++isLogicalExpression() const : bool
+__
+}
+class "FuncCallExpression" as C_0017948693117711639009
+class C_0017948693117711639009 {
++FuncCallExpression(const std::string & funname, ArgumentList * arg_list) : void
++~FuncCallExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node * this_node, const NetworkState & network_state) const : double
++eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop) const : double
++generateLogicalExpression(LogicalExprGenContext & genctx) const : void
++hasCycle(Node * node) const : bool
++isConstantExpression() const : bool
+__
+}
+C_0001746392397735786431 ..> C_0000440164721711273067
+C_0001746392397735786431 ..> C_0005626131955381280210
+C_0001746392397735786431 ..> C_0005946925854321740463
+C_0001746392397735786431 ..> C_0010329906065646037531
+C_0001746392397735786431 ..> C_0003960784007904338001
+C_0001746392397735786431 --> C_0003405348299019970051 : -logicalInputExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -rateUpExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -rateDownExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -attr_expr_map
+C_0001746392397735786431 --> C_0003405348299019970051 : -schedule
+C_0000440164721711273067 ..> C_0003405348299019970051
+C_0000440164721711273067 ..> C_0005946925854321740463
+C_0000440164721711273067 ..> C_0005626131955381280210
+C_0000440164721711273067 --> C_0001746392397735786431 : -node_map
+C_0000440164721711273067 --> C_0001746392397735786431 : -input_nodes
+C_0000440164721711273067 --> C_0001746392397735786431 : -non_input_nodes
+C_0000440164721711273067 --> C_0001746392397735786431 : -nodes
+C_0005946925854321740463 ..> C_0001746392397735786431
+C_0005946925854321740463 ..> C_0000440164721711273067
+C_0010329906065646037531 ..> C_0005946925854321740463
+C_0010329906065646037531 ..> C_0003405348299019970051
+C_0010329906065646037531 ..> C_0000440164721711273067
+C_0000873079093453539291 ..> C_0001746392397735786431
+C_0000873079093453539291 --> C_0003405348299019970051 : -expr_v
+C_0000450244609230966954 ..> C_0000873079093453539291
+C_0000450244609230966954 ..> C_0001746392397735786431
+C_0000450244609230966954 ..> C_0005946925854321740463
+C_0000450244609230966954 ..> C_0010329906065646037531
+C_0003960784007904338001 --> C_0000440164721711273067 : -network
+C_0003960784007904338001 --> C_0001746392397735786431 : -node
+C_0003405348299019970051 ..> C_0001746392397735786431
+C_0003405348299019970051 ..> C_0005946925854321740463
+C_0003405348299019970051 ..> C_0010329906065646037531
+C_0003405348299019970051 ..> C_0003960784007904338001
+C_0003405348299019970051 ..> C_0004238914052871496727
+C_0001500605682630053629 ..> C_0001746392397735786431
+C_0001500605682630053629 ..> C_0005946925854321740463
+C_0001500605682630053629 ..> C_0010329906065646037531
+C_0001500605682630053629 ..> C_0003960784007904338001
+C_0003405348299019970051 <|-- C_0001500605682630053629
+C_0015869515423628989900 ..> C_0005946925854321740463
+C_0015869515423628989900 ..> C_0010329906065646037531
+C_0015869515423628989900 ..> C_0003960784007904338001
+C_0015869515423628989900 --> C_0001746392397735786431 : -node
+C_0003405348299019970051 <|-- C_0015869515423628989900
+C_0015816652914663082089 ..> C_0001746392397735786431
+C_0015816652914663082089 ..> C_0010329906065646037531
+C_0015816652914663082089 ..> C_0003960784007904338001
+C_0015816652914663082089 o-- C_0005946925854321740463 : -state
+C_0015816652914663082089 --> C_0000440164721711273067 : -network
+C_0003405348299019970051 <|-- C_0015816652914663082089
+C_0003626126841400859894 ..> C_0001746392397735786431
+C_0003626126841400859894 ..> C_0005946925854321740463
+C_0003626126841400859894 ..> C_0010329906065646037531
+C_0003626126841400859894 ..> C_0003960784007904338001
+C_0003626126841400859894 --> C_0003405348299019970051 : -expr
+C_0003405348299019970051 <|-- C_0003626126841400859894
+C_0015488780215229289052 ..> C_0001746392397735786431
+C_0015488780215229289052 --> C_0003405348299019970051 : #left
+C_0015488780215229289052 --> C_0003405348299019970051 : #right
+C_0003405348299019970051 <|-- C_0015488780215229289052
+C_0010550103828625666104 ..> C_0003405348299019970051
+C_0010550103828625666104 ..> C_0001746392397735786431
+C_0010550103828625666104 ..> C_0005946925854321740463
+C_0010550103828625666104 ..> C_0010329906065646037531
+C_0010550103828625666104 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0010550103828625666104
+C_0006089264005728021275 ..> C_0003405348299019970051
+C_0006089264005728021275 ..> C_0001746392397735786431
+C_0006089264005728021275 ..> C_0005946925854321740463
+C_0006089264005728021275 ..> C_0010329906065646037531
+C_0006089264005728021275 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0006089264005728021275
+C_0009077951382849931136 ..> C_0003405348299019970051
+C_0009077951382849931136 ..> C_0001746392397735786431
+C_0009077951382849931136 ..> C_0005946925854321740463
+C_0009077951382849931136 ..> C_0010329906065646037531
+C_0009077951382849931136 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0009077951382849931136
+C_0012745690858256117011 ..> C_0003405348299019970051
+C_0012745690858256117011 ..> C_0001746392397735786431
+C_0012745690858256117011 ..> C_0005946925854321740463
+C_0012745690858256117011 ..> C_0010329906065646037531
+C_0012745690858256117011 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0012745690858256117011
+C_0001353485101224665557 ..> C_0003405348299019970051
+C_0001353485101224665557 ..> C_0001746392397735786431
+C_0001353485101224665557 ..> C_0005946925854321740463
+C_0001353485101224665557 ..> C_0010329906065646037531
+C_0001353485101224665557 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0001353485101224665557
+C_0004209239346404215467 ..> C_0003405348299019970051
+C_0004209239346404215467 ..> C_0001746392397735786431
+C_0004209239346404215467 ..> C_0005946925854321740463
+C_0004209239346404215467 ..> C_0010329906065646037531
+C_0004209239346404215467 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0004209239346404215467
+C_0012757212243241397651 ..> C_0003405348299019970051
+C_0012757212243241397651 ..> C_0001746392397735786431
+C_0012757212243241397651 ..> C_0005946925854321740463
+C_0012757212243241397651 ..> C_0010329906065646037531
+C_0012757212243241397651 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0012757212243241397651
+C_0002155901702529550669 ..> C_0003405348299019970051
+C_0002155901702529550669 ..> C_0001746392397735786431
+C_0002155901702529550669 ..> C_0005946925854321740463
+C_0002155901702529550669 ..> C_0010329906065646037531
+C_0002155901702529550669 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0002155901702529550669
+C_0006692276226415338167 ..> C_0003405348299019970051
+C_0006692276226415338167 ..> C_0001746392397735786431
+C_0006692276226415338167 ..> C_0005946925854321740463
+C_0006692276226415338167 ..> C_0010329906065646037531
+C_0006692276226415338167 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0006692276226415338167
+C_0001067068669464657506 ..> C_0003405348299019970051
+C_0001067068669464657506 ..> C_0001746392397735786431
+C_0001067068669464657506 ..> C_0005946925854321740463
+C_0001067068669464657506 ..> C_0010329906065646037531
+C_0001067068669464657506 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0001067068669464657506
+C_0007627525687761873824 ..> C_0001746392397735786431
+C_0007627525687761873824 ..> C_0005946925854321740463
+C_0007627525687761873824 ..> C_0010329906065646037531
+C_0007627525687761873824 ..> C_0003960784007904338001
+C_0007627525687761873824 --> C_0003405348299019970051 : -cond_expr
+C_0007627525687761873824 --> C_0003405348299019970051 : -true_expr
+C_0007627525687761873824 --> C_0003405348299019970051 : -false_expr
+C_0003405348299019970051 <|-- C_0007627525687761873824
+C_0007401813206660133334 ..> C_0001746392397735786431
+C_0007401813206660133334 ..> C_0005946925854321740463
+C_0007401813206660133334 ..> C_0010329906065646037531
+C_0007401813206660133334 ..> C_0003960784007904338001
+C_0003405348299019970051 <|-- C_0007401813206660133334
+C_0009340387114483944533 ..> C_0001746392397735786431
+C_0009340387114483944533 ..> C_0005946925854321740463
+C_0009340387114483944533 ..> C_0010329906065646037531
+C_0009340387114483944533 ..> C_0003960784007904338001
+C_0003405348299019970051 <|-- C_0009340387114483944533
+C_0003269693706308946122 ..> C_0001746392397735786431
+C_0003269693706308946122 ..> C_0005946925854321740463
+C_0003269693706308946122 ..> C_0010329906065646037531
+C_0003269693706308946122 ..> C_0003960784007904338001
+C_0003269693706308946122 --> C_0003405348299019970051 : -alias_expr
+C_0003405348299019970051 <|-- C_0003269693706308946122
+C_0003703136304236631362 ..> C_0003405348299019970051
+C_0003703136304236631362 ..> C_0001746392397735786431
+C_0003703136304236631362 ..> C_0005946925854321740463
+C_0003703136304236631362 ..> C_0010329906065646037531
+C_0003703136304236631362 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0003703136304236631362
+C_0011609969941426383556 ..> C_0003405348299019970051
+C_0011609969941426383556 ..> C_0001746392397735786431
+C_0011609969941426383556 ..> C_0005946925854321740463
+C_0011609969941426383556 ..> C_0010329906065646037531
+C_0011609969941426383556 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0011609969941426383556
+C_0016162985089999402963 ..> C_0003405348299019970051
+C_0016162985089999402963 ..> C_0001746392397735786431
+C_0016162985089999402963 ..> C_0005946925854321740463
+C_0016162985089999402963 ..> C_0010329906065646037531
+C_0016162985089999402963 ..> C_0003960784007904338001
+C_0015488780215229289052 <|-- C_0016162985089999402963
+C_0004238914052871496727 ..> C_0001746392397735786431
+C_0004238914052871496727 ..> C_0005946925854321740463
+C_0004238914052871496727 ..> C_0010329906065646037531
+C_0004238914052871496727 ..> C_0003960784007904338001
+C_0004238914052871496727 --> C_0003405348299019970051 : -expr
+C_0003405348299019970051 <|-- C_0004238914052871496727
+C_0000306452789979709646 ..> C_0001746392397735786431
+C_0000306452789979709646 ..> C_0005946925854321740463
+C_0000306452789979709646 ..> C_0010329906065646037531
+C_0000306452789979709646 ..> C_0004238914052871496727
+C_0000306452789979709646 ..> C_0003960784007904338001
+C_0000306452789979709646 --> C_0003405348299019970051 : -expr
+C_0003405348299019970051 <|-- C_0000306452789979709646
+C_0017948693117711639009 ..> C_0001746392397735786431
+C_0017948693117711639009 ..> C_0005946925854321740463
+C_0017948693117711639009 ..> C_0010329906065646037531
+C_0017948693117711639009 ..> C_0003960784007904338001
+C_0017948693117711639009 --> C_0000873079093453539291 : -arg_list
+C_0017948693117711639009 --> C_0000450244609230966954 : -function
+C_0003405348299019970051 <|-- C_0017948693117711639009
+
+'Generated with clang-uml, version 0.6.2-27-g4e76f03
+'LLVM version Ubuntu clang version 18.1.3 (1ubuntu1)
+@enduml

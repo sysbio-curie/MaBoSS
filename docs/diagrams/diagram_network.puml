@@ -1,0 +1,372 @@
+@startuml
+abstract "RandomGenerator" as C_0005626131955381280210
+abstract C_0005626131955381280210 {
++~RandomGenerator() : void
+..
+{abstract} +generate() = 0 : double
+{abstract} +generateUInt32() = 0 : unsigned int
+{static} +getGeneratedNumberCount() : size_t
+{abstract} +getName() const = 0 : std::string
+{static} #incrGeneratedNumberCount() : void
+{abstract} +isPseudoRandom() const = 0 : bool
+{static} +resetGeneratedNumberCount() : void
+{abstract} +setSeed(int seed) = 0 : void
+__
+}
+class "Node" as C_0001746392397735786431
+class C_0001746392397735786431 {
++Node(const std::string & label, const std::string & description, NodeIndex index) : void
++~Node() : void
+..
++computeNodeState(NetworkState & network_state, NodeState & node_state) const : bool
++display(std::ostream & os) const : void
++generateLogicalExpression(LogicalExprGenContext & gen) const : void
++generateRawLogicalExpression() const : Expression *
++getAttributeExpression(const std::string & attr_name) const : const Expression *
++getAttributeExpressionMap() const : const std::map<std::string,const Expression *> &
++getAttributeString(const std::string & attr_name) const : std::string
++getAttributeStringMap() const : const std::map<std::string,std::string> &
++getDescription() const : const std::string &
++getIState(const Network * network, RandomGenerator * randgen) const : NodeState
++getIndex() const : NodeIndex
++getLabel() const : const std::string &
++getLogicalInputExpression() const : const Expression *
++getNodeBit() const : NetworkState_Impl
++getNodeState(const NetworkState & network_state) const : NodeState
++getRateDown(const NetworkState & network_state) const : double
++getRateDown(const NetworkState & network_state, const PopNetworkState & pop) const : double
++getRateDownExpression() const : const Expression *
++getRateUp(const NetworkState & network_state) const : double
++getRateUp(const NetworkState & network_state, const PopNetworkState & pop) const : double
++getRateUpExpression() const : const Expression *
++getReferenceState() const : NodeState
++getScheduledFlips() const : std::map<double,Expression *> *
++inGraph(bool _in_graph) : void
++inGraph() const : bool
+{static} +isAugment() : bool
++isInputNode() const : bool
++isInternal(bool _is_internal) : void
++isInternal() const : bool
+{static} +isOverride() : bool
++isReference() const : bool
++istateSetRandomly() const : bool
++makeMutable(Network * network) : void
++mutate(double value) : void
++reset() : void
++setAttributeExpression(const std::string & attr_name, const Expression * expr) : void
++setAttributeString(const std::string & attr_name, const std::string & str) : void
+{static} +setAugment(bool _augment) : void
++setDescription(const std::string & _description) : void
++setIState(NodeState _istate) : void
++setIndex(NodeIndex new_index) : void
++setLogicalInputExpression(const Expression * logicalInputExpr) : void
++setNodeState(NetworkState & network_state, NodeState state) : void
+{static} +setOverride(bool _override) : void
++setRateDownExpression(const Expression * expr) : void
++setRateUpExpression(const Expression * expr) : void
++setReference(bool _is_reference) : void
++setReferenceState(NodeState _referenceState) : void
++setScheduledFlips(std::map<double,Expression *> * _schedule) : void
++toString() const : std::string
+__
+}
+class "SymbolTable" as C_0004181868659518474874
+class C_0004181868659518474874 {
++SymbolTable() : void
++~SymbolTable() : void
+..
++addSymbolExpression(SymbolExpression * exp) : void
++checkSymbols() const : void
++defineUndefinedSymbols() : void
++display(std::ostream & os, bool check = true) const : void
++getOrMakeSymbol(const std::string & symb) : const Symbol *
++getSymbol(const std::string & symb) : const Symbol *
++getSymbolCount() const : size_t
++getSymbolValue(const Symbol * symbol, bool check = true) const : double
++getSymbolsNames() const : std::vector<std::string>
++overrideSymbolValue(const Symbol * symbol, double value) : void
++reset() : void
++setSymbolValue(const Symbol * symbol, double value) : void
++unsetSymbolExpressions() : void
+__
+}
+class "Network" as C_0000440164721711273067
+class C_0000440164721711273067 {
++Network() : void
++Network(const Network & network) : void
++~Network() : void
+..
++operator=(const Network & network) : Network &
+..
++cloneIStateGroup(std::vector<IStateGroup *> * _istate_group_list) : void
++compile(std::map<std::string,NodeIndex> * nodes_indexes = __null) : void
++defineNode(const std::string & label, const std::string & description = "") : Node *
++display(std::ostream & os) const : void
++displayHeader(std::ostream & os) const : void
++generateLogicalExpressions(std::ostream & os) const : void
++getIStateGroup() : std::vector<IStateGroup *> *
++getInputNodes() const : const std::vector<Node *> &
+{static} +getMaxNodeSize() : size_t
++getNode(const std::string & label) : Node *
++getNode(NodeIndex node_idx) : Node *
++getNodeCount() const : size_t
++getNodes() const : const std::vector<Node *> &
++getNonInputNodes() const : const std::vector<Node *> &
++getOrMakeNode(const std::string & label) : Node *
++getSymbolTable() : SymbolTable *
++initStates(NetworkState & initial_state, RandomGenerator * randgen) : void
++isNodeDefined(const std::string & identifier) : bool
++isPopNetwork() : bool
++parse(const char * file = __null, std::map<std::string,NodeIndex> * nodes_indexes = __null, bool is_temp_file = false, bool useSBMLNames = false) : int
++parseExpression(const char * content = __null, std::map<std::string,NodeIndex> * nodes_indexes = __null) : int
++parseSingleExpression(const char * content, std::map<std::string,NodeIndex> * nodes_indexes = __null) : Expression *
++removeLastNode(const std::string & identifier) : void
++resetNodeDefinition() : void
++setNodeAsDefined(const std::string & identifier) : void
++toString() const : std::string
+__
+}
+class "NetworkState" as C_0005946925854321740463
+class C_0005946925854321740463 {
++NetworkState(const NetworkState_Impl & _state) : void
++NetworkState(const NetworkState & _state) : void
++NetworkState() : void
+..
++operator=(const NetworkState & _state) : NetworkState &
+..
++operator&(const NetworkState & mask) const : NetworkState
+..
++applyMask(const NetworkState & mask, std::map<unsigned int,unsigned int> &) const : NetworkState
++computeNodeState(const Node * node, NodeState & node_state) : bool
++display(std::ostream & os, const Network * network) const : void
++displayJSON(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++displayOneLine(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++flipState(const Node * node) : void
++getName(const Network * network, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++getNodeState(const Node * node) const : NodeState
++getState() const : NetworkState_Impl
+{static} +getState(Node * node, const NetworkState_Impl & state) : NodeState
++hamming(Network * network, const NetworkState_Impl & state) const : unsigned int
++hamming(Network * network, const NetworkState & state) const : unsigned int
+{static} +isPopState() : bool
+{static} +nodeBit(NodeIndex node_index) : NetworkState_Impl
++reset() : void
++set() : void
++setNodeState(const Node * node, NodeState node_state) : void
+__
+}
+class "PopNetworkState" as C_0010329906065646037531
+class C_0010329906065646037531 {
++PopNetworkState() : void
++PopNetworkState(const PopNetworkState & p) : void
++PopNetworkState(std::map<NetworkState_Impl,unsigned int> mp) : void
++PopNetworkState(NetworkState_Impl state, unsigned int value) : void
+..
++operator=(const PopNetworkState & p) : PopNetworkState &
+..
++operator&(const NetworkState_Impl & mask) const : PopNetworkState
++operator&(const NetworkState & mask) const : PopNetworkState
++operator<(const PopNetworkState & pop_state) const : bool
++operator==(const PopNetworkState & pop_state) const : bool
+..
++addStatePop(const NetworkState_Impl & state, unsigned int pop) : void
++applyMask(const PopNetworkState & mask, std::map<unsigned int,unsigned int> & scale) const : PopNetworkState
++clear() : void
++compute_hash() const : size_t
++count(Expression * expr) const : unsigned int
++decr(const NetworkState & net_state) : void
++displayJSON(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++displayOneLine(std::ostream & os, const Network * network, const std::string & sep = " -- ") const : void
++exists(const NetworkState & net_state) const : bool
++getHash() const : size_t
++getMap() const : const std::map<NetworkState_Impl,unsigned int> &
++getName(const Network * network, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++hamming(Network * network, const NetworkState & state) const : unsigned int
++incr(const NetworkState & net_state) : void
+{static} +isPopState() : bool
++set() : void
+__
+}
+class "PopSize" as C_0008607605555892509317
+class C_0008607605555892509317 {
++PopSize(unsigned int _size) : void
++PopSize() : void
++PopSize(const PopSize & p, int) : void
+..
++operator&(const NetworkState_Impl &) const : PopSize
++operator&(const NetworkState &) const : PopSize
++operator<(const PopSize & pop_size) const : bool
++operator==(const PopSize & pop_size) const : bool
+..
++applyMask(const PopSize &, std::map<unsigned int,unsigned int> &) const : PopSize
++displayOneLine(std::ostream & os, Network * network, const std::string & sep = " -- ") const : void
++getName(Network *, const std::string & sep = " -- ") const : std::string
++getNetworkStates() const : std::set<NetworkState_Impl> *
++getSize() const : unsigned int
++hamming(Network *, const NetworkState &) const : int
+{static} +isPopState() : bool
++set() : void
+__
+}
+class "LogicalExprGenContext" as C_0003960784007904338001
+class C_0003960784007904338001 {
++LogicalExprGenContext(const Network * network, const Node * node, std::ostream & os) : void
+..
++decrLevel() : void
++getLevel() const : unsigned int
++getNetwork() const : const Network *
++getNode() : const Node *
++getOStream() const : std::ostream &
++incrLevel() : void
+__
+}
+abstract "Expression" as C_0003405348299019970051
+abstract C_0003405348299019970051 {
++~Expression() : void
+..
++asNotLogicalExpression() const : const NotLogicalExpression *
+{abstract} +clone() const = 0 : Expression *
++cloneAndShrink(bool &) const : Expression *
+{static} +cloneAndShrinkRecursive(Expression * expr) : Expression *
+{abstract} +display(std::ostream & os) const = 0 : void
+{abstract} +eval(const Node * this_node, const NetworkState & network_state, const PopNetworkState & pop_state) const = 0 : double
++eval(const NetworkState &, double) : double
+{abstract} +eval(const Node * this_node, const NetworkState & network_state) const = 0 : double
++evalIfConstant(double & value) const : bool
++evalIfConstant(bool & value) const : bool
+{abstract} +generateLogicalExpression(LogicalExprGenContext & genctx) const = 0 : void
++generationWillAddParenthesis() const : bool
++getNodes() const : std::vector<Node *>
+{abstract} +hasCycle(Node * node) const = 0 : bool
++isConstantExpression() const : bool
++isLogicalExpression() const : bool
++toString() const : std::string
+__
+}
+class "StateExpression" as C_0015816652914663082089
+class C_0015816652914663082089 {
++StateExpression(const NetworkState state, Network * network) : void
++~StateExpression() : void
+..
++clone() const : Expression *
++display(std::ostream & os) const : void
++eval(const Node *, const NetworkState & network_state) const : double
++eval(const Node *, const NetworkState & network_state, const PopNetworkState &) const : double
++eval(const NetworkState & network_state, double) : double
++generateLogicalExpression(LogicalExprGenContext &) const : void
++getNodes() const : std::vector<Node *>
++hasCycle(Node *) const : bool
++isLogicalExpression() const : bool
+__
+}
+class "IStateGroup" as C_0002117097699807050349
+class C_0002117097699807050349 {
++IStateGroup(Network * network, std::vector<const Node *> * nodes, std::vector<ProbaIState *> * proba_istates) : void
++IStateGroup(Network * network, const Node * node) : void
++IStateGroup(Network * network, const Node * node, Expression * expr) : void
++IStateGroup(IStateGroup * obj, Network * network) : void
++~IStateGroup() : void
+..
+{static} +checkAndComplete(Network * network) : void
+{static} +display(Network * network, std::ostream & os) : void
++getNodes() : std::vector<const Node *> *
++getProbaIStates() : std::vector<ProbaIState *> *
++getProbaSum() const : double
++hasNode(const Node * node) : bool
+{static} +initStates(Network * network, NetworkState & initial_state, RandomGenerator * randgen) : void
++isRandom() const : bool
+{static} +removeNode(Network * network, const Node * node) : void
+{static} +reset(Network * network) : void
+{static} +setInitialState(Network * network, NetworkState * state) : void
+{static} +setNodeProba(Network * network, Node * node, double value) : void
+{static} +setStatesProbas(Network * network, std::vector<const Node *> * nodes, std::map<std::vector<bool>,double> & probas) : void
+__
+}
+class "PopNetwork" as C_0004725310948239857365
+class C_0004725310948239857365 {
++PopNetwork() : void
++PopNetwork(const PopNetwork & network) : void
++~PopNetwork() : void
+..
++operator=(const PopNetwork & network) : PopNetwork &
+..
++addDivisionRule(DivisionRule * rule) : void
++clearPopIstates() : void
++display(std::ostream & os) const : void
++getDeathRate() const : const Expression *
++getDeathRate(const NetworkState & state, const PopNetworkState & pop) const : double
++getDivisionRules() const : const std::vector<DivisionRule *>
++getPopIStateGroup() const : std::vector<PopIStateGroup *> *
++initPopStates(PopNetworkState & initial_pop_state, RandomGenerator * randgen, unsigned int pop) : void
++isPopNetwork() : bool
++parse(const char * file = __null, std::map<std::string,NodeIndex> * nodes_indexes = __null, bool is_temp_file = false) : int
++parseExpression(const char * content, std::map<std::string,NodeIndex> * nodes_indexes = __null) : int
++parseSingleExpression(const char * content, std::map<std::string,NodeIndex> * nodes_indexes = __null) : Expression *
++removeDivisionRule(size_t index) : void
++setDeathRate(Expression * expr) : void
++toString() const : std::string
+__
++deathRate : Expression *
++divisionRules : std::vector<DivisionRule *>
++pop_istate_group_list : std::vector<PopIStateGroup *> *
+}
+class "NodeDecl" as C_0012976580975460936072
+class C_0012976580975460936072 {
++NodeDecl(const std::string & identifier, std::vector<NodeDeclItem *> * node_decl_item_list, Network * _network = __null) : void
+__
+}
+C_0001746392397735786431 ..> C_0000440164721711273067
+C_0001746392397735786431 ..> C_0005626131955381280210
+C_0001746392397735786431 ..> C_0005946925854321740463
+C_0001746392397735786431 ..> C_0010329906065646037531
+C_0001746392397735786431 ..> C_0003960784007904338001
+C_0001746392397735786431 --> C_0003405348299019970051 : -logicalInputExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -rateUpExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -rateDownExpr
+C_0001746392397735786431 --> C_0003405348299019970051 : -attr_expr_map
+C_0001746392397735786431 --> C_0003405348299019970051 : -schedule
+C_0000440164721711273067 ..> C_0003405348299019970051
+C_0000440164721711273067 ..> C_0005946925854321740463
+C_0000440164721711273067 ..> C_0005626131955381280210
+C_0000440164721711273067 --> C_0001746392397735786431 : -node_map
+C_0000440164721711273067 --> C_0001746392397735786431 : -input_nodes
+C_0000440164721711273067 --> C_0001746392397735786431 : -non_input_nodes
+C_0000440164721711273067 --> C_0001746392397735786431 : -nodes
+C_0000440164721711273067 --> C_0002117097699807050349 : -istate_group_list
+C_0000440164721711273067 --> C_0004181868659518474874 : -symbol_table
+C_0005946925854321740463 ..> C_0001746392397735786431
+C_0005946925854321740463 ..> C_0000440164721711273067
+C_0010329906065646037531 ..> C_0005946925854321740463
+C_0010329906065646037531 ..> C_0003405348299019970051
+C_0010329906065646037531 ..> C_0000440164721711273067
+C_0008607605555892509317 ..> C_0005946925854321740463
+C_0008607605555892509317 ..> C_0000440164721711273067
+C_0003960784007904338001 --> C_0000440164721711273067 : -network
+C_0003960784007904338001 --> C_0001746392397735786431 : -node
+C_0003405348299019970051 ..> C_0001746392397735786431
+C_0003405348299019970051 ..> C_0005946925854321740463
+C_0003405348299019970051 ..> C_0010329906065646037531
+C_0003405348299019970051 ..> C_0003960784007904338001
+C_0015816652914663082089 ..> C_0001746392397735786431
+C_0015816652914663082089 ..> C_0010329906065646037531
+C_0015816652914663082089 ..> C_0003960784007904338001
+C_0015816652914663082089 o-- C_0005946925854321740463 : -state
+C_0015816652914663082089 --> C_0000440164721711273067 : -network
+C_0003405348299019970051 <|-- C_0015816652914663082089
+C_0002117097699807050349 ..> C_0000440164721711273067
+C_0002117097699807050349 ..> C_0003405348299019970051
+C_0002117097699807050349 ..> C_0005946925854321740463
+C_0002117097699807050349 ..> C_0005626131955381280210
+C_0002117097699807050349 --> C_0001746392397735786431 : -nodes
+C_0004725310948239857365 ..> C_0010329906065646037531
+C_0004725310948239857365 ..> C_0005626131955381280210
+C_0004725310948239857365 ..> C_0005946925854321740463
+C_0004725310948239857365 --> C_0003405348299019970051 : +deathRate
+C_0000440164721711273067 <|-- C_0004725310948239857365
+C_0012976580975460936072 ..> C_0000440164721711273067
+
+'Generated with clang-uml, version 0.6.2-27-g4e76f03
+'LLVM version Ubuntu clang version 18.1.3 (1ubuntu1)
+@enduml
