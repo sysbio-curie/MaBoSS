@@ -16,3 +16,4 @@ __pycache__
 engine/src/compile_commands.json
 # configuration file for the diagrams
 .clang-uml
+*.output
