@@ -70,6 +70,10 @@ protected:
 
   FixedPoints* fixpoints;
   std::vector<FixedPoints*> fixpoint_map_v;
+
+  /// Merges two fixpoints
+  /// @param fixpoints_1
+  /// @param fixpoints_2
   static void mergePairOfFixpoints(FixedPoints* fixpoints_1, FixedPoints* fixpoints_2);
 
 #ifdef MPI_COMPAT
@@ -90,10 +94,20 @@ public:
   FixedPointEngine(Network * network, RunConfig* runconfig) : MetaEngine(network, runconfig) {}
 #endif
 
+  ///
+  /// @return true if the size of \a fixpoints is greater than 0
   bool converges() const {return fixpoints->size() > 0;}
+  ///
+  /// @return \a fixpoints
   const FixedPoints* getFixpoints() const {return fixpoints;}
+
+  ///
+  /// @return a map composed of an entry #, and a pair network_state and the proportion
+  /// of the fixpoint among the sample
   const std::map<unsigned int, std::pair<NetworkState, double> > getFixPointsDists() const;
 
+  /// Displays the fixpoints using the displayer passed in parameter
+  /// @param displayer a pointer to the FixedPointDisplayer
   void displayFixpoints(FixedPointDisplayer* displayer) const;
 
 };

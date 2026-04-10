@@ -49,189 +49,189 @@
 
 #include "FixedPointEngine.h"
 
-void FixedPointEngine::mergePairOfFixpoints(FixedPoints* fixpoints_1, FixedPoints* fixpoints_2)
-{
-  for (auto& fixpoint: *fixpoints_2) {
-    
-    FixedPoints::iterator t_fixpoint = fixpoints_1->find(fixpoint.first);
-    if (fixpoints_1->find(fixpoint.first) == fixpoints_1->end()) {
-      (*fixpoints_1)[fixpoint.first] = fixpoint.second;
-    
-    } else {
-      t_fixpoint->second += fixpoint.second;
-    
+void FixedPointEngine::mergePairOfFixpoints(FixedPoints *fixpoints_1, FixedPoints *fixpoints_2) {
+    for (auto &fixpoint: *fixpoints_2) {
+        FixedPoints::iterator t_fixpoint = fixpoints_1->find(fixpoint.first);
+        if (fixpoints_1->find(fixpoint.first) == fixpoints_1->end()) {
+            (*fixpoints_1)[fixpoint.first] = fixpoint.second;
+        } else {
+            t_fixpoint->second += fixpoint.second;
+        }
     }
-  }
-  delete fixpoints_2; 
+    delete fixpoints_2;
 }
 
 #ifdef MPI_COMPAT
-void FixedPointEngine::MPI_Unpack_Fixpoints(FixedPoints* fp_map, char* buff, unsigned int buff_size)
-{
-        
-  int position = 0;
-  unsigned int nb_fixpoints;
-  MPI_Unpack(buff, buff_size, &position, &nb_fixpoints, 1, MPI_UNSIGNED, MPI_COMM_WORLD);
-  
-  if (nb_fixpoints > 0) {
-    if (fp_map == NULL) {
-      fp_map = new FixedPoints();
+/// Reconstructs a fixpoints map that has been sent
+/// @param fp_map a pointer to where the fixpoints must be put
+/// @param buff a pointer to the packed data
+/// @param buff_size
+void FixedPointEngine::MPI_Unpack_Fixpoints(FixedPoints *fp_map, char *buff, unsigned int buff_size) {
+    int position = 0;
+    unsigned int nb_fixpoints;
+    MPI_Unpack(buff, buff_size, &position, &nb_fixpoints, 1, MPI_UNSIGNED, MPI_COMM_WORLD);
+
+    if (nb_fixpoints > 0) {
+        if (fp_map == NULL) {
+            fp_map = new FixedPoints();
+        }
+        for (unsigned int j = 0; j < nb_fixpoints; j++) {
+            NetworkState state;
+            state.my_MPI_Unpack(buff, buff_size, &position);
+            unsigned int count = 0;
+            MPI_Unpack(buff, buff_size, &position, &count, 1, MPI_UNSIGNED, MPI_COMM_WORLD);
+
+            if (fp_map->find(state.getState()) == fp_map->end()) {
+                (*fp_map)[state.getState()] = count;
+            } else {
+                (*fp_map)[state.getState()] += count;
+            }
+        }
     }
-    for (unsigned int j=0; j < nb_fixpoints; j++) {
-      NetworkState state;
-      state.my_MPI_Unpack(buff, buff_size, &position);
-      unsigned int count = 0;
-      MPI_Unpack(buff, buff_size, &position, &count, 1, MPI_UNSIGNED, MPI_COMM_WORLD);
-      
-      if (fp_map->find(state.getState()) == fp_map->end()) {
-        (*fp_map)[state.getState()] = count;
-      } else {
-        (*fp_map)[state.getState()] += count;
-      }
-    }
-  }
 }
 
-char* FixedPointEngine::MPI_Pack_Fixpoints(const FixedPoints* fp_map, int dest, unsigned int * buff_size)
-{
-  unsigned int nb_fixpoints = fp_map == NULL ? 0 : fp_map->size();
-  *buff_size = sizeof(unsigned int);
-  
-  if (nb_fixpoints > 0) {
-    for (auto& fixpoint: *fp_map) {
-      NetworkState state(fixpoint.first);
-      *buff_size += state.my_MPI_Pack_Size() + sizeof(unsigned int);
-    }
-  }
-  char* buff = new char[*buff_size];
-  int position = 0;
-  
-  MPI_Pack(&nb_fixpoints, 1, MPI_UNSIGNED, buff, *buff_size, &position, MPI_COMM_WORLD);
+/// Encodes a fixpoints map to be sent
+/// @param fp_map the map to send
+/// @param dest the MPI rank of the destination
+/// @param buff_size
+/// @return a pointer of a buffer towards the packed data
+char *FixedPointEngine::MPI_Pack_Fixpoints(const FixedPoints *fp_map, int dest, unsigned int *buff_size) {
+    unsigned int nb_fixpoints = fp_map == NULL ? 0 : fp_map->size();
+    *buff_size = sizeof(unsigned int);
 
-  if (nb_fixpoints > 0) {
-    for (auto& fixpoint: *fp_map) {  
-      NetworkState state(fixpoint.first);
-      unsigned int count = fixpoint.second;
-      state.my_MPI_Pack(buff, *buff_size, &position);
-      MPI_Pack(&count, 1, MPI_UNSIGNED, buff, *buff_size, &position, MPI_COMM_WORLD);
+    if (nb_fixpoints > 0) {
+        for (auto &fixpoint: *fp_map) {
+            NetworkState state(fixpoint.first);
+            *buff_size += state.my_MPI_Pack_Size() + sizeof(unsigned int);
+        }
     }
-  }
-  return buff;
+    char *buff = new char[*buff_size];
+    int position = 0;
+
+    MPI_Pack(&nb_fixpoints, 1, MPI_UNSIGNED, buff, *buff_size, &position, MPI_COMM_WORLD);
+
+    if (nb_fixpoints > 0) {
+        for (auto &fixpoint: *fp_map) {
+            NetworkState state(fixpoint.first);
+            unsigned int count = fixpoint.second;
+            state.my_MPI_Pack(buff, *buff_size, &position);
+            MPI_Pack(&count, 1, MPI_UNSIGNED, buff, *buff_size, &position, MPI_COMM_WORLD);
+        }
+    }
+    return buff;
 }
 
-void FixedPointEngine::MPI_Send_Fixpoints(const FixedPoints* fp_map, int dest) 
-{
-  int nb_fixpoints = fp_map == NULL ? 0 : fp_map->size();
-  MPI_Send(&nb_fixpoints, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
-  
-  if (nb_fixpoints > 0)
-  {
-    for (auto& fixpoint: *fp_map) {
-      NetworkState state(fixpoint.first);
-      unsigned int count = fixpoint.second;
-      
-      state.my_MPI_Send(dest);
-      MPI_Send(&count, 1, MPI_UNSIGNED, dest, 0, MPI_COMM_WORLD);
-      
+
+/// Sends the fixpoints to another MPI process
+/// @param fp_map the map to sent
+/// @param dest MPI rank of the destination
+void FixedPointEngine::MPI_Send_Fixpoints(const FixedPoints *fp_map, int dest) {
+    int nb_fixpoints = fp_map == NULL ? 0 : fp_map->size();
+    MPI_Send(&nb_fixpoints, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
+
+    if (nb_fixpoints > 0) {
+        for (auto &fixpoint: *fp_map) {
+            NetworkState state(fixpoint.first);
+            unsigned int count = fixpoint.second;
+
+            state.my_MPI_Send(dest);
+            MPI_Send(&count, 1, MPI_UNSIGNED, dest, 0, MPI_COMM_WORLD);
+        }
     }
-  } 
 }
 
-void FixedPointEngine::MPI_Recv_Fixpoints(FixedPoints* fp_map, int origin) 
-{
-  int nb_fixpoints = -1;
-  MPI_Recv(&nb_fixpoints, 1, MPI_INT, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  
-  if (nb_fixpoints > 0 && fp_map == NULL) {
-    fp_map = new FixedPoints();
-  }
-  
-  for (int j = 0; j < nb_fixpoints; j++) {
-    NetworkState state;
-    state.my_MPI_Recv(origin);
-    
-    unsigned int count = -1;
-    MPI_Recv(&count, 1, MPI_UNSIGNED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    
-    if (fp_map->find(state.getState()) == fp_map->end()) {
-      (*fp_map)[state.getState()] = count;
-    } else {
-      (*fp_map)[state.getState()] += count;
+/// Receives a fixpoints map from another MPI
+/// @param fp_map a pointer to where put the data
+/// @param origin MPI rank of the sender
+void FixedPointEngine::MPI_Recv_Fixpoints(FixedPoints *fp_map, int origin) {
+    int nb_fixpoints = -1;
+    MPI_Recv(&nb_fixpoints, 1, MPI_INT, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+    if (nb_fixpoints > 0 && fp_map == NULL) {
+        fp_map = new FixedPoints();
     }
-  }
+
+    for (int j = 0; j < nb_fixpoints; j++) {
+        NetworkState state;
+        state.my_MPI_Recv(origin);
+
+        unsigned int count = -1;
+        MPI_Recv(&count, 1, MPI_UNSIGNED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        if (fp_map->find(state.getState()) == fp_map->end()) {
+            (*fp_map)[state.getState()] = count;
+        } else {
+            (*fp_map)[state.getState()] += count;
+        }
+    }
 }
 
-void FixedPointEngine::mergePairOfMPIFixpoints(FixedPoints* fixpoints, int world_rank, int dest, int origin, bool pack) 
-{
-   if (world_rank == dest) 
-   {
-   
-    if (pack) {
-      unsigned int buff_size;
-      MPI_Recv( &buff_size, 1, MPI_UNSIGNED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        
-      char* buff = new char[buff_size];
-      MPI_Recv( buff, buff_size, MPI_PACKED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE); 
-          
-      MPI_Unpack_Fixpoints(fixpoints, buff, buff_size);
-      delete [] buff;
-      
-    } else {
-      MPI_Recv_Fixpoints(fixpoints, origin);
+/// Merges two map of fixpoints.
+/// @param fixpoints the local map to complete or merge
+/// @param world_rank the MPI rank of the current process
+/// @param dest rank of the processus that will receive and merge the map
+/// @param origin rank of the process that sends the results
+/// @param pack true if MPI_Pack else false
+void FixedPointEngine::mergePairOfMPIFixpoints(FixedPoints *fixpoints, int world_rank, int dest, int origin,
+                                               bool pack) {
+    if (world_rank == dest) {
+        if (pack) {
+            unsigned int buff_size;
+            MPI_Recv(&buff_size, 1, MPI_UNSIGNED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+            char *buff = new char[buff_size];
+            MPI_Recv(buff, buff_size, MPI_PACKED, origin, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+            MPI_Unpack_Fixpoints(fixpoints, buff, buff_size);
+            delete [] buff;
+        } else {
+            MPI_Recv_Fixpoints(fixpoints, origin);
+        }
+    } else if (world_rank == origin) {
+        if (pack) {
+            unsigned int buff_size;
+            char *buff = MPI_Pack_Fixpoints(fixpoints, dest, &buff_size);
+
+            MPI_Send(&buff_size, 1, MPI_UNSIGNED, dest, 0, MPI_COMM_WORLD);
+            MPI_Send(buff, buff_size, MPI_PACKED, dest, 0, MPI_COMM_WORLD);
+            delete [] buff;
+        } else {
+            MPI_Send_Fixpoints(fixpoints, dest);
+        }
     }
-    
-  } else if (world_rank == origin) {
-
-    if (pack) {
-
-      unsigned int buff_size;
-      char* buff = MPI_Pack_Fixpoints(fixpoints, dest, &buff_size);
-
-      MPI_Send(&buff_size, 1, MPI_UNSIGNED, dest, 0, MPI_COMM_WORLD);
-      MPI_Send( buff, buff_size, MPI_PACKED, dest, 0, MPI_COMM_WORLD); 
-      delete [] buff;            
-      
-    } else {
-     
-      MPI_Send_Fixpoints(fixpoints, dest);
-    }
-  }
 }
 
 #endif
 
 const std::map<unsigned int, std::pair<NetworkState, double> > FixedPointEngine::getFixPointsDists() const {
-  
-  std::map<unsigned int, std::pair<NetworkState, double> > res;
-  if (0 == fixpoints->size()) {
+    std::map<unsigned int, std::pair<NetworkState, double> > res;
+    if (0 == fixpoints->size()) {
+        return res;
+    }
+
+    int nn = 0;
+    for (const auto &fp: *fixpoints) {
+        const NetworkState &network_state = fp.first;
+        res[nn++] = std::make_pair(network_state, (double) fp.second / sample_count);
+    }
     return res;
-  }
-
-  int nn = 0;
-  for (const auto& fp : *fixpoints) {
-    const NetworkState& network_state = fp.first;
-    res[nn++] = std::make_pair(network_state,(double) fp.second / sample_count);
-  }
-  return res;
 }
 
-void FixedPointEngine::displayFixpoints(FixedPointDisplayer* displayer) const 
-{
+void FixedPointEngine::displayFixpoints(FixedPointDisplayer *displayer) const {
 #ifdef MPI_COMPAT
-if (getWorldRank() == 0) {
+    if (getWorldRank() == 0) {
 #endif
 
-  displayer->begin(fixpoints->size());
-  int nn = 0;
-  for (const auto & fp : *fixpoints) {
-    const NetworkState& network_state = fp.first;
-    displayer->displayFixedPoint(nn+1, network_state, fp.second, sample_count);
-    nn++;
-  }
-  displayer->end();
+    displayer->begin(fixpoints->size());
+    int nn = 0;
+    for (const auto &fp: *fixpoints) {
+        const NetworkState &network_state = fp.first;
+        displayer->displayFixedPoint(nn + 1, network_state, fp.second, sample_count);
+        nn++;
+    }
+    displayer->end();
 
 #ifdef MPI_COMPAT
 }
 #endif
-
 }
