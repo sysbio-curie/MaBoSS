@@ -21,6 +21,7 @@ The directory tutorial contains two tutorials:
 - [MaBoSS 2.5.0 Tutorial](https://github.com/sysbio-curie/MaBoSS/tree/master/tutorial/Montagud_2022_Prostate_Cancer), describing usage of MaBoSS command line, pyMaBoSS (python bindings) and WebMaBoSS (web interface) on a prostate cancer model.
 
 ### Documentation
+You need to pull the branch on your local computer to see the html preview :
 - The documentation is available [here](https://htmlpreview.github.io/?https://github.com/sysbio-curie/MaBoSS/blob/adding-documentation/docs/html/index.html).
 - PDF of UML diagrams are also available [here](docs/diagrams/PDF).
 
