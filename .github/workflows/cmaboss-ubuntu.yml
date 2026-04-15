@@ -1,6 +1,7 @@
 name: cMaBoSS Linux
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
   release:
