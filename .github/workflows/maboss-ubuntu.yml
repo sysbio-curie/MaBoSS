@@ -709,7 +709,7 @@ jobs:
           {name: "conda-forge", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
         
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     needs: [maboss, maboss_llvm, maboss_cmake, maboss_mpi, maboss_mpi_cmake]
     
