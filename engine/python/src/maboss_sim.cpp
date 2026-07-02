@@ -326,19 +326,27 @@ PyObject* cMaBoSSSim_mutate(cMaBoSSSimObject* self, PyObject *args, PyObject* kw
   std::string node_name_str = PyUnicode_AsUTF8(node_name);
   std::string mutation_str = PyUnicode_AsUTF8(mutation);
   
-  Node* node = self->network->network->getNode(node_name_str);
-  bool is_activation = (mutation_str.compare("ON") == 0 || mutation_str.compare("on") == 0);
-  if (simple == Py_True) {
-    node->mutate((is_activation ? 1.0 : 0.0));
-  } else {
-    
-    node->makeMutable(self->network->network);
-    SymbolTable* symbol_table = self->network->network->getSymbolTable();
-    const Symbol* lowvar = symbol_table->getSymbol("$Low_" + node_name_str);
-    const Symbol* highvar = symbol_table->getSymbol("$High_" + node_name_str);
-    symbol_table->setSymbolValue(lowvar, (is_activation ? 0.0 : 1.0));
-    symbol_table->setSymbolValue(highvar, (is_activation ? 1.0 : 0.0));
+  try {
+    Node* node = self->network->network->getNode(node_name_str);
+  
+    bool is_activation = (mutation_str.compare("ON") == 0 || mutation_str.compare("on") == 0);
+    if (simple == Py_True) {
+      node->mutate((is_activation ? 1.0 : 0.0));
+    } else {
+      
+      node->makeMutable(self->network->network);
+      SymbolTable* symbol_table = self->network->network->getSymbolTable();
+      const Symbol* lowvar = symbol_table->getSymbol("$Low_" + node_name_str);
+      const Symbol* highvar = symbol_table->getSymbol("$High_" + node_name_str);
+      symbol_table->setSymbolValue(lowvar, (is_activation ? 0.0 : 1.0));
+      symbol_table->setSymbolValue(highvar, (is_activation ? 1.0 : 0.0));
+    }
   }
+  catch (BNException& e) {
+    PyErr_SetString(PyBNException, e.getMessage().c_str());
+    return NULL;
+  }
+  
   
   Py_RETURN_NONE;
 }
