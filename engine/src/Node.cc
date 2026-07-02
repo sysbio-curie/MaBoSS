@@ -224,6 +224,9 @@ void Node::makeMutable(Network* network)
     network->getSymbolTable()->setSymbolValue(nb_mutable, network->getSymbolTable()->getSymbolValue(nb_mutable) + 1);
     this->is_mutable = true;
   }
+  else {
+    throw BNException("Node " + label + " is already mutable");
+  }
 }
 
 NodeState Node::getNodeState(const NetworkState& network_state) const
