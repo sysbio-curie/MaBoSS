@@ -170,6 +170,7 @@ void Node::makeMutable(Network* network)
     const Symbol* lowvar = network->getSymbolTable()->getOrMakeSymbol("$Low_" + label);
     const Symbol* highvar = network->getSymbolTable()->getOrMakeSymbol("$High_" + label);
     const Symbol* nb_mutable = network->getSymbolTable()->getOrMakeSymbol("$nb_mutable");
+    network->getSymbolTable()->defineUndefinedSymbol(nb_mutable);    
     
     Expression* new_rate_up = NULL;
     Expression* new_rate_down = NULL;

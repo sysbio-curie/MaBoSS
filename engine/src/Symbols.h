@@ -121,6 +121,11 @@ public:
         symb_def[symbol.second->getIndex()] = true;
     }
   }
+  void defineUndefinedSymbol(const Symbol* symbol) {
+    SymbolIndex idx = symbol->getIndex();
+    symb_def[idx] = true;
+  }
+  
   size_t getSymbolCount() const {return symb_map.size();}
 
   void setSymbolValue(const Symbol* symbol, double value) {
