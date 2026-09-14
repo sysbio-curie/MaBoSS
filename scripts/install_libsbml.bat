@@ -1,3 +1,3 @@
 @echo on 
 
-cmake --install libsbml-5.20.5/build
+cmake --install libsbml-5.21.1/build

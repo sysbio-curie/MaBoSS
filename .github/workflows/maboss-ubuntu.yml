@@ -33,8 +33,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-gcc-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-gcc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -81,8 +81,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-gcc-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-gcc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -243,8 +243,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-gcc-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-gcc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -299,8 +299,8 @@ jobs:
       id: cache-libsbml-clang
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-clang-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-clang-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-clang.outputs.cache-hit != 'true'
@@ -409,8 +409,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-gcc-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-gcc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -531,8 +531,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: /tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-gcc-namespace
+        path: /tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-gcc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'

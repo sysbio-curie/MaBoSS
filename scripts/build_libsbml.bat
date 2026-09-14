@@ -1,9 +1,9 @@
 @echo on
 
-curl -L https://github.com/sbmlteam/libsbml/archive/refs/tags/v5.20.5.tar.gz --output v5.20.5.tar.gz
-7z e v5.20.5.tar.gz  && 7z x v5.20.5.tar
+curl -L https://github.com/sbmlteam/libsbml/archive/refs/tags/v5.21.1.tar.gz --output v5.21.1.tar.gz
+7z e v5.21.1.tar.gz  && 7z x v5.21.1.tar
 
-cmake -B libsbml-5.20.5/build -S libsbml-5.20.5 -G"Ninja" ^
+cmake -B libsbml-5.21.1/build -S libsbml-5.21.1 -G"Ninja" ^
 		-DCMAKE_INSTALL_PREFIX="%LIBSBML_INSTALL_PREFIX%" ^
 		-DCMAKE_BUILD_TYPE=Release ^
 		-DCMAKE_C_COMPILER="%CC%" ^
@@ -17,4 +17,4 @@ cmake -B libsbml-5.20.5/build -S libsbml-5.20.5 -G"Ninja" ^
         -DWITH_CPP_NAMESPACE=ON ^
         -DBUILD_SHARED_LIBS=ON
 		
-cmake --build libsbml-5.20.5/build --verbose --parallel "%CPU_COUNT%"
+cmake --build libsbml-5.21.1/build --verbose --parallel "%CPU_COUNT%"

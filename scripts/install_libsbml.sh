@@ -6,5 +6,5 @@ then
 BUILD_PATH=/tmp/
 fi
 
-cd ${BUILD_PATH}/libsbml-5.20.5/build
+cd ${BUILD_PATH}/libsbml-5.21.1/build
 make install

@@ -42,8 +42,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: D:/a/_temp/msys64/tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-namespace
+        path: D:/a/_temp/msys64/tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-namespace
         
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -105,8 +105,8 @@ jobs:
       id: cache-libsbml-msvc
       uses: actions/cache@v4
       with:
-        path: D:\a\MaBoSS\MaBoSS\libsbml-5.20.5\
-        key: ${{ runner.os }}-libSBML-5.20.5-msvc-namespace
+        path: D:\a\MaBoSS\MaBoSS\libsbml-5.21.1\
+        key: ${{ runner.os }}-libSBML-5.21.1-msvc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-msvc.outputs.cache-hit != 'true'
@@ -188,8 +188,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: D:/a/_temp/msys64/tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-namespace
+        path: D:/a/_temp/msys64/tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-namespace
         
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -326,8 +326,8 @@ jobs:
       id: cache-libsbml-gcc
       uses: actions/cache@v4
       with:
-        path: D:/a/_temp/msys64/tmp/libsbml-5.20.5
-        key: ${{ runner.os }}-libSBML-5.20.5-namespace
+        path: D:/a/_temp/msys64/tmp/libsbml-5.21.1
+        key: ${{ runner.os }}-libSBML-5.21.1-namespace
         
     - name: Compiling libSBML
       if: steps.cache-libsbml-gcc.outputs.cache-hit != 'true'
@@ -509,8 +509,8 @@ jobs:
       id: cache-libsbml-msvc
       uses: actions/cache@v4
       with:
-        path: D:\a\MaBoSS\MaBoSS\libsbml-5.20.5\
-        key: ${{ runner.os }}-libSBML-5.20.5-msvc-namespace
+        path: D:\a\MaBoSS\MaBoSS\libsbml-5.21.1\
+        key: ${{ runner.os }}-libSBML-5.21.1-msvc-namespace
 
     - name: Compiling libSBML
       if: steps.cache-libsbml-msvc.outputs.cache-hit != 'true'
