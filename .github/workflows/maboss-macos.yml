@@ -596,7 +596,7 @@ jobs:
       fail-fast: false
       matrix:
         repo: [
-          {name: "defaults", deployment_target: "10.13", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
+          # {name: "defaults", deployment_target: "10.13", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
           {name: "conda-forge", deployment_target: "10.13", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
     runs-on: macos-15-intel
@@ -654,7 +654,7 @@ jobs:
       fail-fast: false
       matrix:
         repo: [
-          {name: "defaults", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
+          # {name: "defaults", libsbml_package: "libsbml-plus-packages", libsbml_source: colomoto, build_number: 0, folder: "conda/defaults"}, 
           {name: "conda-forge", libsbml_package: "libsbml", libsbml_source: conda-forge, build_number: 1, folder: "conda/conda-forge"}
         ]
     runs-on: macos-14
