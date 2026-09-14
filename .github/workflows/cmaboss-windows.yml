@@ -40,7 +40,7 @@ jobs:
           CMAKE_BUILD_PARALLEL_LEVEL: 1
           CIBW_BUILD: ${{ matrix.build.pattern }}
           CIBW_BEFORE_ALL: >
-            vcpkg install libxml2:${{ matrix.build.triplet}} &&
+            vcpkg install libxml2:${{ matrix.build.triplet}} bzip2:${{ matrix.build.triplet}} zlib:${{ matrix.build.triplet}} &&
             choco install winflexbison3 &&
             set LIBXML_LIBRARY="C:/vcpkg/installed/${{ matrix.build.triplet}}/lib/libxml2.lib" &&
             set LIBXML_INCLUDE_DIR="C:/vcpkg/installed/${{ matrix.build.triplet}}/include/libxml2/" &&

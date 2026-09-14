@@ -99,7 +99,7 @@ jobs:
     - name: Install libxml2
       if: steps.cache-vcpkg.outputs.cache-hit != 'true'
       run: |
-        vcpkg install libxml2
+        vcpkg install libxml2 bzip2 zlib
     
     - name: Cache compiled libSBML
       id: cache-libsbml-msvc
@@ -503,7 +503,7 @@ jobs:
     - name: Install libxml2
       if: steps.cache-vcpkg.outputs.cache-hit != 'true'
       run: |
-        vcpkg install libxml2
+        vcpkg install libxml2 bzip2 zlib
     
     - name: Cache compiled libSBML
       id: cache-libsbml-msvc
