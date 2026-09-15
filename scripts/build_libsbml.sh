@@ -40,7 +40,7 @@ mkdir build
 cd build
 
 #Hacky fix for gcc 15
-#sed -i '10i #include <cstdint>' ${BUILD_PATH}/libsbml-5.21.1/src/sbml/html2md/html2md.h
+sed -i '10i #include <cstdint>' ${BUILD_PATH}/libsbml-5.21.1/src/sbml/html2md/html2md.h
 
 if [[ -n $RUNNER_OS ]] && [[ $RUNNER_OS == "Windows" ]]; then
 

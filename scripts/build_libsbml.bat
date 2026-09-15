@@ -10,6 +10,7 @@ cmake -B libsbml-5.21.1/build -S libsbml-5.21.1 -G"Ninja" ^
 		-DCMAKE_CXX_COMPILER="%CXX%" ^
         -DLIBXML_LIBRARY="%LIBXML_LIBRARY%" ^
         -DLIBXML_INCLUDE_DIR="%LIBXML_INCLUDE_DIR%" ^
+        -DZLIB_LIBRARY="%ZLIB_LIBRARY%" ^
         -DZLIB_INCLUDE_DIR="%ZLIB_INCLUDE_DIR%" ^
 		-DWITH_SWIG=OFF ^
         -DWITH_ZLIB=ON ^

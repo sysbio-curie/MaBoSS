@@ -77,6 +77,7 @@ jobs:
         LIBSBML_INSTALL_PREFIX: C:/vcpkg/installed/x64-windows/
         LIBXML_LIBRARY: C:/vcpkg/installed/x64-windows/lib/libxml2.lib
         LIBXML_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/libxml2/
+        ZLIB_LIBRARY: C:/vcpkg/installed/x64-windows/lib/z.lib
         ZLIB_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/
         CPU_COUNT: 4
       
@@ -122,6 +123,7 @@ jobs:
       run: |
         cmake -B build -S . -G Ninja `
           -DCMAKE_INSTALL_PREFIX=C:/vcpkg/installed/x64-windows/ `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -136,6 +138,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DMAXNODES=128 `
           -DCMAKE_INSTALL_PREFIX=C:/vcpkg/installed/x64-windows/ `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -481,6 +484,7 @@ jobs:
         LIBSBML_INSTALL_PREFIX: C:/vcpkg/installed/x64-windows/
         LIBXML_LIBRARY: C:/vcpkg/installed/x64-windows/lib/libxml2.lib
         LIBXML_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/libxml2/
+        ZLIB_LIBRARY: C:/vcpkg/installed/x64-windows/lib/z.lib
         ZLIB_INCLUDE_DIR: C:/vcpkg/installed/x64-windows/include/
         CPU_COUNT: 4
       
@@ -527,6 +531,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -541,6 +546,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -556,6 +562,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -571,6 +578,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -586,6 +594,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
@@ -601,6 +610,7 @@ jobs:
         cmake -B build -S . -G Ninja `
           -DCMAKE_BUILD_TYPE=Release `
           -DCMAKE_INSTALL_PREFIX=engine `
+          -DZLIB_LIBRARY="C:/vcpkg/installed/x64-windows/lib/z.lib" `
           -DZLIB_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/" `
           -DLIBXML_LIBRARY="C:/vcpkg/installed/x64-windows/lib/libxml2.lib" `
           -DLIBXML_INCLUDE_DIR="C:/vcpkg/installed/x64-windows/include/libxml2/" `
