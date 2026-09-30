@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/sysbio-curie/MaBoSS,25,3
+/sysbio-curie/MaBoSS/actions,9,1
+/sysbio-curie/MaBoSS/actions/workflows/maboss-ubuntu.yml,3,3
+/sysbio-curie/MaBoSS/releases,2,2
+/sysbio-curie/MaBoSS/tree/master,2,2
+/sysbio-curie/MaBoSS/tree/master/bindings/python,2,2
+/sysbio-curie/MaBoSS/tree/master/python/tests,2,2
+/sysbio-curie/MaBoSS/tree/master/scripts,2,2
+/sysbio-curie/MaBoSS/actions/runs/35004802063/job/104501776708,2,1
+/sysbio-curie/MaBoSS/actions/runs/35004802096,2,1
