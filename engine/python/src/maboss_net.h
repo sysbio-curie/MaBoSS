@@ -68,6 +68,7 @@ Py_ssize_t cMaBoSSNetwork_NodesLength(cMaBoSSNetworkObject* self);
 PyObject * cMaBoSSNetwork_Keys(cMaBoSSNetworkObject* self);
 PyObject * cMaBoSSNetwork_Values(cMaBoSSNetworkObject* self);
 PyObject * cMaBoSSNetwork_Items(cMaBoSSNetworkObject* self);
+PyObject* cMaBoSSNetwork_setOutputNodes(MaBoSS::Network* network, PyObject* labels);
 PyObject* cMaBoSSNetwork_setOutput(cMaBoSSNetworkObject* self, PyObject *args);
 PyObject* cMaBoSSNetwork_getOutput(cMaBoSSNetworkObject* self);
 PyObject* cMaBoSSNetwork_setObservedGraphNode(cMaBoSSNetworkObject* self, PyObject *args);
