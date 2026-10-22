@@ -125,6 +125,30 @@ class TestCMaBoSS(TestCase):
         with self.assertRaises(TypeError):
             cmaboss.MaBoSSSim(network="models/cellcycle/cellcycle.bnd", config=main_cfg, configs=[thread_cfg])
 
+    def test_set_output(self):
+        net = cmaboss.MaBoSSNet(network="models/metastasis/metastasis.bnd")
+        outputs = net.get_output()
+
+        for wrong, exception in [
+            (["Apoptosis", "NotANode"], cmaboss.BNException),
+            (["Apoptosis", 3], TypeError),
+            ("Apoptosis", TypeError),
+            (3, TypeError),
+        ]:
+            with self.assertRaises(exception):
+                net.set_output(wrong)
+            # a rejected list leaves the outputs untouched
+            self.assertEqual(net.get_output(), outputs)
+
+        net.set_output(("Apoptosis", "Metastasis"))
+        self.assertEqual(net.get_output(), ["Metastasis", "Apoptosis"])
+
+        sim = cmaboss.PopMaBoSSSim("models/popmaboss/Fork.bnd", "models/popmaboss/Fork.cfg")
+        with self.assertRaises(cmaboss.BNException):
+            sim.network.set_output(["A", "NotANode"])
+        sim.network.set_output(["A"])
+        self.assertEqual(sim.network.get_output(), ["A"])
+
     def test_simulate(self):
         sim = cmaboss.MaBoSSSim(network="models/metastasis/metastasis.bnd", config="models/metastasis/metastasis.cfg")
         res = sim.run()

@@ -46,6 +46,7 @@
 */
 #include "popmaboss_net.h"
 #include "maboss_node.h"
+#include "maboss_net.h"
 
 
 PyMethodDef cPopMaBoSSNetwork_methods[] = {
@@ -223,21 +224,8 @@ PyObject* cPopMaBoSSNetwork_setOutput(cPopMaBoSSNetworkObject* self, PyObject *a
   PyObject* list;
   if (!PyArg_ParseTuple(args, "O", &list))
     return NULL;
-  
-  for (auto* node: self->network->getNodes()) 
-  {
-    PyObject* label = PyUnicode_FromString(node->getLabel().c_str());
-    if (label == NULL) {
-      return NULL;
-    }
-    int contains = PySequence_Contains(list, label);
-    Py_DECREF(label);
-    if (contains < 0) {
-      return NULL;
-    }
-    node->isInternal(contains == 0);
-  }
-  Py_RETURN_NONE;
+
+  return cMaBoSSNetwork_setOutputNodes(self->network, list);
 }
 
 PyObject* cPopMaBoSSNetwork_getOutput(cPopMaBoSSNetworkObject* self)

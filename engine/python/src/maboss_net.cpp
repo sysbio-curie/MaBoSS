@@ -47,6 +47,7 @@
 
 #include "maboss_net.h"
 #include "IStates.h"
+#include <set>
 
 PyMethodDef cMaBoSSNetwork_methods[] = {
     {"set_output", (PyCFunction) cMaBoSSNetwork_setOutput, METH_VARARGS, "sets the output nodes"},
@@ -178,26 +179,57 @@ PyObject * cMaBoSSNetwork_Items(cMaBoSSNetworkObject* self)
   return PyDict_Items(self->nodes);
 }
 
+// Marks the nodes named in labels (any iterable of strings) as outputs, and all the others
+// as internal. Nothing changes if a label is not a string or not a node of the network.
+PyObject* cMaBoSSNetwork_setOutputNodes(Network* network, PyObject* labels)
+{
+  if (PyUnicode_Check(labels)) {
+    PyErr_SetString(PyExc_TypeError, "Expected a list of node names");
+    return NULL;
+  }
+  PyObject* iterator = PyObject_GetIter(labels);
+  if (iterator == NULL) {
+    PyErr_SetString(PyExc_TypeError, "Expected a list of node names");
+    return NULL;
+  }
+
+  std::set<Node*> output_nodes;
+  PyObject* item;
+  while ((item = PyIter_Next(iterator)) != NULL) {
+    if (!PyUnicode_Check(item)) {
+      Py_DECREF(item);
+      Py_DECREF(iterator);
+      PyErr_SetString(PyExc_TypeError, "Node names must be strings");
+      return NULL;
+    }
+    try {
+      output_nodes.insert(network->getNode(std::string(PyUnicode_AsUTF8(item))));
+    } catch (BNException& e) {
+      Py_DECREF(item);
+      Py_DECREF(iterator);
+      PyErr_SetString(PyBNException, e.getMessage().c_str());
+      return NULL;
+    }
+    Py_DECREF(item);
+  }
+  Py_DECREF(iterator);
+  if (PyErr_Occurred()) {
+    return NULL;
+  }
+
+  for (auto* node: network->getNodes()) {
+    node->isInternal(output_nodes.find(node) == output_nodes.end());
+  }
+  Py_RETURN_NONE;
+}
+
 PyObject* cMaBoSSNetwork_setOutput(cMaBoSSNetworkObject* self, PyObject *args) 
 {
   PyObject* list;
   if (!PyArg_ParseTuple(args, "O", &list))
     return NULL;
-  
-  for (auto* node: self->network->getNodes())
-  {
-    PyObject* label = PyUnicode_FromString(node->getLabel().c_str());
-    if (label == NULL) {
-      return NULL;
-    }
-    int contains = PySequence_Contains(list, label);
-    Py_DECREF(label);
-    if (contains < 0) {
-      return NULL;
-    }
-    node->isInternal(contains == 0);
-  }
-  Py_RETURN_NONE;
+
+  return cMaBoSSNetwork_setOutputNodes(self->network, list);
 }
 
 PyObject* cMaBoSSNetwork_getOutput(cMaBoSSNetworkObject* self)
