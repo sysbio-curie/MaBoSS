@@ -105,6 +105,26 @@ class TestCMaBoSS(TestCase):
         data, numbers, states, data_errors = res.get_statdist_clusters_summary()
         self.assertEqual((data.tolist(), numbers, states, data_errors.tolist()), ([[1.0]], [1], ["<nil>"], [[0.0]]))
 
+    def test_config_arguments_errors(self):
+        net = cmaboss.MaBoSSNet(network="models/cellcycle/cellcycle.bnd")
+        main_cfg = "models/cellcycle/cellcycle_runcfg.cfg"
+        thread_cfg = "models/cellcycle/cellcycle_runcfg-thread_6.cfg"
+        with self.assertRaises(TypeError):
+            # the third positional argument is config_files
+            cmaboss.MaBoSSCfg(net, main_cfg, thread_cfg)
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSCfg(net, main_cfg, [thread_cfg])
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSCfg(net, config_files=thread_cfg)
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSCfg(net, config_files=[main_cfg, None])
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSCfg(net, config_file=[main_cfg])
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSCfg(net, config_file=main_cfg, config_str="thread_count = 6;")
+        with self.assertRaises(TypeError):
+            cmaboss.MaBoSSSim(network="models/cellcycle/cellcycle.bnd", config=main_cfg, configs=[thread_cfg])
+
     def test_simulate(self):
         sim = cmaboss.MaBoSSSim(network="models/metastasis/metastasis.bnd", config="models/metastasis/metastasis.cfg")
         res = sim.run()

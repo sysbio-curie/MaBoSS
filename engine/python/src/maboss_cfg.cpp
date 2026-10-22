@@ -140,6 +140,32 @@ int cMaBoSSConfig_init(PyObject* self, PyObject *args, PyObject* kwargs)
     return -1;
   }
   
+  // the config comes from exactly one source: anything else used to be silently ignored
+  if ((config_file != Py_None) + (config_files != Py_None) + (config_str != Py_None) > 1) {
+    PyErr_SetString(PyExc_TypeError, "Only one of config_file, config_files and config_str can be given");
+    return -1;
+  }
+  if (config_file != Py_None && !PyUnicode_Check(config_file)) {
+    PyErr_SetString(PyExc_TypeError, "config_file must be a string");
+    return -1;
+  }
+  if (config_files != Py_None) {
+    if (!PyList_Check(config_files)) {
+      PyErr_SetString(PyExc_TypeError, "config_files must be a list of strings");
+      return -1;
+    }
+    for (Py_ssize_t i = 0; i < PyList_Size(config_files); i++) {
+      if (!PyUnicode_Check(PyList_GetItem(config_files, i))) {
+        PyErr_SetString(PyExc_TypeError, "config_files must be a list of strings");
+        return -1;
+      }
+    }
+  }
+  if (config_str != Py_None && !PyUnicode_Check(config_str)) {
+    PyErr_SetString(PyExc_TypeError, "config_str must be a string");
+    return -1;
+  }
+
   cMaBoSSConfigObject* py_config = (cMaBoSSConfigObject *) self;
 
   try 
@@ -152,7 +178,7 @@ int cMaBoSSConfig_init(PyObject* self, PyObject *args, PyObject* kwargs)
     } else if (config_files != Py_None)
     {
       IStateGroup::reset(network);
-      for (int i = 0; i < PyList_Size(config_files); i++) {
+      for (Py_ssize_t i = 0; i < PyList_Size(config_files); i++) {
         PyObject* item = PyList_GetItem(config_files, i);
         py_config->config->parse(network, PyUnicode_AsUTF8(item));
       }
