@@ -719,6 +719,20 @@ public:
 #endif
   }
 
+  // standard error of the transition entropy at time tick nn
+  double getErrorTH(int nn) const
+  {
+    double time_tick2 = time_tick * time_tick;
+    double TH_square = TH_square_v[nn];
+    double TH = TH_v[nn];
+    double variance_TH = (TH_square / ((sample_count-1) * time_tick2)) - (TH*TH*sample_count/(sample_count-1));
+    double variance_TH_sample_count = variance_TH/sample_count;
+    if (variance_TH_sample_count >= 0.0) {
+      return sqrt(variance_TH_sample_count);
+    }
+    return 0.;
+  }
+
   void displayProbTraj(unsigned int _refnode_count, ProbTrajDisplayer<S>* displayer) const 
   {
     std::set<S> result_states = getStates();
@@ -739,20 +753,8 @@ public:
       displayer->setTH(TH_v[nn]);
 
       // ErrorTH
-      //assert((size_t)nn < TH_square_v.size());
       if (COMPUTE_ERRORS) {
-        double TH_square = TH_square_v[nn];
-        double TH = TH_v[nn]; // == TH
-        double variance_TH = (TH_square / ((sample_count-1) * time_tick2)) - (TH*TH*sample_count/(sample_count-1));
-        double err_TH;
-        double variance_TH_sample_count = variance_TH/sample_count;
-        //assert(variance_TH > 0.0);
-        if (variance_TH_sample_count >= 0.0) {
-    err_TH = sqrt(variance_TH_sample_count);
-        } else {
-    err_TH = 0.;
-        }
-        displayer->setErrorTH(err_TH);
+        displayer->setErrorTH(getErrorTH(nn));
       }
 
       // H
@@ -1075,6 +1077,35 @@ PyObject* getNumpyLastStatesDists(Network* network) const
   );
 
   return Py_BuildValue("NNNN", PyArray_Return(result), timepoints, pylist_state, PyArray_Return(errors));
+}
+
+// the TH, ErrorTH and H columns of the probtraj output
+PyObject* getNumpyEntropies() const
+{
+  const char* columns[] = {"TH", "ErrorTH", "H"};
+  npy_intp dims[2] = {(npy_intp) getMaxTickIndex(), (npy_intp) 3};
+  PyArrayObject* result = (PyArrayObject *) PyArray_ZEROS(2,dims,NPY_DOUBLE, 0);
+  if (result == NULL) {
+    return NULL;
+  }
+
+  for (int nn=0; nn < getMaxTickIndex(); nn++) {
+    *(double *) PyArray_GETPTR2(result, nn, 0) = TH_v[nn];
+    *(double *) PyArray_GETPTR2(result, nn, 1) = COMPUTE_ERRORS ? getErrorTH(nn) : 0.;
+    *(double *) PyArray_GETPTR2(result, nn, 2) = H_v[nn];
+  }
+
+  PyObject* timepoints = PyList_New(getMaxTickIndex());
+  for (int i=0; i < getMaxTickIndex(); i++) {
+    PyList_SetItem(timepoints, i, PyFloat_FromDouble(((double) i) * time_tick));
+  }
+
+  PyObject* pylist_columns = PyList_New(3);
+  for (int i=0; i < 3; i++) {
+    PyList_SetItem(pylist_columns, i, PyUnicode_FromString(columns[i]));
+  }
+
+  return Py_BuildValue("NNN", PyArray_Return(result), timepoints, pylist_columns);
 }
 
 std::vector<Node*> getNodes(Network* network) const {

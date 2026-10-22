@@ -78,6 +78,7 @@ PyMethodDef cMaBoSSResult_methods[] = {
     {"get_last_probtraj", (PyCFunction) cMaBoSSResult_get_last_probtraj, METH_NOARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_last_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_last_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
+    {"get_entropy_trajectory", (PyCFunction) cMaBoSSResult_get_entropy_trajectory, METH_NOARGS, "gets the entropies (TH, ErrorTH, H) trajectories of the simulation"},
     {"display_fp", (PyCFunction) cMaBoSSResult_display_fp, METH_VARARGS, "prints the fixpoints to a file"},
     {"display_probtraj", (PyCFunction) cMaBoSSResult_display_probtraj, METH_VARARGS, "prints the probtraj to a file"},
     {"display_statdist", (PyCFunction) cMaBoSSResult_display_statdist, METH_VARARGS, "prints the statdist to a file"},
@@ -319,6 +320,10 @@ PyObject* cMaBoSSResult_get_last_nodes_probtraj(cMaBoSSResultObject* self, PyObj
   }
 
   return self->engine->getMergedCumulator()->getNumpyLastNodesDists(self->network, list_nodes);
+}
+
+PyObject* cMaBoSSResult_get_entropy_trajectory(cMaBoSSResultObject* self) {
+  return self->engine->getMergedCumulator()->getNumpyEntropies();
 }
 
 PyObject* cMaBoSSResult_display_fp(cMaBoSSResultObject* self, PyObject *args) 

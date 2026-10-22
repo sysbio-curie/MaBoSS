@@ -80,6 +80,7 @@ PyObject* cPopMaBoSSResult_get_simple_probtraj(cPopMaBoSSResultObject* self);
 PyObject* cPopMaBoSSResult_get_simple_last_probtraj(cPopMaBoSSResultObject* self);
 PyObject* cPopMaBoSSResult_get_custom_probtraj(cPopMaBoSSResultObject* self);
 PyObject* cPopMaBoSSResult_get_custom_last_probtraj(cPopMaBoSSResultObject* self);
+PyObject* cPopMaBoSSResult_get_entropy_trajectory(cPopMaBoSSResultObject* self);
 PyObject* cPopMaBoSSResult_display_fp(cPopMaBoSSResultObject* self, PyObject *args);
 PyObject* cPopMaBoSSResult_display_probtraj(cPopMaBoSSResultObject* self, PyObject *args);
 PyObject* cPopMaBoSSResult_display_run(cPopMaBoSSResultObject* self, PyObject* args);

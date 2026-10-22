@@ -3,6 +3,17 @@ import numpy as np
 import pandas as pd
 from unittest import TestCase
 from sys import platform
+import os
+import tempfile
+
+
+def read_probtraj_entropies(filename):
+    # the TH, ErrorTH and H columns of a hexfloat probtraj file
+    with open(filename) as f:
+        lines = f.read().splitlines()
+    assert lines[0].split("\t")[1:4] == ["TH", "ErrorTH", "H"]
+    return np.array([[float.fromhex(v) for v in line.split("\t")[1:4]] for line in lines[1:]])
+
 
 class TestCMaBoSS(TestCase):
 
@@ -144,3 +155,29 @@ class TestCMaBoSS(TestCase):
         
         if platform != "darwin":
             pd.testing.assert_frame_equal(table.sort_index(axis=1), table_expected.sort_index(axis=1), check_exact=False, rtol=2e-2, atol=1e-4)
+
+    def test_entropy_trajectory(self):
+        sim = cmaboss.MaBoSSSim(network="models/metastasis/metastasis.bnd", config="models/metastasis/metastasis.cfg")
+        res = sim.run()
+        data, timepoints, columns = res.get_entropy_trajectory()
+        _, probtraj_timepoints, _, _ = res.get_probtraj()
+
+        self.assertEqual(columns, ["TH", "ErrorTH", "H"])
+        self.assertEqual(timepoints, probtraj_timepoints)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            res.display_probtraj(os.path.join(tmpdir, "probtraj.csv"), 1)
+            expected = read_probtraj_entropies(os.path.join(tmpdir, "probtraj.csv"))
+        np.testing.assert_array_equal(data, expected)
+
+    def test_popmaboss_entropy_trajectory(self):
+        sim = cmaboss.PopMaBoSSSim("models/popmaboss/Fork.bnd", "models/popmaboss/Fork.cfg")
+        res = sim.run()
+        data, timepoints, columns = res.get_entropy_trajectory()
+        self.assertEqual(columns, ["TH", "ErrorTH", "H"])
+        self.assertEqual(len(timepoints), data.shape[0])
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            res.display_probtraj(os.path.join(tmpdir, "probtraj.csv"), os.path.join(tmpdir, "simple_probtraj.csv"), 1)
+            expected = read_probtraj_entropies(os.path.join(tmpdir, "probtraj.csv"))
+        np.testing.assert_array_equal(data, expected)
