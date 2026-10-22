@@ -69,6 +69,7 @@ typedef struct {
   PyObject* last_probtraj;
   PyObject* observed_graph;
   PyObject* observed_durations;
+  PyObject* statdist;
 } cMaBoSSResultObject;
 
 void cMaBoSSResult_dealloc(cMaBoSSResultObject *self);
@@ -84,6 +85,9 @@ PyObject* cMaBoSSResult_get_last_probtraj(cMaBoSSResultObject* self);
 PyObject* cMaBoSSResult_get_nodes_probtraj(cMaBoSSResultObject* self, PyObject* args);
 PyObject* cMaBoSSResult_get_last_nodes_probtraj(cMaBoSSResultObject* self, PyObject* args);
 PyObject* cMaBoSSResult_get_entropy_trajectory(cMaBoSSResultObject* self);
+PyObject* cMaBoSSResult_get_statdist(cMaBoSSResultObject* self);
+PyObject* cMaBoSSResult_get_statdist_clusters(cMaBoSSResultObject* self);
+PyObject* cMaBoSSResult_get_statdist_clusters_summary(cMaBoSSResultObject* self);
 PyObject* cMaBoSSResult_display_fp(cMaBoSSResultObject* self, PyObject *args);
 PyObject* cMaBoSSResult_display_probtraj(cMaBoSSResultObject* self, PyObject *args);
 PyObject* cMaBoSSResult_display_statdist(cMaBoSSResultObject* self, PyObject *args);

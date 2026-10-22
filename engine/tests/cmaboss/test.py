@@ -15,6 +15,36 @@ def read_probtraj_entropies(filename):
     return np.array([[float.fromhex(v) for v in line.split("\t")[1:4]] for line in lines[1:]])
 
 
+def read_statdist(filename):
+    # parses a hexfloat statdist file into the trajectories table, the cluster tables and the
+    # clusters summary, each as a {(number, state): value} dict
+    with open(filename) as f:
+        blocks = f.read().split("\n\n")
+
+    def parse_rows(rows, step):
+        probas, errors = {}, {}
+        for row in rows:
+            values = row.split("\t")
+            number = int(values[0][1:])
+            for i in range(1, len(values), step):
+                probas[(number, values[i])] = float.fromhex(values[i+1])
+                if step == 3:
+                    errors[(number, values[i])] = float.fromhex(values[i+2])
+        return probas, errors
+
+    statdist, _ = parse_rows(blocks[0].splitlines()[1:], 2)
+    clusters = [parse_rows(block.splitlines()[1:], 2)[0] for block in blocks[1:-1]]
+    summary = parse_rows(blocks[-1].strip("\n").splitlines()[1:], 3)
+    return statdist, clusters, summary
+
+
+def table_to_dict(data, numbers, states):
+    return {
+        (number, state): data[i, j]
+        for i, number in enumerate(numbers) for j, state in enumerate(states)
+        if data[i, j] != 0.0
+    }
+
 class TestCMaBoSS(TestCase):
 
     def test_load_model(self):
@@ -181,3 +211,39 @@ class TestCMaBoSS(TestCase):
             res.display_probtraj(os.path.join(tmpdir, "probtraj.csv"), os.path.join(tmpdir, "simple_probtraj.csv"), 1)
             expected = read_probtraj_entropies(os.path.join(tmpdir, "probtraj.csv"))
         np.testing.assert_array_equal(data, expected)
+
+    def test_statdist(self):
+        # the stationary distributions only cover the reference nodes, so this copy of
+        # ToyMod4FP declares A, B and T as such to get two clusters of distinct states
+        sim = cmaboss.MaBoSSSim(network="models/toymod4fp/ToyMod4FP.bnd", config="models/toymod4fp/ToyMod4FP.cfg")
+        res = sim.run()
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            res.display_statdist(os.path.join(tmpdir, "statdist.csv"), 1)
+            expected_statdist, expected_clusters, (expected_summary, expected_errors) = read_statdist(os.path.join(tmpdir, "statdist.csv"))
+
+        # statdist_traj_count is capped by sample_count
+        data, trajectories, states = res.get_statdist()
+        self.assertEqual(data.shape, (100, len(states)))
+        self.assertEqual(trajectories, list(range(1, 101)))
+        np.testing.assert_allclose(data.sum(axis=1), 1.0)
+        self.assertEqual(table_to_dict(data, trajectories, states), expected_statdist)
+
+        clusters = res.get_statdist_clusters()
+        self.assertEqual(len(clusters), 2)
+        self.assertEqual(len(expected_clusters), 2)
+        self.assertEqual(sum(len(trajs) for _, trajs, _ in clusters), 100)
+        for (data, trajectories, states), expected in zip(clusters, expected_clusters):
+            self.assertEqual(table_to_dict(data, trajectories, states), expected)
+
+        data, numbers, states, errors = res.get_statdist_clusters_summary()
+        self.assertEqual(numbers, [1, 2])
+        self.assertTrue((errors > 0).any())
+        self.assertEqual(table_to_dict(data, numbers, states), expected_summary)
+        self.assertEqual(
+            table_to_dict(errors, numbers, states),
+            {key: value for key, value in expected_errors.items() if value != 0.0}
+        )
+
+        # cached: the clusters are not recomputed
+        self.assertIs(res.get_statdist_clusters(), clusters)

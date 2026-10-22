@@ -79,6 +79,9 @@ PyMethodDef cMaBoSSResult_methods[] = {
     {"get_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_last_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_last_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_entropy_trajectory", (PyCFunction) cMaBoSSResult_get_entropy_trajectory, METH_NOARGS, "gets the entropies (TH, ErrorTH, H) trajectories of the simulation"},
+    {"get_statdist", (PyCFunction) cMaBoSSResult_get_statdist, METH_NOARGS, "gets the stationary distribution of each trajectory"},
+    {"get_statdist_clusters", (PyCFunction) cMaBoSSResult_get_statdist_clusters, METH_NOARGS, "gets the stationary distributions of the trajectories of each cluster"},
+    {"get_statdist_clusters_summary", (PyCFunction) cMaBoSSResult_get_statdist_clusters_summary, METH_NOARGS, "gets the stationary distribution of each cluster, with its errors"},
     {"display_fp", (PyCFunction) cMaBoSSResult_display_fp, METH_VARARGS, "prints the fixpoints to a file"},
     {"display_probtraj", (PyCFunction) cMaBoSSResult_display_probtraj, METH_VARARGS, "prints the probtraj to a file"},
     {"display_statdist", (PyCFunction) cMaBoSSResult_display_statdist, METH_VARARGS, "prints the statdist to a file"},
@@ -136,6 +139,7 @@ int cMaBoSSResult_traverse(cMaBoSSResultObject *self, visitproc visit, void *arg
   Py_VISIT(self->last_probtraj);
   Py_VISIT(self->observed_graph);
   Py_VISIT(self->observed_durations);
+  Py_VISIT(self->statdist);
   return 0;
 }
 
@@ -145,6 +149,7 @@ int cMaBoSSResult_clear(cMaBoSSResultObject *self)
   Py_CLEAR(self->last_probtraj);
   Py_CLEAR(self->observed_graph);
   Py_CLEAR(self->observed_durations);
+  Py_CLEAR(self->statdist);
   Py_CLEAR(self->py_network);
   Py_CLEAR(self->py_config);
   self->network = NULL;
@@ -324,6 +329,35 @@ PyObject* cMaBoSSResult_get_last_nodes_probtraj(cMaBoSSResultObject* self, PyObj
 
 PyObject* cMaBoSSResult_get_entropy_trajectory(cMaBoSSResultObject* self) {
   return self->engine->getMergedCumulator()->getNumpyEntropies();
+}
+
+// clustering the trajectories is costly, so the statdist getters share one cached
+// (statdist, clusters, summary) tuple, computed on first use
+static PyObject* cMaBoSSResult_get_statdist_item(cMaBoSSResultObject* self, Py_ssize_t item) {
+  if (self->statdist == NULL) {
+    NumpyStatDistDisplayer statdist_displayer(self->network);
+    self->engine->displayStatDist(&statdist_displayer);
+    self->statdist = statdist_displayer.getNumpyStatDist();
+    if (self->statdist == NULL) {
+      return NULL;
+    }
+  }
+
+  PyObject* result = PyTuple_GET_ITEM(self->statdist, item);
+  Py_INCREF(result);
+  return result;
+}
+
+PyObject* cMaBoSSResult_get_statdist(cMaBoSSResultObject* self) {
+  return cMaBoSSResult_get_statdist_item(self, 0);
+}
+
+PyObject* cMaBoSSResult_get_statdist_clusters(cMaBoSSResultObject* self) {
+  return cMaBoSSResult_get_statdist_item(self, 1);
+}
+
+PyObject* cMaBoSSResult_get_statdist_clusters_summary(cMaBoSSResultObject* self) {
+  return cMaBoSSResult_get_statdist_item(self, 2);
 }
 
 PyObject* cMaBoSSResult_display_fp(cMaBoSSResultObject* self, PyObject *args) 

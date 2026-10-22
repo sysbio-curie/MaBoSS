@@ -50,6 +50,8 @@
 #include "StatDistDisplayer.h"
 #include "../Utils.h"
 #include <iomanip>
+#include <map>
+#include <set>
 
 void JSONStatDistDisplayer::beginDisplay() {
   //os_statdist << "{";
@@ -304,4 +306,90 @@ void HDF5StatDistDisplayer::addProbaVariance(const NetworkState_Impl& state, dou
 }
 
 
+#endif
+
+#ifdef PYTHON_API
+void NumpyStatDistDisplayer::beginStateProbaDisplay() {
+  current_table->numbers.push_back(num);
+  current_table->probas.emplace_back();
+}
+
+void NumpyStatDistDisplayer::addStateProba(const NetworkState_Impl& state, double proba) {
+  current_table->probas.back().emplace_back(state, proba);
+}
+
+void NumpyStatDistDisplayer::beginCluster(size_t num, size_t size) {
+  clusters.emplace_back();
+  current_table = &clusters.back();
+}
+
+void NumpyStatDistDisplayer::beginClusterStationaryDistribution(size_t num) {
+  current_table->numbers.push_back(num);
+  current_table->probas.emplace_back();
+  current_table->errors.emplace_back();
+}
+
+void NumpyStatDistDisplayer::addProbaVariance(const NetworkState_Impl& state, double proba, double variance) {
+  current_table->probas.back().emplace_back(state, proba);
+  current_table->errors.back().emplace_back(state, variance);
+}
+
+PyObject* NumpyStatDistDisplayer::getNumpyTable(const Table& table, bool with_errors) const {
+
+  std::set<NetworkState_Impl> states;
+  for (const Row& row: table.probas) {
+    for (const auto& cell: row) {
+      states.insert(cell.first);
+    }
+  }
+  std::map<NetworkState_Impl, size_t> pos_states;
+  PyObject* pylist_states = PyList_New(states.size());
+  size_t i = 0;
+  for (const NetworkState_Impl& state: states) {
+    pos_states[state] = i;
+#ifdef USE_DYNAMIC_BITSET
+    NetworkState network_state(state, 1);
+#else
+    NetworkState network_state(state);
+#endif
+    PyList_SetItem(pylist_states, i, PyUnicode_FromString(network_state.getName(network).c_str()));
+    i++;
+  }
+
+  npy_intp dims[2] = {(npy_intp) table.probas.size(), (npy_intp) states.size()};
+  PyArrayObject* probas = (PyArrayObject *) PyArray_ZEROS(2, dims, NPY_DOUBLE, 0);
+  for (size_t nn = 0; nn < table.probas.size(); nn++) {
+    for (const auto& cell: table.probas[nn]) {
+      *(double *) PyArray_GETPTR2(probas, nn, pos_states[cell.first]) = cell.second;
+    }
+  }
+
+  PyObject* pylist_numbers = PyList_New(table.numbers.size());
+  for (size_t nn = 0; nn < table.numbers.size(); nn++) {
+    PyList_SetItem(pylist_numbers, nn, PyLong_FromSize_t(table.numbers[nn]));
+  }
+
+  if (!with_errors) {
+    return Py_BuildValue("NNN", PyArray_Return(probas), pylist_numbers, pylist_states);
+  }
+
+  PyArrayObject* errors = (PyArrayObject *) PyArray_ZEROS(2, dims, NPY_DOUBLE, 0);
+  for (size_t nn = 0; nn < table.errors.size(); nn++) {
+    for (const auto& cell: table.errors[nn]) {
+      *(double *) PyArray_GETPTR2(errors, nn, pos_states[cell.first]) = cell.second;
+    }
+  }
+
+  return Py_BuildValue("NNNN", PyArray_Return(probas), pylist_numbers, pylist_states, PyArray_Return(errors));
+}
+
+PyObject* NumpyStatDistDisplayer::getNumpyStatDist() const {
+
+  PyObject* pylist_clusters = PyList_New(clusters.size());
+  for (size_t nn = 0; nn < clusters.size(); nn++) {
+    PyList_SetItem(pylist_clusters, nn, getNumpyTable(clusters[nn], false));
+  }
+
+  return Py_BuildValue("NNN", getNumpyTable(statdist, false), pylist_clusters, getNumpyTable(summary, true));
+}
 #endif

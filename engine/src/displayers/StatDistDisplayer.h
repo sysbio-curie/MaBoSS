@@ -51,8 +51,13 @@
 #define _STATDIST_DISPLAYER_H_
 
 #include <iostream>
+#include <vector>
 #include "../Network.h"
 #include "../NetworkState.h"
+
+#ifdef PYTHON_API
+#include "../Python_headers.h"
+#endif
 
 #ifdef HDF5_COMPAT
 #include <hdf5/serial/hdf5.h>
@@ -213,6 +218,55 @@ public:
 
   virtual void addProbaVariance(const NetworkState_Impl& state, double proba, double variance);
   virtual void endDisplay();
+};
+#endif
+
+#ifdef PYTHON_API
+// Keeps the stationary distributions in memory, to hand them to Python as numpy arrays
+class NumpyStatDistDisplayer : public StatDistDisplayer {
+
+  typedef std::vector<std::pair<NetworkState_Impl, double> > Row;
+
+  // one row per trajectory (or per cluster, for the summary), labelled by its 1-based number
+  struct Table {
+    std::vector<size_t> numbers;
+    std::vector<Row> probas;
+    std::vector<Row> errors;
+  };
+
+  Table statdist;
+  std::vector<Table> clusters;
+  Table summary;
+  Table* current_table;
+
+  PyObject* getNumpyTable(const Table& table, bool with_errors) const;
+
+public:
+  NumpyStatDistDisplayer(Network* network) : StatDistDisplayer(network), current_table(&statdist) { }
+
+  void beginDisplay() override { }
+
+  void beginStatDistDisplay() override { current_table = &statdist; }
+  void beginStateProbaDisplay() override;
+  void addStateProba(const NetworkState_Impl& state, double proba) override;
+  void endStateProbaDisplay() override { }
+  void endStatDistDisplay() override { }
+
+  void beginCluster(size_t num, size_t size) override;
+  void endCluster() override { }
+
+  void beginClusterFactoryStationaryDistribution() override { current_table = &summary; }
+  void endClusterFactoryStationaryDistribution() override { }
+
+  void beginClusterStationaryDistribution(size_t num) override;
+  void endClusterStationaryDistribution() override { }
+
+  void addProbaVariance(const NetworkState_Impl& state, double proba, double variance) override;
+  void endDisplay() override { }
+
+  // (statdist, clusters, summary), where statdist is (probas, trajectories, states), clusters
+  // a list of such tuples, and summary is (probas, clusters, states, errors)
+  PyObject* getNumpyStatDist() const;
 };
 #endif
 
