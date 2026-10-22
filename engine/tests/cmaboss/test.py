@@ -15,6 +15,24 @@ def read_probtraj_entropies(filename):
     return np.array([[float.fromhex(v) for v in line.split("\t")[1:4]] for line in lines[1:]])
 
 
+def read_probtraj(filename):
+    # times, entropies (TH, ErrorTH, H), probabilities and errors of a MaBoSS probtraj file
+    with open(filename) as f:
+        lines = f.read().splitlines()
+    first_state = lines[0].split("\t").index("State")
+    times, entropies, probas, errors = [], [], [], []
+    for line in lines[1:]:
+        values = line.split("\t")
+        times.append(float(values[0]))
+        entropies.append([float(v) for v in values[1:4]])
+        probas.append({values[i]: float(values[i+1]) for i in range(first_state, len(values), 3)})
+        errors.append({values[i]: float(values[i+2]) for i in range(first_state, len(values), 3)})
+    return (
+        times, np.array(entropies),
+        pd.DataFrame(probas).fillna(0.0), pd.DataFrame(errors).fillna(0.0)
+    )
+
+
 def read_statdist(filename):
     # parses a hexfloat statdist file into the trajectories table, the cluster tables and the
     # clusters summary, each as a {(number, state): value} dict
@@ -54,10 +72,38 @@ class TestCMaBoSS(TestCase):
         res = sim.run()
 
     def test_load_model_cellcycle(self):
+        # same run as the MaBoSS cellcycle 6 threads test, compared with its reference files
         net = cmaboss.MaBoSSNet(network="models/cellcycle/cellcycle.bnd")
-        cfg = cmaboss.MaBoSSCfg(net, "models/cellcycle/cellcycle_runcfg.cfg", "models/cellcycle/cellcycle_runcfg-thread_6.cfg")
+        cfg = cmaboss.MaBoSSCfg(net, config_files=["models/cellcycle/cellcycle_runcfg.cfg", "models/cellcycle/cellcycle_runcfg-thread_6.cfg"])
         sim = cmaboss.MaBoSSSim(net=net, cfg=cfg)
         res = sim.run()
+
+        # the reference has 6 decimals for the probabilities, 4 for the entropies
+        times, entropies, probas, errors = read_probtraj("models/cellcycle/refer/Cell_cycle_thread_6_probtraj.csv")
+        data, timepoints, states, data_errors = res.get_probtraj()
+        np.testing.assert_allclose(timepoints, times)
+        table = pd.DataFrame(data, columns=states).reindex(columns=probas.columns, fill_value=0.0)
+        table_errors = pd.DataFrame(data_errors, columns=states).reindex(columns=errors.columns, fill_value=0.0)
+        self.assertEqual(set(states), set(probas.columns))
+        np.testing.assert_allclose(table.values, probas.values, rtol=0, atol=5e-7)
+        np.testing.assert_allclose(table_errors.values, errors.values, rtol=0, atol=5e-7)
+
+        data, _, _ = res.get_entropy_trajectory()
+        np.testing.assert_allclose(data, entropies, rtol=0, atol=5e-5)
+
+        # Cell_cycle_thread_6_fp.csv: "Fixed Points (0)"
+        self.assertEqual(res.get_fp_table(), {})
+
+        # Cell_cycle_thread_6_statdist.csv: 5000 trajectories, all <nil>, in a single cluster
+        data, trajectories, states = res.get_statdist()
+        self.assertEqual(states, ["<nil>"])
+        self.assertEqual(trajectories, list(range(1, 5001)))
+        np.testing.assert_array_equal(data, np.ones((5000, 1)))
+        clusters = res.get_statdist_clusters()
+        self.assertEqual(len(clusters), 1)
+        self.assertEqual(clusters[0][1], list(range(1, 5001)))
+        data, numbers, states, data_errors = res.get_statdist_clusters_summary()
+        self.assertEqual((data.tolist(), numbers, states, data_errors.tolist()), ([[1.0]], [1], ["<nil>"], [[0.0]]))
 
     def test_simulate(self):
         sim = cmaboss.MaBoSSSim(network="models/metastasis/metastasis.bnd", config="models/metastasis/metastasis.cfg")
