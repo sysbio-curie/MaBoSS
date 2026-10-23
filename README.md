@@ -53,6 +53,7 @@ MaBoSS is composed of:
 ### Requirements
 ##### MaBoSS engine 2.0 and higher:
 
+- cmake: version 3.10 or higher (only for the recommended CMake compilation)
 - gcc: version 4.0.1 or higher
 - bison: version 2.3 or higher
 - flex: version 2.5.35 or higher
@@ -68,22 +69,52 @@ MaBoSS is composed of:
 
 ### Engine Compilation
 
+MaBoSS can be compiled with CMake (recommended) or with the legacy Makefile. Both build the MaBoSS and PopMaBoSS executables.
+
+By default, the compiled version supports up to 64 nodes per network. Notes on the number of nodes:
+- if you manage only networks with up to 64 nodes, we recommend you to use the default compiled version as for networks with more than 64 nodes, the implementation is very different and will be slower.
+- generally speaking, a version compiled with a given number of nodes will be slower and will use more memory than a version compiled with a lesser number of nodes.
+
+#### With CMake (recommended)
+
+From the root of the repository:
+
+    cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=engine
+    cmake --build build --parallel 4
+    cmake --install build --component executables
+
+The executables will be located in engine/bin and are named MaBoSS and PopMaBoSS. Change `CMAKE_INSTALL_PREFIX` to install them elsewhere (they go in its bin subdirectory). Leaving out `--component executables` also installs the MaBoSS libraries and headers.
+
+Options are passed at configuration time, with `-D<option>=<value>`:
+
+| Option | Effect |
+|---|---|
+| `-DMAXNODES=100` | Support up to 100 nodes per network. The executables are named MaBoSS_100n and PopMaBoSS_100n. |
+| `-DDYNBITSET=ON` | Use a dynamic bitset, with no fixed limit on the number of nodes. The executables are named MaBoSS_dn and PopMaBoSS_dn. |
+| `-DSBML=ON` | SBML-qual compatibility. Requires libSBML with the qual package. |
+| `-DSEDML=ON` | SED-ML compatibility, on top of `-DSBML=ON`. Requires libSEDML and libNUML. |
+| `-DMPI=ON` | MPI compatibility. Requires an MPI library, such as OpenMPI. A `.MPI` suffix is added to the executable names. |
+| `-DBUILD_SERVER=ON`, `-DBUILD_CLIENT=ON` | Also build MaBoSS-server and MaBoSS-client (not available on Windows with MSVC). |
+| `-DMABOSS_TESTS=ON` | Build the test suite, then run it with `ctest --test-dir build`. |
+
+To build several variants (for instance the default version and a 100 nodes version), use one build directory for each:
+
+    cmake -B build_100n -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=engine -DMAXNODES=100
+    cmake --build build_100n --parallel 4
+    cmake --install build_100n --component executables
+
+#### With make
+
     cd engine/src
     make install
 
-The executable file will be located in engine/pub and is named MaBoSS.
-
-This compiled version supports up to 64 nodes per network.
+The executables will be located in engine/pub and are named MaBoSS and PopMaBoSS.
 
 If you need more nodes per network, you have to add an extra hint to the compilation command, for instance to compile a version supporting up to 100 nodes:
     
     make MAXNODES=100 install
 
 The executable file will also be located in engine/pub and will be named MaBoSS_100n.
-
-Notes:
-- if you manage only networks with up to 64 nodes, we recommend you to use the default compiled version as for networks with more than 64 nodes, the implementation is very different and will be slower.
-- generally speaking, a version compiled with a given number of nodes will be slower and will use more memory than a version compiled with a lesser number of nodes.
 
 If you need MaBoSS with SBML-qual compatibility, you need libSBML installed, with support for the qual package. To compile it, you also need an extra arguement to the compilation command :
     
@@ -95,7 +126,7 @@ Finally, it you need the MPI compatible version, you need to have a MPI library 
 
 ### MaBoSS Engine Usage
 
-    cd engine/pub
+    cd engine/bin    # or engine/pub if you compiled with make
 
     ./MaBoSS --version
     MaBoSS version 2.6.7 [networks up to 64 nodes]
@@ -126,14 +157,11 @@ Important notes on the Windows version:
 
 ### PopMaBoSS Engine compilation
 
-    cd engine/src
-    make install
-
-The executable file will be located in engine/pub and is named PopMaBoSS.This compiled version supports up to 64 nodes per network.
+PopMaBoSS is compiled together with MaBoSS, by both the CMake and make commands described in [Engine Compilation](#engine-compilation). The executable file is named PopMaBoSS, and is located in engine/bin (CMake) or engine/pub (make). This compiled version supports up to 64 nodes per network.
 
 ### PopMaBoSS Engine usage
 
-    cd engine/pub
+    cd engine/bin    # or engine/pub if you compiled with make
 
     ./PopMaBoSS --version
     PopMaBoSS version 0.0.1 [networks up to 64 nodes]
