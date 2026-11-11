@@ -57,6 +57,7 @@
 #include "../Cumulator.h"
 #include "../RandomGenerator.h"
 #include "../RunConfig.h"
+#include "../Trajectory.h"
 
 namespace MaBoSS {
 
@@ -66,6 +67,9 @@ class MaBEstEngine : public ProbTrajEngine {
 
   std::vector<ArgWrapper*> arg_wrapper_v;
   static void* threadWrapper(void *arg);
+
+  // every trajectory, recorded in cMaBoSS when display_traj is set
+  std::vector<Trajectory> trajectories;
 
   void epilogue();
   void runThread(Cumulator<NetworkState>* cumulator, unsigned int start_count_thread, unsigned int sample_count_thread, RandomGeneratorFactory* randgen_factory, long long int* elapsed_time, int seed, FixedPoints* fixpoint_map, ObservedGraph* observed_map, std::ostream* output_traj);
@@ -78,6 +82,8 @@ public:
 #else
   MaBEstEngine(Network* network, RunConfig* runconfig);
 #endif
+
+  const std::vector<Trajectory>& getTrajectories() const { return trajectories; }
 
   void run(std::ostream* output_traj = nullptr);
   void displayRunStats(std::ostream& os, time_t start_time, time_t end_time) const;

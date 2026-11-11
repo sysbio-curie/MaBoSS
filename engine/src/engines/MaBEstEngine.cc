@@ -172,6 +172,11 @@ void MaBEstEngine::runThread(Cumulator<NetworkState>* cumulator, unsigned int st
   bool hasSchedule = !schedule.empty();
   
   RandomGenerator* random_generator = randgen_factory->generateRandomGenerator(seed);
+  
+#ifdef PYTHON_API
+  unsigned int first_count = 0;
+#endif
+
   for (unsigned int nn = 0; nn < sample_count_thread; ++nn) {
 
     std::vector<double> times = schedule_times;
@@ -179,6 +184,13 @@ void MaBEstEngine::runThread(Cumulator<NetworkState>* cumulator, unsigned int st
     cumulator->rewind();
     network->initStates(network_state, random_generator);
     double tm = 0.;
+  
+#ifdef PYTHON_API
+    // each thread only writes the trajectories it simulates, so no locking
+    unsigned int traj_index = start_count_thread - first_count + nn;
+    Trajectory* trajectory = traj_index < trajectories.size() ? &trajectories[traj_index] : nullptr;
+#endif 
+
     if (nullptr != output_traj) {
       (*output_traj) << "\nTrajectory #" << (nn+1) << '\n';
       (*output_traj) << " istate\t";
@@ -258,6 +270,12 @@ void MaBEstEngine::runThread(Cumulator<NetworkState>* cumulator, unsigned int st
 
       cumulator->cumul(network_state, tm, TH);
 
+#ifdef PYTHON_API
+      if (nullptr != trajectory) {
+	trajectory->add(tm < max_time ? tm : max_time, network_state);
+      }
+#endif
+
       if (tm >= max_time) {
 	break;
       }
@@ -299,6 +317,13 @@ void MaBEstEngine::run(std::ostream* output_traj)
   thread_elapsed_runtimes[world_rank].resize(thread_count);
 #else
   thread_elapsed_runtimes.resize(thread_count);
+#endif
+
+  trajectories.clear();
+#ifdef PYTHON_API
+  if (runconfig->displayTrajectories()) {
+    trajectories.resize(sample_count);
+  }
 #endif
 
   Probe probe;
