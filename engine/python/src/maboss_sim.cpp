@@ -244,6 +244,38 @@ PyObject * cMaBoSSSim_new(PyTypeObject* type, PyObject *args, PyObject* kwargs)
   return (PyObject *) py_simulation;
 }
 
+// Builds and runs the engine without the GIL, so that simulations started from
+// several Python threads run in parallel. Returns NULL with a Python exception set
+// on failure.
+template <typename Engine>
+static Engine* cMaBoSSSim_run_engine(Network* network, RunConfig* config, time_t* start_time) {
+  Engine* simulation = NULL;
+  bool failed = false;
+  std::string error;
+
+  Py_BEGIN_ALLOW_THREADS
+  try {
+    simulation = new Engine(network, config);
+    time(start_time);
+    simulation->run(NULL);
+  } catch (BNException& e) {
+    failed = true;
+    error = e.getMessage();
+  }
+
+#ifdef __GLIBC__
+  malloc_trim(0);
+#endif
+  Py_END_ALLOW_THREADS
+
+  if (failed) {
+    delete simulation;
+    PyErr_SetString(PyBNException, error.c_str());
+    return NULL;
+  }
+  return simulation;
+}
+
 PyObject* cMaBoSSSim_run(cMaBoSSSimObject* self, PyObject *args, PyObject* kwargs) {
   
   int only_last_state = 0;
@@ -266,21 +298,11 @@ PyObject* cMaBoSSSim_run(cMaBoSSSimObject* self, PyObject *args, PyObject* kwarg
       return NULL;
     }
 
-    FinalStateSimulationEngine* simulation = NULL;
-    try {
-      simulation = new FinalStateSimulationEngine(self->network->network, self->config->config);
-      time(&start_time);
-      simulation->run(NULL);
-    } catch (BNException& e) {
-      delete simulation;
+    FinalStateSimulationEngine* simulation = cMaBoSSSim_run_engine<FinalStateSimulationEngine>(self->network->network, self->config->config, &start_time);
+    if (simulation == NULL) {
       Py_DECREF(res);
-      PyErr_SetString(PyBNException, e.getMessage().c_str());
       return NULL;
     }
-
-#ifdef __GLIBC__
-  malloc_trim(0);
-#endif
 
     time(&end_time);
     res->network = self->network->network;
@@ -301,21 +323,11 @@ PyObject* cMaBoSSSim_run(cMaBoSSSimObject* self, PyObject *args, PyObject* kwarg
       return NULL;
     }
 
-    MaBEstEngine* simulation = NULL;
-    try {
-      simulation = new MaBEstEngine(self->network->network, self->config->config);
-      time(&start_time);
-      simulation->run(NULL);
-    } catch (BNException& e) {
-      delete simulation;
+    MaBEstEngine* simulation = cMaBoSSSim_run_engine<MaBEstEngine>(self->network->network, self->config->config, &start_time);
+    if (simulation == NULL) {
       Py_DECREF(res);
-      PyErr_SetString(PyBNException, e.getMessage().c_str());
       return NULL;
     }
-
-#ifdef __GLIBC__
-  malloc_trim(0);
-#endif
 
     time(&end_time);
 

@@ -255,21 +255,33 @@ PyObject* cPopMaBoSSSim_run(cPopMaBoSSSimObject* self, PyObject *args, PyObject*
     return NULL;
   }
 
+  // run without the GIL, so that simulations started from several Python
+  // threads run in parallel
   PopMaBEstEngine* simulation = NULL;
+  bool failed = false;
+  std::string error;
+
+  Py_BEGIN_ALLOW_THREADS
   try {
     simulation = new PopMaBEstEngine(self->network->network, self->config->config);
     time(&start_time);
     simulation->run(NULL);
   } catch (BNException& e) {
-    delete simulation;
-    Py_DECREF(res);
-    PyErr_SetString(PyBNException, e.getMessage().c_str());
-    return NULL;
+    failed = true;
+    error = e.getMessage();
   }
 
 #ifdef __GLIBC__
   malloc_trim(0);
 #endif
+  Py_END_ALLOW_THREADS
+
+  if (failed) {
+    delete simulation;
+    Py_DECREF(res);
+    PyErr_SetString(PyBNException, error.c_str());
+    return NULL;
+  }
 
   time(&end_time);
 
