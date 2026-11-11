@@ -49,6 +49,7 @@
 
 #include <structmember.h>
 #include <fstream>
+#include <unordered_map>
 #include "displayers/FixedPointDisplayer.h"
 #include "displayers/ProbTrajDisplayer.h"
 #include "displayers/StatDistDisplayer.h"
@@ -81,6 +82,9 @@ PyMethodDef cMaBoSSResult_methods[] = {
     {"get_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_last_nodes_probtraj", (PyCFunction) cMaBoSSResult_get_last_nodes_probtraj, METH_VARARGS, "gets the raw states probability trajectories of the simulation"},
     {"get_entropy_trajectory", (PyCFunction) cMaBoSSResult_get_entropy_trajectory, METH_NOARGS, "gets the entropies (TH, ErrorTH, H) trajectories of the simulation"},
+    {"get_trajectory_count", (PyCFunction) cMaBoSSResult_get_trajectory_count, METH_NOARGS, "gets the number of recorded trajectories (0 unless display_traj is set)"},
+    {"get_trajectory", (PyCFunction) cMaBoSSResult_get_trajectory, METH_VARARGS, "gets a recorded trajectory, as a list of (t0, t1, state)"},
+    {"get_nodes_trajectory", (PyCFunction) cMaBoSSResult_get_nodes_trajectory, METH_VARARGS, "gets a recorded trajectory restricted to a list of nodes, as a list of (t0, t1, state)"},
     {"get_statdist", (PyCFunction) cMaBoSSResult_get_statdist, METH_NOARGS, "gets the stationary distribution of each trajectory"},
     {"get_statdist_clusters", (PyCFunction) cMaBoSSResult_get_statdist_clusters, METH_NOARGS, "gets the stationary distributions of the trajectories of each cluster"},
     {"get_statdist_clusters_summary", (PyCFunction) cMaBoSSResult_get_statdist_clusters_summary, METH_NOARGS, "gets the stationary distribution of each cluster, with its errors"},
@@ -331,6 +335,120 @@ PyObject* cMaBoSSResult_get_last_nodes_probtraj(cMaBoSSResultObject* self, PyObj
 
 PyObject* cMaBoSSResult_get_entropy_trajectory(cMaBoSSResultObject* self) {
   return self->engine->getMergedCumulator()->getNumpyEntropies();
+}
+
+// Returns the recorded trajectory at index (negative counts from the end), or
+// NULL with a Python exception set
+static const Trajectory* cMaBoSSResult_find_trajectory(cMaBoSSResultObject* self, Py_ssize_t index) {
+  const std::vector<Trajectory>& trajectories = self->engine->getTrajectories();
+  Py_ssize_t count = (Py_ssize_t) trajectories.size();
+  if (count == 0) {
+    PyErr_SetString(PyExc_ValueError, "No trajectory was recorded: set display_traj in the configuration");
+    return NULL;
+  }
+  if (index < 0) {
+    index += count;
+  }
+  if (index < 0 || index >= count) {
+    PyErr_Format(PyExc_IndexError, "Trajectory index out of range: %zd trajectories were recorded", count);
+    return NULL;
+  }
+  return &trajectories[index];
+}
+
+// Builds the [(t0, t1, state), ...] list of a trajectory, with its states masked
+// when mask is given. Segments the mask makes identical are merged, and each
+// distinct state name is built once and shared by all the tuples holding it.
+static PyObject* cMaBoSSResult_build_trajectory(Network* network, const Trajectory& trajectory, const NetworkState* mask) {
+
+  
+  const auto& segments = mask == NULL ? trajectory.getSegments() : trajectory.getMaskedSegments(*mask);
+
+  PyObject* list = PyList_New(segments.size());
+  if (list == NULL) {
+    return NULL;
+  }
+
+  std::unordered_map<NetworkState_Impl, PyObject*> names;
+  bool failed = false;
+  double t0 = 0.;
+  for (size_t i = 0; i < segments.size() && !failed; i++) {
+    PyObject*& name = names[segments[i].second];
+    if (name == NULL) {
+      name = PyUnicode_FromString(NetworkState(segments[i].second).getName(network).c_str());
+    }
+    PyObject* tuple = PyTuple_New(3);
+    PyObject* py_t0 = PyFloat_FromDouble(t0);
+    PyObject* py_t1 = PyFloat_FromDouble(segments[i].first);
+    if (name == NULL || tuple == NULL || py_t0 == NULL || py_t1 == NULL) {
+      Py_XDECREF(tuple);
+      Py_XDECREF(py_t0);
+      Py_XDECREF(py_t1);
+      failed = true;
+      break;
+    }
+    Py_INCREF(name);
+    PyTuple_SET_ITEM(tuple, 0, py_t0);
+    PyTuple_SET_ITEM(tuple, 1, py_t1);
+    PyTuple_SET_ITEM(tuple, 2, name);
+    PyList_SET_ITEM(list, i, tuple);
+    t0 = segments[i].first;
+  }
+
+  // the tuples hold their own references to the names
+  for (auto& name : names) {
+    Py_XDECREF(name.second);
+  }
+  if (failed) {
+    Py_DECREF(list);
+    return NULL;
+  }
+  return list;
+}
+
+PyObject* cMaBoSSResult_get_trajectory_count(cMaBoSSResultObject* self) {
+  return PyLong_FromSize_t(self->engine->getTrajectories().size());
+}
+
+PyObject* cMaBoSSResult_get_trajectory(cMaBoSSResultObject* self, PyObject* args) {
+
+  Py_ssize_t index = 0;
+  if (!PyArg_ParseTuple(args, "|n", &index)) {
+    return NULL;
+  }
+
+  const Trajectory* trajectory = cMaBoSSResult_find_trajectory(self, index);
+  if (trajectory == NULL) {
+    return NULL;
+  }
+
+  return cMaBoSSResult_build_trajectory(self->network, *trajectory, NULL);
+}
+
+PyObject* cMaBoSSResult_get_nodes_trajectory(cMaBoSSResultObject* self, PyObject* args) {
+
+  std::vector<Node*> list_nodes;
+  PyObject* pList = NULL;
+  Py_ssize_t index = 0;
+  if (!PyArg_ParseTuple(args, "O|n", &pList, &index)) {
+    return NULL;
+  }
+
+  if (!cMaBoSSResult_parse_node_list(self->network, pList, list_nodes)) {
+    return NULL;
+  }
+
+  const Trajectory* trajectory = cMaBoSSResult_find_trajectory(self, index);
+  if (trajectory == NULL) {
+    return NULL;
+  }
+
+  NetworkState mask;
+  for (auto node : list_nodes) {
+    mask.setNodeState(node, true);
+  }
+
+  return cMaBoSSResult_build_trajectory(self->network, *trajectory, &mask);
 }
 
 // clustering the trajectories is costly, so the statdist getters share one cached
