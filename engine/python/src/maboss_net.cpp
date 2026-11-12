@@ -380,6 +380,15 @@ PyObject* cMaBoSSNetwork_setIState(cMaBoSSNetworkObject* self, PyObject *args)
       } else {
         IStateGroup::setNodeProba(self->network, maboss_node, proba);
       }
+    } else if (PyObject_IsInstance(node, (PyObject*)&PyUnicode_Type) && PyObject_IsInstance(istate, (PyObject *)&PyTuple_Type))
+    {
+      Node* maboss_node = self->network->getNode(PyUnicode_AsUTF8(node));
+      double proba = PyFloat_AsDouble(PyTuple_GetItem(istate, 1))/(PyFloat_AsDouble(PyTuple_GetItem(istate, 0)) + PyFloat_AsDouble(PyTuple_GetItem(istate, 1)));
+      if (PyObject_IsInstance(istate, (PyObject *)&PyFloat_Type)) {
+        IStateGroup::setNodeProba(self->network, maboss_node, proba);
+      } else {
+        IStateGroup::setNodeProba(self->network, maboss_node, proba);
+      }
   
   } else if (PyObject_IsInstance(node, (PyObject*)&PyList_Type) && PyObject_IsInstance(istate, (PyObject *)&PyDict_Type))
   {
