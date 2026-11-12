@@ -64,6 +64,8 @@ int cMaBoSSNetwork_clear(cMaBoSSNetworkObject *self);
 PyObject *cMaBoSSNetwork_str(PyObject *self);
 int cMaBoSSNetwork_NodesSetItem(cMaBoSSNetworkObject* self, PyObject *key, PyObject* value);
 PyObject * cMaBoSSNetwork_NodesGetItem(cMaBoSSNetworkObject* self, PyObject *key);
+int cMaBoSSNetwork_NodesContains(cMaBoSSNetworkObject* self, PyObject *key);
+PyObject * cMaBoSSNetwork_NodesIter(cMaBoSSNetworkObject* self);
 Py_ssize_t cMaBoSSNetwork_NodesLength(cMaBoSSNetworkObject* self);
 PyObject * cMaBoSSNetwork_Keys(cMaBoSSNetworkObject* self);
 PyObject * cMaBoSSNetwork_Values(cMaBoSSNetworkObject* self);

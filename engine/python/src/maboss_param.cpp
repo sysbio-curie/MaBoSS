@@ -66,6 +66,19 @@ PyMappingMethods cMaBoSSParam_mapping = {
 	(objobjargproc)cMaBoSSParam_SetItem,		// objobjargproc PyMappingMethods.mp_ass_subscript
 };
 
+// only sq_contains is set: on a C type, mp_subscript alone does not make
+// `key in param` work, Python would fall back to iteration
+PySequenceMethods cMaBoSSParam_sequence = {
+  0,                                        // sq_length
+  0,                                        // sq_concat
+  0,                                        // sq_repeat
+  0,                                        // sq_item
+  0,                                        // was_sq_slice
+  0,                                        // sq_ass_item
+  0,                                        // was_sq_ass_slice
+  (objobjproc)cMaBoSSParam_Contains,        // sq_contains
+};
+
 PyTypeObject cMaBoSSParam = {
   PyVarObject_HEAD_INIT(NULL, 0)
   build_type_name("cMaBoSSParamObject"),               /* tp_name */
@@ -78,7 +91,7 @@ PyTypeObject cMaBoSSParam = {
     0,                              /* tp_as_async */
     0,                              /* tp_repr */
     0,                              /* tp_as_number */
-    0,                              /* tp_as_sequence */
+  &cMaBoSSParam_sequence,                              /* tp_as_sequence */
   &cMaBoSSParam_mapping,                              /* tp_as_mapping */
     0,                              /* tp_hash */
     0,                              /* tp_call */
@@ -92,7 +105,7 @@ PyTypeObject cMaBoSSParam = {
   (inquiry) cMaBoSSParam_clear,              /* tp_clear */
     0,                              /* tp_richcompare */
     0,                              /* tp_weaklistoffset */
-    0,                              /* tp_iter */
+  (getiterfunc) cMaBoSSParam_Iter,          /* tp_iter */
     0,                              /* tp_iternext */
   cMaBoSSParam_methods,                              /* tp_methods */
     0,                              /* tp_members */
@@ -368,10 +381,16 @@ PyObject * cMaBoSSParam_GetItem(cMaBoSSParamObject* self, PyObject *key)
     
     const char * key_str = PyUnicode_AsUTF8(key);
     if (key_str != NULL && key_str[0] == '$') {
-      // getSymbol throws BNException for an unknown symbol
+      // getSymbol returns NULL for an unknown symbol, getSymbolValue throws
+      // BNException for a known but undefined one
       try {
         SymbolTable* st = self->network->getSymbolTable();
-        return PyFloat_FromDouble(st->getSymbolValue(st->getSymbol(key_str)));
+        const Symbol* symbol = st->getSymbol(key_str);
+        if (symbol == NULL) {
+          PyErr_SetObject(PyExc_KeyError, key);
+          return NULL;
+        }
+        return PyFloat_FromDouble(st->getSymbolValue(symbol));
       } catch (BNException& e) {
         PyErr_SetString(PyExc_KeyError, e.getMessage().c_str());
         return NULL;
@@ -383,6 +402,36 @@ PyObject * cMaBoSSParam_GetItem(cMaBoSSParamObject* self, PyObject *key)
   }
   
   return NULL;
+}
+
+int cMaBoSSParam_Contains(cMaBoSSParamObject* self, PyObject *key)
+{
+  // like a dict, a key of the wrong type is simply not there
+  if (!PyUnicode_Check(key)) {
+    return 0;
+  }
+  PyObject* value = cMaBoSSParam_GetItem(self, key);
+  if (value != NULL) {
+    Py_DECREF(value);
+    return 1;
+  }
+  if (PyErr_ExceptionMatches(PyExc_KeyError)) {
+    PyErr_Clear();
+    return 0;
+  }
+  return -1;
+}
+
+PyObject* cMaBoSSParam_Iter(cMaBoSSParamObject* self)
+{
+  // iterating a mapping yields its keys
+  PyObject* keys = cMaBoSSParam_getKeys(self);
+  if (keys == NULL) {
+    return NULL;
+  }
+  PyObject* iter = PyObject_GetIter(keys);
+  Py_DECREF(keys);
+  return iter;
 }
 
 Py_ssize_t cMaBoSSParam_Length(cMaBoSSParamObject* self)

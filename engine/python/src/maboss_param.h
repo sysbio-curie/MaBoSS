@@ -71,6 +71,8 @@ int cMaBoSSParam_init(PyObject* self, PyObject *args, PyObject* kwargs);
 PyObject* cMaBoSSParam_update_parameters(cMaBoSSParamObject* self, PyObject *args, PyObject* kwargs);
 int cMaBoSSParam_SetItem(cMaBoSSParamObject* self, PyObject *key, PyObject* value);
 PyObject * cMaBoSSParam_GetItem(cMaBoSSParamObject* self, PyObject *key);
+int cMaBoSSParam_Contains(cMaBoSSParamObject* self, PyObject *key);
+PyObject* cMaBoSSParam_Iter(cMaBoSSParamObject* self);
 Py_ssize_t cMaBoSSParam_Length(cMaBoSSParamObject* self);
 PyObject* cMaBoSSParam_getKeys(cMaBoSSParamObject* self);
 PyObject* cMaBoSSParam_getValues(cMaBoSSParamObject* self);

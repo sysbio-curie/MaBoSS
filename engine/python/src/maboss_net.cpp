@@ -71,6 +71,19 @@ PyMappingMethods cMaBoSSNetwork_mapping = {
 	(objobjargproc)cMaBoSSNetwork_NodesSetItem,
 };
 
+// only sq_contains is set: on a C type, mp_subscript alone does not make
+// `name in network` work, Python would fall back to iteration
+PySequenceMethods cMaBoSSNetwork_sequence = {
+  0,                                        // sq_length
+  0,                                        // sq_concat
+  0,                                        // sq_repeat
+  0,                                        // sq_item
+  0,                                        // was_sq_slice
+  0,                                        // sq_ass_item
+  0,                                        // was_sq_ass_slice
+  (objobjproc)cMaBoSSNetwork_NodesContains,       // sq_contains
+};
+
 PyTypeObject cMaBoSSNetwork = {
   PyVarObject_HEAD_INIT(NULL, 0)
   build_type_name("cMaBoSSNetworkObject"),               /* tp_name */
@@ -83,7 +96,7 @@ PyTypeObject cMaBoSSNetwork = {
     0,                              /* tp_as_async */
     0,                              /* tp_repr */
     0,                              /* tp_as_number */
-    0,                              /* tp_as_sequence */
+  &cMaBoSSNetwork_sequence,                              /* tp_as_sequence */
   &cMaBoSSNetwork_mapping,                              /* tp_as_mapping */
     0,                              /* tp_hash */
     0,                              /* tp_call */
@@ -97,7 +110,7 @@ PyTypeObject cMaBoSSNetwork = {
   (inquiry) cMaBoSSNetwork_clear,             /* tp_clear */
     0,                              /* tp_richcompare */
     0,                              /* tp_weaklistoffset */
-    0,                              /* tp_iter */
+  (getiterfunc) cMaBoSSNetwork_NodesIter,          /* tp_iter */
     0,                              /* tp_iternext */
   cMaBoSSNetwork_methods,                              /* tp_methods */
     0,                              /* tp_members */
@@ -159,6 +172,17 @@ PyObject * cMaBoSSNetwork_NodesGetItem(cMaBoSSNetworkObject* self, PyObject *key
   }
   Py_INCREF(item);
   return item;
+}
+
+int cMaBoSSNetwork_NodesContains(cMaBoSSNetworkObject* self, PyObject *key)
+{
+  return PyDict_Contains(self->nodes, key);
+}
+
+PyObject * cMaBoSSNetwork_NodesIter(cMaBoSSNetworkObject* self)
+{
+  // iterating a mapping yields its keys
+  return PyObject_GetIter(self->nodes);
 }
 
 Py_ssize_t cMaBoSSNetwork_NodesLength(cMaBoSSNetworkObject* self)

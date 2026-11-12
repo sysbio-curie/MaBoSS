@@ -64,6 +64,8 @@ int cPopMaBoSSNetwork_clear(cPopMaBoSSNetworkObject *self);
 PyObject *cPopMaBoSSNetwork_str(PyObject *self);
 int cPopMaBoSSNetwork_NodesSetItem(cPopMaBoSSNetworkObject* self, PyObject *key, PyObject* value);
 PyObject * cPopMaBoSSNetwork_NodesGetItem(cPopMaBoSSNetworkObject* self, PyObject *key);
+int cPopMaBoSSNetwork_NodesContains(cPopMaBoSSNetworkObject* self, PyObject *key);
+PyObject * cPopMaBoSSNetwork_NodesIter(cPopMaBoSSNetworkObject* self);
 Py_ssize_t cPopMaBoSSNetwork_NodesLength(cPopMaBoSSNetworkObject* self);
 PyObject* cPopMaBoSSNetwork_Keys(cPopMaBoSSNetworkObject* self);
 PyObject* cPopMaBoSSNetwork_Values(cPopMaBoSSNetworkObject* self); 
