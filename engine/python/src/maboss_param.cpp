@@ -434,15 +434,19 @@ PyObject* cMaBoSSParam_Iter(cMaBoSSParamObject* self)
   return iter;
 }
 
+// number of run parameters listed by keys(), values() and items() before the
+// network symbols; keep it in sync with the slots filled in those functions
+static const Py_ssize_t N_BUILTIN_PARAMS = 14;
+
 Py_ssize_t cMaBoSSParam_Length(cMaBoSSParamObject* self)
 {
-  return 15 + self->network->getSymbolTable()->getSymbolsNames().size();
+  return N_BUILTIN_PARAMS + self->network->getSymbolTable()->getSymbolsNames().size();
 }
 
 PyObject* cMaBoSSParam_getKeys(cMaBoSSParamObject* self)
 {
   SymbolTable* st = self->network->getSymbolTable();
-  PyObject* keys = PyList_New(15 + st->getSymbolsNames().size());
+  PyObject* keys = PyList_New(N_BUILTIN_PARAMS + st->getSymbolsNames().size());
   PyList_SetItem(keys, 0, PyUnicode_FromString("time_tick"));
   PyList_SetItem(keys, 1, PyUnicode_FromString("max_time"));
   PyList_SetItem(keys, 2, PyUnicode_FromString("sample_count"));
@@ -457,10 +461,9 @@ PyObject* cMaBoSSParam_getKeys(cMaBoSSParamObject* self)
   PyList_SetItem(keys, 11, PyUnicode_FromString("statdist_cluster_threshold"));
   PyList_SetItem(keys, 12, PyUnicode_FromString("thread_count"));
   PyList_SetItem(keys, 13, PyUnicode_FromString("statdist_similarity_cache_max_size"));
-  PyList_SetItem(keys, 14, PyUnicode_FromString("init_pop"));
   int i = 0;
   for (auto const& item_name : st->getSymbolsNames()) {
-    PyList_SetItem(keys, 15 + i, PyUnicode_FromString(item_name.c_str()));
+    PyList_SetItem(keys, N_BUILTIN_PARAMS + i, PyUnicode_FromString(item_name.c_str()));
     i++;
   }
   return keys;
@@ -469,7 +472,7 @@ PyObject* cMaBoSSParam_getKeys(cMaBoSSParamObject* self)
 PyObject* cMaBoSSParam_getValues(cMaBoSSParamObject* self)
 {
   SymbolTable* st = self->network->getSymbolTable();
-  PyObject* values = PyList_New(15 + st->getSymbolsNames().size());
+  PyObject* values = PyList_New(N_BUILTIN_PARAMS + st->getSymbolsNames().size());
   PyList_SetItem(values, 0, PyFloat_FromDouble(self->config->getTimeTick()));
   PyList_SetItem(values, 1, PyFloat_FromDouble(self->config->getMaxTime()));
   PyList_SetItem(values, 2, PyLong_FromUnsignedLong(self->config->getSampleCount()));
@@ -484,10 +487,9 @@ PyObject* cMaBoSSParam_getValues(cMaBoSSParamObject* self)
   PyList_SetItem(values, 11, PyFloat_FromDouble(self->config->getStatdistClusterThreshold()));
   PyList_SetItem(values, 12, PyLong_FromUnsignedLong(self->config->getThreadCount()));
   PyList_SetItem(values, 13, PyLong_FromUnsignedLong(self->config->getStatDistSimilarityCacheMaxSize()));
-  PyList_SetItem(values, 14, PyLong_FromUnsignedLong(self->config->getInitPop()));
   int i = 0;
   for (auto const& item_name : st->getSymbolsNames()) {
-    PyList_SetItem(values, 15 + i, PyFloat_FromDouble(st->getSymbolValue(st->getSymbol(item_name))));
+    PyList_SetItem(values, N_BUILTIN_PARAMS + i, PyFloat_FromDouble(st->getSymbolValue(st->getSymbol(item_name))));
     i++;
   }
   return values;
@@ -496,7 +498,7 @@ PyObject* cMaBoSSParam_getValues(cMaBoSSParamObject* self)
 PyObject* cMaBoSSParam_getItems(cMaBoSSParamObject* self)
 {
   SymbolTable* st = self->network->getSymbolTable();
-  PyObject* items = PyList_New(15 + st->getSymbolsNames().size());
+  PyObject* items = PyList_New(N_BUILTIN_PARAMS + st->getSymbolsNames().size());
   PyList_SetItem(items, 0, Py_BuildValue("(sN)", "time_tick", PyFloat_FromDouble(self->config->getTimeTick())));
   PyList_SetItem(items, 1, Py_BuildValue("(sN)", "max_time", PyFloat_FromDouble(self->config->getMaxTime())));
   PyList_SetItem(items, 2, Py_BuildValue("(sN)", "sample_count", PyLong_FromUnsignedLong(self->config->getSampleCount())));
@@ -511,12 +513,11 @@ PyObject* cMaBoSSParam_getItems(cMaBoSSParamObject* self)
   PyList_SetItem(items, 11, Py_BuildValue("(sN)", "statdist_cluster_threshold", PyFloat_FromDouble(self-> config->getStatdistClusterThreshold())));
   PyList_SetItem(items, 12, Py_BuildValue("(sN)", "thread_count", PyLong_FromUnsignedLong(self->config->getThreadCount())));
   PyList_SetItem(items, 13, Py_BuildValue("(sN)", "statdist_similarity_cache_max_size", PyLong_FromUnsignedLong(self->config->getStatDistSimilarityCacheMaxSize())));
-  PyList_SetItem(items, 14, Py_BuildValue("(sN)", "init_pop", PyLong_FromUnsignedLong(self->config->getInitPop())));
   int i = 0;
   for (auto const& item_name : st->getSymbolsNames()) {
     // "N" steals both temporaries into the tuple; PyTuple_Pack would incref
     // them instead and leak the caller's references
-    PyList_SetItem(items, 15 + i, Py_BuildValue("(NN)",
+    PyList_SetItem(items, N_BUILTIN_PARAMS + i, Py_BuildValue("(NN)",
       PyUnicode_FromString(item_name.c_str()),
       PyFloat_FromDouble(st->getSymbolValue(st->getSymbol(item_name)))
     ));
