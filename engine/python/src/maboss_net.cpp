@@ -331,6 +331,7 @@ PyObject* cMaBoSSNetwork_addNode(cMaBoSSNetworkObject* self, PyObject *args)
   try{
     // the node takes a reference on this network, so pass the Python object
     PyObject * py_node = PyObject_CallFunction((PyObject *) &cMaBoSSNode, "sO", name, (PyObject *) self);
+    self->network->setNodeAsDefined(name);
     if (py_node == NULL)
     {
       return NULL;
